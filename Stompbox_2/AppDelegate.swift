@@ -16,7 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
+    
+    guard let stompboxTableViewController = window?.rootViewController as? StompboxTableViewController else {
+      return true
+    }
+    
+    let dataModel = DataModel(moc: persistentContainer.viewContext)
+    stompboxTableViewController.dataModel = dataModel
+    listenForFatalCoreDataNotifications()
+    
     return true
   }
 
@@ -87,6 +95,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
               fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
           }
       }
+  }
+  
+  // MARK:- Helper methods
+  func listenForFatalCoreDataNotifications() {
+    NotificationCenter.default.addObserver(forName: CoreDataSaveFailedNotification, object: nil, queue: OperationQueue.main, using: { notification in
+      let message = """
+There was a fatal error in the app and it cannot continue.
+
+Press OK to terminate the app. Sorry for the inconvenience.
+"""
+      let alert = UIAlertController(title: "Internal Error", message: message, preferredStyle: .alert)
+      let action = UIAlertAction(title: "OK", style: .default) { _ in
+        let exception = NSException(name: NSExceptionName.internalInconsistencyException, reason: "Fatal Core Data error", userInfo: nil)
+        exception.raise()
+      }
+      alert.addAction(action)
+      let rootController = self.window!.rootViewController!
+      rootController.present(alert, animated: true, completion: nil)
+    })
   }
 
 }

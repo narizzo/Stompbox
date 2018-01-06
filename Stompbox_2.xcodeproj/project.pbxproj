@@ -13,6 +13,9 @@
 		01EB57572000123700686767 /* Stompbox_2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01EB57552000123700686767 /* Stompbox_2.xcdatamodeld */; };
 		01EB57592000123700686767 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01EB57582000123700686767 /* Assets.xcassets */; };
 		01EB575C2000123700686767 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01EB575A2000123700686767 /* LaunchScreen.storyboard */; };
+		01EB57642000130C00686767 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB57632000130C00686767 /* Functions.swift */; };
+		01EB57662000133600686767 /* StompboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB57652000133600686767 /* StompboxTableViewController.swift */; };
+		01EB576820004ADB00686767 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB576720004ADB00686767 /* DataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		01EB57582000123700686767 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01EB575B2000123700686767 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01EB575D2000123800686767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01EB57632000130C00686767 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		01EB57652000133600686767 /* StompboxTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxTableViewController.swift; sourceTree = "<group>"; };
+		01EB576720004ADB00686767 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +69,9 @@
 				01EB575A2000123700686767 /* LaunchScreen.storyboard */,
 				01EB575D2000123800686767 /* Info.plist */,
 				01EB57552000123700686767 /* Stompbox_2.xcdatamodeld */,
+				01EB57632000130C00686767 /* Functions.swift */,
+				01EB57652000133600686767 /* StompboxTableViewController.swift */,
+				01EB576720004ADB00686767 /* DataModel.swift */,
 			);
 			path = Stompbox_2;
 			sourceTree = "<group>";
@@ -142,6 +151,9 @@
 				01EB57572000123700686767 /* Stompbox_2.xcdatamodeld in Sources */,
 				01EB57512000123700686767 /* ViewController.swift in Sources */,
 				01EB574F2000123700686767 /* AppDelegate.swift in Sources */,
+				01EB57662000133600686767 /* StompboxTableViewController.swift in Sources */,
+				01EB57642000130C00686767 /* Functions.swift in Sources */,
+				01EB576820004ADB00686767 /* DataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
