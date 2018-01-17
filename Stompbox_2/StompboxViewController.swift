@@ -111,7 +111,7 @@ extension StompboxViewController {
     if let imageName = stompbox.imageName {
       cell.stompboxImageView.image = UIImage(named: imageName)
     } else {
-      cell.stompboxImageView.image = nil
+      cell.stompboxImageView.image = #imageLiteral(resourceName: "BD2-large")
     }
   }
 }
@@ -134,11 +134,14 @@ extension StompboxViewController: UITableViewDataSource {
 
     return sectionInfo.numberOfObjects
   }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 200
+  }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: stompboxCellIdentifier, for: indexPath)
     configure(cell: cell, for: indexPath)
-
     return cell
   }
 
@@ -196,6 +199,5 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
     default: break
     }
   }
-
 }
 
