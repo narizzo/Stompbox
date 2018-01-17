@@ -155,9 +155,18 @@ extension StompboxViewController: UITableViewDataSource {
 extension StompboxViewController: UITableViewDelegate {
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let stompbox = fetchedResultsController.object(at: indexPath)
+    //let stompbox = fetchedResultsController.object(at: indexPath)
     tableView.deselectRow(at: indexPath, animated: true)
     //coreDataStack.saveContext()
+  }
+  
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    
+    
+    let stompbox = fetchedResultsController.object(at: indexPath)
+    coreDataStack.moc.delete(stompbox)
+    
+    print("Stompbox deleted from core data")
   }
 }
 
@@ -169,6 +178,7 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
 
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
 
+    print("NSFetchedResultsController alerted to a change in underlying data")
     switch type {
     case .insert:
       tableView.insertRows(at: [newIndexPath!], with: .automatic)
