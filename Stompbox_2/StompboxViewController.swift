@@ -165,7 +165,7 @@ extension StompboxViewController: UITableViewDelegate {
     
     let stompbox = fetchedResultsController.object(at: indexPath)
     coreDataStack.moc.delete(stompbox)
-    
+    coreDataStack.saveContext()
     print("Stompbox deleted from core data")
   }
 }
