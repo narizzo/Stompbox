@@ -11,12 +11,8 @@ import CoreData
 
 class StompboxTableViewController: UITableViewController {
   
-  var dataModel: DataModel!
-  
-  
   override func viewDidLoad() {
     super.viewDidLoad()
-    
   }
   
   override func didReceiveMemoryWarning() {

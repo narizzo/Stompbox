@@ -8,28 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		01EB574F2000123700686767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB574E2000123700686767 /* AppDelegate.swift */; };
-		01EB57512000123700686767 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB57502000123700686767 /* ViewController.swift */; };
 		01EB57542000123700686767 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01EB57522000123700686767 /* Main.storyboard */; };
 		01EB57572000123700686767 /* Stompbox_2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01EB57552000123700686767 /* Stompbox_2.xcdatamodeld */; };
 		01EB57592000123700686767 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01EB57582000123700686767 /* Assets.xcassets */; };
 		01EB575C2000123700686767 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01EB575A2000123700686767 /* LaunchScreen.storyboard */; };
 		01EB57642000130C00686767 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB57632000130C00686767 /* Functions.swift */; };
-		01EB57662000133600686767 /* StompboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB57652000133600686767 /* StompboxTableViewController.swift */; };
-		01EB576820004ADB00686767 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB576720004ADB00686767 /* DataModel.swift */; };
+		01EB576A2000562800686767 /* StompboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB57692000562800686767 /* StompboxViewController.swift */; };
+		01EB576C2000578800686767 /* StompboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB576B2000578800686767 /* StompboxCell.swift */; };
+		01EB576E200058D700686767 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB576D200058D700686767 /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		01EB574B2000123700686767 /* Stompbox_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stompbox_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01EB574E2000123700686767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		01EB57502000123700686767 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		01EB57532000123700686767 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		01EB57562000123700686767 /* Stompbox_2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stompbox_2.xcdatamodel; sourceTree = "<group>"; };
 		01EB57582000123700686767 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01EB575B2000123700686767 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01EB575D2000123800686767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01EB57632000130C00686767 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
-		01EB57652000133600686767 /* StompboxTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxTableViewController.swift; sourceTree = "<group>"; };
-		01EB576720004ADB00686767 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		01EB57692000562800686767 /* StompboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxViewController.swift; sourceTree = "<group>"; };
+		01EB576B2000578800686767 /* StompboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxCell.swift; sourceTree = "<group>"; };
+		01EB576D200058D700686767 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,15 +63,15 @@
 			isa = PBXGroup;
 			children = (
 				01EB574E2000123700686767 /* AppDelegate.swift */,
-				01EB57502000123700686767 /* ViewController.swift */,
+				01EB57692000562800686767 /* StompboxViewController.swift */,
+				01EB576B2000578800686767 /* StompboxCell.swift */,
+				01EB576D200058D700686767 /* CoreDataStack.swift */,
+				01EB57632000130C00686767 /* Functions.swift */,
 				01EB57522000123700686767 /* Main.storyboard */,
 				01EB57582000123700686767 /* Assets.xcassets */,
 				01EB575A2000123700686767 /* LaunchScreen.storyboard */,
 				01EB575D2000123800686767 /* Info.plist */,
 				01EB57552000123700686767 /* Stompbox_2.xcdatamodeld */,
-				01EB57632000130C00686767 /* Functions.swift */,
-				01EB57652000133600686767 /* StompboxTableViewController.swift */,
-				01EB576720004ADB00686767 /* DataModel.swift */,
 			);
 			path = Stompbox_2;
 			sourceTree = "<group>";
@@ -148,12 +148,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01EB576E200058D700686767 /* CoreDataStack.swift in Sources */,
 				01EB57572000123700686767 /* Stompbox_2.xcdatamodeld in Sources */,
-				01EB57512000123700686767 /* ViewController.swift in Sources */,
 				01EB574F2000123700686767 /* AppDelegate.swift in Sources */,
-				01EB57662000133600686767 /* StompboxTableViewController.swift in Sources */,
+				01EB576C2000578800686767 /* StompboxCell.swift in Sources */,
 				01EB57642000130C00686767 /* Functions.swift in Sources */,
-				01EB576820004ADB00686767 /* DataModel.swift in Sources */,
+				01EB576A2000562800686767 /* StompboxViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
