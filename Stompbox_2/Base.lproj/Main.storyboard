@@ -35,14 +35,14 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8B9-BR-LW9">
-                                                    <rect key="frame" x="158" y="11" width="202" height="60"/>
+                                                    <rect key="frame" x="158" y="11" width="202" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECu-xt-ea8">
-                                                    <rect key="frame" x="158" y="79" width="202" height="21"/>
+                                                    <rect key="frame" x="158" y="70" width="202" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -83,7 +83,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addButton" destination="jOp-X1-agN" id="HOq-In-rBd"/>
                         <outlet property="tableView" destination="kFy-BU-UIm" id="IYR-63-PMU"/>
                         <segue destination="pc3-vU-K68" kind="show" identifier="AddStompboxSegue" id="fgs-mr-Mp6"/>
                     </connections>
@@ -114,34 +113,31 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vyk-Q6-yDF">
-                                                    <rect key="frame" x="158" y="11" width="202" height="60"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dRL-0L-2rp">
+                                                    <rect key="frame" x="158" y="11" width="201" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
                                                     <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8k-hZ-TNt">
-                                                    <rect key="frame" x="158" y="79" width="202" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Type" borderStyle="roundedRect" placeholder="Type" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1zm-gM-6Pn">
+                                                    <rect key="frame" x="158" y="70" width="202" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Manufacturer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZn-Ox-0Al">
-                                                    <rect key="frame" x="158" y="108" width="202" height="21"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Manufacturer" borderStyle="roundedRect" placeholder="Manufacturer" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="djr-c0-5BY">
+                                                    <rect key="frame" x="158" y="108" width="202" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="manufacturerLabel" destination="qZn-Ox-0Al" id="nkI-q4-Rdc"/>
-                                            <outlet property="nameLabel" destination="Vyk-Q6-yDF" id="oi8-fc-bJD"/>
                                             <outlet property="stompboxImageView" destination="spr-Qt-SFf" id="Ue5-ZS-rfK"/>
-                                            <outlet property="typeLabel" destination="J8k-hZ-TNt" id="43u-ey-AyC"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -154,14 +150,14 @@
                     </tableView>
                     <connections>
                         <outlet property="stompboxImage" destination="spr-Qt-SFf" id="1TW-gH-RcE"/>
-                        <outlet property="stompboxManufacturer" destination="qZn-Ox-0Al" id="AC8-gn-BqR"/>
-                        <outlet property="stompboxName" destination="Vyk-Q6-yDF" id="b1a-e4-8dx"/>
-                        <outlet property="stompboxType" destination="J8k-hZ-TNt" id="hWa-BR-Bcq"/>
+                        <outlet property="stompboxManufacturer" destination="djr-c0-5BY" id="bra-Q2-5JQ"/>
+                        <outlet property="stompboxName" destination="dRL-0L-2rp" id="e5O-Pw-GuE"/>
+                        <outlet property="stompboxType" destination="1zm-gM-6Pn" id="JKJ-ux-OZE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W12-FY-ZGj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="948" y="129"/>
+            <point key="canvasLocation" x="948" y="128.18590704647679"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lRX-SS-Gti">

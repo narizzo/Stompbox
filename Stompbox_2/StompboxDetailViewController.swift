@@ -16,9 +16,9 @@ protocol StompboxDetailViewControllerDelegate: class {
 
 class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   
-  @IBOutlet weak var stompboxName: UILabel!
-  @IBOutlet weak var stompboxType: UILabel!
-  @IBOutlet weak var stompboxManufacturer: UILabel!
+  @IBOutlet weak var stompboxName: UITextField!
+  @IBOutlet weak var stompboxType: UITextField!
+  @IBOutlet weak var stompboxManufacturer: UITextField!
   @IBOutlet weak var stompboxImage: UIImageView!
   
   weak var delegate: StompboxDetailViewControllerDelegate?
@@ -31,7 +31,6 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     
     if let stompbox = stompboxToEdit {
       title = "Edit Stompbox"
-      print("There is a stompbox to edit")
       stompboxName.text = stompbox.name
       stompboxType.text = stompbox.type
       stompboxManufacturer.text = stompbox.manufacturer
@@ -64,6 +63,10 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 200
+  }
+  
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
   }
   
   /*
