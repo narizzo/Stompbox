@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       return true
     }
     
-    stompboxViewController.coreDataStack = coreDataStack
+    stompboxViewController.coreDataStack = self.coreDataStack
     listenForFatalCoreDataNotifications()
     
     return true

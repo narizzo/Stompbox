@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 protocol StompboxDetailViewControllerDelegate: class {
   func stompboxDetailViewControllerDidCancel(_ controller: StompboxDetailViewController)
-  func stompboxDetailViewController(_ controller: StompboxDetailViewController, didFinishAdding item: Stompbox)
-  func stompboxDetailViewController(_ controller: StompboxDetailViewController, didFinishEditing item: Stompbox)
+  func stompboxDetailViewController(_ controller: StompboxDetailViewController, didFinishAdding stompbox: Stompbox)
+  func stompboxDetailViewController(_ controller: StompboxDetailViewController, didFinishEditing stompbox: Stompbox)
 }
 
 class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
@@ -20,17 +21,22 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   @IBOutlet weak var stompboxType: UITextField!
   @IBOutlet weak var stompboxManufacturer: UITextField!
   @IBOutlet weak var stompboxImage: UIImageView!
+  @IBOutlet weak var doneButton: UIBarButtonItem!
   
   weak var delegate: StompboxDetailViewControllerDelegate?
+  var coreDataStack: CoreDataStack!
   var stompboxToEdit: Stompbox?
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    doneButton.isEnabled = true
     
+    print(delegate.debugDescription)
     navigationItem.largeTitleDisplayMode = .never
     
     if let stompbox = stompboxToEdit {
       title = "Edit Stompbox"
+      //doneButton.isEnabled = true
       stompboxName.text = stompbox.name
       stompboxType.text = stompbox.type
       stompboxManufacturer.text = stompbox.manufacturer
@@ -38,6 +44,32 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       if let imageName = stompbox.imageName {
         stompboxImage.image = UIImage(named: imageName)
       }
+    }
+  }
+
+  @IBAction func cancel(_ sender: Any) {
+    delegate?.stompboxDetailViewControllerDidCancel(self)
+  }
+  
+  @IBAction func done() {
+    if let stompboxToEdit = stompboxToEdit {  // unwrapping
+      stompboxToEdit.name = stompboxName.text!
+      stompboxToEdit.type = stompboxType.text!
+      stompboxToEdit.manufacturer = stompboxManufacturer.text!
+      // stompboxToEdit.imageName = stompboxImage.image.
+      
+      delegate?.stompboxDetailViewController(self, didFinishEditing: stompboxToEdit)
+    } else {
+      print("Let's make a new stompbox")
+      let newStompbox = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
+      print("New stompbox initialized")
+      newStompbox.name = stompboxName.text!
+      newStompbox.type = stompboxType.text!
+      newStompbox.manufacturer = stompboxManufacturer.text!
+      // newStompbox.image =
+      print("Stompbox values set")
+      delegate?.stompboxDetailViewController(self, didFinishAdding: newStompbox)
+      print("Sending stompbox back to delegate")
     }
   }
 

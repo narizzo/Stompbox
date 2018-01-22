@@ -95,7 +95,7 @@
         <scene sceneID="NSq-jh-TTo">
             <objects>
                 <tableViewController title="Add Stompbox" id="pc3-vU-K68" customClass="StompboxDetailViewController" customModule="Stompbox_2" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Itd-PH-EVw">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Itd-PH-EVw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -106,7 +106,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rgZ-40-tE2" id="LcK-31-Usb">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BD2-large" translatesAutoresizingMaskIntoConstraints="NO" id="spr-Qt-SFf" userLabel="Stompbox Image View">
@@ -148,7 +148,20 @@
                             <outlet property="delegate" destination="pc3-vU-K68" id="neT-JL-LyR"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="Gnp-B7-98u">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="2Lw-1e-Xbi">
+                            <connections>
+                                <action selector="cancel:" destination="pc3-vU-K68" id="MS8-kk-fg5"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="done" id="dVB-Gp-7Ab">
+                            <connections>
+                                <action selector="done" destination="pc3-vU-K68" id="89P-eC-TgU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="doneButton" destination="dVB-Gp-7Ab" id="Sr8-4T-Qz3"/>
                         <outlet property="stompboxImage" destination="spr-Qt-SFf" id="1TW-gH-RcE"/>
                         <outlet property="stompboxManufacturer" destination="djr-c0-5BY" id="bra-Q2-5JQ"/>
                         <outlet property="stompboxName" destination="dRL-0L-2rp" id="e5O-Pw-GuE"/>

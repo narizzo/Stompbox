@@ -11,12 +11,12 @@ import CoreData
 
 class StompboxViewController: UIViewController {
   
+  // MARK: - Properties
   private struct Constants {
     static let addStompboxSegue = "AddStompboxSegue"
     static let stompboxCache = "stompboxCache"
   }
   
-  // MARK: - Properties
   fileprivate let stompboxCellIdentifier = "stompboxReuseIdentifier"
   var coreDataStack: CoreDataStack!
   var selectedStompbox: Stompbox?
@@ -61,41 +61,6 @@ extension StompboxViewController {
   @IBAction func addStompbox(_ sender: AnyObject) {
     selectedStompbox = nil
     performSegue(withIdentifier: Constants.addStompboxSegue, sender: nil)
-//    let alert = UIAlertController(title: "Secret Stompbox", message: "Add a new Stompbox", preferredStyle: .alert)
-//
-//    alert.addTextField { textField in
-//      textField.placeholder = "Name"
-//    }
-//
-//    alert.addTextField { textField in
-//      textField.placeholder = "Type"
-//    }
-//
-//    alert.addTextField { textField in
-//      textField.placeholder = "Manufacturer"
-//    }
-//
-//    let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] action in
-//      guard let nameTextField = alert.textFields?.first,
-//        let typeTextField = alert.textFields?[1],
-//        let manufacturerTextField = alert.textFields?.last
-//        else {
-//          return
-//      }
-//
-//      let stompbox = Stompbox(
-//        context: self.coreDataStack.moc)
-//
-//      stompbox.name = nameTextField.text
-//      stompbox.type = typeTextField.text
-//      stompbox.manufacturer = manufacturerTextField.text
-//      self.coreDataStack.saveContext()
-//    }
-//
-//    alert.addAction(saveAction)
-//    alert.addAction(UIAlertAction(title: "Cancel", style: .default))
-//
-//    present(alert, animated: true)
   }
 }
 
@@ -124,8 +89,10 @@ extension StompboxViewController {
 // MARK: - Navigation
 extension StompboxViewController {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if segue.identifier == "AddStompboxSegue" {
+    if segue.identifier == Constants.addStompboxSegue {
       let controller = segue.destination as! StompboxDetailViewController
+      controller.delegate = self
+      controller.coreDataStack = self.coreDataStack
       if let selectedStompbox = selectedStompbox {
         controller.stompboxToEdit = selectedStompbox
       }
@@ -223,6 +190,27 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
       tableView.deleteSections(indexSet, with: .automatic)
     default: break
     }
+  }
+}
+
+// MARK: - StompboxDetailViewController Protocol
+extension StompboxViewController: StompboxDetailViewControllerDelegate {
+  func stompboxDetailViewControllerDidCancel(_ controller: StompboxDetailViewController) {
+    print("Cancel")
+    navigationController?.popViewController(animated: true)
+  }
+  
+  func stompboxDetailViewController(_ controller: StompboxDetailViewController, didFinishAdding stompbox: Stompbox) {
+    print("Finished adding")
+    coreDataStack.saveContext()
+    navigationController?.popViewController(animated: true)
+  }
+  
+  func stompboxDetailViewController(_ controller: StompboxDetailViewController, didFinishEditing stompbox: Stompbox) {
+    print("Finished editing")
+    selectedStompbox = stompbox
+    coreDataStack.saveContext()
+    navigationController?.popViewController(animated: true)
   }
 }
 
