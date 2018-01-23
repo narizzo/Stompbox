@@ -109,10 +109,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="BD2-large" translatesAutoresizingMaskIntoConstraints="NO" id="spr-Qt-SFf" userLabel="Stompbox Image View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                                 <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dRL-0L-2rp">
                                                     <rect key="frame" x="158" y="11" width="201" height="30"/>
                                                     <autoresizingMask key="autoresizingMask"/>
@@ -134,11 +130,13 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
+                                                <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wun-PW-bvH">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <state key="normal" image="BD2-large"/>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="stompboxImageView" destination="spr-Qt-SFf" id="Ue5-ZS-rfK"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -162,7 +160,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="doneButton" destination="dVB-Gp-7Ab" id="Sr8-4T-Qz3"/>
-                        <outlet property="stompboxImage" destination="spr-Qt-SFf" id="1TW-gH-RcE"/>
+                        <outlet property="stompboxButton" destination="Wun-PW-bvH" id="Gp3-a1-mSb"/>
                         <outlet property="stompboxManufacturer" destination="djr-c0-5BY" id="bra-Q2-5JQ"/>
                         <outlet property="stompboxName" destination="dRL-0L-2rp" id="e5O-Pw-GuE"/>
                         <outlet property="stompboxType" destination="1zm-gM-6Pn" id="JKJ-ux-OZE"/>

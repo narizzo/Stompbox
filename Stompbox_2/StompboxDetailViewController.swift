@@ -20,7 +20,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   @IBOutlet weak var stompboxName: UITextField!
   @IBOutlet weak var stompboxType: UITextField!
   @IBOutlet weak var stompboxManufacturer: UITextField!
-  @IBOutlet weak var stompboxImage: UIImageView!
+  @IBOutlet weak var stompboxButton: UIButton!
   @IBOutlet weak var doneButton: UIBarButtonItem!
   
   weak var delegate: StompboxDetailViewControllerDelegate?
@@ -30,6 +30,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     doneButton.isEnabled = true
+    stompboxButton.imageView?.contentMode = .scaleAspectFit
     
     navigationItem.largeTitleDisplayMode = .never
     
@@ -41,7 +42,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       stompboxManufacturer.text = stompbox.manufacturer
       
       if let imageName = stompbox.imageName {
-        stompboxImage.image = UIImage(named: imageName)
+        stompboxButton.imageView?.image = UIImage(named: imageName)
       }
     }
   }
@@ -145,5 +146,10 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
    // Pass the selected object to the new view controller.
    }
    */
+  
+}
+
+
+extension StompboxDetailViewController: UIImagePickerControllerDelegate {
   
 }

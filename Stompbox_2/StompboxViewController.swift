@@ -213,4 +213,3 @@ extension StompboxViewController: StompboxDetailViewControllerDelegate {
     navigationController?.popViewController(animated: true)
   }
 }
-
