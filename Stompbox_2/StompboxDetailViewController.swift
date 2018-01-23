@@ -31,7 +31,6 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     super.viewDidLoad()
     doneButton.isEnabled = true
     
-    print(delegate.debugDescription)
     navigationItem.largeTitleDisplayMode = .never
     
     if let stompbox = stompboxToEdit {
@@ -70,6 +69,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       print("Stompbox values set")
       delegate?.stompboxDetailViewController(self, didFinishAdding: newStompbox)
       print("Sending stompbox back to delegate")
+      
     }
   }
 
