@@ -134,7 +134,6 @@ extension StompboxDetailViewController: UIImagePickerControllerDelegate, UINavig
     func takePhoto() {
       imagePicker.sourceType = .camera
       imagePicker.delegate = self
-      imagePicker.allowsEditing = true
       present(imagePicker, animated: true, completion: nil)
     }
     
@@ -151,7 +150,6 @@ extension StompboxDetailViewController: UIImagePickerControllerDelegate, UINavig
   func choosePhotoFromLibrary() {
     imagePicker.sourceType = .photoLibrary
     imagePicker.delegate = self
-    imagePicker.allowsEditing = true
     present(imagePicker, animated: true, completion: nil)
   }
   
@@ -176,6 +174,12 @@ extension StompboxDetailViewController: UIImagePickerControllerDelegate, UINavig
   
   // MARK: - Image Picker Delegates
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+    //stompboxButton.setImage(image, for: UIControlState.normal)
+    DispatchQueue.main.async {
+      self.stompboxButton.setImage(image, for: UIControlState.normal)
+    }
+    
     dismiss(animated: true, completion: nil)
   }
   
