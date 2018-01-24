@@ -174,10 +174,10 @@ extension StompboxDetailViewController: UIImagePickerControllerDelegate, UINavig
   
   // MARK: - Image Picker Delegates
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-    let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-    //stompboxButton.setImage(image, for: UIControlState.normal)
     DispatchQueue.main.async {
-      self.stompboxButton.setImage(image, for: UIControlState.normal)
+      let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+      self.stompboxButton.setImage(image.resized(withBounds: self.stompboxButton.bounds.size), for: UIControlState.normal)
+      print(self.stompboxButton.imageView?.image.debugDescription)
     }
     
     dismiss(animated: true, completion: nil)
