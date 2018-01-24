@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import AVFoundation
 
 protocol StompboxDetailViewControllerDelegate: class {
   func stompboxDetailViewControllerDidCancel(_ controller: StompboxDetailViewController)
@@ -26,12 +27,12 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   weak var delegate: StompboxDetailViewControllerDelegate?
   var coreDataStack: CoreDataStack!
   var stompboxToEdit: Stompbox?
+  let imagePicker = UIImagePickerController()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     doneButton.isEnabled = true
     stompboxButton.imageView?.contentMode = .scaleAspectFit
-    
     navigationItem.largeTitleDisplayMode = .never
     
     if let stompbox = stompboxToEdit {
@@ -46,7 +47,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       }
     }
   }
-
+  
   @IBAction func cancel(_ sender: Any) {
     delegate?.stompboxDetailViewControllerDidCancel(self)
   }
@@ -70,10 +71,12 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       print("Stompbox values set")
       delegate?.stompboxDetailViewController(self, didFinishAdding: newStompbox)
       print("Sending stompbox back to delegate")
-      
     }
   }
-
+  
+  @IBAction func changePicture(_ sender: UIButton) {
+    showPhotoMenu()
+  }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -102,54 +105,127 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     tableView.deselectRow(at: indexPath, animated: true)
   }
   
-  /*
-   // Override to support conditional editing of the table view.
-   override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-   // Return false if you do not want the specified item to be editable.
-   return true
-   }
-   */
-  
-  /*
-   // Override to support editing the table view.
-   override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-   if editingStyle == .delete {
-   // Delete the row from the data source
-   tableView.deleteRows(at: [indexPath], with: .fade)
-   } else if editingStyle == .insert {
-   // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-   }
-   }
-   */
-  
-  /*
-   // Override to support rearranging the table view.
-   override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-   
-   }
-   */
-  
-  /*
-   // Override to support conditional rearranging of the table view.
-   override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-   // Return false if you do not want the item to be re-orderable.
-   return true
-   }
-   */
-  
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
-  
 }
 
 
-extension StompboxDetailViewController: UIImagePickerControllerDelegate {
+extension StompboxDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
+  func showPhotoMenu() {
+    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    
+    let actCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    let actPhoto = UIAlertAction(title: "Take Photo", style: .default, handler: { _ in
+      self.takePhotoWithCamera()
+    })
+    let actLibrary = UIAlertAction(title: "Choose From Library", style: .default, handler: { _ in
+      self.choosePhotoFromLibrary()
+    })
+    
+    alert.addAction(actCancel)
+    alert.addAction(actPhoto)
+    alert.addAction(actLibrary)
+    
+    present(alert, animated: true, completion: nil)
+  }
+  
+  func takePhotoWithCamera() {
+    let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+    
+    func takePhoto() {
+      imagePicker.sourceType = .camera
+      imagePicker.delegate = self
+      imagePicker.allowsEditing = true
+      present(imagePicker, animated: true, completion: nil)
+    }
+    
+    switch authStatus {
+    case .authorized:
+      takePhoto()
+    case .denied:
+      alertPromptToAllowCameraAccessViaSetting()
+    default:
+      takePhoto()
+    }
+  }
+  
+  func choosePhotoFromLibrary() {
+    imagePicker.sourceType = .photoLibrary
+    imagePicker.delegate = self
+    imagePicker.allowsEditing = true
+    present(imagePicker, animated: true, completion: nil)
+  }
+  
+  func alertPromptToAllowCameraAccessViaSetting() {
+    let alert = UIAlertController(title: "Allow Stompbox to access your camera to use this feature",
+                                  message: nil,
+                                  preferredStyle: .alert)
+    
+    let settingsAction = UIAlertAction(title: "Settings", style: .cancel) { (alert) -> Void in
+      if let url = URL(string:UIApplicationOpenSettingsURLString) {
+        if UIApplication.shared.canOpenURL(url) {
+          UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+      }
+    }
+    
+    let cancelAction = UIAlertAction(title: "Cancel", style: .default)
+    alert.addAction(settingsAction)
+    alert.addAction(cancelAction)
+    present(alert, animated: true, completion: nil)
+  }
+  
+  // MARK: - Image Picker Delegates
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    dismiss(animated: true, completion: nil)
+  }
+  
+  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    dismiss(animated: true, completion: nil)
+  }
 }
+
+
+/*
+ // Override to support conditional editing of the table view.
+ override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+ // Return false if you do not want the specified item to be editable.
+ return true
+ }
+ */
+
+/*
+ // Override to support editing the table view.
+ override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+ if editingStyle == .delete {
+ // Delete the row from the data source
+ tableView.deleteRows(at: [indexPath], with: .fade)
+ } else if editingStyle == .insert {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
+
+/*
+ // Override to support rearranging the table view.
+ override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+ 
+ }
+ */
+
+/*
+ // Override to support conditional rearranging of the table view.
+ override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+ // Return false if you do not want the item to be re-orderable.
+ return true
+ }
+ */
+
+/*
+ // MARK: - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+ // Get the new view controller using segue.destinationViewController.
+ // Pass the selected object to the new view controller.
+ }
+ */

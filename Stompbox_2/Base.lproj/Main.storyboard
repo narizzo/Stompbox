@@ -134,6 +134,9 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <state key="normal" image="BD2-large"/>
+                                                    <connections>
+                                                        <action selector="changePicture:" destination="pc3-vU-K68" eventType="touchUpInside" id="T1C-Qw-POv"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
