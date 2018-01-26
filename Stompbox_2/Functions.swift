@@ -15,6 +15,11 @@ func fatalCoreDataError(_ error: Error) {
   NotificationCenter.default.post(name: CoreDataSaveFailedNotification, object: nil)
 }
 
+func getDocumentsDirectory() -> URL {
+  let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+  return paths[0]
+}
+
 
 extension UIImage {
   func resized(withBounds bounds: CGSize) -> UIImage {

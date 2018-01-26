@@ -42,7 +42,6 @@ class StompboxViewController: UIViewController {
   
   // MARK: - IBOutlets
   @IBOutlet weak var tableView: UITableView!
-  @IBOutlet weak var addButton: UIBarButtonItem!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -72,16 +71,21 @@ extension StompboxViewController {
     guard let cell = cell as? StompboxCell else {
       return
     }
-    
     let stompbox = fetchedResultsController.object(at: indexPath)
     cell.nameLabel.text = stompbox.name
     cell.typeLabel.text = stompbox.type
     cell.manufacturerLabel.text = stompbox.manufacturer
     
-    if let imageName = stompbox.imageName {
-      cell.stompboxImageView.image = UIImage(named: imageName)
+    if let imageFileName = stompbox.imageFileName {
+      print("The Loaded File Path \(imageFileName)")
+      
+      let image = UIImage(contentsOfFile: imageFileName)
+      
+      print("Image file: \(image.debugDescription)")
+      cell.stompboxImageView.image = image
     } else {
       cell.stompboxImageView.image = #imageLiteral(resourceName: "BD2-large")
+      print("Image not found, loading default")
     }
   }
 }
@@ -146,9 +150,17 @@ extension StompboxViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-    
-    
     let stompbox = fetchedResultsController.object(at: indexPath)
+    if let imageFilePath = stompbox.imageFileName, FileManager.default.fileExists(atPath: imageFilePath) {
+      do {
+        try FileManager.default.removeItem(atPath: imageFilePath)
+        print("Thumbnail removed from disk")
+      } catch {
+        print("Error removing file: \(error)")
+      }
+    } else {
+      print("stompbox does not have a file path saved or that file path does not exist")
+    }
     coreDataStack.moc.delete(stompbox)
     coreDataStack.saveContext()
   }

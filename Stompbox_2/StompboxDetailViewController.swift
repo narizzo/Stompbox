@@ -28,6 +28,8 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   var coreDataStack: CoreDataStack!
   var stompboxToEdit: Stompbox?
   let imagePicker = UIImagePickerController()
+  var imageData = Data()
+  var didPickNewThumbnail = false
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -42,8 +44,8 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       stompboxType.text = stompbox.type
       stompboxManufacturer.text = stompbox.manufacturer
       
-      if let imageName = stompbox.imageName {
-        stompboxButton.imageView?.image = UIImage(named: imageName)
+      if let imageFileName = stompbox.imageFileName {
+        stompboxButton.imageView?.image = UIImage(contentsOfFile: imageFileName)
       }
     }
   }
@@ -53,24 +55,34 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   }
   
   @IBAction func done() {
-    if let stompboxToEdit = stompboxToEdit {  // unwrapping
+    
+    func updateStompboxImage() {
+      let uuid = NSUUID().uuidString
+      let fileName = getDocumentsDirectory().appendingPathComponent(uuid + ".jpg")
+      do {
+        try? imageData.write(to: fileName, options: .atomic)
+        print("imageData written successfully")
+      }
+      stompboxToEdit?.imageFileName = fileName.path
+    }
+    
+    if let stompboxToEdit = stompboxToEdit {
       stompboxToEdit.name = stompboxName.text!
       stompboxToEdit.type = stompboxType.text!
       stompboxToEdit.manufacturer = stompboxManufacturer.text!
-      // stompboxToEdit.imageName = stompboxImage.image.
       
+      if didPickNewThumbnail {
+        updateStompboxImage()
+      }
       delegate?.stompboxDetailViewController(self, didFinishEditing: stompboxToEdit)
+      
     } else {
-      print("Let's make a new stompbox")
-      let newStompbox = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
-      print("New stompbox initialized")
-      newStompbox.name = stompboxName.text!
-      newStompbox.type = stompboxType.text!
-      newStompbox.manufacturer = stompboxManufacturer.text!
-      // newStompbox.image =
-      print("Stompbox values set")
-      delegate?.stompboxDetailViewController(self, didFinishAdding: newStompbox)
-      print("Sending stompbox back to delegate")
+      stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
+      stompboxToEdit?.name = stompboxName.text!
+      stompboxToEdit?.type = stompboxType.text!
+      stompboxToEdit?.manufacturer = stompboxManufacturer.text!
+      updateStompboxImage()
+      delegate?.stompboxDetailViewController(self, didFinishAdding: stompboxToEdit!)
     }
   }
   
@@ -174,12 +186,13 @@ extension StompboxDetailViewController: UIImagePickerControllerDelegate, UINavig
   
   // MARK: - Image Picker Delegates
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    didPickNewThumbnail = true
+    let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+    let thumbnailPNG = image.resized(withBounds: self.stompboxButton.bounds.size)
+    self.imageData = UIImageJPEGRepresentation(thumbnailPNG, 0.4)!
     DispatchQueue.main.async {
-      let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-      self.stompboxButton.setImage(image.resized(withBounds: self.stompboxButton.bounds.size), for: UIControlState.normal)
-      print(self.stompboxButton.imageView?.image.debugDescription)
+      self.stompboxButton.setImage(UIImage(data: self.imageData), for: UIControlState.normal)
     }
-    
     dismiss(animated: true, completion: nil)
   }
   
@@ -187,49 +200,3 @@ extension StompboxDetailViewController: UIImagePickerControllerDelegate, UINavig
     dismiss(animated: true, completion: nil)
   }
 }
-
-
-/*
- // Override to support conditional editing of the table view.
- override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
- // Return false if you do not want the specified item to be editable.
- return true
- }
- */
-
-/*
- // Override to support editing the table view.
- override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
- if editingStyle == .delete {
- // Delete the row from the data source
- tableView.deleteRows(at: [indexPath], with: .fade)
- } else if editingStyle == .insert {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
- 
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
- // Return false if you do not want the item to be re-orderable.
- return true
- }
- */
-
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destinationViewController.
- // Pass the selected object to the new view controller.
- }
- */
