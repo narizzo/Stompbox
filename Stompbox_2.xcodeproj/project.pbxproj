@@ -45,6 +45,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01CAEB37201BB22800AC556B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				01EB57692000562800686767 /* StompboxViewController.swift */,
+				01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		01CAEB38201BB23900AC556B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				01EB576D200058D700686767 /* CoreDataStack.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		01CAEB39201BB25F00AC556B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				01EB576B2000578800686767 /* StompboxCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		01CAEB3A201BB26B00AC556B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				01EB57632000130C00686767 /* Functions.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		01EB57422000123700686767 = {
 			isa = PBXGroup;
 			children = (
@@ -64,17 +97,16 @@
 		01EB574D2000123700686767 /* Stompbox_2 */ = {
 			isa = PBXGroup;
 			children = (
-				01EB574E2000123700686767 /* AppDelegate.swift */,
-				01EB57692000562800686767 /* StompboxViewController.swift */,
-				01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */,
-				01EB576B2000578800686767 /* StompboxCell.swift */,
-				01EB576D200058D700686767 /* CoreDataStack.swift */,
-				01EB57632000130C00686767 /* Functions.swift */,
-				01EB57522000123700686767 /* Main.storyboard */,
-				01EB57582000123700686767 /* Assets.xcassets */,
-				01EB575A2000123700686767 /* LaunchScreen.storyboard */,
 				01EB575D2000123800686767 /* Info.plist */,
+				01EB574E2000123700686767 /* AppDelegate.swift */,
+				01EB57582000123700686767 /* Assets.xcassets */,
+				01CAEB37201BB22800AC556B /* Controllers */,
+				01EB575A2000123700686767 /* LaunchScreen.storyboard */,
+				01EB57522000123700686767 /* Main.storyboard */,
+				01CAEB38201BB23900AC556B /* Models */,
 				01EB57552000123700686767 /* Stompbox_2.xcdatamodeld */,
+				01CAEB3A201BB26B00AC556B /* Utilities */,
+				01CAEB39201BB25F00AC556B /* Views */,
 			);
 			path = Stompbox_2;
 			sourceTree = "<group>";

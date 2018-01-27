@@ -28,7 +28,6 @@ class StompboxViewController: UIViewController {
     let manufacturerSort = NSSortDescriptor(key: #keyPath(Stompbox.manufacturer), ascending: true)
     fetchRequest.sortDescriptors = [nameSort, typeSort, manufacturerSort]
     
-    
     let fetchedResultsController = NSFetchedResultsController(
       fetchRequest: fetchRequest,
       managedObjectContext: coreDataStack.moc,
@@ -112,7 +111,6 @@ extension StompboxViewController: UITableViewDataSource {
     guard let sections = fetchedResultsController.sections else {
       return 0
     }
-    
     return sections.count
   }
   
@@ -120,7 +118,6 @@ extension StompboxViewController: UITableViewDataSource {
     guard let sectionInfo = fetchedResultsController.sections?[section] else {
       return 0
     }
-    
     return sectionInfo.numberOfObjects
   }
   
