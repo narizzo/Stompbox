@@ -75,16 +75,17 @@ extension StompboxViewController {
     cell.typeLabel.text = stompbox.type
     cell.manufacturerLabel.text = stompbox.manufacturer
     
-    if let imageFileName = stompbox.imageFileName {
-      print("The Loaded File Path \(imageFileName)")
+    if let imageFilePath = stompbox.imageFilePath {
+      print("The Loaded File Path \(imageFilePath.path)")
+      let image = UIImage(contentsOfFile: imageFilePath.path)
       
-      let image = UIImage(contentsOfFile: imageFileName)
-      
-      print("Image file: \(image.debugDescription)")
-      cell.stompboxImageView.image = image
-    } else {
-      cell.stompboxImageView.image = #imageLiteral(resourceName: "BD2-large")
-      print("Image not found, loading default")
+      if image != nil {
+        print("Image file: \(image.debugDescription)")
+        cell.stompboxImageView.image = image
+      } else {
+        cell.stompboxImageView.image = #imageLiteral(resourceName: "BD2-large")
+        print("Image not found, loading default")
+      }
     }
   }
 }
@@ -148,7 +149,7 @@ extension StompboxViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
-    if let imageFilePath = stompbox.imageFileName, FileManager.default.fileExists(atPath: imageFilePath) {
+    if let imageFilePath = stompbox.imageFilePath?.path, FileManager.default.fileExists(atPath: imageFilePath) {
       do {
         try FileManager.default.removeItem(atPath: imageFilePath)
         print("Thumbnail removed from disk")

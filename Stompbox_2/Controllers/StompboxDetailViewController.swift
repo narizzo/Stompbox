@@ -44,8 +44,8 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       stompboxType.text = stompbox.type
       stompboxManufacturer.text = stompbox.manufacturer
       
-      if let imageFileName = stompbox.imageFileName {
-        stompboxButton.imageView?.image = UIImage(contentsOfFile: imageFileName)
+      if let imageFilePath = stompbox.imageFilePath {
+        stompboxButton.imageView?.image = UIImage(contentsOfFile: imageFilePath.path)
       }
     }
   }
@@ -55,25 +55,20 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   }
   
   @IBAction func done() {
-    
-    func updateStompboxImage() {
+    func updateThumbnail() {
       let uuid = NSUUID().uuidString
-      let fileName = getDocumentsDirectory().appendingPathComponent(uuid + ".jpg")
+      let filePath = getDocumentsDirectory().appendingPathComponent(uuid + ".jpg")
       do {
-        try? imageData.write(to: fileName, options: .atomic)
-        print("imageData written successfully")
+        try? imageData.write(to: filePath, options: .atomic)
+        stompboxToEdit?.imageFilePath = filePath
       }
-      stompboxToEdit?.imageFileName = fileName.path
     }
     
     if let stompboxToEdit = stompboxToEdit {
       stompboxToEdit.name = stompboxName.text!
       stompboxToEdit.type = stompboxType.text!
       stompboxToEdit.manufacturer = stompboxManufacturer.text!
-      
-      if didPickNewThumbnail {
-        updateStompboxImage()
-      }
+      if didPickNewThumbnail { updateThumbnail() }
       delegate?.stompboxDetailViewController(self, didFinishEditing: stompboxToEdit)
       
     } else {
@@ -81,7 +76,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       stompboxToEdit?.name = stompboxName.text!
       stompboxToEdit?.type = stompboxType.text!
       stompboxToEdit?.manufacturer = stompboxManufacturer.text!
-      updateStompboxImage()
+      if didPickNewThumbnail { updateThumbnail() }
       delegate?.stompboxDetailViewController(self, didFinishAdding: stompboxToEdit!)
     }
   }
