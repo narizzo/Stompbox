@@ -102,7 +102,6 @@ extension StompboxViewController {
       }
     }
   }
-  
 }
 
 // MARK: - UITableViewDataSource
@@ -157,7 +156,7 @@ extension StompboxViewController: UITableViewDelegate {
         print("Error removing file: \(error)")
       }
     } else {
-      print("stompbox does not have a file path saved or that file path does not exist")
+      print("stompbox thumbnail does not exist or it does not have a valid file path")
     }
     coreDataStack.moc.delete(stompbox)
     coreDataStack.saveContext()

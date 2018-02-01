@@ -63,7 +63,6 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       do {
         try? imageData.write(to: filePath, options: .atomic)
         stompboxToEdit?.imageFilePath = filePath.absoluteURL
-        print("**** The Saved File Path \(stompboxToEdit?.imageFilePath)")
       }
     }
     

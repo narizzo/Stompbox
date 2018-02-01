@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		01A58F3B200FF4DD00DD5BF3 /* StompboxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */; };
+		01CAEB76202385E200AC556B /* Stompbox+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB72202385E200AC556B /* Stompbox+CoreDataClass.swift */; };
+		01CAEB77202385E200AC556B /* Stompbox+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB73202385E200AC556B /* Stompbox+CoreDataProperties.swift */; };
+		01CAEB78202385E200AC556B /* Settings+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB74202385E200AC556B /* Settings+CoreDataClass.swift */; };
+		01CAEB79202385E200AC556B /* Settings+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB75202385E200AC556B /* Settings+CoreDataProperties.swift */; };
+		01CAEB7B2023866400AC556B /* Knob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB7A2023866400AC556B /* Knob.swift */; };
+		01CAEB802023AFCB00AC556B /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB7F2023AFCB00AC556B /* Switch.swift */; };
 		01EB574F2000123700686767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB574E2000123700686767 /* AppDelegate.swift */; };
 		01EB57542000123700686767 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01EB57522000123700686767 /* Main.storyboard */; };
 		01EB57572000123700686767 /* Stompbox_2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01EB57552000123700686767 /* Stompbox_2.xcdatamodeld */; };
@@ -21,6 +27,12 @@
 
 /* Begin PBXFileReference section */
 		01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxDetailViewController.swift; sourceTree = "<group>"; };
+		01CAEB72202385E200AC556B /* Stompbox+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stompbox+CoreDataClass.swift"; sourceTree = "<group>"; };
+		01CAEB73202385E200AC556B /* Stompbox+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stompbox+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		01CAEB74202385E200AC556B /* Settings+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+CoreDataClass.swift"; sourceTree = "<group>"; };
+		01CAEB75202385E200AC556B /* Settings+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		01CAEB7A2023866400AC556B /* Knob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Knob.swift; sourceTree = "<group>"; };
+		01CAEB7F2023AFCB00AC556B /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 		01EB574B2000123700686767 /* Stompbox_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stompbox_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01EB574E2000123700686767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01EB57532000123700686767 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -58,6 +70,8 @@
 			isa = PBXGroup;
 			children = (
 				01EB576D200058D700686767 /* CoreDataStack.swift */,
+				01CAEB7A2023866400AC556B /* Knob.swift */,
+				01CAEB7F2023AFCB00AC556B /* Switch.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -81,6 +95,11 @@
 		01EB57422000123700686767 = {
 			isa = PBXGroup;
 			children = (
+				01CAEB72202385E200AC556B /* Stompbox+CoreDataClass.swift */,
+				01CAEB73202385E200AC556B /* Stompbox+CoreDataProperties.swift */,
+				01CAEB74202385E200AC556B /* Settings+CoreDataClass.swift */,
+				01CAEB75202385E200AC556B /* Settings+CoreDataProperties.swift */,
+				01EB57552000123700686767 /* Stompbox_2.xcdatamodeld */,
 				01EB574D2000123700686767 /* Stompbox_2 */,
 				01EB574C2000123700686767 /* Products */,
 			);
@@ -104,7 +123,6 @@
 				01EB575A2000123700686767 /* LaunchScreen.storyboard */,
 				01EB57522000123700686767 /* Main.storyboard */,
 				01CAEB38201BB23900AC556B /* Models */,
-				01EB57552000123700686767 /* Stompbox_2.xcdatamodeld */,
 				01CAEB3A201BB26B00AC556B /* Utilities */,
 				01CAEB39201BB25F00AC556B /* Views */,
 			);
@@ -184,12 +202,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				01EB576E200058D700686767 /* CoreDataStack.swift in Sources */,
+				01CAEB77202385E200AC556B /* Stompbox+CoreDataProperties.swift in Sources */,
 				01EB57572000123700686767 /* Stompbox_2.xcdatamodeld in Sources */,
+				01CAEB79202385E200AC556B /* Settings+CoreDataProperties.swift in Sources */,
 				01EB574F2000123700686767 /* AppDelegate.swift in Sources */,
 				01EB576C2000578800686767 /* StompboxCell.swift in Sources */,
 				01EB57642000130C00686767 /* Functions.swift in Sources */,
+				01CAEB7B2023866400AC556B /* Knob.swift in Sources */,
+				01CAEB802023AFCB00AC556B /* Switch.swift in Sources */,
 				01EB576A2000562800686767 /* StompboxViewController.swift in Sources */,
 				01A58F3B200FF4DD00DD5BF3 /* StompboxDetailViewController.swift in Sources */,
+				01CAEB78202385E200AC556B /* Settings+CoreDataClass.swift in Sources */,
+				01CAEB76202385E200AC556B /* Stompbox+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
