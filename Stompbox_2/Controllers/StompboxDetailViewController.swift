@@ -36,6 +36,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     doneButton.isEnabled = true
     stompboxButton.imageView?.contentMode = .scaleAspectFit
     navigationItem.largeTitleDisplayMode = .never
+    title = "Add Stompbox"
     
     if let stompbox = stompboxToEdit {
       title = "Edit Stompbox"
@@ -58,9 +59,11 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     func updateThumbnail() {
       let uuid = NSUUID().uuidString
       let filePath = getDocumentsDirectory().appendingPathComponent(uuid + ".jpg")
+      print("Raw file path \(filePath)")
       do {
         try? imageData.write(to: filePath, options: .atomic)
-        stompboxToEdit?.imageFilePath = filePath
+        stompboxToEdit?.imageFilePath = filePath.absoluteURL
+        print("**** The Saved File Path \(stompboxToEdit?.imageFilePath)")
       }
     }
     

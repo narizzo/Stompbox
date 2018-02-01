@@ -76,7 +76,7 @@ extension StompboxViewController {
     cell.manufacturerLabel.text = stompbox.manufacturer
     
     if let imageFilePath = stompbox.imageFilePath {
-      print("The Loaded File Path \(imageFilePath.path)")
+      print("**** The Loaded File Path \(imageFilePath.path)")
       let image = UIImage(contentsOfFile: imageFilePath.path)
       
       if image != nil {
