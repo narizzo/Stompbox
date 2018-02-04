@@ -18,20 +18,21 @@ class StompboxViewController: UIViewController {
   }
   
   fileprivate let stompboxCellIdentifier = "stompboxReuseIdentifier"
+
   var coreDataStack: CoreDataStack!
   var selectedStompbox: Stompbox?
   
   lazy var fetchedResultsController: NSFetchedResultsController<Stompbox> = {
     let fetchRequest: NSFetchRequest<Stompbox> = Stompbox.fetchRequest()
     let nameSort = NSSortDescriptor(key: #keyPath(Stompbox.name), ascending: true)
-    let typeSort = NSSortDescriptor(key: #keyPath(Stompbox.type), ascending: true)
-    let manufacturerSort = NSSortDescriptor(key: #keyPath(Stompbox.manufacturer), ascending: true)
-    fetchRequest.sortDescriptors = [nameSort, typeSort, manufacturerSort]
+    //let typeSort = NSSortDescriptor(key: #keyPath(Stompbox.type), ascending: true)
+    //let manufacturerSort = NSSortDescriptor(key: #keyPath(Stompbox.manufacturer), ascending: true)
+    fetchRequest.sortDescriptors = [nameSort]
     
     let fetchedResultsController = NSFetchedResultsController(
       fetchRequest: fetchRequest,
       managedObjectContext: coreDataStack.moc,
-      sectionNameKeyPath: nil, //#keyPath(Stompbox.type),
+      sectionNameKeyPath: #keyPath(Stompbox.type),
       cacheName: Constants.stompboxCache)
     
     fetchedResultsController.delegate = self
@@ -66,7 +67,7 @@ extension StompboxViewController {
 extension StompboxViewController {
   
   func configure(cell: UITableViewCell, for indexPath: IndexPath) {
-    
+    print("Configuring cell")
     guard let cell = cell as? StompboxCell else {
       return
     }
@@ -75,17 +76,17 @@ extension StompboxViewController {
     cell.typeLabel.text = stompbox.type
     cell.manufacturerLabel.text = stompbox.manufacturer
     
+    var image: UIImage?
     if let imageFilePath = stompbox.imageFilePath {
       print("**** The Loaded File Path \(imageFilePath.path)")
-      let image = UIImage(contentsOfFile: imageFilePath.path)
-      
-      if image != nil {
-        print("Image file: \(image.debugDescription)")
-        cell.stompboxImageView.image = image
-      } else {
-        cell.stompboxImageView.image = #imageLiteral(resourceName: "BD2-large")
-        print("Image not found, loading default")
-      }
+      image = UIImage(contentsOfFile: imageFilePath.path)
+    }
+    if image != nil {
+      print("Image file: \(image.debugDescription)")
+      cell.stompboxImageView.image = image
+    } else {
+      cell.stompboxImageView.image = #imageLiteral(resourceName: "BD2-large")
+      print("Image not found, loading default")
     }
   }
 }
@@ -130,11 +131,6 @@ extension StompboxViewController: UITableViewDataSource {
     configure(cell: cell, for: indexPath)
     return cell
   }
-  
-  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    let sectionInfo = fetchedResultsController.sections?[section]
-    return sectionInfo?.name
-  }
 }
 
 // MARK: - UITableViewDelegate
@@ -161,6 +157,7 @@ extension StompboxViewController: UITableViewDelegate {
     coreDataStack.moc.delete(stompbox)
     coreDataStack.saveContext()
   }
+  
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
