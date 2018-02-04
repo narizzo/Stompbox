@@ -64,7 +64,7 @@
                                             <outlet property="typeLabel" destination="ECu-xt-ea8" id="BrU-1X-RPL"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="footerReuseIdentifier" rowHeight="50" id="QSQ-L8-iRV">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingReuseIdentifier" rowHeight="50" id="QSQ-L8-iRV">
                                         <rect key="frame" x="0.0" y="228" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QSQ-L8-iRV" id="uUG-9E-aIo">

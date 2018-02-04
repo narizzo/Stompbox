@@ -18,6 +18,7 @@ class StompboxViewController: UIViewController {
   }
   
   fileprivate let stompboxCellIdentifier = "stompboxReuseIdentifier"
+  fileprivate let addSettingReuseIdentifier = "settingReuseIdentifier"
 
   var coreDataStack: CoreDataStack!
   var selectedStompbox: Stompbox?
@@ -131,6 +132,7 @@ extension StompboxViewController: UITableViewDataSource {
     configure(cell: cell, for: indexPath)
     return cell
   }
+  
 }
 
 // MARK: - UITableViewDelegate
@@ -138,11 +140,23 @@ extension StompboxViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
-    self.selectedStompbox = self.fetchedResultsController.object(at: indexPath)
-    self.performSegue(withIdentifier: Constants.addStompboxSegue, sender: self)
   }
   
-  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+  func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    if let _ = tableView.cellForRow(at: indexPath) as? StompboxCell {
+      let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
+        self.editStompbox(at: indexPath)
+      }
+      let delete = UITableViewRowAction(style: .default, title: "Delete") { action, index in
+        self.deleteStompbox(at: indexPath)
+      }
+      return [delete, edit]
+    } else {
+      return nil
+    }
+  }
+  
+  func deleteStompbox(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
     if let imageFilePath = stompbox.imageFilePath?.path, FileManager.default.fileExists(atPath: imageFilePath) {
       do {
@@ -158,15 +172,21 @@ extension StompboxViewController: UITableViewDelegate {
     coreDataStack.saveContext()
   }
   
+  func editStompbox(at indexPath: IndexPath) {
+    self.selectedStompbox = self.fetchedResultsController.object(at: indexPath)
+    self.performSegue(withIdentifier: Constants.addStompboxSegue, sender: self)
+  }
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
 extension StompboxViewController: NSFetchedResultsControllerDelegate {
   func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    print("controllerWillChangeContent:")
     tableView.beginUpdates()
   }
   
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    print("controller:didChange:at:for:")
     switch type {
     case .insert:
       tableView.insertRows(at: [newIndexPath!], with: .automatic)
@@ -182,11 +202,12 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
   }
   
   func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    print("controllerDidChangeContent")
     tableView.endUpdates()
   }
   
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-    
+    print("controller:didChange:atSectionIndex:for:")
     let indexSet = IndexSet(integer: sectionIndex)
     
     switch type {
