@@ -27,6 +27,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   weak var delegate: StompboxDetailViewControllerDelegate?
   var coreDataStack: CoreDataStack!
   var stompboxToEdit: Stompbox?
+  
   let imagePicker = UIImagePickerController()
   var imageData = Data()
   var didPickNewThumbnail = false
@@ -40,13 +41,12 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     
     if let stompbox = stompboxToEdit {
       title = "Edit Stompbox"
-      //doneButton.isEnabled = true
       stompboxName.text = stompbox.name
       stompboxType.text = stompbox.type
       stompboxManufacturer.text = stompbox.manufacturer
       
       if let imageFilePath = stompbox.imageFilePath {
-        stompboxButton.imageView?.image = UIImage(contentsOfFile: imageFilePath.path)
+        stompboxButton.setImage(UIImage(contentsOfFile: imageFilePath.path), for: .normal)
       }
     }
   }
@@ -57,9 +57,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   
   @IBAction func done() {
     func updateThumbnail() {
-      let uuid = NSUUID().uuidString
-      let filePath = getDocumentsDirectory().appendingPathComponent(uuid + ".jpg")
-      print("Raw file path \(filePath)")
+      let filePath = createUniqueJPGFilePath()
       do {
         try? imageData.write(to: filePath, options: .atomic)
         stompboxToEdit?.imageFilePath = filePath.absoluteURL
@@ -67,17 +65,12 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
     if let stompboxToEdit = stompboxToEdit {
-      stompboxToEdit.name = stompboxName.text!
-      stompboxToEdit.type = stompboxType.text!
-      stompboxToEdit.manufacturer = stompboxManufacturer.text!
+      stompboxToEdit.setPropertiesTo(name: stompboxName.text!, type: stompboxType.text!, manufacturer: stompboxManufacturer.text!)
       if didPickNewThumbnail { updateThumbnail() }
       delegate?.stompboxDetailViewController(self, didFinishEditing: stompboxToEdit)
-      
     } else {
       stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
-      stompboxToEdit?.name = stompboxName.text!
-      stompboxToEdit?.type = stompboxType.text!
-      stompboxToEdit?.manufacturer = stompboxManufacturer.text!
+      stompboxToEdit?.setPropertiesTo(name: stompboxName.text!, type: stompboxType.text!, manufacturer: stompboxManufacturer.text!)
       if didPickNewThumbnail { updateThumbnail() }
       delegate?.stompboxDetailViewController(self, didFinishAdding: stompboxToEdit!)
     }

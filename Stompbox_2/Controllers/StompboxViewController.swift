@@ -68,7 +68,6 @@ extension StompboxViewController {
 extension StompboxViewController {
   
   func configure(cell: UITableViewCell, for indexPath: IndexPath) {
-    print("Configuring cell")
     guard let cell = cell as? StompboxCell else {
       return
     }
@@ -79,15 +78,12 @@ extension StompboxViewController {
     
     var image: UIImage?
     if let imageFilePath = stompbox.imageFilePath {
-      print("**** The Loaded File Path \(imageFilePath.path)")
       image = UIImage(contentsOfFile: imageFilePath.path)
     }
     if image != nil {
-      print("Image file: \(image.debugDescription)")
       cell.stompboxImageView.image = image
     } else {
       cell.stompboxImageView.image = #imageLiteral(resourceName: "BD2-large")
-      print("Image not found, loading default")
     }
   }
 }
@@ -160,13 +156,11 @@ extension StompboxViewController: UITableViewDelegate {
     let stompbox = fetchedResultsController.object(at: indexPath)
     if let imageFilePath = stompbox.imageFilePath?.path, FileManager.default.fileExists(atPath: imageFilePath) {
       do {
+        // delete image if stompbox has one that isn't the default
         try FileManager.default.removeItem(atPath: imageFilePath)
-        print("Thumbnail removed from disk")
       } catch {
         print("Error removing file: \(error)")
       }
-    } else {
-      print("stompbox thumbnail does not exist or it does not have a valid file path")
     }
     coreDataStack.moc.delete(stompbox)
     coreDataStack.saveContext()

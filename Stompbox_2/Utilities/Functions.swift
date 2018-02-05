@@ -20,6 +20,11 @@ func getDocumentsDirectory() -> URL {
   return paths[0]
 }
 
+func createUniqueJPGFilePath() -> URL {
+  let uuid = NSUUID().uuidString
+  return getDocumentsDirectory().appendingPathComponent(uuid + ".jpg")
+}
+
 
 extension UIImage {
   func resized(withBounds bounds: CGSize) -> UIImage {
