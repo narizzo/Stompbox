@@ -33,7 +33,7 @@ class StompboxViewController: UIViewController {
     let fetchedResultsController = NSFetchedResultsController(
       fetchRequest: fetchRequest,
       managedObjectContext: coreDataStack.moc,
-      sectionNameKeyPath: #keyPath(Stompbox.type),
+      sectionNameKeyPath: #keyPath(Stompbox.name),
       cacheName: Constants.stompboxCache)
     
     fetchedResultsController.delegate = self
@@ -222,7 +222,6 @@ extension StompboxViewController: StompboxDetailViewControllerDelegate {
   
   func stompboxDetailViewController(_ controller: StompboxDetailViewController, didFinishAdding stompbox: Stompbox) {
     print("Finished adding")
-    print("Continuous Value: \(stompbox.settings[0].knobs[0].continuousValue)")
     coreDataStack.saveContext()
     navigationController?.popViewController(animated: true)
   }

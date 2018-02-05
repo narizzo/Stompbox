@@ -56,6 +56,31 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   }
   
   @IBAction func done() {
+    func isUniqueName(name: String) -> Bool {
+      let request = Stompbox.fetchRequest() as NSFetchRequest<Stompbox>
+      request.predicate = NSPredicate(format: "name == %@", name)
+      do {
+        // cache?
+        if !(try coreDataStack.moc.fetch(request)).isEmpty {
+          alertPromptNotUniqueStompboxName()
+          return false
+        }
+      } catch let error as NSError {
+        print(error)
+      }
+      return true
+    }
+    
+    func alertPromptNotUniqueStompboxName() {
+      let alert = UIAlertController(title: "Stompboxes must have unique names",
+                                    message: nil,
+                                    preferredStyle: .alert)
+      let okAction = UIAlertAction(title: "OK", style: .default)
+      alert.addAction(okAction)
+      present(alert, animated: true, completion: nil)
+    }
+    
+    
     func updateThumbnail() {
       let filePath = createUniqueJPGFilePath()
       do {
@@ -69,22 +94,17 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       if didPickNewThumbnail { updateThumbnail() }
       delegate?.stompboxDetailViewController(self, didFinishEditing: stompboxToEdit)
     } else {
-      stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
-      stompboxToEdit?.setPropertiesTo(name: stompboxName.text!, type: stompboxType.text!, manufacturer: stompboxManufacturer.text!)
-      stompboxToEdit?.settings.append(Setting())
-      stompboxToEdit?.settings[0].knobs[0].continuousValue = 50
-      if didPickNewThumbnail { updateThumbnail() }
-      delegate?.stompboxDetailViewController(self, didFinishAdding: stompboxToEdit!)
+      if isUniqueName(name: stompboxName.text!) {
+        stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
+        stompboxToEdit?.setPropertiesTo(name: stompboxName.text!, type: stompboxType.text!, manufacturer: stompboxManufacturer.text!)
+        if didPickNewThumbnail { updateThumbnail() }
+        delegate?.stompboxDetailViewController(self, didFinishAdding: stompboxToEdit!)
+      }
     }
   }
   
   @IBAction func changePicture(_ sender: UIButton) {
     showPhotoMenu()
-  }
-  
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
   }
   
   // MARK: - Table view data source
