@@ -209,7 +209,6 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
     print("controller:didChange:atSectionIndex:for:")
     let indexSet = IndexSet(integer: sectionIndex)
-    
     switch type {
     case .insert:
       tableView.insertSections(indexSet, with: .automatic)
