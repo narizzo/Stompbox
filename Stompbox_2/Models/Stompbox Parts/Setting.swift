@@ -1,5 +1,5 @@
 //
-//  Knobs.swift
+//  Setting.swift
 //  Stompbox_2
 //
 //  Created by Nicholas Rizzo on 2/5/18.
@@ -8,9 +8,12 @@
 
 import Foundation
 
-struct Knobs{
-  
+class Setting {
   var knobs = [Knob]()
+  var switches = [Switch]()
   
-  
+  init() {
+    knobs.append(Knob())
+    switches.append(Switch())
+  }
 }

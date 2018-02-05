@@ -222,6 +222,7 @@ extension StompboxViewController: StompboxDetailViewControllerDelegate {
   
   func stompboxDetailViewController(_ controller: StompboxDetailViewController, didFinishAdding stompbox: Stompbox) {
     print("Finished adding")
+    print("Continuous Value: \(stompbox.settings[0].knobs[0].continuousValue)")
     coreDataStack.saveContext()
     navigationController?.popViewController(animated: true)
   }

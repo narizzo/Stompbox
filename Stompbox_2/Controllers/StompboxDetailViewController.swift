@@ -71,6 +71,8 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     } else {
       stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
       stompboxToEdit?.setPropertiesTo(name: stompboxName.text!, type: stompboxType.text!, manufacturer: stompboxManufacturer.text!)
+      stompboxToEdit?.settings.append(Setting())
+      stompboxToEdit?.settings[0].knobs[0].continuousValue = 50
       if didPickNewThumbnail { updateThumbnail() }
       delegate?.stompboxDetailViewController(self, didFinishAdding: stompboxToEdit!)
     }

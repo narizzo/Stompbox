@@ -13,6 +13,9 @@ import CoreData
 
 public class Stompbox: NSManagedObject {
 
+  var settings = [Setting]()
+  let defaultStompboxTypes = ["Acoustic", "Bass Pedal", "Delay", "Distortion", "Dynamic", "Filter", "Modulation", "Overdrive", "Pitch", "Reverb", "Other"]
+  
   func setPropertiesTo(name: String, type: String, manufacturer: String) {
     self.name = name
     self.type = type
