@@ -11,6 +11,7 @@ import UIKit
 class SettingCell: UITableViewCell {
   
   var knobViews = [KnobView]()
+  var parentStompbox: Stompbox!
   
   // gets called if the cell is NOT designed in storyboard
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

@@ -17,7 +17,7 @@ class StompboxViewController: UIViewController {
     static let stompboxCache = "stompboxCache"
     
     static let stompboxCellHeight: CGFloat = 200
-    static let settingCellHeight: CGFloat = 150
+    static let settingCellHeight: CGFloat = 200
   }
   
   fileprivate let stompboxCellIdentifier = "stompboxReuseIdentifier"
@@ -71,23 +71,26 @@ extension StompboxViewController {
 extension StompboxViewController {
   
   func configure(cell: UITableViewCell, for indexPath: IndexPath) {
-    guard let cell = cell as? StompboxCell else {
+    if let cell = cell as? StompboxCell {
+      let stompbox = fetchedResultsController.object(at: indexPath)
+      cell.nameLabel.text = stompbox.name
+      cell.typeLabel.text = stompbox.type
+      cell.manufacturerLabel.text = stompbox.manufacturer
+      
+      var image: UIImage?
+      if let imageFilePath = stompbox.imageFilePath {
+        image = UIImage(contentsOfFile: imageFilePath.path)
+      }
+      if image != nil {
+        cell.stompboxImageView.image = image
+      } else {
+        cell.stompboxImageView.image = #imageLiteral(resourceName: "BD2-large")
+      }
       return
     }
-    let stompbox = fetchedResultsController.object(at: indexPath)
-    cell.nameLabel.text = stompbox.name
-    cell.typeLabel.text = stompbox.type
-    cell.manufacturerLabel.text = stompbox.manufacturer
-    
-    var image: UIImage?
-    if let imageFilePath = stompbox.imageFilePath {
-      image = UIImage(contentsOfFile: imageFilePath.path)
-    }
-    if image != nil {
-      cell.stompboxImageView.image = image
-    } else {
-      cell.stompboxImageView.image = #imageLiteral(resourceName: "BD2-large")
-    }
+    if let cell = cell as? SettingCell {
+      cell.parentStompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
+      }
   }
 }
 
@@ -142,6 +145,7 @@ extension StompboxViewController: UITableViewDataSource {
       return stompboxCell
     } else {
       let settingCell = tableView.dequeueReusableCell(withIdentifier: settingCellReuseIdentifier, for: indexPath)
+      configure(cell: settingCell, for: indexPath)
       return settingCell
     }
   }
