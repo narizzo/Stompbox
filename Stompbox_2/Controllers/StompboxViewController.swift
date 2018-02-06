@@ -15,10 +15,13 @@ class StompboxViewController: UIViewController {
   private struct Constants {
     static let addStompboxSegue = "AddStompboxSegue"
     static let stompboxCache = "stompboxCache"
+    
+    static let stompboxCellHeight: CGFloat = 200
+    static let settingCellHeight: CGFloat = 150
   }
   
   fileprivate let stompboxCellIdentifier = "stompboxReuseIdentifier"
-  fileprivate let addSettingReuseIdentifier = "settingReuseIdentifier"
+  fileprivate let settingCellReuseIdentifier = "settingReuseIdentifier"
 
   var coreDataStack: CoreDataStack!
   var selectedStompbox: Stompbox?
@@ -113,9 +116,6 @@ extension StompboxViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//    guard (fetchedResultsController.fetchedObjects != nil) else {
-//      return 0
-//    }
     guard fetchedResultsController.sections != nil else {
       return 0
     }
@@ -124,20 +124,26 @@ extension StompboxViewController: UITableViewDataSource {
       return 1
     }
     return numberOfRows + 1
-//    guard let sectionInfo = fetchedResultsController.sections?[section] else {
-//      return 0
-//    }
-//    return sectionInfo.numberOfObjects
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 200
+    if indexPath.row == 0 {
+      return Constants.stompboxCellHeight
+    } else {
+      return Constants.settingCellHeight
+    }
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: stompboxCellIdentifier, for: indexPath)
-    configure(cell: cell, for: indexPath)
-    return cell
+    print("CellForRowAt")
+    if indexPath.row == 0 {
+      let stompboxCell = tableView.dequeueReusableCell(withIdentifier: stompboxCellIdentifier, for: indexPath)
+      configure(cell: stompboxCell, for: indexPath)
+      return stompboxCell
+    } else {
+      let settingCell = tableView.dequeueReusableCell(withIdentifier: settingCellReuseIdentifier, for: indexPath)
+      return settingCell
+    }
   }
   
 }
@@ -151,13 +157,18 @@ extension StompboxViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
     if let _ = tableView.cellForRow(at: indexPath) as? StompboxCell {
-      let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
-        self.editStompbox(at: indexPath)
-      }
       let delete = UITableViewRowAction(style: .default, title: "Delete") { action, index in
         self.deleteStompbox(at: indexPath)
       }
-      return [delete, edit]
+      let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
+        self.editStompbox(at: indexPath)
+      }
+      let add = UITableViewRowAction(style: .normal, title: "Add") { action, index in
+        print("Add Setting")
+      }
+      edit.backgroundColor = UIColor.green
+      add.backgroundColor = UIColor.blue
+      return [delete, edit, add]
     } else {
       return nil
     }
@@ -201,10 +212,8 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
       if let cell = tableView.cellForRow(at: indexPath!) as? StompboxCell {
         configure(cell: cell, for: indexPath!)
       }
-      print("Updating a Setting Cell")
-//      if let cell = tableView.cellForRow(at: indexPath!) as? SettingCell {
-//        configure()
-//      }
+      // if let cell = SettingCell...
+
     case .move:
       tableView.deleteRows(at: [indexPath!], with: .automatic)
       tableView.insertRows(at: [newIndexPath!], with: .automatic)
