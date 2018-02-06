@@ -113,10 +113,21 @@ extension StompboxViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    guard let sectionInfo = fetchedResultsController.sections?[section] else {
+//    guard (fetchedResultsController.fetchedObjects != nil) else {
+//      return 0
+//    }
+    guard fetchedResultsController.sections != nil else {
       return 0
     }
-    return sectionInfo.numberOfObjects
+    
+    guard let numberOfRows = fetchedResultsController.fetchedObjects?[section].settings.count else {
+      return 1
+    }
+    return numberOfRows + 1
+//    guard let sectionInfo = fetchedResultsController.sections?[section] else {
+//      return 0
+//    }
+//    return sectionInfo.numberOfObjects
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -187,8 +198,13 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
     case .delete:
       tableView.deleteRows(at: [indexPath!], with: .automatic)
     case .update:
-      let cell = tableView.cellForRow(at: indexPath!) as! StompboxCell
-      configure(cell: cell, for: indexPath!)
+      if let cell = tableView.cellForRow(at: indexPath!) as? StompboxCell {
+        configure(cell: cell, for: indexPath!)
+      }
+      print("Updating a Setting Cell")
+//      if let cell = tableView.cellForRow(at: indexPath!) as? SettingCell {
+//        configure()
+//      }
     case .move:
       tableView.deleteRows(at: [indexPath!], with: .automatic)
       tableView.insertRows(at: [newIndexPath!], with: .automatic)
@@ -196,7 +212,7 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
   }
   
   func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    print("controllerDidChangeContent")
+    print("controllerDidChangeContent:")
     tableView.endUpdates()
   }
   
