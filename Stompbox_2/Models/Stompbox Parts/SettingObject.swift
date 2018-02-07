@@ -8,13 +8,13 @@
 
 import Foundation
 
-class Setting {
-  var knobs = [Knob]()
+class SettingObject {
+  var knobs = [KnobObject]()
   var switches = [Switch]()
   
   init(_ numberOfKnobs: Int, _ numberOfSwitches: Int) {
     for _ in 0..<numberOfKnobs {
-      knobs.append(Knob())
+      knobs.append(KnobObject())
     }
     for _ in 0..<numberOfSwitches {
       switches.append(Switch())

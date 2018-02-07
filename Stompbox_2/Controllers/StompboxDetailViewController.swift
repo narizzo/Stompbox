@@ -82,23 +82,33 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     
     
     func updateThumbnail() {
+      if didPickNewThumbnail {
       let filePath = createUniqueJPGFilePath()
       do {
         try? imageData.write(to: filePath, options: .atomic)
         stompboxToEdit?.imageFilePath = filePath.absoluteURL
+        }
       }
     }
     
     if let stompboxToEdit = stompboxToEdit {
       stompboxToEdit.setPropertiesTo(name: stompboxName.text!, type: stompboxType.text!, manufacturer: stompboxManufacturer.text!)
-      if didPickNewThumbnail { updateThumbnail() }
+      updateThumbnail()
       delegate?.stompboxDetailViewController(self, didFinishEditing: stompboxToEdit)
     } else {
       if isUniqueName(name: stompboxName.text!) {
         stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
         stompboxToEdit?.setPropertiesTo(name: stompboxName.text!, type: stompboxType.text!, manufacturer: stompboxManufacturer.text!)
         stompboxToEdit?.makeSetting(numberOfKnobs: 2, numberOfSwitches: 0)
-        if didPickNewThumbnail { updateThumbnail() }
+        updateThumbnail()
+        
+        let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
+        if let stompboxToEdit = stompboxToEdit {
+          setting.stompbox = stompboxToEdit
+        }
+        print("Stompbox has been given a setting")
+        print(stompboxToEdit?.settings?.count)
+        
         delegate?.stompboxDetailViewController(self, didFinishAdding: stompboxToEdit!)
       }
     }

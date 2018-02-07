@@ -13,7 +13,6 @@ import CoreData
 
 public class Stompbox: NSManagedObject {
 
-  var settings = [Setting]()
   let defaultStompboxTypes = ["Acoustic", "Bass Pedal", "Delay", "Distortion", "Dynamic", "Filter", "Modulation", "Overdrive", "Pitch", "Reverb", "Other"]
   
   func setPropertiesTo(name: String, type: String, manufacturer: String) {
@@ -23,6 +22,6 @@ public class Stompbox: NSManagedObject {
   }
   
   func makeSetting(numberOfKnobs: Int, numberOfSwitches: Int) {
-    settings.append(Setting(numberOfKnobs, numberOfSwitches))
+    //settings.append(Setting(numberOfKnobs, numberOfSwitches))
   }
 }

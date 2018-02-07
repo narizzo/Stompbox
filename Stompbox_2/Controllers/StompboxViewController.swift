@@ -119,13 +119,16 @@ extension StompboxViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    print("numberOfRowsInSection")
     guard fetchedResultsController.sections != nil else {
+      print("FRC: no sections")
       return 0
     }
-    
-    guard let numberOfRows = fetchedResultsController.fetchedObjects?[section].settings.count else {
+    guard let numberOfRows = fetchedResultsController.fetchedObjects?[section].settings?.count else {
+      print("FRC: no settings objects in Stompboxes")
       return 1
     }
+    print("FRC: Everything is in order for the data source.  Number of rows \(numberOfRows + 1)")
     return numberOfRows + 1
   }
   

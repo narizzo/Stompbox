@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Knob: Codable {
+struct KnobObject: Codable {
   var continuousValue: Int = 0
   var bipolarValue: Int = 0
   var type: Int = 0

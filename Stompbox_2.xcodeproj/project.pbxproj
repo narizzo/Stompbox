@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		017D97A0202BB096009F2F7E /* Setting+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D979E202BB096009F2F7E /* Setting+CoreDataClass.swift */; };
+		017D97A1202BB096009F2F7E /* Setting+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D979F202BB096009F2F7E /* Setting+CoreDataProperties.swift */; };
 		01A58F3B200FF4DD00DD5BF3 /* StompboxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */; };
 		01CAEB76202385E200AC556B /* Stompbox+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB72202385E200AC556B /* Stompbox+CoreDataClass.swift */; };
 		01CAEB77202385E200AC556B /* Stompbox+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB73202385E200AC556B /* Stompbox+CoreDataProperties.swift */; };
 		01CAEB7B2023866400AC556B /* Knob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB7A2023866400AC556B /* Knob.swift */; };
 		01CAEB802023AFCB00AC556B /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB7F2023AFCB00AC556B /* Switch.swift */; };
-		01CAEB882028B8B500AC556B /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB872028B8B500AC556B /* Setting.swift */; };
+		01CAEB882028B8B500AC556B /* SettingObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB872028B8B500AC556B /* SettingObject.swift */; };
 		01CAEB8F202A427800AC556B /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB8E202A427800AC556B /* SettingCell.swift */; };
 		01CAEB91202A42FE00AC556B /* KnobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB90202A42FE00AC556B /* KnobView.swift */; };
 		01EB574F2000123700686767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB574E2000123700686767 /* AppDelegate.swift */; };
@@ -27,12 +29,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		017D979E202BB096009F2F7E /* Setting+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Setting+CoreDataClass.swift"; sourceTree = "<group>"; };
+		017D979F202BB096009F2F7E /* Setting+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Setting+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxDetailViewController.swift; sourceTree = "<group>"; };
 		01CAEB72202385E200AC556B /* Stompbox+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stompbox+CoreDataClass.swift"; sourceTree = "<group>"; };
 		01CAEB73202385E200AC556B /* Stompbox+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stompbox+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		01CAEB7A2023866400AC556B /* Knob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Knob.swift; sourceTree = "<group>"; };
 		01CAEB7F2023AFCB00AC556B /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
-		01CAEB872028B8B500AC556B /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		01CAEB872028B8B500AC556B /* SettingObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingObject.swift; sourceTree = "<group>"; };
 		01CAEB8E202A427800AC556B /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		01CAEB90202A42FE00AC556B /* KnobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobView.swift; sourceTree = "<group>"; };
 		01EB574B2000123700686767 /* Stompbox_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stompbox_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,7 +102,7 @@
 		01CAEB8A2028BBD100AC556B /* Stompbox Parts */ = {
 			isa = PBXGroup;
 			children = (
-				01CAEB872028B8B500AC556B /* Setting.swift */,
+				01CAEB872028B8B500AC556B /* SettingObject.swift */,
 				01CAEB7A2023866400AC556B /* Knob.swift */,
 				01CAEB7F2023AFCB00AC556B /* Switch.swift */,
 			);
@@ -108,6 +112,8 @@
 		01EB57422000123700686767 = {
 			isa = PBXGroup;
 			children = (
+				017D979E202BB096009F2F7E /* Setting+CoreDataClass.swift */,
+				017D979F202BB096009F2F7E /* Setting+CoreDataProperties.swift */,
 				01CAEB72202385E200AC556B /* Stompbox+CoreDataClass.swift */,
 				01CAEB73202385E200AC556B /* Stompbox+CoreDataProperties.swift */,
 				01EB57552000123700686767 /* Stompbox_2.xcdatamodeld */,
@@ -217,11 +223,13 @@
 				01CAEB91202A42FE00AC556B /* KnobView.swift in Sources */,
 				01EB57572000123700686767 /* Stompbox_2.xcdatamodeld in Sources */,
 				01EB574F2000123700686767 /* AppDelegate.swift in Sources */,
-				01CAEB882028B8B500AC556B /* Setting.swift in Sources */,
+				01CAEB882028B8B500AC556B /* SettingObject.swift in Sources */,
 				01EB576C2000578800686767 /* StompboxCell.swift in Sources */,
 				01EB57642000130C00686767 /* Functions.swift in Sources */,
+				017D97A1202BB096009F2F7E /* Setting+CoreDataProperties.swift in Sources */,
 				01CAEB8F202A427800AC556B /* SettingCell.swift in Sources */,
 				01CAEB7B2023866400AC556B /* Knob.swift in Sources */,
+				017D97A0202BB096009F2F7E /* Setting+CoreDataClass.swift in Sources */,
 				01CAEB802023AFCB00AC556B /* Switch.swift in Sources */,
 				01EB576A2000562800686767 /* StompboxViewController.swift in Sources */,
 				01A58F3B200FF4DD00DD5BF3 /* StompboxDetailViewController.swift in Sources */,
