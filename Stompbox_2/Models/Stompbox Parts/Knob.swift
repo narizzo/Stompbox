@@ -8,15 +8,8 @@
 
 import Foundation
 
-struct Knob {
+struct Knob: Codable {
   var continuousValue: Int = 0
   var bipolarValue: Int = 0
-  var type: KnobType = .continuous
-  
-  enum KnobType {
-    case continuous
-    case bipolar
-  }
-  
-  
+  var type: Int = 0
 }
