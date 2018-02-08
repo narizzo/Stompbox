@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		017D97A0202BB096009F2F7E /* Setting+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D979E202BB096009F2F7E /* Setting+CoreDataClass.swift */; };
 		017D97A1202BB096009F2F7E /* Setting+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D979F202BB096009F2F7E /* Setting+CoreDataProperties.swift */; };
+		017D97A3202CC087009F2F7E /* Knobs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D97A2202CC087009F2F7E /* Knobs.swift */; };
 		01A58F3B200FF4DD00DD5BF3 /* StompboxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */; };
 		01CAEB76202385E200AC556B /* Stompbox+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB72202385E200AC556B /* Stompbox+CoreDataClass.swift */; };
 		01CAEB77202385E200AC556B /* Stompbox+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB73202385E200AC556B /* Stompbox+CoreDataProperties.swift */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		017D979E202BB096009F2F7E /* Setting+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Setting+CoreDataClass.swift"; sourceTree = "<group>"; };
 		017D979F202BB096009F2F7E /* Setting+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Setting+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		017D97A2202CC087009F2F7E /* Knobs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Knobs.swift; sourceTree = "<group>"; };
 		01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxDetailViewController.swift; sourceTree = "<group>"; };
 		01CAEB72202385E200AC556B /* Stompbox+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stompbox+CoreDataClass.swift"; sourceTree = "<group>"; };
 		01CAEB73202385E200AC556B /* Stompbox+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stompbox+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -76,7 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				01EB576D200058D700686767 /* CoreDataStack.swift */,
-				01CAEB8A2028BBD100AC556B /* Stompbox Parts */,
+				01CAEB8A2028BBD100AC556B /* Setting */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -99,14 +101,15 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		01CAEB8A2028BBD100AC556B /* Stompbox Parts */ = {
+		01CAEB8A2028BBD100AC556B /* Setting */ = {
 			isa = PBXGroup;
 			children = (
 				01CAEB872028B8B500AC556B /* SettingObject.swift */,
 				01CAEB7A2023866400AC556B /* Knob.swift */,
 				01CAEB7F2023AFCB00AC556B /* Switch.swift */,
+				017D97A2202CC087009F2F7E /* Knobs.swift */,
 			);
-			path = "Stompbox Parts";
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		01EB57422000123700686767 = {
@@ -226,6 +229,7 @@
 				01CAEB882028B8B500AC556B /* SettingObject.swift in Sources */,
 				01EB576C2000578800686767 /* StompboxCell.swift in Sources */,
 				01EB57642000130C00686767 /* Functions.swift in Sources */,
+				017D97A3202CC087009F2F7E /* Knobs.swift in Sources */,
 				017D97A1202BB096009F2F7E /* Setting+CoreDataProperties.swift in Sources */,
 				01CAEB8F202A427800AC556B /* SettingCell.swift in Sources */,
 				01CAEB7B2023866400AC556B /* Knob.swift in Sources */,

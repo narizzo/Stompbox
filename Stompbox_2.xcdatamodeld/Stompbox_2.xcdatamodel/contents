@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17C88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Setting" representedClassName="Setting" syncable="YES">
         <attribute name="knobs" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="switches" optional="YES" attributeType="Transformable" syncable="YES"/>
         <relationship name="stompbox" maxCount="1" deletionRule="Nullify" destinationEntity="Stompbox" inverseName="settings" inverseEntity="Stompbox" syncable="YES"/>
     </entity>
@@ -14,6 +15,6 @@
     </entity>
     <elements>
         <element name="Stompbox" positionX="-63" positionY="-18" width="128" height="120"/>
-        <element name="Setting" positionX="-63" positionY="9" width="128" height="90"/>
+        <element name="Setting" positionX="-63" positionY="9" width="128" height="105"/>
     </elements>
 </model>

@@ -17,7 +17,6 @@ extension Setting {
         return NSFetchRequest<Setting>(entityName: "Setting")
     }
 
-    @NSManaged public var knobs: NSObject?
     @NSManaged public var switches: NSObject?
     @NSManaged public var stompbox: Stompbox
 

@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Unused
 class SettingObject {
   var knobs = [KnobObject]()
   var switches = [Switch]()

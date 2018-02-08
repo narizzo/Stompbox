@@ -21,7 +21,7 @@ public class Stompbox: NSManagedObject {
     self.manufacturer = manufacturer
   }
   
-  func makeSetting(numberOfKnobs: Int, numberOfSwitches: Int) {
-    //settings.append(Setting(numberOfKnobs, numberOfSwitches))
-  }
+//  func makeSetting(numberOfKnobs: Int, numberOfSwitches: Int) {
+//    //settings.append(Setting(numberOfKnobs, numberOfSwitches))
+//  }
 }

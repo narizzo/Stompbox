@@ -99,10 +99,11 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       if isUniqueName(name: stompboxName.text!) {
         stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
         stompboxToEdit?.setPropertiesTo(name: stompboxName.text!, type: stompboxType.text!, manufacturer: stompboxManufacturer.text!)
-        stompboxToEdit?.makeSetting(numberOfKnobs: 2, numberOfSwitches: 0)
+        //stompboxToEdit?.makeSetting(numberOfKnobs: 2, numberOfSwitches: 0)
         updateThumbnail()
         
         let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
+        
         if let stompboxToEdit = stompboxToEdit {
           setting.stompbox = stompboxToEdit
         }
