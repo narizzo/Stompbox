@@ -8,8 +8,32 @@
 
 import Foundation
 
-struct Knob: Codable {
-  var continuousValue: Int = 0
-  var bipolarValue: Int = 0
-  var type: Int = 0
+class Knob: NSObject, NSCoding {
+  
+    var continuousValue: Int = 0
+    var bipolarValue: Int = 0
+    var type: Int = 0
+  
+  func encode(with aCoder: NSCoder) {
+     aCoder.encode(continuousValue, forKey: "continuousValue")
+    aCoder.encode(bipolarValue, forKey: "bipolarValue")
+    aCoder.encode(type, forKey: "type")
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+     continuousValue = aDecoder.decodeObject(forKey: "continuousValue") as! Int
+     bipolarValue = aDecoder.decodeObject(forKey: "bipolarValue") as! Int
+     type = aDecoder.decodeObject(forKey: "type") as! Int
+  }
+  
+  override init() {
+  }
+  
+  
 }
+//struct Knob: Codable {
+//  var continuousValue: Int = 0
+//  var bipolarValue: Int = 0
+//  var type: Int = 0
+//}
+

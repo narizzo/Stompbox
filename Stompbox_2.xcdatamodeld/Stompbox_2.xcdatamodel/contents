@@ -11,7 +11,7 @@
         <attribute name="manufacturer" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="settings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Setting" inverseName="stompbox" inverseEntity="Setting" syncable="YES"/>
+        <relationship name="settings" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Setting" inverseName="stompbox" inverseEntity="Setting" syncable="YES"/>
     </entity>
     <elements>
         <element name="Stompbox" positionX="-63" positionY="-18" width="128" height="120"/>

@@ -12,6 +12,5 @@ import CoreData
 
 @objc(Setting)
 public class Setting: NSManagedObject {
-
-  var knobs: Knobs?
+  
 }

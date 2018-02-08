@@ -73,6 +73,15 @@ extension StompboxViewController {
   func configure(cell: UITableViewCell, for indexPath: IndexPath) {
     if let cell = cell as? StompboxCell {
       let stompbox = fetchedResultsController.object(at: indexPath)
+      
+      let settingsArray = stompbox.settings?.allObjects
+      if let settingsArray = settingsArray {
+        if let aSetting = settingsArray.first as? Setting {
+          print("Number of knobs \(aSetting.knobs?.knobsList.count)")
+          //print("\(aSetting.knobs.knobsList[0].continuousValue)")
+        }
+      }
+      
       cell.nameLabel.text = stompbox.name
       cell.typeLabel.text = stompbox.type
       cell.manufacturerLabel.text = stompbox.manufacturer
@@ -191,6 +200,7 @@ extension StompboxViewController: UITableViewDelegate {
         print("Error removing file: \(error)")
       }
     }
+    
     coreDataStack.moc.delete(stompbox)
     coreDataStack.saveContext()
   }
