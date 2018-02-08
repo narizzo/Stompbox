@@ -10,14 +10,13 @@
 import Foundation
 import CoreData
 
-
 extension Setting {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Setting> {
         return NSFetchRequest<Setting>(entityName: "Setting")
     }
   
-    @NSManaged var knobs: Knobs?
+    @NSManaged public var knobs: Knobs?
     @NSManaged public var switches: NSObject?
     @NSManaged public var stompbox: Stompbox
 

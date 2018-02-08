@@ -78,7 +78,7 @@ extension StompboxViewController {
       if let settingsArray = settingsArray {
         if let aSetting = settingsArray.first as? Setting {
           print("Number of knobs \(aSetting.knobs?.knobsList.count)")
-          //print("\(aSetting.knobs.knobsList[0].continuousValue)")
+          print("\(aSetting.knobs?.knobsList[0].continuousValue)")
         }
       }
       

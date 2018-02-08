@@ -102,11 +102,12 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
         //stompboxToEdit?.makeSetting(numberOfKnobs: 2, numberOfSwitches: 0)
         updateThumbnail()
         
-        print("Making setting")
+        print("********* \nMaking setting")
         let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
         setting.knobs = Knobs.init()
         setting.knobs?.addKnob()
         setting.knobs?.knobsList[0].continuousValue = 50
+        print(setting.knobs?.knobsList[0].continuousValue)
         print("Finished making setting")
 //        print("Adding a knob to the setting")
 //        setting.knobs.addKnob()
@@ -119,6 +120,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
         }
         print("Stompbox has been given a setting")
         print(stompboxToEdit?.settings?.count)
+        print("**********")
         
         delegate?.stompboxDetailViewController(self, didFinishAdding: stompboxToEdit!)
       }

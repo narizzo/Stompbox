@@ -8,15 +8,15 @@
 
 import Foundation
 
-class Knobs: NSObject, NSCoding {
+public class Knobs: NSObject, NSCoding {
   
   var knobsList: [Knob]
   
-  func encode(with aCoder: NSCoder) {
+  public func encode(with aCoder: NSCoder) {
     aCoder.encode(knobsList, forKey: "knobsList")
   }
   
-  required init?(coder aDecoder: NSCoder) {
+  public required init?(coder aDecoder: NSCoder) {
     knobsList = aDecoder.decodeObject(forKey: "knobsList") as! [Knob]
   }
   
