@@ -128,7 +128,6 @@ extension StompboxViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    print("numberOfRowsInSection")
     guard fetchedResultsController.sections != nil else {
       print("FRC: no sections")
       return 0
