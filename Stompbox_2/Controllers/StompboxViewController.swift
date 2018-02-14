@@ -70,15 +70,15 @@ extension StompboxViewController {
 // MARK: - Internal
 extension StompboxViewController {
   
-  func configure(cell: UITableViewCell, for indexPath: IndexPath) {
+  func configure(_ cell: UITableViewCell, for indexPath: IndexPath) {
     if let cell = cell as? StompboxCell {
       let stompbox = fetchedResultsController.object(at: indexPath)
       
       let settingsArray = stompbox.settings?.allObjects
       if let settingsArray = settingsArray {
         if let aSetting = settingsArray.first as? Setting {
-          print("Number of knobs \(aSetting.knobs?.knobsList.count)")
-          print("\(aSetting.knobs?.knobsList[0].continuousValue)")
+         // print("Number of knobs \(aSetting.knobs?.knobsList.count)")
+         // print("\(aSetting.knobs?.knobsList[0].continuousValue)")
         }
       }
       
@@ -129,14 +129,14 @@ extension StompboxViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     guard fetchedResultsController.sections != nil else {
-      print("FRC: no sections")
+     // print("FRC: no sections")
       return 0
     }
     guard let numberOfRows = fetchedResultsController.fetchedObjects?[section].settings?.count else {
-      print("FRC: no settings objects in Stompboxes")
+     // print("FRC: no settings objects in Stompboxes")
       return 1
     }
-    print("FRC: Everything is in order for the data source.  Number of rows \(numberOfRows + 1)")
+    //print("FRC: Everything is in order for the data source.  Number of rows \(numberOfRows + 1)")
     return numberOfRows + 1
   }
   
@@ -149,14 +149,14 @@ extension StompboxViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    print("CellForRowAt")
+    //print("CellForRowAt")
     if indexPath.row == 0 {
       let stompboxCell = tableView.dequeueReusableCell(withIdentifier: stompboxCellIdentifier, for: indexPath)
-      configure(cell: stompboxCell, for: indexPath)
+      configure(stompboxCell, for: indexPath)
       return stompboxCell
     } else {
       let settingCell = tableView.dequeueReusableCell(withIdentifier: settingCellReuseIdentifier, for: indexPath)
-      configure(cell: settingCell, for: indexPath)
+      configure(settingCell, for: indexPath)
       return settingCell
     }
   }
@@ -213,12 +213,12 @@ extension StompboxViewController: UITableViewDelegate {
 // MARK: - NSFetchedResultsControllerDelegate
 extension StompboxViewController: NSFetchedResultsControllerDelegate {
   func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    print("controllerWillChangeContent:")
+   // print("controllerWillChangeContent:")
     tableView.beginUpdates()
   }
   
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-    print("controller:didChange:at:for:")
+  //  print("controller:didChange:at:for:")
     switch type {
     case .insert:
       tableView.insertRows(at: [newIndexPath!], with: .automatic)
@@ -226,7 +226,7 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
       tableView.deleteRows(at: [indexPath!], with: .automatic)
     case .update:
       if let cell = tableView.cellForRow(at: indexPath!) as? StompboxCell {
-        configure(cell: cell, for: indexPath!)
+        configure(cell, for: indexPath!)
       }
       // if let cell = SettingCell...
 
@@ -237,12 +237,12 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
   }
   
   func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    print("controllerDidChangeContent:")
+  //  print("controllerDidChangeContent:")
     tableView.endUpdates()
   }
   
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-    print("controller:didChange:atSectionIndex:for:")
+   // print("controller:didChange:atSectionIndex:for:")
     let indexSet = IndexSet(integer: sectionIndex)
     switch type {
     case .insert:

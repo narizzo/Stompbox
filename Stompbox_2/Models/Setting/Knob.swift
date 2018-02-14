@@ -26,14 +26,9 @@ class Knob: NSObject, NSCoding {
     type = aDecoder.decodeInteger(forKey: "type")
   }
   
+  // necessary??
   override init() {
   }
   
   
 }
-//struct Knob: Codable {
-//  var continuousValue: Int = 0
-//  var bipolarValue: Int = 0
-//  var type: Int = 0
-//}
-

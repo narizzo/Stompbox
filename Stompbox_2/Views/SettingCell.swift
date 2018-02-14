@@ -13,6 +13,9 @@ class SettingCell: UITableViewCell {
   var knobViews = [KnobView]()
   var parentStompbox: Stompbox!
   
+//  let knobFrame0 = CGRect(x: 0, y: 0, width: 100, height: 100)
+//  let knobFrame1 = CGRect(x: 0, y: 100, width: 100, height: 100)
+  
   // gets called if the cell is NOT designed in storyboard
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -21,16 +24,18 @@ class SettingCell: UITableViewCell {
   
   // gets called if the cell is ONLY designed in storyboard
   required init?(coder aDecoder: NSCoder) {
-//    print("SettingCell")
-//   fatalError("init(coder:) has not been implemented")
     super.init(coder: aDecoder)
     setup()
   }
   
   func setup() {
-    knobViews.append(KnobView(frame: self.bounds))
-    print(knobViews.first!.debugDescription)
-    contentView.addSubview(knobViews.first!)
-    //addSubview(knobViews.first!)
+    let testKnob = KnobView(frame: self.frame)
+    knobViews.append(testKnob)
+    contentView.addSubview(testKnob)
+    testKnob.update(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+  }
+  
+  func configureKnobPositions() {
+    
   }
 }

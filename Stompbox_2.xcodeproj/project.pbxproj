@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0148870C20347F35001C74C6 /* KnobRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148870B20347F35001C74C6 /* KnobRenderer.swift */; };
+		0173E6A82034845E00CD9587 /* RotationGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173E6A72034845E00CD9587 /* RotationGestureRecognizer.swift */; };
 		017D97A0202BB096009F2F7E /* Setting+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D979E202BB096009F2F7E /* Setting+CoreDataClass.swift */; };
 		017D97A1202BB096009F2F7E /* Setting+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D979F202BB096009F2F7E /* Setting+CoreDataProperties.swift */; };
 		017D97A3202CC087009F2F7E /* Knobs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D97A2202CC087009F2F7E /* Knobs.swift */; };
@@ -30,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0148870B20347F35001C74C6 /* KnobRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobRenderer.swift; sourceTree = "<group>"; };
+		0173E6A72034845E00CD9587 /* RotationGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationGestureRecognizer.swift; sourceTree = "<group>"; };
 		017D979E202BB096009F2F7E /* Setting+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Setting+CoreDataClass.swift"; sourceTree = "<group>"; };
 		017D979F202BB096009F2F7E /* Setting+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Setting+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		017D97A2202CC087009F2F7E /* Knobs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Knobs.swift; sourceTree = "<group>"; };
@@ -89,6 +93,8 @@
 				01EB576B2000578800686767 /* StompboxCell.swift */,
 				01CAEB8E202A427800AC556B /* SettingCell.swift */,
 				01CAEB90202A42FE00AC556B /* KnobView.swift */,
+				0148870B20347F35001C74C6 /* KnobRenderer.swift */,
+				0173E6A72034845E00CD9587 /* RotationGestureRecognizer.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -105,9 +111,9 @@
 			isa = PBXGroup;
 			children = (
 				01CAEB872028B8B500AC556B /* SettingObject.swift */,
+				017D97A2202CC087009F2F7E /* Knobs.swift */,
 				01CAEB7A2023866400AC556B /* Knob.swift */,
 				01CAEB7F2023AFCB00AC556B /* Switch.swift */,
-				017D97A2202CC087009F2F7E /* Knobs.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -231,11 +237,13 @@
 				01EB57642000130C00686767 /* Functions.swift in Sources */,
 				017D97A3202CC087009F2F7E /* Knobs.swift in Sources */,
 				017D97A1202BB096009F2F7E /* Setting+CoreDataProperties.swift in Sources */,
+				0148870C20347F35001C74C6 /* KnobRenderer.swift in Sources */,
 				01CAEB8F202A427800AC556B /* SettingCell.swift in Sources */,
 				01CAEB7B2023866400AC556B /* Knob.swift in Sources */,
 				017D97A0202BB096009F2F7E /* Setting+CoreDataClass.swift in Sources */,
 				01CAEB802023AFCB00AC556B /* Switch.swift in Sources */,
 				01EB576A2000562800686767 /* StompboxViewController.swift in Sources */,
+				0173E6A82034845E00CD9587 /* RotationGestureRecognizer.swift in Sources */,
 				01A58F3B200FF4DD00DD5BF3 /* StompboxDetailViewController.swift in Sources */,
 				01CAEB76202385E200AC556B /* Stompbox+CoreDataClass.swift in Sources */,
 			);
