@@ -12,6 +12,7 @@ extension KnobView {
   
   class RotationGestureRecognizer: UIPanGestureRecognizer {
     var rotation: CGFloat = 0.0
+    var isActive = false
     //var initialTouchPosition =
     
     func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -41,6 +42,10 @@ extension KnobView {
     func rotationForLocation(location: CGPoint) -> CGFloat {
       let offset = CGPoint(x: location.x - view!.bounds.midX, y: location.y - view!.bounds.midY)
       return atan2(offset.y, offset.x)
+    }
+    
+    func toggleIsActive() {
+      isActive = !isActive
     }
   }
 }

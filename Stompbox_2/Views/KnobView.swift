@@ -12,16 +12,18 @@ class KnobView: UIControl {
   
   // MARK: - Instance Variables
   private let knobRenderer = KnobRenderer()
+  private var percentLabel = PercentLabel()
   private var backingValue: Float = 0.0
-  private var valueLabel = UILabel()
+  private var rotationRecognizer: RotationGestureRecognizer?
+  private var rotationRec: UIPanGestureRecognizer?
   
-  /** Contains the receiver’s current value. */
+  public var stompboxTableView: UITableView?
+  
   public var value: Float {
     get { return backingValue }
     set { setValue(value: newValue, animated: true) }
   }
   
-  /** Sets the receiver’s current value, allowing you to animate the change visually. */
   public func setValue(value: Float, animated: Bool) {
     if value != backingValue {
       self.backingValue = min(maximumValue, max(minimumValue, value))
@@ -34,7 +36,6 @@ class KnobView: UIControl {
   
   public var minimumValue: Float = 0.0
   public var maximumValue: Float = 1.0
-  public var continuous = true
   
   /** Defaults to -11π/8 */
   public var startAngle: CGFloat {
@@ -48,44 +49,43 @@ class KnobView: UIControl {
     set { knobRenderer.endAngle = newValue }
   }
   
-  /** Specifies the width in points of the knob control track. Defaults to 2.0 */
   public var lineWidth: CGFloat {
     get { return knobRenderer.lineWidth }
     set { knobRenderer.lineWidth = newValue }
   }
   
-  /** Specifies the length in points of the pointer on the knob. Defaults to 6.0 */
   public var pointerLength: CGFloat {
     get { return knobRenderer.pointerLength }
     set { knobRenderer.pointerLength = newValue }
   }
   
+  // MARK: - Init & Setup
   public override init(frame: CGRect) {
     super.init(frame: frame)
-    updateFrames(frame)
-    createSublayers()
-    updateKnobValueLabel()
-    
-    changeFillColor(to: UIColor.clear)
-    changeStrokeColor(to: UIColor.white)
-    
-    let gestureRecog = RotationGestureRecognizer(target: self, action: #selector(handleRotation))
-    let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-    self.addGestureRecognizer(gestureRecog)
-    self.addGestureRecognizer(tapRecognizer)
-    
-    addTarget(self, action: #selector(knobValueChanged), for: .valueChanged)
+    setup(with: frame)
     print("Knob View init from frame:")
   }
   
   public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    updateKnobValueLabel()
+    setup(with: nil)
     print("Knob View init from coder:")
   }
   
-  func updateFrames(_ frames: CGRect) {
-    
+  public func setup(with frame: CGRect?) {
+    self.addSubview(percentLabel)
+    if let frame = frame {
+      updateAllFrames(frame)
+    }
+    percentLabel.update(text: self.value)
+    createSublayers()
+    createGestureRecognizers()
+  }
+  
+  public func updateAllFrames(_ frame: CGRect) {
+    self.frame = frame
+    knobRenderer.update(frame: frame)
+    percentLabel.frame = frame
   }
   
   func createSublayers() {
@@ -101,26 +101,20 @@ class KnobView: UIControl {
     layer.addSublayer(knobRenderer.pointerLayer)
   }
   
-  func updateKnobValueLabel() {
-    valueLabel.text = NumberFormatter.localizedString(from: NSNumber(value: value), number: .percent)
-    valueLabel.textColor = UIColor.black
-    valueLabel.backgroundColor = UIColor.clear
-    valueLabel.textAlignment = .center
-    self.addSubview(valueLabel)
+  func createGestureRecognizers() {
+    rotationRecognizer = RotationGestureRecognizer(target: self, action: #selector(handleRotation))
+    let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+    self.addGestureRecognizer(tapRecognizer)
+    
+    addTarget(self, action: #selector(knobValueChanged), for: .valueChanged)
   }
   
-  func updateValueLabelFrame(with newFrame: CGRect) {
-    valueLabel.frame = newFrame
-  }
-  
-  public func update(frame newFrame: CGRect) {
-    self.frame = newFrame
-    knobRenderer.update(frame: newFrame)
-    updateValueLabelFrame(with: newFrame)
-  }
-  
+  // MARK: - Gesture Methods
   @objc func handleRotation(sender: AnyObject) {
+    print("HANDLE ROTATION")
     let gr = sender as! RotationGestureRecognizer
+    
+    
     let midPointAngle = (2.0 * CGFloat(Double.pi) + self.startAngle - self.endAngle) / 2.0 + self.endAngle
     
     var boundedAngle = gr.rotation
@@ -129,29 +123,33 @@ class KnobView: UIControl {
     } else if boundedAngle < (midPointAngle - 2.0 * CGFloat(Double.pi)) {
       boundedAngle += 2 * CGFloat(Double.pi)
     }
-    
+
     boundedAngle = min(self.endAngle, max(self.startAngle, boundedAngle))
-    
+
     let angleRange = endAngle - startAngle
     let valueRange = maximumValue - minimumValue
     let valueForAngle = Float(boundedAngle - startAngle) / Float(angleRange) * valueRange + minimumValue
     self.value = valueForAngle
-    
-    if continuous {
-      sendActions(for: .valueChanged)
+
+    sendActions(for: .valueChanged)
+  }
+  
+  @objc func handleTap(sender: AnyObject) {
+    if let rotationRecognizer = rotationRecognizer, let stompboxTableView = stompboxTableView {
+      rotationRecognizer.toggleIsActive()
+    if rotationRecognizer.isActive {
+      stompboxTableView.addGestureRecognizer(rotationRecognizer)
+      print("rotation recognizer ADDED to stompboxtableview")
     } else {
-      if (gr.state == UIGestureRecognizerState.ended) || (gr.state == UIGestureRecognizerState.cancelled) {
-        sendActions(for: .valueChanged)
+      stompboxTableView.removeGestureRecognizer(rotationRecognizer)
+      print("rotation recognizer REMOVED from stompboxtableview")
       }
     }
   }
   
-  @objc func handleTap(sender: AnyObject) {
-    print("Handle Tap")
-  }
-  
+  // MARK: - Update Percent Label - UNUSED
   @objc func knobValueChanged() {
-    updateKnobValueLabel()
+    percentLabel.update(text: self.value)
   }
   
   // MARK: - Colors

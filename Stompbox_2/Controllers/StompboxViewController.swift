@@ -74,13 +74,13 @@ extension StompboxViewController {
     if let cell = cell as? StompboxCell {
       let stompbox = fetchedResultsController.object(at: indexPath)
       
-      let settingsArray = stompbox.settings?.allObjects
-      if let settingsArray = settingsArray {
-        if let aSetting = settingsArray.first as? Setting {
-         // print("Number of knobs \(aSetting.knobs?.knobsList.count)")
-         // print("\(aSetting.knobs?.knobsList[0].continuousValue)")
-        }
-      }
+//      let settingsArray = stompbox.settings?.allObjects
+//      if let settingsArray = settingsArray {
+//        if let aSetting = settingsArray.first as? Setting {
+//         // print("Number of knobs \(aSetting.knobs?.knobsList.count)")
+//         // print("\(aSetting.knobs?.knobsList[0].continuousValue)")
+//        }
+//      }
       
       cell.nameLabel.text = stompbox.name
       cell.typeLabel.text = stompbox.type
@@ -99,6 +99,7 @@ extension StompboxViewController {
     }
     if let cell = cell as? SettingCell {
       cell.parentStompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
+      cell.stompboxTableView = self.tableView
       }
   }
 }

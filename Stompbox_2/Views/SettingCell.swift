@@ -12,6 +12,13 @@ class SettingCell: UITableViewCell {
   
   var knobViews = [KnobView]()
   var parentStompbox: Stompbox!
+  var stompboxTableView: UITableView! {
+    didSet {
+      for knobView in knobViews {
+        knobView.stompboxTableView = self.stompboxTableView
+      }
+    }
+  }
   
 //  let knobFrame0 = CGRect(x: 0, y: 0, width: 100, height: 100)
 //  let knobFrame1 = CGRect(x: 0, y: 100, width: 100, height: 100)
@@ -29,10 +36,12 @@ class SettingCell: UITableViewCell {
   }
   
   func setup() {
-    let testKnob = KnobView(frame: self.frame)
+    let testKnob = KnobView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+    testKnob.changeFillColor(to: UIColor.clear)
+    testKnob.changeStrokeColor(to: UIColor.white)
+    
     knobViews.append(testKnob)
     contentView.addSubview(testKnob)
-    testKnob.update(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
   }
   
   func configureKnobPositions() {
