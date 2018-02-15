@@ -99,7 +99,9 @@ extension StompboxViewController {
     }
     if let cell = cell as? SettingCell {
       cell.parentStompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
-      cell.stompboxTableView = self.tableView
+      cell.stompboxVCView = self.view
+      print("1 : \(self.view)")
+      print("2 : \(cell.stompboxVCView)")
       }
   }
 }

@@ -11,13 +11,20 @@ import UIKit
 class KnobView: UIControl {
   
   // MARK: - Instance Variables
+  var stompboxVCView: UIView! {
+    didSet {
+      overlayView = UIView(frame: stompboxVCView.frame)
+      overlayView.addGestureRecognizer(panRecognizer)
+      overlayView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOverlayViewTap)))
+    }
+  }
+  var overlayView: UIView!
+  
   private let knobRenderer = KnobRenderer()
   private var percentLabel = PercentLabel()
   private var backingValue: Float = 0.0
-  private var rotationRecognizer: RotationGestureRecognizer?
-  private var rotationRec: UIPanGestureRecognizer?
-  
-  public var stompboxTableView: UITableView?
+  private var panRecognizer: UIPanGestureRecognizer!
+  private var isKnobFocused = false
   
   public var value: Float {
     get { return backingValue }
@@ -73,7 +80,9 @@ class KnobView: UIControl {
   }
   
   public func setup(with frame: CGRect?) {
+    
     self.addSubview(percentLabel)
+    
     if let frame = frame {
       updateAllFrames(frame)
     }
@@ -102,49 +111,54 @@ class KnobView: UIControl {
   }
   
   func createGestureRecognizers() {
-    rotationRecognizer = RotationGestureRecognizer(target: self, action: #selector(handleRotation))
+    panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+    panRecognizer.maximumNumberOfTouches = 1
+    panRecognizer.minimumNumberOfTouches = 1
+    
     let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
     self.addGestureRecognizer(tapRecognizer)
     
     addTarget(self, action: #selector(knobValueChanged), for: .valueChanged)
   }
   
-  // MARK: - Gesture Methods
-  @objc func handleRotation(sender: AnyObject) {
-    print("HANDLE ROTATION")
-    let gr = sender as! RotationGestureRecognizer
+  // MARK: - Knob Focus Methods
+  func focusOnKnob() {
+    print("Knob Tapped")
     
-    
-    let midPointAngle = (2.0 * CGFloat(Double.pi) + self.startAngle - self.endAngle) / 2.0 + self.endAngle
-    
-    var boundedAngle = gr.rotation
-    if boundedAngle > midPointAngle {
-      boundedAngle -= 2.0 * CGFloat(Double.pi)
-    } else if boundedAngle < (midPointAngle - 2.0 * CGFloat(Double.pi)) {
-      boundedAngle += 2 * CGFloat(Double.pi)
+    isKnobFocused = !isKnobFocused
+    if isKnobFocused {
+      stompboxVCView.addSubview(overlayView)
+      overlayView.backgroundColor = UIColor.red
+      overlayView.alpha = 0.5
     }
-
-    boundedAngle = min(self.endAngle, max(self.startAngle, boundedAngle))
-
-    let angleRange = endAngle - startAngle
-    let valueRange = maximumValue - minimumValue
-    let valueForAngle = Float(boundedAngle - startAngle) / Float(angleRange) * valueRange + minimumValue
-    self.value = valueForAngle
-
+  }
+  
+  @objc func handleOverlayViewTap(sender: AnyObject) {
+    overlayView.removeFromSuperview()
+    isKnobFocused = false
+  }
+  
+  // MARK: - Gesture Methods
+  @objc func handlePan(sender: UIPanGestureRecognizer) {
+    print(sender.translation(in: sender.view))
     sendActions(for: .valueChanged)
   }
   
+//  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//      print("touchesBegan")
+//      let touch = touches.first!
+//      let location = touch.location(in: self)
+//      print("Initial location: \(location)")
+//  }
+//
+//  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+//      for touch in touches {
+//        print(touch.location(in: self))
+//      }
+//  }
+  
   @objc func handleTap(sender: AnyObject) {
-    if let rotationRecognizer = rotationRecognizer, let stompboxTableView = stompboxTableView {
-      rotationRecognizer.toggleIsActive()
-    if rotationRecognizer.isActive {
-      stompboxTableView.addGestureRecognizer(rotationRecognizer)
-      print("rotation recognizer ADDED to stompboxtableview")
-    } else {
-      stompboxTableView.removeGestureRecognizer(rotationRecognizer)
-      print("rotation recognizer REMOVED from stompboxtableview")
-      }
-    }
+    focusOnKnob()
   }
   
   // MARK: - Update Percent Label - UNUSED

@@ -12,10 +12,10 @@ class SettingCell: UITableViewCell {
   
   var knobViews = [KnobView]()
   var parentStompbox: Stompbox!
-  var stompboxTableView: UITableView! {
+  var stompboxVCView: UIView! {
     didSet {
-      for knobView in knobViews {
-        knobView.stompboxTableView = self.stompboxTableView
+      for knob in knobViews {
+        knob.stompboxVCView = stompboxVCView
       }
     }
   }
