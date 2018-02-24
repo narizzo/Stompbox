@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class KnobView: UIControl {
   
   // MARK: - Instance Variables
@@ -16,6 +17,8 @@ class KnobView: UIControl {
       overlayView = UIView(frame: stompboxVCView.frame)
       overlayView.addGestureRecognizer(panRecognizer)
       overlayView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOverlayViewTap)))
+      overlayView.backgroundColor = UIColor.red
+      overlayView.alpha = 0.5
     }
   }
   var overlayView: UIView!
@@ -24,7 +27,6 @@ class KnobView: UIControl {
   private var percentLabel = PercentLabel()
   private var backingValue: Float = 0.0
   private var panRecognizer: UIPanGestureRecognizer!
-  private var isKnobFocused = false
   
   public var value: Float {
     get { return backingValue }
@@ -34,6 +36,7 @@ class KnobView: UIControl {
   public func setValue(value: Float, animated: Bool) {
     if value != backingValue {
       self.backingValue = min(maximumValue, max(minimumValue, value))
+      knobValueChanged()
     }
     let angleRange = endAngle - startAngle
     let valueRange = CGFloat(maximumValue - minimumValue)
@@ -80,7 +83,7 @@ class KnobView: UIControl {
   }
   
   public func setup(with frame: CGRect?) {
-    
+    self.value = 0.0
     self.addSubview(percentLabel)
     
     if let frame = frame {
@@ -102,7 +105,7 @@ class KnobView: UIControl {
     knobRenderer.strokeColor = tintColor
     knobRenderer.startAngle = -CGFloat(Double.pi * 11.0 / 8.0);
     knobRenderer.endAngle = CGFloat(Double.pi * 3.0 / 8.0);
-    knobRenderer.pointerAngle = knobRenderer.startAngle;
+    knobRenderer.pointerAngle = CGFloat(Double.pi);
     knobRenderer.lineWidth = 2.0
     knobRenderer.pointerLength = 6.0
     
@@ -118,51 +121,36 @@ class KnobView: UIControl {
     let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
     self.addGestureRecognizer(tapRecognizer)
     
-    addTarget(self, action: #selector(knobValueChanged), for: .valueChanged)
   }
   
   // MARK: - Knob Focus Methods
-  func focusOnKnob() {
-    print("Knob Tapped")
-    
-    isKnobFocused = !isKnobFocused
-    if isKnobFocused {
-      stompboxVCView.addSubview(overlayView)
-      overlayView.backgroundColor = UIColor.red
-      overlayView.alpha = 0.5
-    }
-  }
-  
   @objc func handleOverlayViewTap(sender: AnyObject) {
     overlayView.removeFromSuperview()
-    isKnobFocused = false
   }
   
   // MARK: - Gesture Methods
-  @objc func handlePan(sender: UIPanGestureRecognizer) {
-    print(sender.translation(in: sender.view))
-    sendActions(for: .valueChanged)
+  @objc func handlePan(recognizer: UIPanGestureRecognizer) {
+    var translation = recognizer.translation(in: recognizer.view)
+    //let velocity = recognizer.velocity(in: recognizer.view)
+    
+    let translationAmount = (translation.y) / 250
+    
+    print("translation: \(translation.y)")
+    //print("velocity: \(velocity.y)")
+    print("amount: \(translationAmount)")
+    
+    value = min( (max(value + Float(translationAmount), 0)), 1)
+    
+    recognizer.setTranslation(CGPoint(x: 0.0, y: 0.0), in: recognizer.view)
+    translation = recognizer.translation(in: recognizer.view)
   }
-  
-//  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//      print("touchesBegan")
-//      let touch = touches.first!
-//      let location = touch.location(in: self)
-//      print("Initial location: \(location)")
-//  }
-//
-//  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-//      for touch in touches {
-//        print(touch.location(in: self))
-//      }
-//  }
   
   @objc func handleTap(sender: AnyObject) {
-    focusOnKnob()
+    stompboxVCView.addSubview(overlayView)
   }
   
-  // MARK: - Update Percent Label - UNUSED
-  @objc func knobValueChanged() {
+  // MARK: - Update Percent Label
+  func knobValueChanged() {
     percentLabel.update(text: self.value)
   }
   

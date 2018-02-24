@@ -11,7 +11,6 @@ import UIKit
 extension KnobView {
   
   class KnobRenderer {
-    
     var strokeColor: UIColor {
       get {
         if let color = trackLayer.strokeColor {
@@ -19,17 +18,14 @@ extension KnobView {
         }
         return UIColor.clear
       }
-      
       set(strokeColor) {
         trackLayer.strokeColor = strokeColor.cgColor
         pointerLayer.strokeColor = strokeColor.cgColor
       }
     }
-    
     var lineWidth: CGFloat = 1.0 {
       didSet { update() }
     }
-    
     // MARK: - Track Variables
     let trackLayer = CAShapeLayer()
     var startAngle: CGFloat = 0.0 {
@@ -56,7 +52,8 @@ extension KnobView {
       CATransaction.setDisableActions(true)
       
       pointerLayer.transform = CATransform3DMakeRotation(pointerAngle, 0.0, 0.0, 0.1)
-      
+  
+      // animate angle change
       if animated {
         let midAngle = (max(pointerAngle, self.pointerAngle) - min(pointerAngle, self.pointerAngle) ) / 2.0 + min(pointerAngle, self.pointerAngle)
         let animation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
@@ -65,10 +62,10 @@ extension KnobView {
         animation.values = [self.pointerAngle, midAngle, pointerAngle]
         animation.keyTimes = [0.0, 0.5, 1.0]
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        // won't this keep stacking animations?
         pointerLayer.add(animation, forKey: nil)
       }
       CATransaction.commit()
-      
       self.backingPointerAngle = pointerAngle
     }
     

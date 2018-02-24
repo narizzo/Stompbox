@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0148870C20347F35001C74C6 /* KnobRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148870B20347F35001C74C6 /* KnobRenderer.swift */; };
-		0173E6A82034845E00CD9587 /* RotationGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173E6A72034845E00CD9587 /* RotationGestureRecognizer.swift */; };
 		0173E6AA20349CE200CD9587 /* PercentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173E6A920349CE200CD9587 /* PercentLabel.swift */; };
 		017D97A0202BB096009F2F7E /* Setting+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D979E202BB096009F2F7E /* Setting+CoreDataClass.swift */; };
 		017D97A1202BB096009F2F7E /* Setting+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017D979F202BB096009F2F7E /* Setting+CoreDataProperties.swift */; };
@@ -33,7 +32,6 @@
 
 /* Begin PBXFileReference section */
 		0148870B20347F35001C74C6 /* KnobRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobRenderer.swift; sourceTree = "<group>"; };
-		0173E6A72034845E00CD9587 /* RotationGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationGestureRecognizer.swift; sourceTree = "<group>"; };
 		0173E6A920349CE200CD9587 /* PercentLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentLabel.swift; sourceTree = "<group>"; };
 		017D979E202BB096009F2F7E /* Setting+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Setting+CoreDataClass.swift"; sourceTree = "<group>"; };
 		017D979F202BB096009F2F7E /* Setting+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Setting+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -90,12 +88,8 @@
 		01CAEB39201BB25F00AC556B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				01EB576B2000578800686767 /* StompboxCell.swift */,
-				01CAEB8E202A427800AC556B /* SettingCell.swift */,
-				01CAEB90202A42FE00AC556B /* KnobView.swift */,
-				0148870B20347F35001C74C6 /* KnobRenderer.swift */,
-				0173E6A72034845E00CD9587 /* RotationGestureRecognizer.swift */,
-				0173E6A920349CE200CD9587 /* PercentLabel.swift */,
+				01EB479D20371EA20050563E /* Table Cells */,
+				01EB479E20371ECB0050563E /* Knob Graphics */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -116,6 +110,25 @@
 				01CAEB7F2023AFCB00AC556B /* Switch.swift */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		01EB479D20371EA20050563E /* Table Cells */ = {
+			isa = PBXGroup;
+			children = (
+				01EB576B2000578800686767 /* StompboxCell.swift */,
+				01CAEB8E202A427800AC556B /* SettingCell.swift */,
+			);
+			path = "Table Cells";
+			sourceTree = "<group>";
+		};
+		01EB479E20371ECB0050563E /* Knob Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				01CAEB90202A42FE00AC556B /* KnobView.swift */,
+				0148870B20347F35001C74C6 /* KnobRenderer.swift */,
+				0173E6A920349CE200CD9587 /* PercentLabel.swift */,
+			);
+			path = "Knob Graphics";
 			sourceTree = "<group>";
 		};
 		01EB57422000123700686767 = {
@@ -242,7 +255,6 @@
 				017D97A0202BB096009F2F7E /* Setting+CoreDataClass.swift in Sources */,
 				01CAEB802023AFCB00AC556B /* Switch.swift in Sources */,
 				01EB576A2000562800686767 /* StompboxViewController.swift in Sources */,
-				0173E6A82034845E00CD9587 /* RotationGestureRecognizer.swift in Sources */,
 				01A58F3B200FF4DD00DD5BF3 /* StompboxDetailViewController.swift in Sources */,
 				0173E6AA20349CE200CD9587 /* PercentLabel.swift in Sources */,
 				01CAEB76202385E200AC556B /* Stompbox+CoreDataClass.swift in Sources */,
