@@ -10,9 +10,9 @@ import Foundation
 
 class Knob: NSObject, NSCoding {
   
-  var continuousValue: Int = 0
-  var bipolarValue: Int = 0
-  var type: Int = 0
+  var continuousValue: Float = 0
+  var bipolarValue: Float = 0
+  var type: Float = 0
   
   func encode(with aCoder: NSCoder) {
     aCoder.encode(continuousValue, forKey: "continuousValue")
@@ -21,9 +21,9 @@ class Knob: NSObject, NSCoding {
   }
   
   required init?(coder aDecoder: NSCoder) {
-    continuousValue = aDecoder.decodeInteger(forKey: "continuousValue")
-    bipolarValue = aDecoder.decodeInteger(forKey: "bipolarValue")
-    type = aDecoder.decodeInteger(forKey: "type")
+    continuousValue = aDecoder.decodeFloat(forKey: "continuousValue")
+    bipolarValue = aDecoder.decodeFloat(forKey: "bipolarValue")
+    type = aDecoder.decodeFloat(forKey: "type")
   }
   
   // necessary??

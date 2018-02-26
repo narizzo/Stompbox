@@ -11,7 +11,7 @@ import UIKit
 class SettingCell: UITableViewCell {
   
   var knobViews = [KnobView]()
-  var parentStompbox: Stompbox!
+  var settings: [Any]!
   var stompboxVCView: UIView! {
     didSet {
       for knob in knobViews {
@@ -36,15 +36,29 @@ class SettingCell: UITableViewCell {
   }
   
   func setup() {
+  
     let testKnob = KnobView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
     testKnob.changeFillColor(to: UIColor.clear)
     testKnob.changeStrokeColor(to: UIColor.white)
-    
     knobViews.append(testKnob)
     contentView.addSubview(testKnob)
-  }
-  
-  func configureKnobPositions() {
     
+    print("About to attempt setting knob value")
+    if let settingsArray = settings {
+      print("settingsArray exists...")
+      if let aSetting = settingsArray.first as? Setting {
+        print("aSetting in the array exists...")
+        testKnob.setValue(value: (aSetting.knobs?.knobsList[0].continuousValue)!, animated: true)
+      }
+    }
+    
+    
+    //      let settingsArray = stompbox.settings?.allObjects
+    //      if let settingsArray = settingsArray {
+    //        if let aSetting = settingsArray.first as? Setting {
+    //         // print("Number of knobs \(aSetting.knobs?.knobsList.count)")
+    //         // print("\(aSetting.knobs?.knobsList[0].continuousValue)")
+    //        }
+    //      }
   }
 }

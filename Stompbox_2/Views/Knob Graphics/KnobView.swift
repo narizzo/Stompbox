@@ -22,6 +22,7 @@ class KnobView: UIControl {
     }
   }
   var overlayView: UIView!
+  var stompbox: Stompbox!
   
   private let knobRenderer = KnobRenderer()
   private var percentLabel = PercentLabel()
@@ -35,6 +36,7 @@ class KnobView: UIControl {
   
   public func setValue(value: Float, animated: Bool) {
     if value != backingValue {
+      print("Setting Value")
       self.backingValue = min(maximumValue, max(minimumValue, value))
       knobValueChanged()
     }
@@ -83,7 +85,6 @@ class KnobView: UIControl {
   }
   
   public func setup(with frame: CGRect?) {
-    self.value = 0.0
     self.addSubview(percentLabel)
     
     if let frame = frame {
@@ -111,6 +112,8 @@ class KnobView: UIControl {
     
     layer.addSublayer(knobRenderer.trackLayer)
     layer.addSublayer(knobRenderer.pointerLayer)
+    
+    
   }
   
   func createGestureRecognizers() {
@@ -133,11 +136,7 @@ class KnobView: UIControl {
     var translation = recognizer.translation(in: recognizer.view)
     //let velocity = recognizer.velocity(in: recognizer.view)
     
-    let translationAmount = (translation.y) / 250
-    
-    print("translation: \(translation.y)")
-    //print("velocity: \(velocity.y)")
-    print("amount: \(translationAmount)")
+    let translationAmount = (-translation.y) / 250
     
     value = min( (max(value + Float(translationAmount), 0)), 1)
     

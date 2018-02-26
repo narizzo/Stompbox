@@ -62,7 +62,6 @@ extension KnobView {
         animation.values = [self.pointerAngle, midAngle, pointerAngle]
         animation.keyTimes = [0.0, 0.5, 1.0]
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-        // won't this keep stacking animations?
         pointerLayer.add(animation, forKey: nil)
       }
       CATransaction.commit()
@@ -78,6 +77,8 @@ extension KnobView {
     
     func updatePointerLayerPath() {
       let path = UIBezierPath()
+      // path.move(to: CGPoint(x: pointerLayer.bounds.width - pointerLength - pointerLayer.lineWidth / 2.0, y: pointerLayer.bounds.height / 2.0))
+      print(CGPoint(x: pointerLayer.bounds.width - pointerLength - pointerLayer.lineWidth / 2.0, y: pointerLayer.bounds.height / 2.0))
       path.move(to: CGPoint(x: pointerLayer.bounds.width - pointerLength - pointerLayer.lineWidth / 2.0, y: pointerLayer.bounds.height / 2.0))
       path.addLine(to: CGPoint(x: pointerLayer.bounds.width, y: pointerLayer.bounds.height / 2.0))
       pointerLayer.path = path.cgPath

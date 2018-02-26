@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17C88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D47" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Setting" representedClassName="Setting" syncable="YES">
         <attribute name="knobs" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -11,10 +11,10 @@
         <attribute name="manufacturer" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="settings" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Setting" inverseName="stompbox" inverseEntity="Setting" syncable="YES"/>
+        <relationship name="settings" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Setting" inverseName="stompbox" inverseEntity="Setting" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Stompbox" positionX="-63" positionY="-18" width="128" height="120"/>
         <element name="Setting" positionX="-63" positionY="9" width="128" height="105"/>
+        <element name="Stompbox" positionX="-63" positionY="-18" width="128" height="120"/>
     </elements>
 </model>

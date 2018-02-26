@@ -98,7 +98,8 @@ extension StompboxViewController {
       return
     }
     if let cell = cell as? SettingCell {
-      cell.parentStompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
+      let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
+      cell.settings = stompbox.settings?.allObjects
       cell.stompboxVCView = self.view
     }
   }
@@ -169,6 +170,7 @@ extension StompboxViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
+    
   }
   
   func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -180,7 +182,7 @@ extension StompboxViewController: UITableViewDelegate {
         self.editStompbox(at: indexPath)
       }
       let add = UITableViewRowAction(style: .normal, title: "Add") { action, index in
-        print("Add Setting")
+        self.addSetting(at: indexPath)
       }
       edit.backgroundColor = UIColor.green
       add.backgroundColor = UIColor.blue
@@ -209,6 +211,32 @@ extension StompboxViewController: UITableViewDelegate {
     self.selectedStompbox = self.fetchedResultsController.object(at: indexPath)
     self.performSegue(withIdentifier: Constants.addStompboxSegue, sender: self)
   }
+  
+  func addSetting(at indexPath: IndexPath) {
+    let stompbox = fetchedResultsController.object(at: indexPath)
+    //stompbox.addToSettings(Setting.init(entity: NSEntityDescription.entity(forEntityName: "Setting", in: coreDataStack.moc)!, insertInto: coreDataStack.moc))
+    let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
+    setting.knobs = Knobs.init()
+    setting.knobs?.addKnob()
+    setting.knobs?.knobsList[0].continuousValue = 50
+    print("Finished making setting")
+    
+    controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    stompbox.addToSettings(setting)
+    let row: Int
+    if let count = stompbox.settings?.count {
+     row = count
+    } else {
+      row = 1
+    }
+    
+    let indexPath = IndexPath(row: row, section: indexPath.section)
+    
+    tableView.insertRows(at: [indexPath], with: .automatic)
+    controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    coreDataStack.saveContext()
+    print("setting added")
+  }
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
@@ -219,17 +247,21 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
   }
   
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-  //  print("controller:didChange:at:for:")
+    print("controller:didChange:at:for:")
     switch type {
     case .insert:
       tableView.insertRows(at: [newIndexPath!], with: .automatic)
+      print("insertRows")
     case .delete:
       tableView.deleteRows(at: [indexPath!], with: .automatic)
+      print("deleteRows")
     case .update:
       if let cell = tableView.cellForRow(at: indexPath!) as? StompboxCell {
         configure(cell, for: indexPath!)
       }
-      // if let cell = SettingCell...
+      if let cell = tableView.cellForRow(at: indexPath!) as? SettingCell {
+        configure(cell, for: indexPath!)
+      }
 
     case .move:
       tableView.deleteRows(at: [indexPath!], with: .automatic)
