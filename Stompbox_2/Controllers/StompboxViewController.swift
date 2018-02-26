@@ -74,14 +74,6 @@ extension StompboxViewController {
     if let cell = cell as? StompboxCell {
       let stompbox = fetchedResultsController.object(at: indexPath)
       
-//      let settingsArray = stompbox.settings?.allObjects
-//      if let settingsArray = settingsArray {
-//        if let aSetting = settingsArray.first as? Setting {
-//         // print("Number of knobs \(aSetting.knobs?.knobsList.count)")
-//         // print("\(aSetting.knobs?.knobsList[0].continuousValue)")
-//        }
-//      }
-      
       cell.nameLabel.text = stompbox.name
       cell.typeLabel.text = stompbox.type
       cell.manufacturerLabel.text = stompbox.manufacturer

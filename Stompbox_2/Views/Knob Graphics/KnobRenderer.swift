@@ -16,7 +16,7 @@ extension KnobView {
         if let color = trackLayer.strokeColor {
           return UIColor(cgColor: color)
         }
-        return UIColor.clear
+        return UIColor.black
       }
       set(strokeColor) {
         trackLayer.strokeColor = strokeColor.cgColor
@@ -77,21 +77,20 @@ extension KnobView {
     
     func updatePointerLayerPath() {
       let path = UIBezierPath()
-      // path.move(to: CGPoint(x: pointerLayer.bounds.width - pointerLength - pointerLayer.lineWidth / 2.0, y: pointerLayer.bounds.height / 2.0))
-      print(CGPoint(x: pointerLayer.bounds.width - pointerLength - pointerLayer.lineWidth / 2.0, y: pointerLayer.bounds.height / 2.0))
       path.move(to: CGPoint(x: pointerLayer.bounds.width - pointerLength - pointerLayer.lineWidth / 2.0, y: pointerLayer.bounds.height / 2.0))
       path.addLine(to: CGPoint(x: pointerLayer.bounds.width, y: pointerLayer.bounds.height / 2.0))
       pointerLayer.path = path.cgPath
     }
     
     func update(frame: CGRect) {
+      print("Knob Renderer update method: \(frame)")
       let position = CGPoint(x: frame.width / 2.0, y: frame.height / 2.0)
       trackLayer.frame = frame
-      trackLayer.bounds = frame
+      //trackLayer.bounds = frame
       trackLayer.position = position
       
       pointerLayer.frame = frame
-      pointerLayer.bounds = frame
+      //pointerLayer.bounds = frame
       pointerLayer.position = position
       
       update()
@@ -104,6 +103,5 @@ extension KnobView {
       updateTrackLayerPath()
       updatePointerLayerPath()
     }
-    
   }
 }

@@ -10,10 +10,9 @@ import UIKit
 
 class PercentLabel: UILabel {
   
-  func update(text: Float) {
-    self.text = NumberFormatter.localizedString(from: NSNumber(value: text), number: .percent)
-    textColor = UIColor.black
-    backgroundColor = UIColor.clear
+  func update(percent: Float) {
+    // self.text = NumberFormatter.localizedString(from: NSNumber(value: text), number: .percent)
+    self.text = "\(Int(percent * 100))"
     textAlignment = .center
   }
 

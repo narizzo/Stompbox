@@ -99,30 +99,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       if isUniqueName(name: stompboxName.text!) {
         stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
         stompboxToEdit?.setPropertiesTo(name: stompboxName.text!, type: stompboxType.text!, manufacturer: stompboxManufacturer.text!)
-        //stompboxToEdit?.makeSetting(numberOfKnobs: 2, numberOfSwitches: 0)
         updateThumbnail()
-//
-//        print("********* \nMaking setting")
-//        let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
-//        setting.knobs = Knobs.init()
-//        setting.knobs?.addKnob()
-//        setting.knobs?.knobsList[0].continuousValue = 50
-//        print(setting.knobs?.knobsList[0].continuousValue)
-//        print("Finished making setting")
-//        
-//        print("Adding a knob to the setting")
-//        setting.knobs.addKnob()
-//        setting.knobs.knobsList[0].continuousValue = 50
-//        print("Number of knobs: \(setting.knobs.knobsList.count)")
-//
-//        if let stompboxToEdit = stompboxToEdit {
-//          print("Adding setting to stompbox")
-//          setting.stompbox = stompboxToEdit
-//        }
-//        print("Stompbox has been given a setting")
-//        print(stompboxToEdit?.settings?.count)
-//        print("**********")
-//
         delegate?.stompboxDetailViewController(self, didFinishAdding: stompboxToEdit!)
       }
     }

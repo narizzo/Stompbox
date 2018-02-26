@@ -17,7 +17,7 @@ class KnobView: UIControl {
       overlayView = UIView(frame: stompboxVCView.frame)
       overlayView.addGestureRecognizer(panRecognizer)
       overlayView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOverlayViewTap)))
-      overlayView.backgroundColor = UIColor.red
+      // overlayView.backgroundColor = UIColor.red
       overlayView.alpha = 0.5
     }
   }
@@ -25,9 +25,11 @@ class KnobView: UIControl {
   var stompbox: Stompbox!
   
   private let knobRenderer = KnobRenderer()
-  private var percentLabel = PercentLabel()
   private var backingValue: Float = 0.0
   private var panRecognizer: UIPanGestureRecognizer!
+  
+  private var percentLabel = PercentLabel()
+  private var knobLabel = UILabel()
   
   public var value: Float {
     get { return backingValue }
@@ -36,7 +38,6 @@ class KnobView: UIControl {
   
   public func setValue(value: Float, animated: Bool) {
     if value != backingValue {
-      print("Setting Value")
       self.backingValue = min(maximumValue, max(minimumValue, value))
       knobValueChanged()
     }
@@ -75,34 +76,31 @@ class KnobView: UIControl {
   public override init(frame: CGRect) {
     super.init(frame: frame)
     setup(with: frame)
-    print("Knob View init from frame:")
   }
   
   public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup(with: nil)
-    print("Knob View init from coder:")
   }
   
   public func setup(with frame: CGRect?) {
     self.addSubview(percentLabel)
     
     if let frame = frame {
-      updateAllFrames(frame)
+      self.frame = frame
     }
-    percentLabel.update(text: self.value)
+    
+    percentLabel.frame = self.bounds
+    percentLabel.backgroundColor = UIColor.clear
+
+    percentLabel.update(percent: self.value)
+    
     createSublayers()
     createGestureRecognizers()
   }
   
-  public func updateAllFrames(_ frame: CGRect) {
-    self.frame = frame
-    knobRenderer.update(frame: frame)
-    percentLabel.frame = frame
-  }
-  
   func createSublayers() {
-    knobRenderer.update(frame: frame)
+    knobRenderer.update(frame: self.frame)
     knobRenderer.strokeColor = tintColor
     knobRenderer.startAngle = -CGFloat(Double.pi * 11.0 / 8.0);
     knobRenderer.endAngle = CGFloat(Double.pi * 3.0 / 8.0);
@@ -126,10 +124,6 @@ class KnobView: UIControl {
     
   }
   
-  // MARK: - Knob Focus Methods
-  @objc func handleOverlayViewTap(sender: AnyObject) {
-    overlayView.removeFromSuperview()
-  }
   
   // MARK: - Gesture Methods
   @objc func handlePan(recognizer: UIPanGestureRecognizer) {
@@ -145,12 +139,22 @@ class KnobView: UIControl {
   }
   
   @objc func handleTap(sender: AnyObject) {
+    changeStrokeColor(to: UIColor.yellow)
+    percentLabel.textColor = UIColor.yellow
     stompboxVCView.addSubview(overlayView)
+  }
+  
+  // MARK: - Knob Focus Methods
+  @objc func handleOverlayViewTap(sender: AnyObject) {
+    changeStrokeColor(to: UIColor.black)
+    percentLabel.textColor = UIColor.black
+    
+    overlayView.removeFromSuperview()
   }
   
   // MARK: - Update Percent Label
   func knobValueChanged() {
-    percentLabel.update(text: self.value)
+    percentLabel.update(percent: self.value)
   }
   
   // MARK: - Colors
