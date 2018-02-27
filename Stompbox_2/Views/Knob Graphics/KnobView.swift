@@ -17,8 +17,6 @@ class KnobView: UIControl {
       overlayView = UIView(frame: stompboxVCView.frame)
       overlayView.addGestureRecognizer(panRecognizer)
       overlayView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOverlayViewTap)))
-      // overlayView.backgroundColor = UIColor.red
-      overlayView.alpha = 0.5
     }
   }
   var overlayView: UIView!
@@ -85,6 +83,7 @@ class KnobView: UIControl {
   
   public func setup(with frame: CGRect?) {
     self.addSubview(percentLabel)
+    self.addSubview(knobLabel)
     
     if let frame = frame {
       self.frame = frame
@@ -92,8 +91,12 @@ class KnobView: UIControl {
     
     percentLabel.frame = self.bounds
     percentLabel.backgroundColor = UIColor.clear
-
     percentLabel.update(percent: self.value)
+    
+    knobLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + 5.0, width: self.bounds.width, height: self.bounds.height)
+    print(self.bounds)
+    knobLabel.text = "Tone"
+    knobLabel.textAlignment = .center
     
     createSublayers()
     createGestureRecognizers()
@@ -141,6 +144,7 @@ class KnobView: UIControl {
   @objc func handleTap(sender: AnyObject) {
     changeStrokeColor(to: UIColor.yellow)
     percentLabel.textColor = UIColor.yellow
+    knobLabel.textColor = UIColor.yellow
     stompboxVCView.addSubview(overlayView)
   }
   
@@ -148,6 +152,7 @@ class KnobView: UIControl {
   @objc func handleOverlayViewTap(sender: AnyObject) {
     changeStrokeColor(to: UIColor.black)
     percentLabel.textColor = UIColor.black
+    knobLabel.textColor = UIColor.black
     
     overlayView.removeFromSuperview()
   }
@@ -168,6 +173,15 @@ class KnobView: UIControl {
   
   public func changeStrokeColor(to color: UIColor) {
     knobRenderer.strokeColor = color
+  }
+  
+  // MARK: - Knob Label
+  public func moveKnobLabelAbove() {
+    knobLabel.frame = CGRect(x: 0, y: -60.0, width: self.bounds.width, height: self.bounds.height)
+  }
+  
+  public func changeKnobLabelText(to text: String) {
+    knobLabel.text = text
   }
 
   

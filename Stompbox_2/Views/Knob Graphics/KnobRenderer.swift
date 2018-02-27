@@ -77,20 +77,19 @@ extension KnobView {
     
     func updatePointerLayerPath() {
       let path = UIBezierPath()
-      path.move(to: CGPoint(x: pointerLayer.bounds.width - pointerLength - pointerLayer.lineWidth / 2.0, y: pointerLayer.bounds.height / 2.0))
-      path.addLine(to: CGPoint(x: pointerLayer.bounds.width, y: pointerLayer.bounds.height / 2.0))
+//      path.move(to: CGPoint(x: pointerLayer.bounds.width - pointerLength - pointerLayer.lineWidth / 2.0, y: pointerLayer.bounds.height / 2.0))
+//      path.addLine(to: CGPoint(x: pointerLayer.bounds.width, y: pointerLayer.bounds.height / 2.0))
+      path.move(to: CGPoint(x: pointerLayer.bounds.width - pointerLength, y: pointerLayer.bounds.height / 2.0))
+      path.addLine(to: CGPoint(x: pointerLayer.bounds.width - 15, y: pointerLayer.bounds.height / 2.0))
       pointerLayer.path = path.cgPath
     }
     
     func update(frame: CGRect) {
-      print("Knob Renderer update method: \(frame)")
       let position = CGPoint(x: frame.width / 2.0, y: frame.height / 2.0)
       trackLayer.frame = frame
-      //trackLayer.bounds = frame
       trackLayer.position = position
       
       pointerLayer.frame = frame
-      //pointerLayer.bounds = frame
       pointerLayer.position = position
       
       update()

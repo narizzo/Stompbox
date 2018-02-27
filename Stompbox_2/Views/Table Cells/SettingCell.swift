@@ -33,21 +33,12 @@ class SettingCell: UITableViewCell {
   }
   
   override func awakeFromNib() {
-    print("Before: \(frame.size.width)")
     frame.size.width = UIScreen.main.bounds.width
-    print("After: \(frame.size.width)")
     layoutIfNeeded()
     setup()
   }
   
   func setup() {
-    print(self.frame)
-    let oneThirdWidth = self.frame.size.width / 3.0
-    let twoThirdsWidth = oneThirdWidth * 2.0
-    
-    let oneThirdHeight = self.frame.size.height / 3.0
-    
-    
     let sideLength = self.frame.size.height / 2.0
     let halfSideLength = sideLength / 2.0
 
@@ -55,14 +46,13 @@ class SettingCell: UITableViewCell {
     
 //    let testKnob0 = KnobView(frame: CGRect(x: oneThirdWidth - halfSideLength, y: 0, width: sideLength, height: sideLength))
     let testKnob0 = KnobView(frame: CGRect(x: halfWidth - halfSideLength * 3.0, y: 0, width: sideLength, height: sideLength))
-    //testKnob0.backgroundColor = UIColor.red
     testKnob0.changeFillColor(to: UIColor.clear)
     testKnob0.changeStrokeColor(to: UIColor.black)
     
     let testKnob1 = KnobView(frame: CGRect(x: halfWidth - halfSideLength, y: sideLength, width: sideLength, height: sideLength))
-    //testKnob1.backgroundColor = UIColor.green
     testKnob1.changeFillColor(to: UIColor.clear)
     testKnob1.changeStrokeColor(to: UIColor.black)
+    testKnob1.moveKnobLabelAbove()
     
     let testKnob2 = KnobView(frame: CGRect(x: halfWidth + halfSideLength, y: 0, width: sideLength, height: sideLength))
     //testKnob2.backgroundColor = UIColor.blue
@@ -77,9 +67,13 @@ class SettingCell: UITableViewCell {
     contentView.addSubview(testKnob1)
     contentView.addSubview(testKnob2)
     
-    print("knob0: \(testKnob0.frame)")
-    print("knob1: \(testKnob1.frame)")
-    print("knob2: \(testKnob2.frame)")
+    testKnob0.setValue(value: 0, animated: false)
+    testKnob1.setValue(value: 0, animated: false)
+    testKnob2.setValue(value: 0, animated: false)
+    
+    testKnob0.changeKnobLabelText(to: "Level")
+    testKnob1.changeKnobLabelText(to: "Tone")
+    testKnob2.changeKnobLabelText(to: "Gain")
     
     print("About to attempt setting knob value")
     if let settingsArray = settings {
@@ -88,15 +82,8 @@ class SettingCell: UITableViewCell {
         print("aSetting in the array exists...")
         testKnob0.setValue(value: (aSetting.knobs?.knobsList[0].continuousValue)!, animated: true)
       }
+    } else {
+      
     }
-    
-    
-    //      let settingsArray = stompbox.settings?.allObjects
-    //      if let settingsArray = settingsArray {
-    //        if let aSetting = settingsArray.first as? Setting {
-    //         // print("Number of knobs \(aSetting.knobs?.knobsList.count)")
-    //         // print("\(aSetting.knobs?.knobsList[0].continuousValue)")
-    //        }
-    //      }
   }
 }
