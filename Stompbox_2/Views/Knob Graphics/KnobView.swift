@@ -8,8 +8,13 @@
 
 import UIKit
 
+protocol KnobViewDelegate: class {
+  func knobView(_ knobView: KnobView, saveKnobValue value: Float)
+}
 
 class KnobView: UIControl {
+  
+  weak var delegate: KnobViewDelegate?
   
   // MARK: - Instance Variables
   var stompboxVCView: UIView! {
@@ -37,6 +42,7 @@ class KnobView: UIControl {
   public func setValue(value: Float, animated: Bool) {
     if value != backingValue {
       self.backingValue = min(maximumValue, max(minimumValue, value))
+      delegate?.knobView(self, saveKnobValue: value)
       knobValueChanged()
     }
     let angleRange = endAngle - startAngle
@@ -73,15 +79,15 @@ class KnobView: UIControl {
   // MARK: - Init & Setup
   public override init(frame: CGRect) {
     super.init(frame: frame)
-    setup(with: frame)
+    set(frame: frame)
   }
   
   public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    setup(with: nil)
+    set(frame: nil)
   }
   
-  public func setup(with frame: CGRect?) {
+  public func set(frame: CGRect?) {
     self.addSubview(percentLabel)
     self.addSubview(knobLabel)
     
@@ -94,7 +100,6 @@ class KnobView: UIControl {
     percentLabel.update(percent: self.value)
     
     knobLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + 5.0, width: self.bounds.width, height: self.bounds.height)
-    print(self.bounds)
     knobLabel.text = "Tone"
     knobLabel.textAlignment = .center
     
@@ -104,6 +109,7 @@ class KnobView: UIControl {
   
   func createSublayers() {
     knobRenderer.update(frame: self.frame)
+    print("\n*******\nknobRenderer update frame \(self.frame)\n*******\n")
     knobRenderer.strokeColor = tintColor
     knobRenderer.startAngle = -CGFloat(Double.pi * 11.0 / 8.0);
     knobRenderer.endAngle = CGFloat(Double.pi * 3.0 / 8.0);

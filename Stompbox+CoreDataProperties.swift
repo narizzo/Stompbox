@@ -21,7 +21,7 @@ extension Stompbox {
     @NSManaged public var manufacturer: String?
     @NSManaged public var name: String?
     @NSManaged public var type: String?
-    @NSManaged public var settings: NSSet? // NSMutableOrderedSet
+    @NSManaged public var settings: NSMutableOrderedSet? // NSSet
 
 }
 

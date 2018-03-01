@@ -11,6 +11,9 @@ import Foundation
 public class Knobs: NSObject, NSCoding {
   
   var knobsList: [Knob]
+  public var count: Int {
+    return knobsList.count
+  }
   
   public func encode(with aCoder: NSCoder) {
     aCoder.encode(knobsList, forKey: "knobsList")
