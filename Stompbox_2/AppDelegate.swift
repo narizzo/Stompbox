@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       let stompboxViewController = navController.topViewController as? StompboxViewController else {
       return true
     }
+    navController.navigationBar.barTintColor = UIColor.black
+     UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: blue]
     
     stompboxViewController.coreDataStack = self.coreDataStack
     listenForFatalCoreDataNotifications()

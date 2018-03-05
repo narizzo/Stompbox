@@ -98,6 +98,7 @@ class KnobView: UIControl {
     percentLabel.frame = self.bounds
     
     percentLabel.backgroundColor = UIColor.clear
+    percentLabel.textColor = blue
     percentLabel.update(percent: self.value)
 
     //knobLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + 5.0, width: self.bounds.width, height: self.bounds.height)
@@ -156,9 +157,9 @@ class KnobView: UIControl {
   
   // MARK: - Knob Focus Methods
   @objc func handleOverlayViewTap(sender: AnyObject) {
-    changeStrokeColor(to: UIColor.black)
-    percentLabel.textColor = UIColor.black
-    knobLabel.textColor = UIColor.black
+    changeStrokeColor(to: blue)
+    percentLabel.textColor = blue
+    knobLabel.textColor = blue
     
     overlayView.removeFromSuperview()
   }

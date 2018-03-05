@@ -9,6 +9,8 @@
 import UIKit
 
 let CoreDataSaveFailedNotification = Notification.Name(rawValue: "CoreDataSaveFailedNotification")
+let blue = UIColor(red: 4/255, green: 169/255, blue: 255/255, alpha: 1.0)
+let black = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
 
 func fatalCoreDataError(_ error: Error) {
   print("*** Fatal error: \(error)")

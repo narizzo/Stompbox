@@ -49,6 +49,7 @@ class StompboxViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    tableView.backgroundColor = black
     do {
       try fetchedResultsController.performFetch()
     } catch let error as NSError {
@@ -92,7 +93,6 @@ extension StompboxViewController {
     if let cell = cell as? SettingCell {
       let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
       if cell.setting == nil {
-        print("Setting the setting from VC")
         cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
       }
       cell.coreDataStack = coreDataStack

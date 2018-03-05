@@ -16,7 +16,7 @@ extension KnobView {
         if let color = trackLayer.strokeColor {
           return UIColor(cgColor: color)
         }
-        return UIColor.black
+        return blue
       }
       set(strokeColor) {
         trackLayer.strokeColor = strokeColor.cgColor
