@@ -46,6 +46,7 @@ extension KnobView {
       didSet { update() }
     }
     
+    
     // MARK: - Methods
     func setPointerAngle(_ pointerAngle: CGFloat, animated: Bool) {
       CATransaction.begin()
@@ -82,6 +83,7 @@ extension KnobView {
       path.move(to: CGPoint(x: pointerLayer.bounds.width - pointerLength, y: pointerLayer.bounds.height / 2.0))
       path.addLine(to: CGPoint(x: pointerLayer.bounds.width - 15, y: pointerLayer.bounds.height / 2.0))
       pointerLayer.path = path.cgPath
+      
     }
     
     func update(frame: CGRect) {

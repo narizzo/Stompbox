@@ -96,10 +96,12 @@ class KnobView: UIControl {
     }
     
     percentLabel.frame = self.bounds
+    
     percentLabel.backgroundColor = UIColor.clear
     percentLabel.update(percent: self.value)
-    
-    knobLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + 5.0, width: self.bounds.width, height: self.bounds.height)
+
+    //knobLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + 5.0, width: self.bounds.width, height: self.bounds.height)
+    knobLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + knobLabel.font.lineHeight / 2.0, width: self.bounds.width, height: self.bounds.height)
     knobLabel.text = "Tone"
     knobLabel.textAlignment = .center
     
@@ -108,8 +110,8 @@ class KnobView: UIControl {
   }
   
   func createSublayers() {
+    //print("\n*******\nknobRenderer update frame \(self.frame)\n*******\n")
     knobRenderer.update(frame: self.frame)
-    print("\n*******\nknobRenderer update frame \(self.frame)\n*******\n")
     knobRenderer.strokeColor = tintColor
     knobRenderer.startAngle = -CGFloat(Double.pi * 11.0 / 8.0);
     knobRenderer.endAngle = CGFloat(Double.pi * 3.0 / 8.0);
@@ -119,8 +121,6 @@ class KnobView: UIControl {
     
     layer.addSublayer(knobRenderer.trackLayer)
     layer.addSublayer(knobRenderer.pointerLayer)
-    
-    
   }
   
   func createGestureRecognizers() {
@@ -183,7 +183,7 @@ class KnobView: UIControl {
   
   // MARK: - Knob Label
   public func moveKnobLabelAbove() {
-    knobLabel.frame = CGRect(x: 0, y: -60.0, width: self.bounds.width, height: self.bounds.height)
+    knobLabel.frame = CGRect(x: 0, y: -self.bounds.height / 2.0 - knobLabel.font.lineHeight / 2.0, width: self.bounds.width, height: self.bounds.height)
   }
   
   public func changeKnobLabelText(to text: String) {

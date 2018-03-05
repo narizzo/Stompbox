@@ -71,7 +71,6 @@ extension StompboxViewController {
 extension StompboxViewController {
   
   func configure(_ cell: UITableViewCell, for indexPath: IndexPath) {
-    print("Configuring cell for row \(indexPath.row), section \(indexPath.section)")
     if let cell = cell as? StompboxCell {
       let stompbox = fetchedResultsController.object(at: indexPath)
       
@@ -92,7 +91,10 @@ extension StompboxViewController {
     }
     if let cell = cell as? SettingCell {
       let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
-      cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
+      if cell.setting == nil {
+        print("Setting the setting from VC")
+        cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
+      }
       cell.coreDataStack = coreDataStack
       cell.stompboxVCView = self.view
     }
@@ -125,14 +127,12 @@ extension StompboxViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     guard fetchedResultsController.sections != nil else {
-     // print("FRC: no sections")
       return 0
     }
     guard let numberOfRows = fetchedResultsController.fetchedObjects?[section].settings?.count else {
-     // print("FRC: no settings objects in Stompboxes")
+     // no settings objects in Stompboxes
       return 1
     }
-    //print("FRC: Everything is in order for the data source.  Number of rows \(numberOfRows + 1)")
     return numberOfRows + 1
   }
   
@@ -151,6 +151,7 @@ extension StompboxViewController: UITableViewDataSource {
       return stompboxCell
     } else {
       let settingCell = tableView.dequeueReusableCell(withIdentifier: settingCellReuseIdentifier, for: indexPath)
+      print((settingCell as! SettingCell).setting)
       configure(settingCell, for: indexPath)
       return settingCell
     }

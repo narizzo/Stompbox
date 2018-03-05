@@ -14,6 +14,7 @@ class SettingCell: UITableViewCell {
   var coreDataStack: CoreDataStack!
   var setting: Setting! {
     didSet {
+      print("setting set")
       setupSetting()
     }
   }
@@ -28,11 +29,13 @@ class SettingCell: UITableViewCell {
   // gets called if the cell is NOT designed in storyboard
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
+    print("initialize setting cell")
   }
   
   // gets called if the cell is ONLY designed in storyboard
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
+    print("initialize setting cell")
   }
   
   override func awakeFromNib() {
@@ -41,7 +44,7 @@ class SettingCell: UITableViewCell {
   }
   
   func configureKnobViews() {
-    print("configureKnobViews()")
+   // print("configureKnobViews()")
     let sideLength = self.frame.size.height / 2.0
     let size = CGSize(width: sideLength, height: sideLength)
     
@@ -53,8 +56,7 @@ class SettingCell: UITableViewCell {
     var index = 0
     for knobView in knobViews {
       knobView.set(frame: CGRect(origin: knobViewPositions[index], size: size))
-      print("knob index \(index)'s frame is \(knobView.frame)")
-      
+     
       knobView.changeKnobLabelText(to: "Default")
       if index == 1 { knobView.moveKnobLabelAbove() }
       knobView.setValue(value: setting.knobs!.knobsList[index].continuousValue, animated: false)
@@ -69,30 +71,26 @@ class SettingCell: UITableViewCell {
   }
   
   func setupSetting() {
-    print("setupSetting()")
+    //print("setupSetting()")
     if let _ = setting.knobs {
-      print("*calling populateKnobViews()")
+      //print("*calling populateKnobViews()")
       populateKnobViews()
     } else {
-      print("**calling populateKnobs()")
+      //print("**calling populateKnobs()")
       populateKnobs()
     }
     configureKnobViews()
   }
   
   func populateKnobViews() {
-    print("populateKnobViews()")
+    //print("populateKnobViews()")
     while knobViews.count < setting.knobs!.count {
       knobViews.append(KnobView(frame: frame))
-    }
-    
-    for knobView in knobViews {
-      print("knobView frame after init(frame:) is \(knobView.frame)")
     }
   }
   
   func populateKnobs() {
-    print("populateKnobs()")
+    //print("populateKnobs()")
     setting.knobs = Knobs()
   
     setting.knobs?.addKnob()
@@ -111,34 +109,3 @@ extension SettingCell: KnobViewDelegate {
     coreDataStack.saveContext()
   }
 }
-
-
-////    let testKnob0 = KnobView(frame: CGRect(x: oneThirdWidth - halfSideLength, y: 0, width: sideLength, height: sideLength))
-//    let testKnob0 = KnobView(frame: CGRect(x: halfWidth - halfSideLength * 3.0, y: 0, width: sideLength, height: sideLength))
-//    testKnob0.changeFillColor(to: UIColor.clear)
-//    testKnob0.changeStrokeColor(to: UIColor.black)
-//
-//    let testKnob1 = KnobView(frame: CGRect(x: halfWidth - halfSideLength, y: sideLength, width: sideLength, height: sideLength))
-//    testKnob1.changeFillColor(to: UIColor.clear)
-//    testKnob1.changeStrokeColor(to: UIColor.black)
-//    testKnob1.moveKnobLabelAbove()
-//
-//    let testKnob2 = KnobView(frame: CGRect(x: halfWidth + halfSideLength, y: 0, width: sideLength, height: sideLength))
-//    testKnob2.changeFillColor(to: UIColor.clear)
-//    testKnob2.changeStrokeColor(to: UIColor.black)
-
-
-
-//    contentView.addSubview(testKnob0)
-//    contentView.addSubview(testKnob1)
-//    contentView.addSubview(testKnob2)
-
-//    testKnob0.setValue(value: setting.knobs!.knobsList[0].continuousValue, animated: false)
-//    testKnob1.setValue(value: setting.knobs!.knobsList[1].continuousValue, animated: false)
-//    testKnob2.setValue(value: setting.knobs!.knobsList[2].continuousValue, animated: false)
-
-//    testKnob0.changeKnobLabelText(to: "Level")
-//    testKnob1.changeKnobLabelText(to: "Tone")
-//    testKnob2.changeKnobLabelText(to: "Gain")
-//
-//    testKnob0.delegate = self
