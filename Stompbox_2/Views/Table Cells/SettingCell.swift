@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class SettingCell: UITableViewCell {
   
@@ -14,7 +15,6 @@ class SettingCell: UITableViewCell {
   var coreDataStack: CoreDataStack!
   var setting: Setting! {
     didSet {
-      print("setting set")
       setupSetting()
     }
   }
@@ -29,13 +29,11 @@ class SettingCell: UITableViewCell {
   // gets called if the cell is NOT designed in storyboard
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    print("initialize setting cell")
   }
   
   // gets called if the cell is ONLY designed in storyboard
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    print("initialize setting cell")
   }
   
   override func awakeFromNib() {
@@ -59,11 +57,13 @@ class SettingCell: UITableViewCell {
      
       knobView.changeKnobLabelText(to: "Default")
       if index == 1 { knobView.moveKnobLabelAbove() }
-      knobView.setValue(value: setting.knobs!.knobsList[index].continuousValue, animated: false)
+      knobView.setValue(value: setting.knobs!.knobsList[index].value, animated: false)
+      
+      print("Saved value is: \(setting.knobs!.knobsList[index].value)")
       
       knobView.delegate = self
       knobView.changeFillColor(to: UIColor.clear)
-      knobView.changeStrokeColor(to: UIColor.black)
+      
       contentView.addSubview(knobView)
   
       index += 1
@@ -71,26 +71,21 @@ class SettingCell: UITableViewCell {
   }
   
   func setupSetting() {
-    //print("setupSetting()")
     if let _ = setting.knobs {
-      //print("*calling populateKnobViews()")
       populateKnobViews()
     } else {
-      //print("**calling populateKnobs()")
       populateKnobs()
     }
     configureKnobViews()
   }
   
   func populateKnobViews() {
-    //print("populateKnobViews()")
     while knobViews.count < setting.knobs!.count {
       knobViews.append(KnobView(frame: frame))
     }
   }
   
   func populateKnobs() {
-    //print("populateKnobs()")
     setting.knobs = Knobs()
   
     setting.knobs?.addKnob()
@@ -104,8 +99,15 @@ class SettingCell: UITableViewCell {
 extension SettingCell: KnobViewDelegate {
   func knobView(_ knobView: KnobView, saveKnobValue value: Float) {
     let index = knobViews.index(of: knobView)
+    if let knob = setting.knobs?.knobsList[index!] {
+      //knob.setValue(value, forKey: "value")
+      knob.value = value
+      print("knob value set")
+    }
+    //self.setting!.knobs?.knobsList[index!].setValue(value, forKey: "value")
+    print("The knob value in coredata: \(setting.knobs?.knobsList[index!].value)")
+    // fractional values causing value label to read as 1?
     
-    setting.knobs?.knobsList[index!].continuousValue = value
-    coreDataStack.saveContext()
+    coreDataStack.saveContextWithoutCheckingForChanges()
   }
 }

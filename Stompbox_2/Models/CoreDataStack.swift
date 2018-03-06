@@ -33,7 +33,7 @@ class CoreDataStack {
   
   func saveContext() {
     guard moc.hasChanges else {
-      //print("No changes in moc.  Not saving data")
+      print("No changes in moc.  Not saving data")
       return
     }
     do {
@@ -43,11 +43,11 @@ class CoreDataStack {
     }
   }
   
-//  func saveContextWithoutCheckingForChanges() {
-//    do {
-//      try moc.save()
-//    } catch let error as NSError {
-//      print("Unresolved error \(error), \(error.userInfo)")
-//    }
-//  }
+  func saveContextWithoutCheckingForChanges() {
+    do {
+      try moc.save()
+    } catch let error as NSError {
+      print("Unresolved error \(error), \(error.userInfo)")
+    }
+  }
 }

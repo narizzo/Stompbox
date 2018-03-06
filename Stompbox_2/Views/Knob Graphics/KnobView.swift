@@ -31,7 +31,7 @@ class KnobView: UIControl {
   private var backingValue: Float = 0.0
   private var panRecognizer: UIPanGestureRecognizer!
   
-  private var percentLabel = PercentLabel()
+  private var valueLabel = PercentLabel()
   private var knobLabel = UILabel()
   
   public var value: Float {
@@ -42,8 +42,9 @@ class KnobView: UIControl {
   public func setValue(value: Float, animated: Bool) {
     if value != backingValue {
       self.backingValue = min(maximumValue, max(minimumValue, value))
+      print("Sending \(value) to delegate")
       delegate?.knobView(self, saveKnobValue: value)
-      knobValueChanged()
+      updateValueLabel()
     }
     let angleRange = endAngle - startAngle
     let valueRange = CGFloat(maximumValue - minimumValue)
@@ -88,18 +89,18 @@ class KnobView: UIControl {
   }
   
   public func set(frame: CGRect?) {
-    self.addSubview(percentLabel)
+    self.addSubview(valueLabel)
     self.addSubview(knobLabel)
     
     if let frame = frame {
       self.frame = frame
     }
     
-    percentLabel.frame = self.bounds
+    valueLabel.frame = self.bounds
     
-    percentLabel.backgroundColor = UIColor.clear
-    percentLabel.textColor = blue
-    percentLabel.update(percent: self.value)
+    valueLabel.backgroundColor = UIColor.clear
+    valueLabel.textColor = blue
+    valueLabel.update(percent: self.value)
 
     //knobLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + 5.0, width: self.bounds.width, height: self.bounds.height)
     knobLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + knobLabel.font.lineHeight / 2.0, width: self.bounds.width, height: self.bounds.height)
@@ -150,7 +151,7 @@ class KnobView: UIControl {
   
   @objc func handleTap(sender: AnyObject) {
     changeStrokeColor(to: UIColor.yellow)
-    percentLabel.textColor = UIColor.yellow
+    valueLabel.textColor = UIColor.yellow
     knobLabel.textColor = UIColor.yellow
     stompboxVCView.addSubview(overlayView)
   }
@@ -158,15 +159,15 @@ class KnobView: UIControl {
   // MARK: - Knob Focus Methods
   @objc func handleOverlayViewTap(sender: AnyObject) {
     changeStrokeColor(to: blue)
-    percentLabel.textColor = blue
+    valueLabel.textColor = blue
     knobLabel.textColor = blue
     
     overlayView.removeFromSuperview()
   }
   
   // MARK: - Update Percent Label
-  func knobValueChanged() {
-    percentLabel.update(percent: self.value)
+  func updateValueLabel() {
+    valueLabel.update(percent: self.value)
   }
   
   // MARK: - Colors

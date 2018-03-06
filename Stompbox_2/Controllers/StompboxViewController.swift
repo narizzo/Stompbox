@@ -151,7 +151,6 @@ extension StompboxViewController: UITableViewDataSource {
       return stompboxCell
     } else {
       let settingCell = tableView.dequeueReusableCell(withIdentifier: settingCellReuseIdentifier, for: indexPath)
-      print((settingCell as! SettingCell).setting)
       configure(settingCell, for: indexPath)
       return settingCell
     }
@@ -171,6 +170,7 @@ extension StompboxViewController: UITableViewDelegate {
     if let _ = tableView.cellForRow(at: indexPath) as? StompboxCell {
       let delete = UITableViewRowAction(style: .default, title: "Delete") { action, index in
         self.deleteStompbox(at: indexPath)
+        print("Deleted Stompbox")
       }
       let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
         self.editStompbox(at: indexPath)
@@ -181,6 +181,12 @@ extension StompboxViewController: UITableViewDelegate {
       edit.backgroundColor = UIColor.green
       add.backgroundColor = UIColor.blue
       return [delete, edit, add]
+    } else if let _ = tableView.cellForRow(at: indexPath) as? SettingCell {
+      let delete = UITableViewRowAction(style: .default, title: "Delete") { action, index in
+        self.deleteSetting(at: indexPath)
+        print("Deleted Setting")
+      }
+      return [delete]
     } else {
       return nil
     }
@@ -196,7 +202,6 @@ extension StompboxViewController: UITableViewDelegate {
         print("Error removing file: \(error)")
       }
     }
-    
     coreDataStack.moc.delete(stompbox)
     coreDataStack.saveContext()
   }
@@ -225,8 +230,20 @@ extension StompboxViewController: UITableViewDelegate {
     tableView.insertRows(at: [indexPath], with: .automatic)
     controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
     coreDataStack.saveContext()
+  }
+  
+  func deleteSetting(at indexPath: IndexPath) {
+    let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
     
-    print("Settings for stompbox at section \(indexPath.section) is \(stompbox.settings?.count)")
+    controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+
+    tableView.deleteRows(at: [indexPath], with: .automatic)
+    coreDataStack.moc.delete(stompbox.settings![indexPath.row - 1] as! Setting)
+    stompbox.removeFromSettings(stompbox.settings![indexPath.row - 1] as! Setting)
+    
+    
+    controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    coreDataStack.saveContext()
   }
 }
 
@@ -238,17 +255,20 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
   }
   
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-    switch type {
-    case .insert:
-      tableView.insertRows(at: [newIndexPath!], with: .automatic)
-    case .delete:
-      tableView.deleteRows(at: [indexPath!], with: .automatic)
-    case .update:
-      configure(tableView.cellForRow(at: indexPath!)!, for: indexPath!)
-    case .move:
-      tableView.deleteRows(at: [indexPath!], with: .automatic)
-      tableView.insertRows(at: [newIndexPath!], with: .automatic)
-    }
+      switch type {
+      case .insert:
+        tableView.insertRows(at: [newIndexPath!], with: .automatic)
+      case .delete:
+        tableView.deleteRows(at: [indexPath!], with: .automatic)
+        if indexPath?.row != 0 {
+          deleteSetting(at: indexPath!)
+        }
+      case .update:
+        configure(tableView.cellForRow(at: indexPath!)!, for: indexPath!)
+      case .move:
+        tableView.deleteRows(at: [indexPath!], with: .automatic)
+        tableView.insertRows(at: [newIndexPath!], with: .automatic)
+      }
   }
   
   func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -256,6 +276,7 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
   }
   
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+    print("Section did change")
     let indexSet = IndexSet(integer: sectionIndex)
     switch type {
     case .insert:
