@@ -89,35 +89,17 @@ class KnobView: UIControl {
   public func set(frame: CGRect?) {
     self.addSubview(valueLabel)
     self.addSubview(knobLabel)
-    
     if let frame = frame {
       self.frame = frame
     }
-    
-    valueLabel.frame = self.bounds
-    
-    valueLabel.backgroundColor = UIColor.clear
-    valueLabel.textColor = blue
-    valueLabel.update(percent: self.value)
-
-    //knobLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + 5.0, width: self.bounds.width, height: self.bounds.height)
-    knobLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + knobLabel.font.lineHeight / 2.0, width: self.bounds.width, height: self.bounds.height)
-    knobLabel.textAlignment = .center
-    
+    configureValueLabel()
+    configureKnobLabel()
     createSublayers()
     createGestureRecognizers()
   }
   
   func createSublayers() {
-    //print("\n*******\nknobRenderer update frame \(self.frame)\n*******\n")
-    knobRenderer.update(frame: self.frame)
-    knobRenderer.strokeColor = tintColor
-    knobRenderer.startAngle = -CGFloat(Double.pi * 11.0 / 8.0);
-    knobRenderer.endAngle = CGFloat(Double.pi * 3.0 / 8.0);
-    knobRenderer.pointerAngle = CGFloat(Double.pi);
-    knobRenderer.lineWidth = 2.0
-    knobRenderer.pointerLength = 6.0
-    
+    configureKnobRenderer()
     layer.addSublayer(knobRenderer.trackLayer)
     layer.addSublayer(knobRenderer.pointerLayer)
   }
@@ -126,22 +108,16 @@ class KnobView: UIControl {
     panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
     panRecognizer.maximumNumberOfTouches = 1
     panRecognizer.minimumNumberOfTouches = 1
-    
     let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
     self.addGestureRecognizer(tapRecognizer)
     
   }
   
-  
   // MARK: - Gesture Methods
   @objc func handlePan(recognizer: UIPanGestureRecognizer) {
     var translation = recognizer.translation(in: recognizer.view)
-    //let velocity = recognizer.velocity(in: recognizer.view)
-    
     let translationAmount = (-translation.y) / 250
-    
     value = min( (max(value + Float(translationAmount), 0)), 1)
-    
     recognizer.setTranslation(CGPoint(x: 0.0, y: 0.0), in: recognizer.view)
     translation = recognizer.translation(in: recognizer.view)
   }
@@ -158,7 +134,6 @@ class KnobView: UIControl {
     changeStrokeColor(to: blue)
     valueLabel.textColor = blue
     knobLabel.textColor = blue
-    
     overlayView.removeFromSuperview()
   }
   
@@ -181,6 +156,12 @@ class KnobView: UIControl {
   }
   
   // MARK: - Knob Label
+  private func configureKnobLabel() {
+    knobLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + knobLabel.font.lineHeight / 2.0, width: self.bounds.width, height: self.bounds.height)
+    knobLabel.textAlignment = .center
+    knobLabel.textColor = blue
+  }
+  
   public func moveKnobLabelAbove() {
     knobLabel.frame = CGRect(x: 0, y: -self.bounds.height / 2.0 - knobLabel.font.lineHeight / 2.0, width: self.bounds.width, height: self.bounds.height)
   }
@@ -188,6 +169,23 @@ class KnobView: UIControl {
   public func changeKnobLabelText(to text: String) {
     knobLabel.text = text
   }
-
   
+  // MARK: - Knob Renderer
+  private func configureKnobRenderer() {
+    knobRenderer.update(frame: self.frame)
+    knobRenderer.strokeColor = tintColor
+    knobRenderer.startAngle = -CGFloat(Double.pi * 11.0 / 8.0);
+    knobRenderer.endAngle = CGFloat(Double.pi * 3.0 / 8.0);
+    knobRenderer.pointerAngle = CGFloat(Double.pi);
+    knobRenderer.lineWidth = 2.0
+    knobRenderer.pointerLength = 6.0
+  }
+  
+  // MARK: - Value Label
+  private func configureValueLabel() {
+    valueLabel.frame = self.bounds
+    valueLabel.backgroundColor = UIColor.clear
+    valueLabel.textColor = blue
+    valueLabel.update(percent: self.value)
+  }  
 }

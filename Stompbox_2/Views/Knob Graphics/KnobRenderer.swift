@@ -80,8 +80,10 @@ extension KnobView {
       let path = UIBezierPath()
 //      path.move(to: CGPoint(x: pointerLayer.bounds.width - pointerLength - pointerLayer.lineWidth / 2.0, y: pointerLayer.bounds.height / 2.0))
 //      path.addLine(to: CGPoint(x: pointerLayer.bounds.width, y: pointerLayer.bounds.height / 2.0))
-      path.move(to: CGPoint(x: pointerLayer.bounds.width - pointerLength, y: pointerLayer.bounds.height / 2.0))
-      path.addLine(to: CGPoint(x: pointerLayer.bounds.width - 15, y: pointerLayer.bounds.height / 2.0))
+      let width = pointerLayer.bounds.width
+      let height = pointerLayer.bounds.height
+      path.move(to: CGPoint(x: width - pointerLength, y: height / 2.0))
+      path.addLine(to: CGPoint(x: width - (width * 0.15), y: height / 2.0))
       pointerLayer.path = path.cgPath
       
     }
