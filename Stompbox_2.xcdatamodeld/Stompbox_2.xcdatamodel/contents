@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D102" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Setting" representedClassName="Setting" syncable="YES">
-        <attribute name="knobs" optional="YES" attributeType="Transformable" syncable="YES"/>
+    <entity name="Knob" representedClassName="Knob" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="switches" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="knobSub" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="KnobSub" inverseName="knob" inverseEntity="KnobSub" syncable="YES"/>
+        <relationship name="setting" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Setting" inverseName="knobs" inverseEntity="Setting" syncable="YES"/>
+    </entity>
+    <entity name="KnobSub" representedClassName="KnobSub" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="knob" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Knob" inverseName="knobSub" inverseEntity="Knob" syncable="YES"/>
+    </entity>
+    <entity name="Setting" representedClassName="Setting" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="knobs" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Knob" inverseName="setting" inverseEntity="Knob" syncable="YES"/>
         <relationship name="stompbox" maxCount="1" deletionRule="Cascade" destinationEntity="Stompbox" inverseName="settings" inverseEntity="Stompbox" syncable="YES"/>
     </entity>
-    <entity name="Stompbox" representedClassName=".Stompbox" syncable="YES">
+    <entity name="Stompbox" representedClassName="Stompbox" syncable="YES" codeGenerationType="class">
         <attribute name="imageFilePath" optional="YES" attributeType="URI" syncable="YES"/>
         <attribute name="manufacturer" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="settings" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Setting" inverseName="stompbox" inverseEntity="Setting" syncable="YES"/>
     </entity>
+    <entity name="Switch" representedClassName="Switch" syncable="YES" codeGenerationType="class"/>
+    <entity name="SwitchPosition" representedClassName="SwitchPosition" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Setting" positionX="-63" positionY="9" width="128" height="105"/>
-        <element name="Stompbox" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="Knob" positionX="-27" positionY="165" width="128" height="105"/>
+        <element name="KnobSub" positionX="-270" positionY="162" width="128" height="90"/>
+        <element name="Setting" positionX="-54" positionY="-18" width="144" height="88"/>
+        <element name="Stompbox" positionX="-371" positionY="-48" width="128" height="118"/>
+        <element name="Switch" positionX="9" positionY="-117" width="128" height="45"/>
+        <element name="SwitchPosition" positionX="-153" positionY="-117" width="128" height="60"/>
     </elements>
 </model>

@@ -92,11 +92,18 @@ extension StompboxViewController {
     }
     if let cell = cell as? SettingCell {
       let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
+      
+      if cell.coreDataStack == nil {
+        cell.coreDataStack = coreDataStack
+      }
+      
+      if cell.stompboxVCView == nil {
+        cell.stompboxVCView = self.view
+      }
+      
       if cell.setting == nil {
         cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
       }
-      cell.coreDataStack = coreDataStack
-      cell.stompboxVCView = self.view
     }
   }
 }
@@ -226,7 +233,7 @@ extension StompboxViewController: UITableViewDelegate {
     }
     
     let indexPath = IndexPath(row: row, section: indexPath.section)
-    
+    print("insertingRow at \(indexPath)")
     tableView.insertRows(at: [indexPath], with: .automatic)
     controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
     coreDataStack.saveContext()

@@ -14,9 +14,8 @@ protocol KnobViewDelegate: class {
 
 class KnobView: UIControl {
   
-  weak var delegate: KnobViewDelegate?
-  
   // MARK: - Instance Variables
+  weak var delegate: KnobViewDelegate?
   var stompboxVCView: UIView! {
     didSet {
       overlayView = UIView(frame: stompboxVCView.frame)
@@ -36,13 +35,12 @@ class KnobView: UIControl {
   
   public var value: Float {
     get { return backingValue }
-    set { setValue(value: newValue, animated: true) }
+    set { setValue(newValue, animated: true) }
   }
   
-  public func setValue(value: Float, animated: Bool) {
+  public func setValue(_ value: Float, animated: Bool) {
     if value != backingValue {
       self.backingValue = min(maximumValue, max(minimumValue, value))
-      print("Sending \(value) to delegate")
       delegate?.knobView(self, saveKnobValue: value)
       updateValueLabel()
     }
@@ -104,7 +102,6 @@ class KnobView: UIControl {
 
     //knobLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + 5.0, width: self.bounds.width, height: self.bounds.height)
     knobLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + knobLabel.font.lineHeight / 2.0, width: self.bounds.width, height: self.bounds.height)
-    knobLabel.text = "Tone"
     knobLabel.textAlignment = .center
     
     createSublayers()

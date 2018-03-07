@@ -42,12 +42,4 @@ class CoreDataStack {
       print("Unresolved error \(error), \(error.userInfo)")
     }
   }
-  
-  func saveContextWithoutCheckingForChanges() {
-    do {
-      try moc.save()
-    } catch let error as NSError {
-      print("Unresolved error \(error), \(error.userInfo)")
-    }
-  }
 }

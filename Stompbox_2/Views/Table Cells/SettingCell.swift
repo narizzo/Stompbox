@@ -13,16 +13,10 @@ class SettingCell: UITableViewCell {
   
   var knobViews = [KnobView]()
   var coreDataStack: CoreDataStack!
+  var stompboxVCView: UIView!
   var setting: Setting! {
     didSet {
-      setupSetting()
-    }
-  }
-  var stompboxVCView: UIView! {
-    didSet {
-      for knob in knobViews {
-        knob.stompboxVCView = stompboxVCView
-      }
+      populateKnobViews()
     }
   }
   
@@ -42,7 +36,6 @@ class SettingCell: UITableViewCell {
   }
   
   func configureKnobViews() {
-   // print("configureKnobViews()")
     let sideLength = self.frame.size.height / 2.0
     let size = CGSize(width: sideLength, height: sideLength)
     
@@ -57,57 +50,46 @@ class SettingCell: UITableViewCell {
      
       knobView.changeKnobLabelText(to: "Default")
       if index == 1 { knobView.moveKnobLabelAbove() }
-      knobView.setValue(value: setting.knobs!.knobsList[index].value, animated: false)
       
-      print("Saved value is: \(setting.knobs!.knobsList[index].value)")
+      if let knob = setting.knobs![index] as? Knob {
+        knobView.setValue(Float(knob.value) / 100, animated: false)
+      }
       
       knobView.delegate = self
+      knobView.stompboxVCView = stompboxVCView
+      
       knobView.changeFillColor(to: UIColor.clear)
       
       contentView.addSubview(knobView)
-  
       index += 1
     }
   }
   
-  func setupSetting() {
-    if let _ = setting.knobs {
-      populateKnobViews()
-    } else {
+  func populateKnobViews() {
+    if setting.knobs!.count == 0 || setting.knobs == nil {
       populateKnobs()
+    }
+    while knobViews.count < setting.knobs!.count {
+      knobViews.append(KnobView(frame: frame))
     }
     configureKnobViews()
   }
   
-  func populateKnobViews() {
-    while knobViews.count < setting.knobs!.count {
-      knobViews.append(KnobView(frame: frame))
-    }
-  }
-  
   func populateKnobs() {
-    setting.knobs = Knobs()
-  
-    setting.knobs?.addKnob()
-    setting.knobs?.addKnob()
-    setting.knobs?.addKnob()
-    
-    populateKnobViews()
+    for _ in 0...2 {
+      let knob = Knob(entity: Knob.entity(), insertInto: coreDataStack.moc)
+      setting.addToKnobs(knob)
+    }
   }
 }
 
 extension SettingCell: KnobViewDelegate {
   func knobView(_ knobView: KnobView, saveKnobValue value: Float) {
     let index = knobViews.index(of: knobView)
-    if let knob = setting.knobs?.knobsList[index!] {
-      //knob.setValue(value, forKey: "value")
-      knob.value = value
-      print("knob value set")
+    if let knob = setting.knobs?[index!] as? Knob {
+      knob.value = Int16(value * 100)
     }
-    //self.setting!.knobs?.knobsList[index!].setValue(value, forKey: "value")
-    print("The knob value in coredata: \(setting.knobs?.knobsList[index!].value)")
     // fractional values causing value label to read as 1?
-    
-    coreDataStack.saveContextWithoutCheckingForChanges()
+    coreDataStack.saveContext()
   }
 }
