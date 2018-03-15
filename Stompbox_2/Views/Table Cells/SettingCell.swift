@@ -16,7 +16,9 @@ class SettingCell: UITableViewCell {
   var stompboxVCView: UIView!
   var setting: Setting! {
     didSet {
-      populateKnobViews()
+      if setting != nil {
+        populateKnobViews()
+      }
     }
   }
   

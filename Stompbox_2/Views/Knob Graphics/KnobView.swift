@@ -24,7 +24,7 @@ class KnobView: UIControl {
     }
   }
   var overlayView: UIView!
-  var stompbox: Stompbox!
+  //var stompbox: Stompbox!
   
   private let knobRenderer = KnobRenderer()
   private var backingValue: Float = 0.0

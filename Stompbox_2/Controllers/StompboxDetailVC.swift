@@ -110,7 +110,6 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   }
   
   // MARK: - Table view data source
-  
   override func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
@@ -133,7 +132,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   
 }
 
-
+// MARK: - StompboxDetail VC
 extension StompboxDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
   func showPhotoMenu() {
