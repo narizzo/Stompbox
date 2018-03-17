@@ -10,6 +10,7 @@ import Foundation
 
 // MARK: - StompboxDetailViewController Protocol
 extension StompboxViewController: StompboxDetailViewControllerDelegate {
+  
   func stompboxDetailViewControllerDidCancel(_ controller: StompboxDetailViewController) {
     navigationController?.popViewController(animated: true)
   }

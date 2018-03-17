@@ -10,7 +10,6 @@ import Foundation
 
 extension Stompbox {
   
-  
   func setPropertiesTo(name: String, type: String, manufacturer: String) {
     self.name = name
     self.type = type

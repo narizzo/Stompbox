@@ -15,16 +15,16 @@ protocol KnobViewDelegate: class {
 class KnobView: UIControl {
   
   // MARK: - Instance Variables
+  var overlayView = UIView()
+
   weak var delegate: KnobViewDelegate?
-  var stompboxVCView: UIView! {
+  weak var stompboxVCView: UIView! {
     didSet {
-      overlayView = UIView(frame: stompboxVCView.frame)
-      overlayView.addGestureRecognizer(panRecognizer)
-      overlayView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOverlayViewTap)))
+      self.overlayView = UIView(frame: stompboxVCView.frame)
+      self.overlayView.addGestureRecognizer(panRecognizer)
+      self.overlayView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleOverlayViewTap)))
     }
   }
-  var overlayView: UIView!
-  //var stompbox: Stompbox!
   
   private let knobRenderer = KnobRenderer()
   private var backingValue: Float = 0.0

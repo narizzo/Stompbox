@@ -41,22 +41,16 @@ extension StompboxViewController: UITableViewDelegate {
   }
   
   func deleteStompbox(at indexPath: IndexPath) {
-    print("1: Inside deleteStompbox(at:)")
     let stompbox = fetchedResultsController.object(at: indexPath)
-    print("2a: stompbox var assigned")
     if let imageFilePath = stompbox.imageFilePath?.path, FileManager.default.fileExists(atPath: imageFilePath) {
-      print("2b: imageFilPathAssigned...deleting image and file path")
       do {
-        print()
-        // delete image if stompbox has one that isn't the default
         try FileManager.default.removeItem(atPath: imageFilePath)
       } catch {
         print("Error removing file: \(error)")
       }
     }
-    print("3a: deleting stompbox")
+   
     coreDataStack.moc.delete(stompbox)
-    print("3b: deleted stompbox")
     coreDataStack.saveContext()
   }
   
@@ -91,13 +85,10 @@ extension StompboxViewController: UITableViewDelegate {
     
     controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
     tableView.deleteRows(at: [indexPath], with: .automatic)
+    
     stompbox.removeFromSettings(setting)
     coreDataStack.moc.delete(setting)
     coreDataStack.saveContext()
-    
-    if let settingCell = tableView.cellForRow(at: indexPath) as? SettingCell {
-      settingCell.setting = nil
-    }
     
     controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
   }

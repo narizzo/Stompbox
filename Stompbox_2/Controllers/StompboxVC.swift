@@ -18,12 +18,12 @@ class StompboxViewController: UIViewController {
     
     static let stompboxCellHeight: CGFloat = 200
     static let settingCellHeight: CGFloat = 200
+    static let stompboxCellIdentifier = "stompboxReuseIdentifier"
+    static let settingCellReuseIdentifier = "settingReuseIdentifier"
   }
-  
-  let stompboxCellIdentifier = "stompboxReuseIdentifier"
-  let settingCellReuseIdentifier = "settingReuseIdentifier"
 
-  var coreDataStack: CoreDataStack!
+  // should be weak?
+  weak var coreDataStack: CoreDataStack!
   var selectedStompbox: Stompbox?
   
   lazy var fetchedResultsController: NSFetchedResultsController<Stompbox> = {
@@ -51,7 +51,6 @@ class StompboxViewController: UIViewController {
     super.viewDidLoad()
     tableView.backgroundColor = black
     do {
-      print("Perform Fetch")
       try fetchedResultsController.performFetch()
     } catch let error as NSError {
       print("Fetching error: \(error), \(error.userInfo)")
@@ -65,9 +64,9 @@ class StompboxViewController: UIViewController {
   
   // MARK: - Methods
   func configure(_ cell: UITableViewCell, for indexPath: IndexPath) {
+    //print(tableView.indexPathsForVisibleRows)
     if let cell = cell as? StompboxCell {
       configureStompboxCell(cell, for: indexPath)
-      return
     }
     if let cell = cell as? SettingCell {
       configureSettingCell(cell, for: indexPath)
@@ -76,6 +75,7 @@ class StompboxViewController: UIViewController {
   
   // Configure helper method
   private func configureStompboxCell(_ cell: StompboxCell, for indexPath: IndexPath) {
+    print("stompbox: configure for \(indexPath)")
     let stompbox = fetchedResultsController.object(at: indexPath)
     
     cell.nameLabel.text = stompbox.name
@@ -91,11 +91,11 @@ class StompboxViewController: UIViewController {
     } else {
       cell.stompboxImageView.image = #imageLiteral(resourceName: "BD2-large")
     }
-    return
   }
   
   // Configure helper method
   private func configureSettingCell(_ cell: SettingCell, for indexPath: IndexPath) {
+    cell.number.text = ("\(indexPath.row - 1)")
     let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
     if cell.coreDataStack == nil {
       cell.coreDataStack = coreDataStack
@@ -103,9 +103,7 @@ class StompboxViewController: UIViewController {
     if cell.stompboxVCView == nil {
       cell.stompboxVCView = self.view
     }
-    if cell.setting == nil {
-      cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
-    }
+    cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
   }
   
   // MARK: - Navigation

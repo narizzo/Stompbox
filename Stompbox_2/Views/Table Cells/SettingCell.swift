@@ -11,10 +11,11 @@ import CoreData
 
 class SettingCell: UITableViewCell {
   
+  var number = UILabel()
   var knobViews = [KnobView]()
-  var coreDataStack: CoreDataStack!
-  var stompboxVCView: UIView!
-  var setting: Setting! {
+  weak var coreDataStack: CoreDataStack!
+  weak var stompboxVCView: UIView!
+  weak var setting: Setting! {
     didSet {
       if setting != nil {
         populateKnobViews()
@@ -22,12 +23,10 @@ class SettingCell: UITableViewCell {
     }
   }
   
-  // gets called if the cell is NOT designed in storyboard
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
   }
   
-  // gets called if the cell is ONLY designed in storyboard
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
@@ -53,16 +52,26 @@ class SettingCell: UITableViewCell {
       knobView.changeKnobLabelText(to: "Default")
       if index == 1 { knobView.moveKnobLabelAbove() }
       
-      if let knob = setting.knobs![index] as? Knob {
-        knobView.setValue(Float(knob.value) / 100, animated: false)
-      }
+      loadKnobValues()
       
       knobView.delegate = self
       knobView.stompboxVCView = stompboxVCView
       
       knobView.changeFillColor(to: UIColor.clear)
-      
-      contentView.addSubview(knobView)
+      index += 1
+    }
+    
+    number.frame = CGRect(x:0, y: 50, width: self.frame.width, height: self.frame.height / 2)
+    contentView.addSubview(number)
+  }
+  
+  func loadKnobValues() {
+    print("loadKnobValues")
+    var index = 0
+    for knobView in knobViews {
+      if let knob = setting.knobs![index] as? Knob {
+        knobView.setValue(Float(knob.value) / 100, animated: false)
+      }
       index += 1
     }
   }
@@ -72,8 +81,13 @@ class SettingCell: UITableViewCell {
       populateKnobs()
     }
     while knobViews.count < setting.knobs!.count {
-      knobViews.append(KnobView(frame: frame))
+      let knobView = KnobView(frame: frame)
+      knobViews.append(knobView)
+      contentView.addSubview(knobView)
     }
+    
+    print("KnobViews.count: \(knobViews.count)")
+    print("contentView subviews.count: \(contentView.subviews.count)")
     configureKnobViews()
   }
   
