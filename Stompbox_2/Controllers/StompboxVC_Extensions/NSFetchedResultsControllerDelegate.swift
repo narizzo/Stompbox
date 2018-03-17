@@ -40,7 +40,6 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
     case .insert:
       tableView.insertSections(indexSet, with: .automatic)
     case .delete:
-      //deleteStompbox(at: IndexPath(row: 0, section: sectionIndex))
       tableView.deleteSections(indexSet, with: .automatic)
     default: break
     }

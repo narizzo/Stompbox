@@ -25,8 +25,8 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   @IBOutlet weak var doneButton: UIBarButtonItem!
   
   weak var delegate: StompboxDetailViewControllerDelegate?
-  var coreDataStack: CoreDataStack!
-  var stompboxToEdit: Stompbox?
+  weak var coreDataStack: CoreDataStack!
+  weak var stompboxToEdit: Stompbox?
   
   let imagePicker = UIImagePickerController()
   var imageData = Data()

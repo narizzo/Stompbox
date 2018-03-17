@@ -10,7 +10,7 @@
 		0148870C20347F35001C74C6 /* KnobRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148870B20347F35001C74C6 /* KnobRenderer.swift */; };
 		01651D5220506553009F2292 /* Stompbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01651D5120506553009F2292 /* Stompbox.swift */; };
 		0173E6AA20349CE200CD9587 /* PercentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173E6A920349CE200CD9587 /* PercentLabel.swift */; };
-		01A58F3B200FF4DD00DD5BF3 /* StompboxDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A58F3A200FF4DD00DD5BF3 /* StompboxDetailVC.swift */; };
+		01A58F3B200FF4DD00DD5BF3 /* StompboxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */; };
 		01CAEB8F202A427800AC556B /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB8E202A427800AC556B /* SettingCell.swift */; };
 		01CAEB91202A42FE00AC556B /* KnobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB90202A42FE00AC556B /* KnobView.swift */; };
 		01EB574F2000123700686767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB574E2000123700686767 /* AppDelegate.swift */; };
@@ -19,20 +19,20 @@
 		01EB57592000123700686767 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01EB57582000123700686767 /* Assets.xcassets */; };
 		01EB575C2000123700686767 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01EB575A2000123700686767 /* LaunchScreen.storyboard */; };
 		01EB57642000130C00686767 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB57632000130C00686767 /* Functions.swift */; };
-		01EB576A2000562800686767 /* StompboxVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB57692000562800686767 /* StompboxVC.swift */; };
+		01EB576A2000562800686767 /* StompboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB57692000562800686767 /* StompboxViewController.swift */; };
 		01EB576C2000578800686767 /* StompboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB576B2000578800686767 /* StompboxCell.swift */; };
 		01EB576E200058D700686767 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB576D200058D700686767 /* CoreDataStack.swift */; };
-		01FB518D2059C1C200DB25E9 /* Delegate_UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB518C2059C1C200DB25E9 /* Delegate_UITableView.swift */; };
-		01FB51902059C29600DB25E9 /* DataSource_TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB518F2059C29600DB25E9 /* DataSource_TableView.swift */; };
-		01FB51922059C3A800DB25E9 /* Delegate_NSFRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB51912059C3A800DB25E9 /* Delegate_NSFRC.swift */; };
-		01FB51942059C41800DB25E9 /* Protocol_StompboxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB51932059C41800DB25E9 /* Protocol_StompboxDetailViewController.swift */; };
+		01FB518D2059C1C200DB25E9 /* UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB518C2059C1C200DB25E9 /* UITableViewDelegate.swift */; };
+		01FB51902059C29600DB25E9 /* UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB518F2059C29600DB25E9 /* UITableViewDataSource.swift */; };
+		01FB51922059C3A800DB25E9 /* NSFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB51912059C3A800DB25E9 /* NSFetchedResultsControllerDelegate.swift */; };
+		01FB51942059C41800DB25E9 /* StompboxDetailViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB51932059C41800DB25E9 /* StompboxDetailViewControllerDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0148870B20347F35001C74C6 /* KnobRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobRenderer.swift; sourceTree = "<group>"; };
 		01651D5120506553009F2292 /* Stompbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stompbox.swift; sourceTree = "<group>"; };
 		0173E6A920349CE200CD9587 /* PercentLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentLabel.swift; sourceTree = "<group>"; };
-		01A58F3A200FF4DD00DD5BF3 /* StompboxDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxDetailVC.swift; sourceTree = "<group>"; };
+		01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxDetailViewController.swift; sourceTree = "<group>"; };
 		01CAEB8E202A427800AC556B /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		01CAEB90202A42FE00AC556B /* KnobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobView.swift; sourceTree = "<group>"; };
 		01EB574B2000123700686767 /* Stompbox_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stompbox_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,13 +43,13 @@
 		01EB575B2000123700686767 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01EB575D2000123800686767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01EB57632000130C00686767 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
-		01EB57692000562800686767 /* StompboxVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxVC.swift; sourceTree = "<group>"; };
+		01EB57692000562800686767 /* StompboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxViewController.swift; sourceTree = "<group>"; };
 		01EB576B2000578800686767 /* StompboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxCell.swift; sourceTree = "<group>"; };
 		01EB576D200058D700686767 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		01FB518C2059C1C200DB25E9 /* Delegate_UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate_UITableView.swift; sourceTree = "<group>"; };
-		01FB518F2059C29600DB25E9 /* DataSource_TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource_TableView.swift; sourceTree = "<group>"; };
-		01FB51912059C3A800DB25E9 /* Delegate_NSFRC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate_NSFRC.swift; sourceTree = "<group>"; };
-		01FB51932059C41800DB25E9 /* Protocol_StompboxDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol_StompboxDetailViewController.swift; sourceTree = "<group>"; };
+		01FB518C2059C1C200DB25E9 /* UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewDelegate.swift; sourceTree = "<group>"; };
+		01FB518F2059C29600DB25E9 /* UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewDataSource.swift; sourceTree = "<group>"; };
+		01FB51912059C3A800DB25E9 /* NSFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
+		01FB51932059C41800DB25E9 /* StompboxDetailViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxDetailViewControllerDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,9 +66,9 @@
 		01CAEB37201BB22800AC556B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				01EB57692000562800686767 /* StompboxVC.swift */,
+				01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */,
+				01EB57692000562800686767 /* StompboxViewController.swift */,
 				01FB518E2059C21A00DB25E9 /* StompboxVC_Extensions */,
-				01A58F3A200FF4DD00DD5BF3 /* StompboxDetailVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -154,10 +154,10 @@
 		01FB518E2059C21A00DB25E9 /* StompboxVC_Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				01FB518C2059C1C200DB25E9 /* Delegate_UITableView.swift */,
-				01FB51912059C3A800DB25E9 /* Delegate_NSFRC.swift */,
-				01FB518F2059C29600DB25E9 /* DataSource_TableView.swift */,
-				01FB51932059C41800DB25E9 /* Protocol_StompboxDetailViewController.swift */,
+				01FB518C2059C1C200DB25E9 /* UITableViewDelegate.swift */,
+				01FB518F2059C29600DB25E9 /* UITableViewDataSource.swift */,
+				01FB51912059C3A800DB25E9 /* NSFetchedResultsControllerDelegate.swift */,
+				01FB51932059C41800DB25E9 /* StompboxDetailViewControllerDelegate.swift */,
 			);
 			path = StompboxVC_Extensions;
 			sourceTree = "<group>";
@@ -236,20 +236,20 @@
 			files = (
 				01EB576E200058D700686767 /* CoreDataStack.swift in Sources */,
 				01CAEB91202A42FE00AC556B /* KnobView.swift in Sources */,
-				01FB51902059C29600DB25E9 /* DataSource_TableView.swift in Sources */,
-				01FB518D2059C1C200DB25E9 /* Delegate_UITableView.swift in Sources */,
+				01FB51902059C29600DB25E9 /* UITableViewDataSource.swift in Sources */,
+				01FB518D2059C1C200DB25E9 /* UITableViewDelegate.swift in Sources */,
 				01EB57572000123700686767 /* Stompbox_2.xcdatamodeld in Sources */,
-				01FB51942059C41800DB25E9 /* Protocol_StompboxDetailViewController.swift in Sources */,
+				01FB51942059C41800DB25E9 /* StompboxDetailViewControllerDelegate.swift in Sources */,
 				01EB574F2000123700686767 /* AppDelegate.swift in Sources */,
 				01EB576C2000578800686767 /* StompboxCell.swift in Sources */,
 				01EB57642000130C00686767 /* Functions.swift in Sources */,
 				0148870C20347F35001C74C6 /* KnobRenderer.swift in Sources */,
 				01CAEB8F202A427800AC556B /* SettingCell.swift in Sources */,
-				01EB576A2000562800686767 /* StompboxVC.swift in Sources */,
+				01EB576A2000562800686767 /* StompboxViewController.swift in Sources */,
 				01651D5220506553009F2292 /* Stompbox.swift in Sources */,
-				01A58F3B200FF4DD00DD5BF3 /* StompboxDetailVC.swift in Sources */,
+				01A58F3B200FF4DD00DD5BF3 /* StompboxDetailViewController.swift in Sources */,
 				0173E6AA20349CE200CD9587 /* PercentLabel.swift in Sources */,
-				01FB51922059C3A800DB25E9 /* Delegate_NSFRC.swift in Sources */,
+				01FB51922059C3A800DB25E9 /* NSFetchedResultsControllerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

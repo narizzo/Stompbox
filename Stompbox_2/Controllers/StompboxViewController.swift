@@ -24,6 +24,7 @@ class StompboxViewController: UIViewController {
 
   // should be weak?
   weak var coreDataStack: CoreDataStack!
+  
   var selectedStompbox: Stompbox?
   
   lazy var fetchedResultsController: NSFetchedResultsController<Stompbox> = {
@@ -64,7 +65,6 @@ class StompboxViewController: UIViewController {
   
   // MARK: - Methods
   func configure(_ cell: UITableViewCell, for indexPath: IndexPath) {
-    //print(tableView.indexPathsForVisibleRows)
     if let cell = cell as? StompboxCell {
       configureStompboxCell(cell, for: indexPath)
     }
@@ -75,7 +75,6 @@ class StompboxViewController: UIViewController {
   
   // Configure helper method
   private func configureStompboxCell(_ cell: StompboxCell, for indexPath: IndexPath) {
-    print("stompbox: configure for \(indexPath)")
     let stompbox = fetchedResultsController.object(at: indexPath)
     
     cell.nameLabel.text = stompbox.name
@@ -95,7 +94,6 @@ class StompboxViewController: UIViewController {
   
   // Configure helper method
   private func configureSettingCell(_ cell: SettingCell, for indexPath: IndexPath) {
-    cell.number.text = ("\(indexPath.row - 1)")
     let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
     if cell.coreDataStack == nil {
       cell.coreDataStack = coreDataStack
