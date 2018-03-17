@@ -27,23 +27,19 @@ class KnobView: UIControl {
   }
   
   private let knobRenderer = KnobRenderer()
-  private var backingValue: Float = 0.0
   private var panRecognizer: UIPanGestureRecognizer!
   
   private var valueLabel = PercentLabel()
   private var knobLabel = UILabel()
   
-  public var value: Float {
-    get { return backingValue }
-    set { setValue(newValue, animated: true) }
-  }
-  
+  public var value: Float?
+
   public func setValue(_ value: Float, animated: Bool) {
-    if value != backingValue {
-      self.backingValue = min(maximumValue, max(minimumValue, value))
-      delegate?.knobView(self, saveKnobValue: value)
-      updateValueLabel()
-    }
+    print("setValue: \(value)")
+    self.value = min(maximumValue, max(minimumValue, value))
+    delegate?.knobView(self, saveKnobValue: value)
+    updateValueLabel()
+    
     let angleRange = endAngle - startAngle
     let valueRange = CGFloat(maximumValue - minimumValue)
     let angle = CGFloat(value - minimumValue) / valueRange * angleRange + startAngle
@@ -117,7 +113,8 @@ class KnobView: UIControl {
   @objc func handlePan(recognizer: UIPanGestureRecognizer) {
     var translation = recognizer.translation(in: recognizer.view)
     let translationAmount = (-translation.y) / 250
-    value = min( (max(value + Float(translationAmount), 0)), 1)
+    value = min( (max(value! + Float(translationAmount), 0)), 1)
+    setValue(value!, animated: false)
     recognizer.setTranslation(CGPoint(x: 0.0, y: 0.0), in: recognizer.view)
     translation = recognizer.translation(in: recognizer.view)
   }
@@ -139,7 +136,9 @@ class KnobView: UIControl {
   
   // MARK: - Update Percent Label
   func updateValueLabel() {
-    valueLabel.update(percent: self.value)
+    if let value = value {
+      valueLabel.update(percent: value)
+    }
   }
   
   // MARK: - Colors
@@ -186,6 +185,6 @@ class KnobView: UIControl {
     valueLabel.frame = self.bounds
     valueLabel.backgroundColor = UIColor.clear
     valueLabel.textColor = blue
-    valueLabel.update(percent: self.value)
+    updateValueLabel()
   }  
 }
