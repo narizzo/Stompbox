@@ -16,6 +16,19 @@ class StompboxCell: UITableViewCell {
   @IBOutlet weak var manufacturerLabel: UILabel!
   @IBOutlet weak var stompboxImageView: UIImageView!
   
+  
+  override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
+//    print("Init StompboxCell")
+//    print("\(self)\n")
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+//    print("Init StompboxCell")
+//    print("\(self)\n")
+  }
+  
   // MARK: - View Life Cycle
   override func prepareForReuse() {
     super.prepareForReuse()
@@ -25,5 +38,9 @@ class StompboxCell: UITableViewCell {
     manufacturerLabel.text = nil
     stompboxImageView.image = nil
   }
-
+  
+  deinit {
+//    print("Deinit StompboxCell")
+//    print("\(self)\n")
+  }
 }

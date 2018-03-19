@@ -24,30 +24,36 @@ class SettingCell: UITableViewCell {
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
+    //print("Init SettingCell")
+    //print("\(self)\n")
   }
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
+//    print("Init SettingCell")
+//    print("\(self)\n")
   }
   
   override func awakeFromNib() {
     frame.size.width = UIScreen.main.bounds.width
     layoutIfNeeded()
+    print("SettingCell Frame: \(self.frame)")
+    print("SettingCell Bounds: \(self.bounds)")
   }
   
   func configureKnobViews() {
-    let sideLength = self.frame.size.height / 2.0
+    print("configureKnobViews")
+    let sideLength = self.bounds.size.height / 2.0
     let size = CGSize(width: sideLength, height: sideLength)
     
     let halfSideLength = sideLength / 2.0
-    let halfWidth = self.frame.size.width / 2.0
+    let halfWidth = self.bounds.size.width / 2.0
     let knobViewPositions = [CGPoint(x: halfWidth - halfSideLength * 3.0, y: 0),
                              CGPoint(x: halfWidth - halfSideLength, y: sideLength),
                              CGPoint(x: halfWidth + halfSideLength, y: 0)]
     var index = 0
     for knobView in knobViews {
       knobView.set(frame: CGRect(origin: knobViewPositions[index], size: size))
-     
       knobView.changeKnobLabelText(to: "Default")
       if index == 1 { knobView.moveKnobLabelAbove() }
       
@@ -76,7 +82,7 @@ class SettingCell: UITableViewCell {
       populateKnobs()
     }
     while knobViews.count < setting.knobs!.count {
-      let knobView = KnobView(frame: frame)
+      let knobView = KnobView()
       knobViews.append(knobView)
       contentView.addSubview(knobView)
     }
@@ -88,6 +94,11 @@ class SettingCell: UITableViewCell {
       let knob = Knob(entity: Knob.entity(), insertInto: coreDataStack.moc)
       setting.addToKnobs(knob)
     }
+  }
+  
+  deinit {
+//    print("Deinit SettingCell")
+//    print("\(self)\n")
   }
 }
 

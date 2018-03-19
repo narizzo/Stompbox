@@ -24,15 +24,21 @@ extension KnobView {
       }
     }
     var lineWidth: CGFloat = 1.0 {
-      didSet { update() }
+      didSet {
+        update()
+      }
     }
     // MARK: - Track Variables
     let trackLayer = CAShapeLayer()
     var startAngle: CGFloat = 0.0 {
-      didSet { update() }
+      didSet {
+        update()
+      }
     }
     var endAngle: CGFloat = 0.0 {
-      didSet { update() }
+      didSet {
+        update()
+      }
     }
     
     // MARK: - Pointer Variables
@@ -40,10 +46,12 @@ extension KnobView {
     var backingPointerAngle: CGFloat = 0.0
     var pointerAngle: CGFloat {
       get { return backingPointerAngle }
-      set { setPointerAngle(newValue, animated: true) }
+      set {
+        setPointerAngle(newValue, animated: true) }
     }
     var pointerLength: CGFloat = 0.0 {
-      didSet { update() }
+      didSet {
+        update() }
     }
     
     
@@ -86,12 +94,13 @@ extension KnobView {
       pointerLayer.path = path.cgPath
     }
     
-    func update(frame: CGRect) {
-      let position = CGPoint(x: frame.width / 2.0, y: frame.height / 2.0)
-      trackLayer.frame = frame
-      trackLayer.position = position
+    func update(bounds: CGRect) {
+      let position = CGPoint(x: bounds.width / 2.0, y: bounds.height / 2.0)
+ 
+      trackLayer.bounds = bounds
+      pointerLayer.bounds = bounds
       
-      pointerLayer.frame = frame
+      trackLayer.position = position
       pointerLayer.position = position
       
       update()

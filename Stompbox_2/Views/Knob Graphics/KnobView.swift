@@ -170,7 +170,7 @@ class KnobView: UIControl {
   
   // MARK: - Knob Renderer
   private func configureKnobRenderer() {
-    knobRenderer.update(frame: self.frame)
+    knobRenderer.update(bounds: self.bounds)
     knobRenderer.strokeColor = tintColor
     knobRenderer.startAngle = -CGFloat(Double.pi * 11.0 / 8.0);
     knobRenderer.endAngle = CGFloat(Double.pi * 3.0 / 8.0);

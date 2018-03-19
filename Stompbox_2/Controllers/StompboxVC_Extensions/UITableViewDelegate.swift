@@ -42,6 +42,8 @@ extension StompboxViewController: UITableViewDelegate {
   
   func deleteStompbox(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
+    //var stompboxCell = tableView.cellForRow(at: indexPath) as! StompboxCell
+    
     if let imageFilePath = stompbox.imageFilePath?.path, FileManager.default.fileExists(atPath: imageFilePath) {
       do {
         try FileManager.default.removeItem(atPath: imageFilePath)
@@ -50,12 +52,11 @@ extension StompboxViewController: UITableViewDelegate {
       }
     }
     coreDataStack.moc.perform {
-      if let _ = stompbox.settings {
-        stompbox.removeFromSettings(stompbox.settings!)
-      }
       self.coreDataStack.moc.delete(stompbox)
       self.coreDataStack.saveContext()
     }
+    
+    
   }
   
   func editStompbox(at indexPath: IndexPath) {

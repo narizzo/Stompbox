@@ -33,7 +33,6 @@ class CoreDataStack {
   
   func saveContext() {
     guard moc.hasChanges else {
-      print("No changes in moc.  Not saving data")
       return
     }
     do {

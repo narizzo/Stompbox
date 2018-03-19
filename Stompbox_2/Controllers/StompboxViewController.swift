@@ -76,7 +76,6 @@ class StompboxViewController: UIViewController {
   // Configure helper method
   private func configureStompboxCell(_ cell: StompboxCell, for indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
-    
     cell.nameLabel.text = stompbox.name
     cell.typeLabel.text = stompbox.type
     cell.manufacturerLabel.text = stompbox.manufacturer
@@ -101,6 +100,9 @@ class StompboxViewController: UIViewController {
     if cell.stompboxVCView == nil {
       cell.stompboxVCView = self.view
     }
+    
+//    cell.coreDataStack = coreDataStack
+//    cell.stompboxVCView = self.view
     cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
   }
   
