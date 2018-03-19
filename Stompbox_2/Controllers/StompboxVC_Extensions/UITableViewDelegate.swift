@@ -49,15 +49,20 @@ extension StompboxViewController: UITableViewDelegate {
         print("Error removing file: \(error)")
       }
     }
-   
-    coreDataStack.moc.delete(stompbox)
-    coreDataStack.saveContext()
+    coreDataStack.moc.perform {
+      if let _ = stompbox.settings {
+        stompbox.removeFromSettings(stompbox.settings!)
+      }
+      self.coreDataStack.moc.delete(stompbox)
+      self.coreDataStack.saveContext()
+    }
   }
   
   func editStompbox(at indexPath: IndexPath) {
     self.selectedStompbox = self.fetchedResultsController.object(at: indexPath)
     self.performSegue(withIdentifier: Constants.addStompboxSegue, sender: self)
   }
+  
   
   func addSetting(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
@@ -82,14 +87,16 @@ extension StompboxViewController: UITableViewDelegate {
   func deleteSetting(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
     let setting = stompbox.settings![indexPath.row - 1] as! Setting
-    
-    controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    tableView.deleteRows(at: [indexPath], with: .automatic)
-    
-    stompbox.removeFromSettings(setting)
-    coreDataStack.moc.delete(setting)
-    coreDataStack.saveContext()
-    
-    controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+  
+    coreDataStack.moc.perform {
+      self.controllerWillChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+      
+      self.tableView.deleteRows(at: [indexPath], with: .automatic)
+      stompbox.removeFromSettings(setting)
+      self.coreDataStack.moc.delete(setting)
+      self.coreDataStack.saveContext()
+      
+      self.controllerDidChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    }
   }
 }

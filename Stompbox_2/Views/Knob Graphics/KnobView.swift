@@ -35,7 +35,6 @@ class KnobView: UIControl {
   public var value: Float?
 
   public func setValue(_ value: Float, animated: Bool) {
-    print("setValue: \(value)")
     self.value = min(maximumValue, max(minimumValue, value))
     delegate?.knobView(self, saveKnobValue: value)
     updateValueLabel()
