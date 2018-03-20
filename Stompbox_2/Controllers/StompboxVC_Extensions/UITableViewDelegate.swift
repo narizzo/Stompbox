@@ -62,9 +62,18 @@ extension StompboxViewController: UITableViewDelegate {
     }
   }
   
+  // Unused
   func editStompbox(at indexPath: IndexPath) {
     self.selectedStompbox = self.fetchedResultsController.object(at: indexPath)
-    self.performSegue(withIdentifier: Constants.addStompboxSegue, sender: self)
+    showStompboxDetailView()
+//    self.performSegue(withIdentifier: Constants.addStompboxSegue, sender: self)
+  }
+  
+  func editStompbox(for stompboxCell: StompboxCell) {
+    if let indexPath = tableView.indexPath(for: stompboxCell) {
+      self.selectedStompbox = self.fetchedResultsController.object(at: indexPath)
+    }
+    showStompboxDetailView()
   }
   
   

@@ -9,8 +9,9 @@
 import Foundation
 
 extension StompboxViewController: StompboxGestureDelegate {
+  // BUG: Does not edit exisiting -> goes to add Stompbox
   func StompboxGestureSingleTap(_ stompboxCell: StompboxCell) {
-    performSegue(withIdentifier: Constants.addStompboxSegue, sender: nil)
+    editStompbox(for: stompboxCell)
   }
   
   func StompboxGestureDoubleTap(_ stompboxCell: StompboxCell) {
