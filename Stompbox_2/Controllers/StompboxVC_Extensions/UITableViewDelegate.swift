@@ -16,6 +16,25 @@ extension StompboxViewController: UITableViewDelegate {
     tableView.deselectRow(at: indexPath, animated: true)
   }
   
+  // Leading Swipe Actions
+  func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let edit = editAction(at: indexPath)
+    return UISwipeActionsConfiguration(actions: [edit])
+  }
+  
+  private func editAction(at indexPath: IndexPath) -> UIContextualAction {
+    let edit = UIContextualAction(style: .normal, title: "Edit") { action, view, index in
+      if let _ = self.tableView.cellForRow(at: indexPath) as? StompboxCell {
+        self.editStompbox(at: indexPath)
+      } else if let _ = self.tableView.cellForRow(at: indexPath) as? SettingCell {
+        self.editSetting(at: indexPath)
+      }
+    }
+    edit.backgroundColor = UIColor.green
+    return edit
+  }
+  
+  // Trailing Swipe Actions
   func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
     if let _ = tableView.cellForRow(at: indexPath) as? StompboxCell {
       let delete = UITableViewRowAction(style: .default, title: "Delete") { action, index in
@@ -42,7 +61,6 @@ extension StompboxViewController: UITableViewDelegate {
   
   func deleteStompbox(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
-    //var stompboxCell = tableView.cellForRow(at: indexPath) as! StompboxCell
     
     if let imageFilePath = stompbox.imageFilePath?.path, FileManager.default.fileExists(atPath: imageFilePath) {
       do {
@@ -55,8 +73,6 @@ extension StompboxViewController: UITableViewDelegate {
       self.coreDataStack.moc.delete(stompbox)
       self.coreDataStack.saveContext()
     }
-    
-    
   }
   
   func editStompbox(at indexPath: IndexPath) {
@@ -83,6 +99,11 @@ extension StompboxViewController: UITableViewDelegate {
     tableView.insertRows(at: [indexPath], with: .automatic)
     controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
     coreDataStack.saveContext()
+  }
+  
+  func editSetting(at indexPath: IndexPath) {
+    let settingCell = tableView.cellForRow(at: indexPath) as! SettingCell
+    settingCell.isBeingEdited = !settingCell.isBeingEdited
   }
   
   func deleteSetting(at indexPath: IndexPath) {

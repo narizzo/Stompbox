@@ -12,6 +12,11 @@ import CoreData
 class SettingCell: UITableViewCell {
   
   var knobViews = [KnobView]()
+  var isBeingEdited = false {
+    didSet {
+      print(isBeingEdited)
+    }
+  }
   weak var coreDataStack: CoreDataStack!
   weak var stompboxVCView: UIView!
   weak var setting: Setting! {
@@ -24,14 +29,10 @@ class SettingCell: UITableViewCell {
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    //print("Init SettingCell")
-    //print("\(self)\n")
   }
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-//    print("Init SettingCell")
-//    print("\(self)\n")
   }
   
   override func awakeFromNib() {

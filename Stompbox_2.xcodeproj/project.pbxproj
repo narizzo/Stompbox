@@ -26,7 +26,6 @@
 		01FB51902059C29600DB25E9 /* UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB518F2059C29600DB25E9 /* UITableViewDataSource.swift */; };
 		01FB51922059C3A800DB25E9 /* NSFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB51912059C3A800DB25E9 /* NSFetchedResultsControllerDelegate.swift */; };
 		01FB51942059C41800DB25E9 /* StompboxDetailViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB51932059C41800DB25E9 /* StompboxDetailViewControllerDelegate.swift */; };
-		1A7AA138A93F5754F4A0A150 /* Pods_Stompbox_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F24691BC3A71E2957C30FC93 /* Pods_Stompbox_2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,9 +50,6 @@
 		01FB518F2059C29600DB25E9 /* UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewDataSource.swift; sourceTree = "<group>"; };
 		01FB51912059C3A800DB25E9 /* NSFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
 		01FB51932059C41800DB25E9 /* StompboxDetailViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxDetailViewControllerDelegate.swift; sourceTree = "<group>"; };
-		F24691BC3A71E2957C30FC93 /* Pods_Stompbox_2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stompbox_2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F85258068A15778FB6BF27B2 /* Pods-Stompbox_2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stompbox_2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stompbox_2/Pods-Stompbox_2.debug.xcconfig"; sourceTree = "<group>"; };
-		FC22493077ED946A86611BCA /* Pods-Stompbox_2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stompbox_2.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stompbox_2/Pods-Stompbox_2.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +57,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A7AA138A93F5754F4A0A150 /* Pods_Stompbox_2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,8 +124,6 @@
 				01EB57552000123700686767 /* Stompbox_2.xcdatamodeld */,
 				01EB574D2000123700686767 /* Stompbox_2 */,
 				01EB574C2000123700686767 /* Products */,
-				5D629158200BFA7340A724E3 /* Pods */,
-				BDB8026090B6BC2D0374FCCA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -169,23 +162,6 @@
 			path = StompboxVC_Extensions;
 			sourceTree = "<group>";
 		};
-		5D629158200BFA7340A724E3 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F85258068A15778FB6BF27B2 /* Pods-Stompbox_2.debug.xcconfig */,
-				FC22493077ED946A86611BCA /* Pods-Stompbox_2.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		BDB8026090B6BC2D0374FCCA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F24691BC3A71E2957C30FC93 /* Pods_Stompbox_2.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -193,12 +169,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 01EB57602000123800686767 /* Build configuration list for PBXNativeTarget "Stompbox_2" */;
 			buildPhases = (
-				21A61712089075E8F129B4F0 /* [CP] Check Pods Manifest.lock */,
 				01EB57472000123700686767 /* Sources */,
 				01EB57482000123700686767 /* Frameworks */,
 				01EB57492000123700686767 /* Resources */,
-				0A214CD925C999732E3072BC /* [CP] Embed Pods Frameworks */,
-				20475D43C84E7830FC5F755C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -255,60 +228,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		0A214CD925C999732E3072BC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Stompbox_2/Pods-Stompbox_2-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Stompbox_2/Pods-Stompbox_2-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		20475D43C84E7830FC5F755C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Stompbox_2/Pods-Stompbox_2-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		21A61712089075E8F129B4F0 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Stompbox_2-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		01EB57472000123700686767 /* Sources */ = {
@@ -465,7 +384,6 @@
 		};
 		01EB57612000123800686767 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F85258068A15778FB6BF27B2 /* Pods-Stompbox_2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -481,7 +399,6 @@
 		};
 		01EB57622000123800686767 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC22493077ED946A86611BCA /* Pods-Stompbox_2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
