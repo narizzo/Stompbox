@@ -89,6 +89,8 @@ class StompboxViewController: UIViewController {
     } else {
       cell.stompboxImageView.image = #imageLiteral(resourceName: "BD2-large")
     }
+    
+    cell.delegate = self
   }
   
   // Configure helper method

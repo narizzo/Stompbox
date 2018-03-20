@@ -58,6 +58,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
                                         <connections>
                                             <outlet property="manufacturerLabel" destination="Pdc-Gw-hA5" id="ZEB-7V-Gry"/>
                                             <outlet property="nameLabel" destination="8B9-BR-LW9" id="1pj-GL-ask"/>
