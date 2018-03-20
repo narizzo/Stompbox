@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       return true
     }
     navController.navigationBar.barTintColor = UIColor.black
-     UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: blue]
+    UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: blue]
     
     stompboxViewController.coreDataStack = self.coreDataStack
     listenForFatalCoreDataNotifications()

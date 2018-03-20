@@ -100,10 +100,16 @@ class StompboxViewController: UIViewController {
     if cell.stompboxVCView == nil {
       cell.stompboxVCView = self.view
     }
-    
-//    cell.coreDataStack = coreDataStack
-//    cell.stompboxVCView = self.view
     cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
+    
+    // Color Cell
+    if indexPath.row % 2 == 0 {
+      print("Dark")
+      cell.backgroundColor = settingCellDark
+    } else {
+      print("Light")
+      cell.backgroundColor = settingCellLight
+    }
   }
   
   // MARK: - Navigation

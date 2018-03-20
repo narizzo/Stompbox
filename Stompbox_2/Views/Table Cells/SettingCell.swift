@@ -37,12 +37,9 @@ class SettingCell: UITableViewCell {
   override func awakeFromNib() {
     frame.size.width = UIScreen.main.bounds.width
     layoutIfNeeded()
-    print("SettingCell Frame: \(self.frame)")
-    print("SettingCell Bounds: \(self.bounds)")
   }
   
   func configureKnobViews() {
-    print("configureKnobViews")
     let sideLength = self.bounds.size.height / 2.0
     let size = CGSize(width: sideLength, height: sideLength)
     
@@ -94,11 +91,6 @@ class SettingCell: UITableViewCell {
       let knob = Knob(entity: Knob.entity(), insertInto: coreDataStack.moc)
       setting.addToKnobs(knob)
     }
-  }
-  
-  deinit {
-//    print("Deinit SettingCell")
-//    print("\(self)\n")
   }
 }
 

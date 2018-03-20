@@ -19,14 +19,10 @@ class StompboxCell: UITableViewCell {
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-//    print("Init StompboxCell")
-//    print("\(self)\n")
   }
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-//    print("Init StompboxCell")
-//    print("\(self)\n")
   }
   
   // MARK: - View Life Cycle
@@ -37,10 +33,5 @@ class StompboxCell: UITableViewCell {
     typeLabel.text = nil
     manufacturerLabel.text = nil
     stompboxImageView.image = nil
-  }
-  
-  deinit {
-//    print("Deinit StompboxCell")
-//    print("\(self)\n")
   }
 }
