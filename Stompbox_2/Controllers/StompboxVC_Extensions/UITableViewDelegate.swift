@@ -36,28 +36,15 @@ extension StompboxViewController: UITableViewDelegate {
   
   // Trailing Swipe Actions
   func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-    if let _ = tableView.cellForRow(at: indexPath) as? StompboxCell {
-      let delete = UITableViewRowAction(style: .default, title: "Delete") { action, index in
-        self.deleteStompbox(at: indexPath)
-      }
-      let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
-        self.editStompbox(at: indexPath)
-      }
-      let add = UITableViewRowAction(style: .normal, title: "Add") { action, index in
-        self.addSetting(at: indexPath)
-      }
-      edit.backgroundColor = UIColor.green
-      add.backgroundColor = UIColor.blue
-      return [delete, edit, add]
-    } else if let _ = tableView.cellForRow(at: indexPath) as? SettingCell {
-      let delete = UITableViewRowAction(style: .default, title: "Delete") { action, index in
-        self.deleteSetting(at: indexPath)
+      let delete = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
+        if let _ = tableView.cellForRow(at: indexPath) as? StompboxCell {
+          self.deleteStompbox(at: indexPath)
+        } else if let _ = tableView.cellForRow(at: indexPath) as? SettingCell {
+          self.deleteSetting(at: indexPath)
+        }
       }
       return [delete]
-    } else {
-      return nil
     }
-  }
   
   func deleteStompbox(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
