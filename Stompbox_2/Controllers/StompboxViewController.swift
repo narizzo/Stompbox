@@ -105,13 +105,7 @@ class StompboxViewController: UIViewController {
     cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
     
     // Color Cell
-    if indexPath.row % 2 == 0 {
-      print("Dark")
-      cell.backgroundColor = settingCellDark
-    } else {
-      print("Light")
-      cell.backgroundColor = settingCellLight
-    }
+    indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: settingCellDark) : cell.changeBackgroundColor(to: settingCellLight)
   }
   
   // MARK: - Navigation

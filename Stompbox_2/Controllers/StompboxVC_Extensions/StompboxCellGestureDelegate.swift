@@ -9,12 +9,11 @@
 import Foundation
 
 extension StompboxViewController: StompboxGestureDelegate {
-  // BUG: Does not edit exisiting -> goes to add Stompbox
   func StompboxGestureSingleTap(_ stompboxCell: StompboxCell) {
-    editStompbox(for: stompboxCell)
+    collapseExpandSection(for: stompboxCell)
   }
   
   func StompboxGestureDoubleTap(_ stompboxCell: StompboxCell) {
-    
+    addSetting(for: stompboxCell)
   }
 }

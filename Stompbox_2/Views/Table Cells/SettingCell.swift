@@ -93,6 +93,10 @@ class SettingCell: UITableViewCell {
       setting.addToKnobs(knob)
     }
   }
+  
+  func changeBackgroundColor(to color: UIColor) {
+    backgroundColor = color
+  }
 }
 
 extension SettingCell: KnobViewDelegate {

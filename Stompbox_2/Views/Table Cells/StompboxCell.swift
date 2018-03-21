@@ -14,6 +14,8 @@ protocol StompboxGestureDelegate: class {
 
 class StompboxCell: UITableViewCell {
 
+  var isCollapsed = false
+  
   var singleTap = UITapGestureRecognizer()
   var doubleTap = UITapGestureRecognizer()
   
@@ -46,7 +48,7 @@ class StompboxCell: UITableViewCell {
     doubleTap.numberOfTapsRequired = 2
     doubleTap.delegate = self
     self.addGestureRecognizer(doubleTap)
-    
+
     singleTap.require(toFail: doubleTap)
   }
   

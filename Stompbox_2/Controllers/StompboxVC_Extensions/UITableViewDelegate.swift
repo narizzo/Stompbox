@@ -69,13 +69,56 @@ extension StompboxViewController: UITableViewDelegate {
 //    self.performSegue(withIdentifier: Constants.addStompboxSegue, sender: self)
   }
   
-  func editStompbox(for stompboxCell: StompboxCell) {
+  func collapseExpandSection(for stompboxCell: StompboxCell) {
+    stompboxCell.isCollapsed ? expand(stompboxCell) : collapse(stompboxCell)
+  }
+    
+    
+//    if let indexPath = tableView.indexPath(for: stompboxCell) {
+//      self.selectedStompbox = self.fetchedResultsController.object(at: indexPath)
+//    }
+  
+  
+  private func expand(_ stompboxCell: StompboxCell) {
     if let indexPath = tableView.indexPath(for: stompboxCell) {
-      self.selectedStompbox = self.fetchedResultsController.object(at: indexPath)
+      let stompbox = fetchedResultsController.object(at: indexPath)
+      if let rows = stompbox.settings?.count {
+        var indexPaths = [IndexPath]()
+        for i in 1..<rows {
+          indexPaths.append(IndexPath(row: i, section: indexPath.section))
+        }
+        controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+        tableView.insertRows(at: indexPaths, with: .automatic)
+        controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+        stompboxCell.isCollapsed = false
+      }
     }
-    showStompboxDetailView()
   }
   
+  private func collapse(_ stompboxCell: StompboxCell) {
+    if let indexPath = tableView.indexPath(for: stompboxCell) {
+      let rows = tableView.numberOfRows(inSection: indexPath.section)
+      print(rows)
+      var indexPaths = [IndexPath]()
+      for i in 1..<rows {
+        print("IndexPath to delete: \(IndexPath(row: i, section: indexPath.section))")
+        indexPaths.append(IndexPath(row: i, section: indexPath.section))
+      }
+      
+      controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+      print("Before: \(tableView.numberOfRows(inSection: indexPath.section))")
+      tableView.deleteRows(at: indexPaths, with: .automatic)
+      print("After: \(tableView.numberOfRows(inSection: indexPath.section))")
+      controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+      stompboxCell.isCollapsed = true
+    }
+  }
+  
+  func addSetting(for stompboxCell: StompboxCell) {
+    if let indexPath = tableView.indexPath(for: stompboxCell) {
+      addSetting(at: indexPath)
+    }
+  }
   
   func addSetting(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
