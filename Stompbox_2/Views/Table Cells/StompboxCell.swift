@@ -14,8 +14,6 @@ protocol StompboxGestureDelegate: class {
 
 class StompboxCell: UITableViewCell {
 
-  var isCollapsed = false
-  
   var singleTap = UITapGestureRecognizer()
   var doubleTap = UITapGestureRecognizer()
   

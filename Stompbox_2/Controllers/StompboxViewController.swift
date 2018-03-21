@@ -110,7 +110,6 @@ class StompboxViewController: UIViewController {
   
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    print("Prepare")
     if segue.identifier == Constants.addStompboxSegue {
       let controller = segue.destination as! StompboxDetailViewController
       controller.delegate = self
@@ -122,7 +121,6 @@ class StompboxViewController: UIViewController {
   }
   
   public func showStompboxDetailView() {
-    print("Perform")
     performSegue(withIdentifier: Constants.addStompboxSegue, sender: nil)
   }
 }

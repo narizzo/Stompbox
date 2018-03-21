@@ -19,11 +19,18 @@ extension StompboxViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    // Are there any Stompboxes?
     guard fetchedResultsController.sections != nil else {
       return 0
     }
+    
+    // Are the Stompboxes expanded?
+    guard fetchedResultsController.fetchedObjects?[section].isExpanded == true else {
+      return 1
+    }
+    
+    // Are there any Settings for the Stompbox?
     guard let numberOfRows = fetchedResultsController.fetchedObjects?[section].settings?.count else {
-      // no settings objects in Stompboxes
       return 1
     }
     print("Table view thinks that this section has \(numberOfRows + 1) rows")

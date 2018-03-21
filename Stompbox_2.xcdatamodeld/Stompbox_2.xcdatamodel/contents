@@ -18,6 +18,7 @@
     </entity>
     <entity name="Stompbox" representedClassName="Stompbox" syncable="YES" codeGenerationType="class">
         <attribute name="imageFilePath" optional="YES" attributeType="URI" syncable="YES"/>
+        <attribute name="isExpanded" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="manufacturer" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
@@ -31,7 +32,7 @@
         <element name="Knob" positionX="-27" positionY="165" width="128" height="105"/>
         <element name="KnobSub" positionX="-270" positionY="162" width="128" height="90"/>
         <element name="Setting" positionX="-54" positionY="-18" width="144" height="90"/>
-        <element name="Stompbox" positionX="-371" positionY="-48" width="128" height="120"/>
+        <element name="Stompbox" positionX="-371" positionY="-48" width="128" height="135"/>
         <element name="Switch" positionX="9" positionY="-117" width="128" height="45"/>
         <element name="SwitchPosition" positionX="-153" positionY="-117" width="128" height="60"/>
     </elements>
