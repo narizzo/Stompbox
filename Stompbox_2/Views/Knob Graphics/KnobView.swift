@@ -36,7 +36,6 @@ class KnobView: UIControl {
 
   public func setValue(_ value: Float, animated: Bool) {
     self.value = min(maximumValue, max(minimumValue, value))
-    delegate?.knobView(self, saveKnobValue: value)
     updateValueLabel()
     
     let angleRange = endAngle - startAngle
@@ -110,12 +109,17 @@ class KnobView: UIControl {
   
   // MARK: - Gesture Methods
   @objc func handlePan(recognizer: UIPanGestureRecognizer) {
+    
     var translation = recognizer.translation(in: recognizer.view)
     let translationAmount = (-translation.y) / 250
-    value = min( (max(value! + Float(translationAmount), 0)), 1)
-    setValue(value!, animated: false)
+    self.value = min( (max(self.value! + Float(translationAmount), 0)), 1)
+    setValue(self.value!, animated: false)
     recognizer.setTranslation(CGPoint(x: 0.0, y: 0.0), in: recognizer.view)
     translation = recognizer.translation(in: recognizer.view)
+    
+    if recognizer.state == .ended {
+      delegate?.knobView(self, saveKnobValue: self.value!)
+    }
   }
   
   @objc func handleTap(sender: AnyObject) {

@@ -33,7 +33,6 @@ extension StompboxViewController: UITableViewDataSource {
     guard let numberOfRows = fetchedResultsController.fetchedObjects?[section].settings?.count else {
       return 1
     }
-    print("Table view thinks that this section has \(numberOfRows + 1) rows")
     return numberOfRows + 1
   }
   

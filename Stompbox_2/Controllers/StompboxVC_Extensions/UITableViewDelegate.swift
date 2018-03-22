@@ -16,6 +16,18 @@ extension StompboxViewController: UITableViewDelegate {
     tableView.deselectRow(at: indexPath, animated: true)
   }
   
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    print("Swipe")
+    print("editingStyle: \(editingStyle)")
+    if editingStyle == .delete {
+      if let _ = tableView.cellForRow(at: indexPath) as? StompboxCell {
+        self.deleteStompbox(at: indexPath)
+      } else if let _ = tableView.cellForRow(at: indexPath) as? SettingCell {
+        self.deleteSetting(at: indexPath)
+      }
+    }
+  }
+  
   // MARK: - Swipe Actions
   // Leading Swipe Actions
   func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -36,16 +48,16 @@ extension StompboxViewController: UITableViewDelegate {
   }
   
   // Trailing Swipe Actions
-  func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-      let delete = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
-        if let _ = tableView.cellForRow(at: indexPath) as? StompboxCell {
-          self.deleteStompbox(at: indexPath)
-        } else if let _ = tableView.cellForRow(at: indexPath) as? SettingCell {
-          self.deleteSetting(at: indexPath)
-        }
-      }
-      return [delete]
-    }
+//  func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//      let delete = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
+//        if let _ = tableView.cellForRow(at: indexPath) as? StompboxCell {
+//          self.deleteStompbox(at: indexPath)
+//        } else if let _ = tableView.cellForRow(at: indexPath) as? SettingCell {
+//          self.deleteSetting(at: indexPath)
+//        }
+//      }
+//      return [delete]
+//    }
   
   // MARK: - Add
   func addSetting(at indexPath: IndexPath) {
@@ -135,7 +147,6 @@ extension StompboxViewController: UITableViewDelegate {
           stompbox.isExpanded = true
         }
         controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-        
         coreDataStack.saveContext()
       }
     }
