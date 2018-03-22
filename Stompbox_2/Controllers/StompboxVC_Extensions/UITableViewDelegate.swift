@@ -17,8 +17,6 @@ extension StompboxViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-    print("Swipe")
-    print("editingStyle: \(editingStyle)")
     if editingStyle == .delete {
       if let _ = tableView.cellForRow(at: indexPath) as? StompboxCell {
         self.deleteStompbox(at: indexPath)
@@ -89,8 +87,14 @@ extension StompboxViewController: UITableViewDelegate {
   }
   
   func editSetting(at indexPath: IndexPath) {
-    let settingCell = tableView.cellForRow(at: indexPath) as! SettingCell
-    settingCell.isBeingEdited = !settingCell.isBeingEdited
+    self.selectedStompbox = self.fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
+    guard self.selectedStompbox != nil else {
+      return
+    }
+    self.selectedSetting = selectedStompbox?.settings?[indexPath.row - 1] as? Setting
+    showStompboxDetailView()
+//    let settingCell = tableView.cellForRow(at: indexPath) as! SettingCell
+//    settingCell.isBeingEdited = !settingCell.isBeingEdited
   }
   
   // MARK: - Delete

@@ -102,8 +102,12 @@ class KnobView: UIControl {
     panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
     panRecognizer.maximumNumberOfTouches = 1
     panRecognizer.minimumNumberOfTouches = 1
-    let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-    self.addGestureRecognizer(tapRecognizer)
+    
+    
+    //
+//    let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+//    self.addGestureRecognizer(tapRecognizer)
+//    stompboxVCView.addSubview(overlayView)
     
   }
   
@@ -122,12 +126,12 @@ class KnobView: UIControl {
     }
   }
   
-  @objc func handleTap(sender: AnyObject) {
-    changeStrokeColor(to: UIColor.yellow)
-    valueLabel.textColor = UIColor.yellow
-    knobLabel.textColor = UIColor.yellow
-    stompboxVCView.addSubview(overlayView)
-  }
+//  @objc func handleTap(sender: AnyObject) {
+//    changeStrokeColor(to: UIColor.yellow)
+//    valueLabel.textColor = UIColor.yellow
+//    knobLabel.textColor = UIColor.yellow
+//    stompboxVCView.addSubview(overlayView)
+//  }
   
   // MARK: - Knob Focus Methods
   @objc func handleOverlayViewTap(sender: AnyObject) {
@@ -135,13 +139,6 @@ class KnobView: UIControl {
     valueLabel.textColor = blue
     knobLabel.textColor = blue
     overlayView.removeFromSuperview()
-  }
-  
-  // MARK: - Update Percent Label
-  func updateValueLabel() {
-    if let value = value {
-      valueLabel.update(percent: value)
-    }
   }
   
   // MARK: - Colors
@@ -172,6 +169,10 @@ class KnobView: UIControl {
     knobLabel.text = text
   }
   
+  public func changeKnobLabelTextColor(to color: UIColor) {
+    knobLabel.textColor = color
+  }
+  
   // MARK: - Knob Renderer
   private func configureKnobRenderer() {
     knobRenderer.update(bounds: self.bounds)
@@ -189,5 +190,15 @@ class KnobView: UIControl {
     valueLabel.backgroundColor = UIColor.clear
     valueLabel.textColor = blue
     updateValueLabel()
-  }  
+  }
+  
+  func updateValueLabel() {
+    if let value = value {
+      valueLabel.update(percent: value)
+    }
+  }
+  
+  func changeValueLabelTextColor(to color: UIColor) {
+    valueLabel.textColor = color
+  }
 }

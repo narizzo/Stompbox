@@ -20,9 +20,9 @@ class StompboxCell: UITableViewCell {
   weak var delegate: StompboxGestureDelegate?
   
   // MARK: - IBOutlets
-  @IBOutlet weak var nameLabel: UILabel!
-  @IBOutlet weak var typeLabel: UILabel!
-  @IBOutlet weak var manufacturerLabel: UILabel!
+  @IBOutlet weak var nameLabel: UITextField!
+  @IBOutlet weak var typeLabel: UITextField!
+  @IBOutlet weak var manufacturerLabel: UITextField!
   @IBOutlet weak var stompboxImageView: UIImageView!
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

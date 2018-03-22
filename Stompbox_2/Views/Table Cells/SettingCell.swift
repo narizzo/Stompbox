@@ -15,6 +15,7 @@ class SettingCell: UITableViewCell {
   var isBeingEdited = false {
     didSet {
       print(isBeingEdited)
+      toggleKnobHighlight()
     }
   }
   weak var coreDataStack: CoreDataStack!
@@ -94,9 +95,21 @@ class SettingCell: UITableViewCell {
     }
   }
   
+  // MARK: - Color
   func changeBackgroundColor(to color: UIColor) {
     backgroundColor = color
   }
+  
+  func toggleKnobHighlight() {
+    var color: UIColor
+    isBeingEdited ? (color = UIColor.yellow) : (color = blue)
+    for knob in knobViews {
+      knob.changeStrokeColor(to: color)
+      knob.changeKnobLabelTextColor(to: color)
+      knob.changeValueLabelTextColor(to: color)
+    }
+  }
+  
 }
 
 extension SettingCell: KnobViewDelegate {

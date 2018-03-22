@@ -26,6 +26,7 @@ class StompboxViewController: UIViewController {
   weak var coreDataStack: CoreDataStack!
   
   var selectedStompbox: Stompbox?
+  var selectedSetting: Setting?
   
   lazy var fetchedResultsController: NSFetchedResultsController<Stompbox> = {
     let fetchRequest: NSFetchRequest<Stompbox> = Stompbox.fetchRequest()
@@ -48,6 +49,8 @@ class StompboxViewController: UIViewController {
   // MARK: - IBOutlets
   @IBOutlet weak var tableView: UITableView!
   
+  
+  // MARK: - ViewDidLoad
   override func viewDidLoad() {
     super.viewDidLoad()
     tableView.backgroundColor = black
@@ -56,6 +59,12 @@ class StompboxViewController: UIViewController {
     } catch let error as NSError {
       print("Fetching error: \(error), \(error.userInfo)")
     }
+    
+    let stompboxNib = UINib(nibName: "StompboxCell", bundle: nil)
+    tableView.register(stompboxNib, forCellReuseIdentifier: Constants.stompboxCellIdentifier)
+    
+    let settingNib = UINib(nibName: "SettingCell", bundle: nil)
+    tableView.register(settingNib, forCellReuseIdentifier: Constants.settingCellReuseIdentifier)
   }
   
   @IBAction func addStompbox(_ sender: AnyObject) {
@@ -116,6 +125,9 @@ class StompboxViewController: UIViewController {
       controller.coreDataStack = self.coreDataStack
       if let selectedStompbox = selectedStompbox {
         controller.stompboxToEdit = selectedStompbox
+      }
+      if let selectedSetting = selectedSetting {
+        controller.settingToEdit = selectedSetting
       }
     }
   }

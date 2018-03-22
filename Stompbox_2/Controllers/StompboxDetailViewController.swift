@@ -24,9 +24,13 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   @IBOutlet weak var stompboxButton: UIButton!
   @IBOutlet weak var doneButton: UIBarButtonItem!
   
+  @IBOutlet weak var settingCell: SettingCell!
+  
+  
   weak var delegate: StompboxDetailViewControllerDelegate?
   weak var coreDataStack: CoreDataStack!
   weak var stompboxToEdit: Stompbox?
+  weak var settingToEdit: Setting?
   
   let imagePicker = UIImagePickerController()
   var imageData = Data()
@@ -34,6 +38,9 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    stompboxName.allowsEditingTextAttributes = false
+    
+    
     doneButton.isEnabled = true
     stompboxButton.imageView?.contentMode = .scaleAspectFit
     navigationItem.largeTitleDisplayMode = .never
@@ -48,6 +55,10 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       if let imageFilePath = stompbox.imageFilePath {
         stompboxButton.setImage(UIImage(contentsOfFile: imageFilePath.path), for: .normal)
       }
+    }
+    
+    if let setting = settingToEdit {
+      
     }
   }
   
