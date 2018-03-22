@@ -16,6 +16,7 @@ extension StompboxViewController: UITableViewDelegate {
     tableView.deselectRow(at: indexPath, animated: true)
   }
   
+  // MARK: - Swipe Actions
   // Leading Swipe Actions
   func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     let edit = editAction(at: indexPath)
@@ -46,58 +47,7 @@ extension StompboxViewController: UITableViewDelegate {
       return [delete]
     }
   
-  func deleteStompbox(at indexPath: IndexPath) {
-    let stompbox = fetchedResultsController.object(at: indexPath)
-    
-    if let imageFilePath = stompbox.imageFilePath?.path, FileManager.default.fileExists(atPath: imageFilePath) {
-      do {
-        try FileManager.default.removeItem(atPath: imageFilePath)
-      } catch {
-        print("Error removing file: \(error)")
-      }
-    }
-    coreDataStack.moc.perform {
-      self.coreDataStack.moc.delete(stompbox)
-      self.coreDataStack.saveContext()
-    }
-  }
-  
-  // Unused
-  func editStompbox(at indexPath: IndexPath) {
-    self.selectedStompbox = self.fetchedResultsController.object(at: indexPath)
-    showStompboxDetailView()
-//    self.performSegue(withIdentifier: Constants.addStompboxSegue, sender: self)
-  }
-  
-  func collapseExpandSection(for stompboxCell: StompboxCell) {
-    print("collapseExpandSection(for:)")
-    if let indexPath = tableView.indexPath(for: stompboxCell) {
-      collapseExpandSection(for: indexPath)
-    }
-  }
-  
-  private func collapseExpandSection(for indexPath: IndexPath) {
-    let stompbox = fetchedResultsController.object(at: indexPath)
-    if let rows = stompbox.settings?.count {
-      if rows <= 0 { return }
-      var indexPaths = [IndexPath]()
-      for i in 0..<rows {
-        indexPaths.append(IndexPath(row: i + 1, section: indexPath.section))
-      }
-      controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-      if stompbox.isExpanded {
-        tableView.deleteRows(at: indexPaths, with: .automatic)
-        stompbox.isExpanded = false
-      } else {
-        tableView.insertRows(at: indexPaths, with: .automatic)
-        stompbox.isExpanded = true
-      }
-      controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-      
-      coreDataStack.saveContext()
-    }
-  }
-  
+  // MARK: - Add
   func addSetting(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
     if !stompbox.isExpanded { collapseExpandSection(for: indexPath) }
@@ -120,15 +70,38 @@ extension StompboxViewController: UITableViewDelegate {
     coreDataStack.saveContext()
   }
   
+  // MARK: - Edit
+  func editStompbox(at indexPath: IndexPath) {
+    self.selectedStompbox = self.fetchedResultsController.object(at: indexPath)
+    showStompboxDetailView()
+  }
+  
   func editSetting(at indexPath: IndexPath) {
     let settingCell = tableView.cellForRow(at: indexPath) as! SettingCell
     settingCell.isBeingEdited = !settingCell.isBeingEdited
   }
   
+  // MARK: - Delete
+  func deleteStompbox(at indexPath: IndexPath) {
+    let stompbox = fetchedResultsController.object(at: indexPath)
+    
+    if let imageFilePath = stompbox.imageFilePath?.path, FileManager.default.fileExists(atPath: imageFilePath) {
+      do {
+        try FileManager.default.removeItem(atPath: imageFilePath)
+      } catch {
+        print("Error removing file: \(error)")
+      }
+    }
+    coreDataStack.moc.perform {
+      self.coreDataStack.moc.delete(stompbox)
+      self.coreDataStack.saveContext()
+    }
+  }
+  
   func deleteSetting(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
     let setting = stompbox.settings![indexPath.row - 1] as! Setting
-  
+    
     coreDataStack.moc.perform {
       self.controllerWillChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
       
@@ -138,6 +111,45 @@ extension StompboxViewController: UITableViewDelegate {
       self.coreDataStack.saveContext()
       
       self.controllerDidChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    }
+  }
+  
+  // MARK: - Collapse/Expand Section
+  func collapseExpandSection(for stompboxCell: StompboxCell) {
+    if let indexPath = tableView.indexPath(for: stompboxCell) {
+      collapseExpandSection(for: indexPath)
+    }
+  }
+  
+  // Helper function
+  private func collapseExpandSection(for indexPath: IndexPath) {
+    let stompbox = fetchedResultsController.object(at: indexPath)
+    if let count = stompbox.settings?.count {
+      if let indexPaths = buildIndexPathsArray(for: indexPath, ofSize: count) {
+        controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+        if stompbox.isExpanded {
+          tableView.deleteRows(at: indexPaths, with: .automatic)
+          stompbox.isExpanded = false
+        } else {
+          tableView.insertRows(at: indexPaths, with: .automatic)
+          stompbox.isExpanded = true
+        }
+        controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+        
+        coreDataStack.saveContext()
+      }
+    }
+  }
+  
+  private func buildIndexPathsArray(for indexPath: IndexPath, ofSize count: Int) -> [IndexPath]? {
+    if count > 0 {
+      var indexPaths = [IndexPath]()
+      for i in 0..<count {
+        indexPaths.append(IndexPath(row: i + 1, section: indexPath.section))
+      }
+      return indexPaths
+    } else {
+      return nil
     }
   }
 }
