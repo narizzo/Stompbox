@@ -99,6 +99,15 @@ class StompboxViewController: UIViewController {
       cell.stompboxImageView.image = #imageLiteral(resourceName: "BD2-large")
     }
     
+    if let settings = stompbox.settings {
+      if settings.count > 0 {
+        cell.showExpandCollapseSymbol()
+      } else {
+        cell.hideExpandCollapseSymbol()
+        cell.isExpanded = false
+      }
+    }
+    
     cell.delegate = self
   }
   
