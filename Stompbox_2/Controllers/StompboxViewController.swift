@@ -102,12 +102,11 @@ class StompboxViewController: UIViewController {
     if let settings = stompbox.settings {
       if settings.count > 0 {
         cell.showExpandCollapseSymbol()
+        cell.isExpanded = stompbox.isExpanded
       } else {
         cell.hideExpandCollapseSymbol()
-        cell.isExpanded = false
       }
     }
-    
     cell.delegate = self
   }
   

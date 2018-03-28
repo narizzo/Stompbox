@@ -47,3 +47,9 @@ extension UIImage {
     return newImage!
   }
 }
+
+extension CALayer {
+  func setAnchorPointY(to point: CGPoint) {
+    anchorPoint.y = point.y / bounds.height
+  }
+}
