@@ -108,6 +108,7 @@ class StompboxViewController: UIViewController {
       }
     }
     cell.delegate = self
+    cell.backgroundColor = settingCellDark
   }
   
   // Configure helper method

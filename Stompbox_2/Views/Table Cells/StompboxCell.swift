@@ -45,12 +45,11 @@ class StompboxCell: UITableViewCell {
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
+    self.backgroundColor = settingCellDark
   }
   
 //  override func awakeFromNib() {
-//    frame.size.width = UIScreen.main.bounds.width
-//    print("frame.size.width: \(frame.size.width)")
-//    print("UIScreen.main.bounds.wdith: \(UIScreen.main.bounds.width)")
+//    self.backgroundColor = settingCellLight
 //    layoutIfNeeded()
 //    super.awakeFromNib()
 //  }
@@ -119,8 +118,8 @@ class StompboxCell: UITableViewCell {
     //expandCollapseSymbol.anchorPoint = findCentroidForTriangle(with: trianglePoints)
     let centroid = findCentroidForTriangle(with: trianglePoints)
     expandCollapseSymbol.setAnchorPointY(to: centroid)
-    expandCollapseSymbol.strokeColor = blue.cgColor
-    expandCollapseSymbol.fillColor = blue.cgColor
+    expandCollapseSymbol.strokeColor = lightGray.cgColor
+    expandCollapseSymbol.fillColor = lightGray.cgColor
     expandCollapseSymbol.lineWidth = 1.0
     
     
