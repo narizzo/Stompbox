@@ -8,12 +8,12 @@
 
 import Foundation
 
-extension StompboxViewController: StompboxGestureDelegate {
-  func StompboxGestureSingleTap(_ stompboxCell: StompboxCell) {
+extension StompboxViewController: StompboxInteractionDelegate {
+  func stompboxExpandCollapse(_ stompboxCell: StompboxCell) {
     collapseExpandSection(for: stompboxCell)
   }
   
-  func StompboxGestureDoubleTap(_ stompboxCell: StompboxCell) {
+  func stompboxGestureDoubleTap(_ stompboxCell: StompboxCell) {
     if let indexPath = tableView.indexPath(for: stompboxCell) {
       addSetting(at: indexPath)
     }

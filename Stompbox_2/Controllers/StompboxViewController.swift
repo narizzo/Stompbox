@@ -84,6 +84,7 @@ class StompboxViewController: UIViewController {
   
   // Configure helper method
   private func configureStompboxCell(_ cell: StompboxCell, for indexPath: IndexPath) {
+    print("configureStompboxCell")
     let stompbox = fetchedResultsController.object(at: indexPath)
     cell.nameLabel.text = stompbox.name
     cell.typeLabel.text = stompbox.type
@@ -101,14 +102,14 @@ class StompboxViewController: UIViewController {
     
     if let settings = stompbox.settings {
       if settings.count > 0 {
-        cell.showExpandCollapseSymbol()
+        cell.showDeltaButton()
         cell.isExpanded = stompbox.isExpanded
       } else {
-        cell.hideExpandCollapseSymbol()
+        cell.hideDeltaButton()
       }
     }
     cell.delegate = self
-    cell.backgroundColor = settingCellDark
+    cell.backgroundColor = darkerGray
   }
   
   // Configure helper method
@@ -123,7 +124,7 @@ class StompboxViewController: UIViewController {
     cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
     
     // Color Cell
-    indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: settingCellDark) : cell.changeBackgroundColor(to: settingCellLight)
+    indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lightGray)
   }
   
   // MARK: - Navigation

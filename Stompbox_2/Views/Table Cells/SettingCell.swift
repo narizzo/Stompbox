@@ -109,6 +109,11 @@ class SettingCell: UITableViewCell {
       knob.changeValueLabelTextColor(to: color)
     }
   }
+
+  // MARK: - Collapse/Expand
+  func collapse() {
+    
+  }
   
 }
 
