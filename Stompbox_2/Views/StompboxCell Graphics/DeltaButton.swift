@@ -14,12 +14,9 @@ protocol DeltaButtonDelegate: class {
 
 class DeltaButton: UIButton {
   
-  var isFacingDown = false {
-    didSet {
-      configureDeltaLayerOrientation()
-    }
-  }
+  var isFacingDown = false
   var deltaLayer = CAShapeLayer()
+  var deltaLayerDegrees: CGFloat = 0.0
   weak var delegate: DeltaButtonDelegate!
   
   func initializeButton() {
@@ -35,6 +32,9 @@ class DeltaButton: UIButton {
   
   public func setIsFacingDown(to bool: Bool) {
     isFacingDown = bool
+    if isFacingDown {
+      configureDeltaLayerOrientation()
+    }
   }
   
   // MARK: - Expand/Collapse Symbol
@@ -105,12 +105,14 @@ class DeltaButton: UIButton {
     animation.keyTimes = [0.0, 0.5, 1.0]
     animation.isRemovedOnCompletion = false
     
-    if isFacingDown {
+    if deltaLayerDegrees == -CGFloat.pi {
       print("rotating from -pi to 0")
       animation.values = [-CGFloat.pi, -CGFloat.pi / 2.0, 0.0]
-    } else {
+      deltaLayerDegrees = 0.0
+    } else if deltaLayerDegrees == 0.0 {
       print("rotating from 0 to -pi")
       animation.values = [0.0, -CGFloat.pi / 2.0, -CGFloat.pi]
+      deltaLayerDegrees = -CGFloat.pi
     }
     
     deltaLayer.add(animation, forKey: nil)
