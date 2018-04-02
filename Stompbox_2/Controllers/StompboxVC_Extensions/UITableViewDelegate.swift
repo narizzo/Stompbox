@@ -129,25 +129,6 @@ extension StompboxViewController: UITableViewDelegate {
     }
   }
   
-//  // Helper function
-//  private func collapseExpandSection(for indexPath: IndexPath) {
-//    let stompbox = fetchedResultsController.object(at: indexPath)
-//    if let count = stompbox.settings?.count {
-//      if let indexPaths = buildIndexPathsArray(at: indexPath, ofSize: count) {
-//          (fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-//        if stompbox.isExpanded {
-//          tableView.deleteRows(at: indexPaths, with: .automatic)
-//          stompbox.isExpanded = false
-//        } else {
-//          tableView.insertRows(at: indexPaths, with: .automatic)
-//          stompbox.isExpanded = true
-//        }
-//        controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-//        coreDataStack.saveContext()
-//      }
-//    }
-//  }
-  
   private func collapseSection(for stompbox: Stompbox, at indexPath: IndexPath) {
     guard let count = stompbox.settings?.count else {
       return

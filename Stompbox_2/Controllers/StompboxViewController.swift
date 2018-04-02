@@ -103,6 +103,7 @@ class StompboxViewController: UIViewController {
     cell.delegate = self
     cell.backgroundColor = darkerGray
     
+    // Configure delta button
     if stompbox.settings == nil || stompbox.settings!.count < 1 {
       cell.hideDeltaButton()
     } else {

@@ -13,18 +13,27 @@ import CoreData
 extension StompboxViewController: NSFetchedResultsControllerDelegate {
   
   func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    print("controllerWillChangeContent")
     tableView.beginUpdates()
   }
   
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
     switch type {
     case .insert:
+      print("insert")
       tableView.insertRows(at: [newIndexPath!], with: .automatic)
     case .delete:
+      print("delete")
       tableView.deleteRows(at: [indexPath!], with: .automatic)
     case .update:
-      configure(tableView.cellForRow(at: indexPath!)!, for: indexPath!)
+      print("update")
+      if let indexPath = indexPath {
+        if let cell = tableView.cellForRow(at: indexPath) {
+          configure(cell, for: indexPath)
+        }
+      }
     case .move:
+      print("move")
       tableView.deleteRows(at: [indexPath!], with: .automatic)
       tableView.insertRows(at: [newIndexPath!], with: .automatic)
     }
