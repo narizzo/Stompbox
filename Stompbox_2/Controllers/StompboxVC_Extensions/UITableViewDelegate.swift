@@ -52,21 +52,21 @@ extension StompboxViewController: UITableViewDelegate {
   
   func addSetting(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
-    //expandSection(for: stompbox)
-    //if !stompbox.isExpanded { collapseExpandSection(for: indexPath) }
     
-    // create setting
+    // create and add setting
     let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
     stompbox.addToSettings(setting)
     
-    
-    if let count = stompbox.settings?.count {
-      // add setting to table
-      controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-      
-      tableView.insertRows(at: [IndexPath(row: count, section: indexPath.section)], with: .automatic)
-      controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-      coreDataStack.saveContext()
+    if stompbox.isExpanded == false {
+      expandSection(for: stompbox, at: indexPath)
+    } else {
+      if let count = stompbox.settings?.count {
+        
+        controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+        tableView.insertRows(at: [IndexPath(row: count, section: indexPath.section)], with: .automatic)
+        controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+        coreDataStack.saveContext()
+      }
     }
   }
   
@@ -124,34 +124,64 @@ extension StompboxViewController: UITableViewDelegate {
   // MARK: - Collapse/Expand Section
   func collapseExpandSection(for stompboxCell: StompboxCell) {
     if let indexPath = tableView.indexPath(for: stompboxCell) {
-      collapseExpandSection(for: indexPath)
+      let stompbox = fetchedResultsController.object(at: indexPath)
+      stompbox.isExpanded ? collapseSection(for: stompbox, at: indexPath) : expandSection(for: stompbox, at: indexPath)
     }
   }
   
-  // Helper function
-  private func collapseExpandSection(for indexPath: IndexPath) {
-    let stompbox = fetchedResultsController.object(at: indexPath)
-    if let count = stompbox.settings?.count {
-      if let indexPaths = buildIndexPathsArray(for: indexPath, ofSize: count) {
-          (fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-        if stompbox.isExpanded {
-          tableView.deleteRows(at: indexPaths, with: .automatic)
-          stompbox.isExpanded = false
-        } else {
-          tableView.insertRows(at: indexPaths, with: .automatic)
-          stompbox.isExpanded = true
-        }
-        controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-        coreDataStack.saveContext()
-      }
+//  // Helper function
+//  private func collapseExpandSection(for indexPath: IndexPath) {
+//    let stompbox = fetchedResultsController.object(at: indexPath)
+//    if let count = stompbox.settings?.count {
+//      if let indexPaths = buildIndexPathsArray(at: indexPath, ofSize: count) {
+//          (fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+//        if stompbox.isExpanded {
+//          tableView.deleteRows(at: indexPaths, with: .automatic)
+//          stompbox.isExpanded = false
+//        } else {
+//          tableView.insertRows(at: indexPaths, with: .automatic)
+//          stompbox.isExpanded = true
+//        }
+//        controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+//        coreDataStack.saveContext()
+//      }
+//    }
+//  }
+  
+  private func collapseSection(for stompbox: Stompbox, at indexPath: IndexPath) {
+    guard let count = stompbox.settings?.count else {
+      return
     }
+    guard let indexPaths = buildIndexPathsArray(at: indexPath, ofSize: count) else {
+      return
+    }
+    controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    
+    tableView.deleteRows(at: indexPaths, with: .automatic)
+    stompbox.isExpanded = false
+    
+    controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    coreDataStack.saveContext()
   }
   
-  private func expandSection(for stompbox: Stompbox) {
-    //
+  private func expandSection(for stompbox: Stompbox, at indexPath: IndexPath) {
+    guard let count = stompbox.settings?.count else {
+      return
+    }
+    guard let indexPaths = buildIndexPathsArray(at: indexPath, ofSize: count) else {
+      return
+    }
+    controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    
+    tableView.insertRows(at: indexPaths, with: .automatic)
+    stompbox.isExpanded = true
+    
+    controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    coreDataStack.saveContext()
   }
   
-  private func buildIndexPathsArray(for indexPath: IndexPath, ofSize count: Int) -> [IndexPath]? {
+  
+  private func buildIndexPathsArray(at indexPath: IndexPath, ofSize count: Int) -> [IndexPath]? {
     if count > 0 {
       var indexPaths = [IndexPath]()
       for i in 0..<count {

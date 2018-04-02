@@ -100,16 +100,15 @@ class StompboxViewController: UIViewController {
       cell.stompboxImageView.image = #imageLiteral(resourceName: "BD2-large")
     }
     
-    if let settings = stompbox.settings {
-      if settings.count > 0 {
-        cell.showDeltaButton()
-        cell.isExpanded = stompbox.isExpanded
-      }
-    } else {
-      cell.hideDeltaButton()
-    }
     cell.delegate = self
     cell.backgroundColor = darkerGray
+    
+    if stompbox.settings == nil || stompbox.settings!.count < 1 {
+      cell.hideDeltaButton()
+    } else {
+      cell.showDeltaButton()
+      cell.isExpanded = stompbox.isExpanded
+    }
   }
   
   // Configure helper method
