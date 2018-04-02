@@ -108,7 +108,10 @@ class StompboxViewController: UIViewController {
       cell.hideDeltaButton()
     } else {
       cell.showDeltaButton()
-      cell.isExpanded = stompbox.isExpanded
+      // prevents didSet from firing when not necessary - this should be made simpler
+      if cell.isExpanded != stompbox.isExpanded {
+        cell.isExpanded = stompbox.isExpanded
+      }
     }
   }
   

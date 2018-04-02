@@ -23,7 +23,6 @@ class DeltaButton: UIButton {
     let size = CGSize(width: sideLength, height: sideLength)
     let origin = CGPoint(x: superview!.frame.width - sideLength, y: superview!.frame.height - sideLength)
     self.frame = CGRect(origin: origin, size: size)
-    //self.backgroundColor = UIColor.white
     
     initializeLayer()
   }
@@ -34,7 +33,7 @@ class DeltaButton: UIButton {
   }
   
   public func setIsExpanded(to bool: Bool) {
-    deltaLayer.updateLayer(bool)
+    deltaLayer.syncWithStompboxExpansionState(bool)
   }
   
   private func initializeLayer() {
