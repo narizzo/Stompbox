@@ -104,10 +104,9 @@ class StompboxViewController: UIViewController {
       if settings.count > 0 {
         cell.showDeltaButton()
         cell.isExpanded = stompbox.isExpanded
-      } else {
-        cell.hideDeltaButton()
-        cell.isExpanded = false
       }
+    } else {
+      cell.hideDeltaButton()
     }
     cell.delegate = self
     cell.backgroundColor = darkerGray

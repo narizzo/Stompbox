@@ -27,12 +27,14 @@ extension StompboxViewController: UITableViewDelegate {
   }
   
   // MARK: - Swipe Actions
+  
   // Leading Swipe Actions
   func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     let edit = editAction(at: indexPath)
     return UISwipeActionsConfiguration(actions: [edit])
   }
   
+  // Trailing Swipe Actions
   private func editAction(at indexPath: IndexPath) -> UIContextualAction {
     let edit = UIContextualAction(style: .normal, title: "Edit") { action, view, index in
       if let _ = self.tableView.cellForRow(at: indexPath) as? StompboxCell {
@@ -45,40 +47,29 @@ extension StompboxViewController: UITableViewDelegate {
     return edit
   }
   
-  // Trailing Swipe Actions
-//  func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//      let delete = UITableViewRowAction(style: .destructive, title: "Delete") { action, index in
-//        if let _ = tableView.cellForRow(at: indexPath) as? StompboxCell {
-//          self.deleteStompbox(at: indexPath)
-//        } else if let _ = tableView.cellForRow(at: indexPath) as? SettingCell {
-//          self.deleteSetting(at: indexPath)
-//        }
-//      }
-//      return [delete]
-//    }
   
   // MARK: - Add
+  
   func addSetting(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
-    if !stompbox.isExpanded { collapseExpandSection(for: indexPath) }
+    //expandSection(for: stompbox)
+    //if !stompbox.isExpanded { collapseExpandSection(for: indexPath) }
     
+    // create setting
     let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
-    
-    controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
     stompbox.addToSettings(setting)
     
-    let row: Int
-    if let count = stompbox.settings?.count {
-      row = count
-    } else {
-      row = 1
-    }
     
-    let indexPath = IndexPath(row: row, section: indexPath.section)
-    tableView.insertRows(at: [indexPath], with: .automatic)
-    controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    coreDataStack.saveContext()
+    if let count = stompbox.settings?.count {
+      // add setting to table
+      controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+      
+      tableView.insertRows(at: [IndexPath(row: count, section: indexPath.section)], with: .automatic)
+      controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+      coreDataStack.saveContext()
+    }
   }
+  
   
   // MARK: - Edit
   func editStompbox(at indexPath: IndexPath) {
@@ -142,7 +133,7 @@ extension StompboxViewController: UITableViewDelegate {
     let stompbox = fetchedResultsController.object(at: indexPath)
     if let count = stompbox.settings?.count {
       if let indexPaths = buildIndexPathsArray(for: indexPath, ofSize: count) {
-        controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+          (fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
         if stompbox.isExpanded {
           tableView.deleteRows(at: indexPaths, with: .automatic)
           stompbox.isExpanded = false
@@ -154,6 +145,10 @@ extension StompboxViewController: UITableViewDelegate {
         coreDataStack.saveContext()
       }
     }
+  }
+  
+  private func expandSection(for stompbox: Stompbox) {
+    //
   }
   
   private func buildIndexPathsArray(for indexPath: IndexPath, ofSize count: Int) -> [IndexPath]? {

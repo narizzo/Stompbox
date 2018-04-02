@@ -14,7 +14,9 @@ extension StompboxViewController: StompboxInteractionDelegate {
   }
   
   func stompboxGestureDoubleTap(_ stompboxCell: StompboxCell) {
+    print("2: Delegate: stompboxGestureDoubleTap")
     if let indexPath = tableView.indexPath(for: stompboxCell) {
+      print("3: indexPath for stompboxCell: \(indexPath)")
       addSetting(at: indexPath)
     }
   }

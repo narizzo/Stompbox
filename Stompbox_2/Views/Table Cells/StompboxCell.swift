@@ -72,6 +72,7 @@ class StompboxCell: UITableViewCell {
   
   // MARK: - Gesture Methods
   @objc func handleDoubleTap(sender: UITapGestureRecognizer) {
+    print("1: handleDoubleTap")
     delegate?.stompboxGestureDoubleTap(self)
   }
   
