@@ -18,7 +18,7 @@ class StompboxCell: UITableViewCell {
   var deltaButton = DeltaButton()
   var isExpanded = false {
     didSet {
-      deltaButton.setIsFacingDown(to: isExpanded)
+      deltaButton.setIsExpanded(to: isExpanded)
     }
   }
   

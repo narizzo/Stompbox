@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		013BA65E206ED5F1009D3A93 /* DeltaLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BA65D206ED5F0009D3A93 /* DeltaLayer.swift */; };
 		0148870C20347F35001C74C6 /* KnobRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148870B20347F35001C74C6 /* KnobRenderer.swift */; };
 		01651D5220506553009F2292 /* Stompbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01651D5120506553009F2292 /* Stompbox.swift */; };
 		0173AC2B206443820010DDEB /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0173AC2A206443820010DDEB /* SettingCell.xib */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		013BA65D206ED5F0009D3A93 /* DeltaLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeltaLayer.swift; sourceTree = "<group>"; };
 		0148870B20347F35001C74C6 /* KnobRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobRenderer.swift; sourceTree = "<group>"; };
 		01651D5120506553009F2292 /* Stompbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stompbox.swift; sourceTree = "<group>"; };
 		0173AC2A206443820010DDEB /* SettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				01E70298206D7F57000FB000 /* DeltaButton.swift */,
+				013BA65D206ED5F0009D3A93 /* DeltaLayer.swift */,
 			);
 			path = "StompboxCell Graphics";
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				01EB576A2000562800686767 /* StompboxViewController.swift in Sources */,
 				01651D5220506553009F2292 /* Stompbox.swift in Sources */,
 				01E70299206D7F57000FB000 /* DeltaButton.swift in Sources */,
+				013BA65E206ED5F1009D3A93 /* DeltaLayer.swift in Sources */,
 				01A58F3B200FF4DD00DD5BF3 /* StompboxDetailViewController.swift in Sources */,
 				0173E6AA20349CE200CD9587 /* PercentLabel.swift in Sources */,
 				01FB51922059C3A800DB25E9 /* NSFetchedResultsControllerDelegate.swift in Sources */,
