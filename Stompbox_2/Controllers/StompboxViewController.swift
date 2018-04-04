@@ -26,7 +26,7 @@ class StompboxViewController: UIViewController {
   weak var coreDataStack: CoreDataStack!
   
   var selectedStompbox: Stompbox?
-  var selectedSetting: Setting?
+  var selectedSettingCell: SettingCell?
   
   lazy var fetchedResultsController: NSFetchedResultsController<Stompbox> = {
     let fetchRequest: NSFetchRequest<Stompbox> = Stompbox.fetchRequest()
@@ -138,9 +138,6 @@ class StompboxViewController: UIViewController {
       controller.coreDataStack = self.coreDataStack
       if let selectedStompbox = selectedStompbox {
         controller.stompboxToEdit = selectedStompbox
-      }
-      if let selectedSetting = selectedSetting {
-        controller.settingToEdit = selectedSetting
       }
     }
   }

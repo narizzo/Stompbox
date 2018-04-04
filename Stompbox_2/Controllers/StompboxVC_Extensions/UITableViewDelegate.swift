@@ -26,7 +26,6 @@ extension StompboxViewController: UITableViewDelegate {
     }
   }
   
-  
   // MARK: - Swipe Actions
   
   // Leading Swipe Actions
@@ -102,12 +101,15 @@ extension StompboxViewController: UITableViewDelegate {
 //    guard self.selectedStompbox != nil else {
 //      return
 //    }
-//    self.selectedSetting = selectedStompbox?.settings?[indexPath.row - 1] as? Setting
-//    showStompboxDetailView()
+//  self.selectedSetting = selectedStompbox?.settings?[indexPath.row - 1] as? Setting
     
     tableView.setEditing(false, animated: true)
-    let cell = tableView.cellForRow(at: indexPath) as? SettingCell
-    cell?.isBeingEdited = true
+    if let cell = tableView.cellForRow(at: indexPath) as? SettingCell {
+      cell.isBeingEdited = true
+      self.selectedSettingCell = cell
+      //cell.cancelButton =
+      cell.initializeTouchOverlay(for: self)
+    }
   }
   
   // delete
