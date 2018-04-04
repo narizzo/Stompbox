@@ -14,7 +14,6 @@ class SettingCell: UITableViewCell {
   var knobViews = [KnobView]()
   var isBeingEdited = false {
     didSet {
-      print(isBeingEdited)
       toggleKnobHighlight()
     }
   }

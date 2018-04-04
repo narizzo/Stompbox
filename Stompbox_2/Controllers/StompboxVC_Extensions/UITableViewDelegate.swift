@@ -26,6 +26,7 @@ extension StompboxViewController: UITableViewDelegate {
     }
   }
   
+  
   // MARK: - Swipe Actions
   
   // Leading Swipe Actions
@@ -48,47 +49,15 @@ extension StompboxViewController: UITableViewDelegate {
   }
   
   
-  // MARK: - Add
-  
-  func addSetting(at indexPath: IndexPath) {
-    let stompbox = fetchedResultsController.object(at: indexPath)
-    
-    // create and add setting
-    let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
-    stompbox.addToSettings(setting)
-    
-    if stompbox.isExpanded == false {
-      expandSection(for: stompbox, at: indexPath)
-    } else {
-      if let count = stompbox.settings?.count {
-        
-        controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-        tableView.insertRows(at: [IndexPath(row: count, section: indexPath.section)], with: .automatic)
-        controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-        coreDataStack.saveContext()
-      }
-    }
-  }
-  
-  
-  // MARK: - Edit
+  // MARK: - Stompbox
+  // edit
   func editStompbox(at indexPath: IndexPath) {
     self.selectedStompbox = self.fetchedResultsController.object(at: indexPath)
+    tableView.setEditing(false, animated: true)
     showStompboxDetailView()
   }
-  
-  func editSetting(at indexPath: IndexPath) {
-    self.selectedStompbox = self.fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
-    guard self.selectedStompbox != nil else {
-      return
-    }
-    self.selectedSetting = selectedStompbox?.settings?[indexPath.row - 1] as? Setting
-    showStompboxDetailView()
-//    let settingCell = tableView.cellForRow(at: indexPath) as! SettingCell
-//    settingCell.isBeingEdited = !settingCell.isBeingEdited
-  }
-  
-  // MARK: - Delete
+
+  // delete
   func deleteStompbox(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
     
@@ -105,6 +74,43 @@ extension StompboxViewController: UITableViewDelegate {
     }
   }
   
+  
+  // MARK: - Setting
+  // add
+  func addSetting(at indexPath: IndexPath) {
+    let stompbox = fetchedResultsController.object(at: indexPath)
+    
+    let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
+    stompbox.addToSettings(setting)
+    
+    if stompbox.isExpanded == false {
+      expandSection(for: stompbox, at: indexPath)
+    } else {
+      if let count = stompbox.settings?.count {
+        
+        controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+        tableView.insertRows(at: [IndexPath(row: count, section: indexPath.section)], with: .automatic)
+        controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+        coreDataStack.saveContext()
+      }
+    }
+  }
+  
+  // edit
+  func editSetting(at indexPath: IndexPath) {
+//    self.selectedStompbox = self.fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
+//    guard self.selectedStompbox != nil else {
+//      return
+//    }
+//    self.selectedSetting = selectedStompbox?.settings?[indexPath.row - 1] as? Setting
+//    showStompboxDetailView()
+    
+    tableView.setEditing(false, animated: true)
+    let cell = tableView.cellForRow(at: indexPath) as? SettingCell
+    cell?.isBeingEdited = true
+  }
+  
+  // delete
   func deleteSetting(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
     let setting = stompbox.settings![indexPath.row - 1] as! Setting

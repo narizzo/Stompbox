@@ -57,9 +57,9 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       }
     }
     
-    if let setting = settingToEdit {
-      //
-    }
+//    if let setting = settingToEdit {
+//      //
+//    }
   }
   
   @IBAction func cancel(_ sender: Any) {
