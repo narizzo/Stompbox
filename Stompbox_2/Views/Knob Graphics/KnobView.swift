@@ -20,6 +20,7 @@ class KnobView: UIControl {
   private let knobRenderer = KnobRenderer()
   private var valueLabel = PercentLabel()
   private var knobLabel = UILabel()
+  private var panRecognizer: UIPanGestureRecognizer?
   
   public var value: Float?
 
@@ -86,48 +87,52 @@ class KnobView: UIControl {
     layer.addSublayer(knobRenderer.pointerLayer)
   }
   
-//  func createGestureRecognizers() {
-//    panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-//    panRecognizer.maximumNumberOfTouches = 1
-//    panRecognizer.minimumNumberOfTouches = 1
-//
-  
-    //
-//    let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-//    self.addGestureRecognizer(tapRecognizer)
-//    stompboxVCView.addSubview(overlayView)
+  func addPanRecognizer() {
+    panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+    panRecognizer?.maximumNumberOfTouches = 1
+    panRecognizer?.minimumNumberOfTouches = 1
     
-//  }
+    self.addGestureRecognizer(panRecognizer!)
+    
+    /* stompboxVCView.addSubview(overlayView) */
+    
+  }
   
-  // MARK: - Gesture Methods
-//  @objc func handlePan(recognizer: UIPanGestureRecognizer) {
-//
-//    var translation = recognizer.translation(in: recognizer.view)
-//    let translationAmount = (-translation.y) / 250
-//    self.value = min( (max(self.value! + Float(translationAmount), 0)), 1)
-//    setValue(self.value!, animated: false)
-//    recognizer.setTranslation(CGPoint(x: 0.0, y: 0.0), in: recognizer.view)
-//    translation = recognizer.translation(in: recognizer.view)
-//
-//    if recognizer.state == .ended {
-//      delegate?.knobView(self, saveKnobValue: self.value!)
-//    }
-//  }
+  func removePanRecognizer() {
+    if let recognizer = panRecognizer {
+      self.removeGestureRecognizer(recognizer)
+    }
+  }
+  
+   // MARK: - Gesture Methods
+  @objc func handlePan(recognizer: UIPanGestureRecognizer) {
 
-//  @objc func handleTap(sender: AnyObject) {
-//    changeStrokeColor(to: UIColor.yellow)
-//    valueLabel.textColor = UIColor.yellow
-//    knobLabel.textColor = UIColor.yellow
-//    stompboxVCView.addSubview(overlayView)
-//  }
+    var translation = recognizer.translation(in: recognizer.view)
+    let translationAmount = (-translation.y) / 250
+    self.value = min( (max(self.value! + Float(translationAmount), 0)), 1)
+    setValue(self.value!, animated: false)
+    recognizer.setTranslation(CGPoint(x: 0.0, y: 0.0), in: recognizer.view)
+    translation = recognizer.translation(in: recognizer.view)
+
+    if recognizer.state == .ended {
+      delegate?.knobView(self, saveKnobValue: self.value!)
+    }
+  }
+
+  @objc func handleTap(sender: AnyObject) {
+    changeStrokeColor(to: UIColor.yellow)
+    valueLabel.textColor = UIColor.yellow
+    knobLabel.textColor = UIColor.yellow
+    /* stompboxVCView.addSubview(overlayView) */
+  }
   
-  // MARK: - Knob Focus Methods
-//  @objc func handleOverlayViewTap(sender: AnyObject) {
-//    changeStrokeColor(to: blue)
-//    valueLabel.textColor = blue
-//    knobLabel.textColor = blue
-//    overlayView.removeFromSuperview()
-//  }
+   // MARK: - Knob Focus Methods
+  @objc func handleOverlayViewTap(sender: AnyObject) {
+    changeStrokeColor(to: blue)
+    valueLabel.textColor = blue
+    knobLabel.textColor = blue
+    /* overlayView.removeFromSuperview() */
+  }
   
   // MARK: - Colors
   public override func tintColorDidChange() {

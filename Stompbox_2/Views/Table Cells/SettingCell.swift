@@ -15,12 +15,13 @@ class SettingCell: UITableViewCell {
   var isBeingEdited = false {
     didSet {
       toggleKnobHighlight()
+      togglePanRecognizers()
+      toggleToolBarButtons()
     }
   }
-  var overlayView: UIView!
   var viewController: UIViewController!
-  var leftButton: UIBarButtonItem?
-  var rightButton: UIBarButtonItem?
+  private var leftButton: UIBarButtonItem?
+  private var rightButton: UIBarButtonItem?
   
   weak var coreDataStack: CoreDataStack!
   weak var stompboxVCView: UIView!
@@ -45,7 +46,7 @@ class SettingCell: UITableViewCell {
     layoutIfNeeded()
   }
   
-  func configureKnobViews() {
+  private func configureKnobViews() {
     let sideLength = self.bounds.size.height / 2.0
     let size = CGSize(width: sideLength, height: sideLength)
     
@@ -69,7 +70,7 @@ class SettingCell: UITableViewCell {
     }
   }
   
-  func loadKnobValues() {
+  private func loadKnobValues() {
     var index = 0
     for knobView in knobViews {
       if let knob = setting.knobs![index] as? Knob {
@@ -79,7 +80,7 @@ class SettingCell: UITableViewCell {
     }
   }
   
-  func populateKnobViews() {
+  private func populateKnobViews() {
     if setting.knobs!.count == 0 || setting.knobs == nil {
       populateKnobs()
     }
@@ -91,7 +92,7 @@ class SettingCell: UITableViewCell {
     configureKnobViews()
   }
   
-  func populateKnobs() {
+  private func populateKnobs() {
     for _ in 0...2 {
       let knob = Knob(entity: Knob.entity(), insertInto: coreDataStack.moc)
       setting.addToKnobs(knob)
@@ -103,67 +104,57 @@ class SettingCell: UITableViewCell {
     backgroundColor = color
   }
   
-  func toggleKnobHighlight() {
+  private func toggleKnobHighlight() {
     var color: UIColor
     isBeingEdited ? (color = UIColor.yellow) : (color = blue)
+    
     for knob in knobViews {
       knob.changeStrokeColor(to: color)
       knob.changeKnobLabelTextColor(to: color)
       knob.changeValueLabelTextColor(to: color)
     }
   }
-
-  // MARK: - Collapse/Expand
-  func collapse() {
-    
+  
+  // MARK: - Pan Recognizers
+  private func togglePanRecognizers() {
+    isBeingEdited ? addPanRecognizers() : removePanRecognizers()
+  }
+  private func addPanRecognizers() {
+    for knob in knobViews {
+      knob.addPanRecognizer()
+    }
   }
   
-  // Touch Overlay
-  func initializeTouchOverlay(for viewController: UIViewController) {
-    self.viewController = viewController
-    overlayView = UIView(frame: viewController.view.frame)
-    //overlayView.backgroundColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5)
-    
-    let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleOverlayPan))
-    panRecognizer.maximumNumberOfTouches = 1
-    
-    overlayView.addGestureRecognizer(panRecognizer)
-    
-    viewController.view.addSubview(overlayView)
-    
+  private func removePanRecognizers() {
+    for knob in knobViews {
+      knob.removePanRecognizer()
+    }
+  }
+  
+  // MARK: - Tool Bar Buttons
+  private func toggleToolBarButtons() {
+    if isBeingEdited { addToolBarButtons() }
+  }
+  
+  private func addToolBarButtons() {
     let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleSettingChangeComplete))
     let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleSettingChangeComplete))
     
     leftButton = viewController.navigationItem.leftBarButtonItem
     rightButton = viewController.navigationItem.rightBarButtonItem
-//    let newNavigationItem = UINavigationItem()
-//    newNavigationItem.leftBarButtonItem = cancelButton
-//    newNavigationItem.rightBarButtonItem = doneButton
-    
-
-//    viewController.navigationItem.leftBarButtonItem = cancelButton
-//    viewController.navigationItem.rightBarButtonItem = doneButton
     
     viewController.navigationItem.setLeftBarButton(cancelButton, animated: true)
     viewController.navigationItem.setRightBarButton(doneButton, animated: true)
-    //viewController.setToolbarItems([cancelButton, doneButton], animated: true)
-
   }
   
   @objc private func handleSettingChangeComplete() {
     print("Setting Change Complete")
-    overlayView.removeFromSuperview()
     viewController.navigationItem.setLeftBarButton(leftButton, animated: true)
     viewController.navigationItem.setRightBarButton(rightButton, animated: true)
     
     isBeingEdited = false
     toggleKnobHighlight()
   }
-  
-  @objc private func handleOverlayPan() {
-    print("Overlay Pan")
-  }
-  
 }
 
 extension SettingCell: KnobViewDelegate {

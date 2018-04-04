@@ -124,6 +124,9 @@ class StompboxViewController: UIViewController {
     if cell.stompboxVCView == nil {
       cell.stompboxVCView = self.view
     }
+    if cell.viewController == nil {
+      cell.viewController = self
+    }
     cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
     
     // Color Cell

@@ -107,8 +107,6 @@ extension StompboxViewController: UITableViewDelegate {
     if let cell = tableView.cellForRow(at: indexPath) as? SettingCell {
       cell.isBeingEdited = true
       self.selectedSettingCell = cell
-      //cell.cancelButton =
-      cell.initializeTouchOverlay(for: self)
     }
   }
   
