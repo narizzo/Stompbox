@@ -26,6 +26,14 @@ extension StompboxViewController: UITableViewDelegate {
     }
   }
   
+  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    if let cell = tableView.cellForRow(at: indexPath) as? SettingCell {
+      return !cell.isBeingEdited
+    } else {
+      return true
+    }
+  }
+  
   // MARK: - Swipe Actions
   
   // Leading Swipe Actions
@@ -97,18 +105,26 @@ extension StompboxViewController: UITableViewDelegate {
   
   // edit
   func editSetting(at indexPath: IndexPath) {
-//    self.selectedStompbox = self.fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
-//    guard self.selectedStompbox != nil else {
-//      return
-//    }
-//  self.selectedSetting = selectedStompbox?.settings?[indexPath.row - 1] as? Setting
-    
     tableView.setEditing(false, animated: true)
-    if let cell = tableView.cellForRow(at: indexPath) as? SettingCell {
-      cell.isBeingEdited = true
-      self.selectedSettingCell = cell
+    print("1")
+    if let settingCell = tableView.cellForRow(at: indexPath) as? SettingCell {
+      for tableCell in tableView.visibleCells {
+        guard tableCell != settingCell else {
+          continue
+        }
+        print("3")
+        if let cell = tableCell as? SettingCell {
+          if cell.isBeingEdited {
+            cell.isBeingEdited = false
+          }
+        }
+      }
+      print("4")
+      settingCell.isBeingEdited = true
+      self.selectedSettingCell = settingCell  // is this being used?
     }
   }
+  
   
   // delete
   func deleteSetting(at indexPath: IndexPath) {

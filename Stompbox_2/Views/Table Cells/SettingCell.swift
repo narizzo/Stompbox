@@ -147,7 +147,7 @@ class SettingCell: UITableViewCell {
     viewController.navigationItem.setRightBarButton(doneButton, animated: true)
   }
   
-  @objc private func handleSettingChangeComplete() {
+  @objc public func handleSettingChangeComplete() {
     print("Setting Change Complete")
     viewController.navigationItem.setLeftBarButton(leftButton, animated: true)
     viewController.navigationItem.setRightBarButton(rightButton, animated: true)
