@@ -182,5 +182,4 @@ class SettingCell: UITableViewCell {
     isBeingEdited = false
     toggleKnobHighlight()
   }
-  
 }

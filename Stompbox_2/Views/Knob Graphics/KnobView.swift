@@ -87,9 +87,6 @@ class KnobView: UIControl {
     panRecognizer?.minimumNumberOfTouches = 1
     
     self.addGestureRecognizer(panRecognizer!)
-    
-    /* stompboxVCView.addSubview(overlayView) */
-    
   }
   
   func removePanRecognizer() {
@@ -107,17 +104,12 @@ class KnobView: UIControl {
     setValue(self.value!, animated: false)
     recognizer.setTranslation(CGPoint(x: 0.0, y: 0.0), in: recognizer.view)
     translation = recognizer.translation(in: recognizer.view)
-
-//    if recognizer.state == .ended {
-//      delegate?.knobView(self, saveKnobValue: self.value!)
-//    }
   }
 
   @objc func handleTap(sender: AnyObject) {
     changeStrokeColor(to: UIColor.yellow)
     valueLabel.textColor = UIColor.yellow
     knobLabel.textColor = UIColor.yellow
-    /* stompboxVCView.addSubview(overlayView) */
   }
   
    // MARK: - Knob Focus Methods
@@ -125,7 +117,6 @@ class KnobView: UIControl {
     changeStrokeColor(to: blue)
     valueLabel.textColor = blue
     knobLabel.textColor = blue
-    /* overlayView.removeFromSuperview() */
   }
   
   // MARK: - Colors

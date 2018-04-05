@@ -84,7 +84,6 @@ class StompboxViewController: UIViewController {
   
   // Configure helper method
   private func configureStompboxCell(_ cell: StompboxCell, for indexPath: IndexPath) {
-    print("configureStompboxCell")
     let stompbox = fetchedResultsController.object(at: indexPath)
     cell.nameLabel.text = stompbox.name
     cell.typeLabel.text = stompbox.type
