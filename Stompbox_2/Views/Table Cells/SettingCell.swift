@@ -63,8 +63,6 @@ class SettingCell: UITableViewCell {
       
       loadKnobValues()
       
-      knobView.delegate = self
-      
       knobView.changeFillColor(to: UIColor.clear)
       index += 1
     }
@@ -157,8 +155,21 @@ class SettingCell: UITableViewCell {
   }
   
   @objc func acceptChanges() {
-    coreDataStack.saveContext()
+    saveKnobPositions()
     restoreBarButtonsToDefault()
+  }
+  
+  private func saveKnobPositions() {
+    var index = 0
+    for knobView in knobViews {
+      if let value = knobView.value {
+        if let knob = setting.knobs?[index] as? Knob {
+          knob.value = Int16(value * 100)
+        }
+      }
+      index += 1
+    }
+    coreDataStack.saveContext()
   }
   
   private func restoreBarButtonsToDefault() {
@@ -171,15 +182,5 @@ class SettingCell: UITableViewCell {
     isBeingEdited = false
     toggleKnobHighlight()
   }
-}
-
-extension SettingCell: KnobViewDelegate {
-  func knobView(_ knobView: KnobView, saveKnobValue value: Float) {
-    let index = knobViews.index(of: knobView)
-    if let knob = setting.knobs?[index!] as? Knob {
-      knob.value = Int16(value * 100)
-    }
-    // fractional values causing value label to read as 1?
-    coreDataStack.saveContext()
-  }
+  
 }

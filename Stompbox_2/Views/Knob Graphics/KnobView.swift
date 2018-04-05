@@ -8,15 +8,9 @@
 
 import UIKit
 
-protocol KnobViewDelegate: class {
-  func knobView(_ knobView: KnobView, saveKnobValue value: Float)
-}
-
 class KnobView: UIControl {
   
   // MARK: - Instance Variables
-  weak var delegate: KnobViewDelegate?
-  
   private let knobRenderer = KnobRenderer()
   private var valueLabel = PercentLabel()
   private var knobLabel = UILabel()
