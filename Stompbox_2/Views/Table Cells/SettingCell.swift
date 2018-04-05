@@ -137,20 +137,37 @@ class SettingCell: UITableViewCell {
   }
   
   private func addToolBarButtons() {
-    let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleSettingChangeComplete))
-    let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleSettingChangeComplete))
+    let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelChanges))
+    let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(acceptChanges))
     
-    leftButton = viewController.navigationItem.leftBarButtonItem
-    rightButton = viewController.navigationItem.rightBarButtonItem
+    saveCurrentBarButtons()
     
     viewController.navigationItem.setLeftBarButton(cancelButton, animated: true)
     viewController.navigationItem.setRightBarButton(doneButton, animated: true)
   }
   
-  @objc public func handleSettingChangeComplete() {
+  private func saveCurrentBarButtons() {
+    leftButton = viewController.navigationItem.leftBarButtonItem
+    rightButton = viewController.navigationItem.rightBarButtonItem
+  }
+  
+  @objc func cancelChanges() {
+    loadKnobValues()
+    restoreBarButtonsToDefault()
+  }
+  
+  @objc func acceptChanges() {
+    coreDataStack.saveContext()
+    restoreBarButtonsToDefault()
+  }
+  
+  private func restoreBarButtonsToDefault() {
     viewController.navigationItem.setLeftBarButton(leftButton, animated: true)
     viewController.navigationItem.setRightBarButton(rightButton, animated: true)
-    
+    stopEditing()
+  }
+  
+  private func stopEditing() {
     isBeingEdited = false
     toggleKnobHighlight()
   }

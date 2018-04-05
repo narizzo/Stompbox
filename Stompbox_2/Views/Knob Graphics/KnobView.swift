@@ -114,9 +114,9 @@ class KnobView: UIControl {
     recognizer.setTranslation(CGPoint(x: 0.0, y: 0.0), in: recognizer.view)
     translation = recognizer.translation(in: recognizer.view)
 
-    if recognizer.state == .ended {
-      delegate?.knobView(self, saveKnobValue: self.value!)
-    }
+//    if recognizer.state == .ended {
+//      delegate?.knobView(self, saveKnobValue: self.value!)
+//    }
   }
 
   @objc func handleTap(sender: AnyObject) {
