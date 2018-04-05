@@ -20,8 +20,8 @@ class SettingCell: UITableViewCell {
     }
   }
   var viewController: UIViewController!
-  private var leftButton: UIBarButtonItem?
-  private var rightButton: UIBarButtonItem?
+  var leftButton: UIBarButtonItem?
+  var rightButton: UIBarButtonItem?
   
   weak var coreDataStack: CoreDataStack!
   weak var stompboxVCView: UIView!
@@ -148,7 +148,6 @@ class SettingCell: UITableViewCell {
   }
   
   @objc public func handleSettingChangeComplete() {
-    print("Setting Change Complete")
     viewController.navigationItem.setLeftBarButton(leftButton, animated: true)
     viewController.navigationItem.setRightBarButton(rightButton, animated: true)
     

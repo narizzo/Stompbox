@@ -39,7 +39,28 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     stompboxName.allowsEditingTextAttributes = false
+    self.navigationController?.navigationBar.barTintColor = UIColor.black  // doesn't work????
     
+    // background color
+    stompboxName.backgroundColor = darkerGray
+    stompboxType.backgroundColor = darkerGray
+    stompboxManufacturer.backgroundColor = darkerGray
+    stompboxButton.backgroundColor = darkerGray
+    
+    // text color
+    stompboxName.textColor = blue
+    stompboxType.textColor = blue
+    stompboxManufacturer.textColor = blue
+    
+    // placeholder text and color
+    stompboxName.attributedPlaceholder = NSAttributedString(string: "Name", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
+    stompboxType.attributedPlaceholder = NSAttributedString(string: "Type", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
+    stompboxManufacturer.attributedPlaceholder = NSAttributedString(string: "Manufacturer", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
+    
+    // clear text on edit
+    stompboxName.clearsOnBeginEditing = true
+    stompboxType.clearsOnBeginEditing = true
+    stompboxManufacturer.clearsOnBeginEditing = true
     
     doneButton.isEnabled = true
     stompboxButton.imageView?.contentMode = .scaleAspectFit

@@ -105,21 +105,28 @@ extension StompboxViewController: UITableViewDelegate {
   
   // edit
   func editSetting(at indexPath: IndexPath) {
+    // shouldn't need to update the whole table but targeting the cell to setEditing doesn't work yet
     tableView.setEditing(false, animated: true)
-    print("1")
+    
+    // this method is a mess...
     if let settingCell = tableView.cellForRow(at: indexPath) as? SettingCell {
       for tableCell in tableView.visibleCells {
         guard tableCell != settingCell else {
           continue
         }
-        print("3")
+        
         if let cell = tableCell as? SettingCell {
           if cell.isBeingEdited {
+            // should be refactored -- public vars for settingCell?  Not good.
+            navigationItem.setLeftBarButton(cell.leftButton, animated: true)
+            navigationItem.setRightBarButton(cell.rightButton, animated: true)
+            self.view.snapshotView(afterScreenUpdates: true) // prevents snapshotting error message.  I don't know what it means.  Nothing visually has changed from this.
+            
             cell.isBeingEdited = false
           }
         }
       }
-      print("4")
+      
       settingCell.isBeingEdited = true
       self.selectedSettingCell = settingCell  // is this being used?
     }
