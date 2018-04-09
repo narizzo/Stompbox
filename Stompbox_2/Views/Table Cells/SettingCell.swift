@@ -11,7 +11,7 @@ import CoreData
 
 class SettingCell: UITableViewCell {
   
-  var knobViews = [KnobView]()
+  var knobViews = [ComplexKnobView]()
   var isBeingEdited = false {
     didSet {
       toggleKnobHighlight()
@@ -83,7 +83,7 @@ class SettingCell: UITableViewCell {
       populateKnobs()
     }
     while knobViews.count < setting.knobs!.count {
-      let knobView = KnobView()
+      let knobView = ComplexKnobView()
       knobViews.append(knobView)
       contentView.addSubview(knobView)
     }

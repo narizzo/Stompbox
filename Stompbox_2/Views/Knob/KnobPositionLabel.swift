@@ -1,5 +1,5 @@
 //
-//  PercentLabel.swift
+//  KnobPositionLabel.swift
 //  Stompbox_2
 //
 //  Created by Nicholas Rizzo on 2/14/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PercentLabel: UILabel {
+class KnobPositionLabel: UILabel {
   
   func update(percent: Float) {
     // self.text = NumberFormatter.localizedString(from: NSNumber(value: text), number: .percent)

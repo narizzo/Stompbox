@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension KnobView {
+//extension KnobView {
   
   class KnobRenderer {
     var strokeColor: UIColor {
@@ -114,4 +114,4 @@ extension KnobView {
       updatePointerLayerPath()
     }
   }
-}
+//}

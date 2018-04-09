@@ -30,7 +30,6 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   weak var delegate: StompboxDetailViewControllerDelegate?
   weak var coreDataStack: CoreDataStack!
   weak var stompboxToEdit: Stompbox?
-  weak var settingToEdit: Setting?
   
   let imagePicker = UIImagePickerController()
   var imageData = Data()
@@ -78,9 +77,8 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       }
     }
     
-//    if let setting = settingToEdit {
-//      //
-//    }
+    // Configure Setting Cell
+    
   }
   
   @IBAction func cancel(_ sender: Any) {
