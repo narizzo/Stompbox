@@ -12,11 +12,3 @@ protocol Gestureable {
   func addGesture()
   func removeGesture()
 }
-
-protocol Tappable: Gestureable {
-  var tapRecognizer: UITapGestureRecognizer { set get }
-}
-
-protocol Swipeable: Gestureable {
-  var swipeRecognizer: UISwipeGestureRecognizer { set get }
-}

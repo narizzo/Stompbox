@@ -1,60 +1,49 @@
 //
-//  KnobRenderer.swift
+//  ComplexKnobRenderer.swift
 //  Stompbox_2
 //
-//  Created by Nicholas Rizzo on 2/14/18.
+//  Created by Nicholas Rizzo on 4/6/18.
 //  Copyright © 2018 Nicholas Rizzo. All rights reserved.
 //
 
 import UIKit
 
-class KnobRenderer {
-  var strokeColor: UIColor {
-    get {
-      if let color = trackLayer.strokeColor {
-        return UIColor(cgColor: color)
-      }
-      return blue
-    }
-    set(strokeColor) {
-      trackLayer.strokeColor = strokeColor.cgColor
-      pointerLayer.strokeColor = strokeColor.cgColor
-    }
-  }
-  var lineWidth: CGFloat = 1.0 {
-    didSet {
-      update()
-    }
-  }
+protocol ComplexKnobRenderer: SimpleKnobRenderer {
   
-  // MARK: - Track Variables
-  let trackLayer = CAShapeLayer()
-  var startAngle: CGFloat = 0.0 {
-    didSet {
-      update()
-    }
-  }
-  var endAngle: CGFloat = 0.0 {
-    didSet {
-      update()
-    }
-  }
+  var pointerLayer: CAShapeLayer { get set }
+  var pointerAngle: CGFloat { get set }
+  var pointerLength: CGFloat { get set }
   
-  // MARK: - Pointer Variables
-  let pointerLayer = CAShapeLayer()
-  var backingPointerAngle: CGFloat = 0.0
+  var minimumValue: Float { get set }
+  var maximumValue: Float { get set }
+  var value: Float { get set }
+  
+  func setPointerAngle(_ pointerAngle: CGFloat, animated: Bool)
+  func updatePointerLayerPath()
+}
+
+extension ComplexKnobRenderer {
+  // MARK: - Variables
+  var pointerLayer: CAShapeLayer {
+    return CAShapeLayer()
+  }
   var pointerAngle: CGFloat {
-    get { return backingPointerAngle }
-    set {
-      setPointerAngle(newValue, animated: true) }
+    return startAngle
   }
-  var pointerLength: CGFloat = 0.0 {
-    didSet {
-      update() }
+  var pointerLength: CGFloat {
+    return 6.0
+  }
+  var minimumValue: Float {
+    return 0.0
+  }
+  var maximumValue: Float {
+    return 1.0
+  }
+  var value: Float {
+    return 0.0
   }
   
-  
-  // MARK: - Methods
+  // MARK: - Pointer
   func setPointerAngle(_ pointerAngle: CGFloat, animated: Bool) {
     CATransaction.begin()
     CATransaction.setDisableActions(true)
@@ -73,14 +62,6 @@ class KnobRenderer {
       pointerLayer.add(animation, forKey: nil)
     }
     CATransaction.commit()
-    self.backingPointerAngle = pointerAngle
-  }
-  
-  func updateTrackLayerPath() {
-    let arcCenter = CGPoint(x: trackLayer.bounds.width / 2.0, y: trackLayer.bounds.height / 2.0)
-    let offset = max(pointerLength, trackLayer.lineWidth / 2.0)
-    let radius = min(trackLayer.bounds.height, trackLayer.bounds.width) / 2.0 - offset
-    trackLayer.path = UIBezierPath(arcCenter: arcCenter, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).cgPath
   }
   
   func updatePointerLayerPath() {
@@ -93,6 +74,18 @@ class KnobRenderer {
     pointerLayer.path = path.cgPath
   }
   
+  
+  // MARK: - Track
+  // override SimpleKnobRenderer updateTrackLayerPath()
+  func updateTrackLayerPath() {
+    let arcCenter = CGPoint(x: trackLayer.bounds.width / 2.0, y: trackLayer.bounds.height / 2.0)
+    let offset = max(pointerLength, trackLayer.lineWidth / 2.0)
+    let radius = min(trackLayer.bounds.height, trackLayer.bounds.width) / 2.0 - offset
+    trackLayer.path = UIBezierPath(arcCenter: arcCenter, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).cgPath
+  }
+  
+  // MARK: - Update
+  // override SimpleKnobRenderer update functions
   func update(bounds: CGRect) {
     let position = CGPoint(x: bounds.width / 2.0, y: bounds.height / 2.0)
     
@@ -113,4 +106,3 @@ class KnobRenderer {
     updatePointerLayerPath()
   }
 }
-

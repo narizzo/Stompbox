@@ -14,7 +14,9 @@
 		0173E6AA20349CE200CD9587 /* KnobPositionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173E6A920349CE200CD9587 /* KnobPositionLabel.swift */; };
 		01A58F3B200FF4DD00DD5BF3 /* StompboxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */; };
 		01B2F686207BABC00061488B /* SimpleKnobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2F685207BABC00061488B /* SimpleKnobView.swift */; };
-		01B662192078162A002F76AE /* ComplexKnobProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B662182078162A002F76AE /* ComplexKnobProtocol.swift */; };
+		01B2F688207D3ACF0061488B /* Tappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2F687207D3ACF0061488B /* Tappable.swift */; };
+		01B2F68A207D3AFA0061488B /* Swipeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2F689207D3AFA0061488B /* Swipeable.swift */; };
+		01B662192078162A002F76AE /* ComplexKnobRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B662182078162A002F76AE /* ComplexKnobRenderer.swift */; };
 		01C4A024206404FC00E7ED61 /* StompboxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C4A023206404FC00E7ED61 /* StompboxCell.xib */; };
 		01CAEB8F202A427800AC556B /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB8E202A427800AC556B /* SettingCell.swift */; };
 		01CAEB91202A42FE00AC556B /* ComplexKnobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB90202A42FE00AC556B /* ComplexKnobView.swift */; };
@@ -29,8 +31,8 @@
 		01EB576A2000562800686767 /* StompboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB57692000562800686767 /* StompboxViewController.swift */; };
 		01EB576C2000578800686767 /* StompboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB576B2000578800686767 /* StompboxCell.swift */; };
 		01EB576E200058D700686767 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB576D200058D700686767 /* CoreDataStack.swift */; };
-		01F0DEB8207A5F59004D7E5B /* KnobProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F0DEB7207A5F59004D7E5B /* KnobProtocols.swift */; };
-		01F0DEBA207A6080004D7E5B /* SimpleKnobProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F0DEB9207A6080004D7E5B /* SimpleKnobProtocol.swift */; };
+		01F0DEB8207A5F59004D7E5B /* Gestureable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F0DEB7207A5F59004D7E5B /* Gestureable.swift */; };
+		01F0DEBA207A6080004D7E5B /* SimpleKnobRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F0DEB9207A6080004D7E5B /* SimpleKnobRenderer.swift */; };
 		01FB518D2059C1C200DB25E9 /* UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB518C2059C1C200DB25E9 /* UITableViewDelegate.swift */; };
 		01FB51902059C29600DB25E9 /* UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB518F2059C29600DB25E9 /* UITableViewDataSource.swift */; };
 		01FB51922059C3A800DB25E9 /* NSFetchedResultsControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB51912059C3A800DB25E9 /* NSFetchedResultsControllerDelegate.swift */; };
@@ -45,7 +47,9 @@
 		0173E6A920349CE200CD9587 /* KnobPositionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobPositionLabel.swift; sourceTree = "<group>"; };
 		01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxDetailViewController.swift; sourceTree = "<group>"; };
 		01B2F685207BABC00061488B /* SimpleKnobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleKnobView.swift; sourceTree = "<group>"; };
-		01B662182078162A002F76AE /* ComplexKnobProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexKnobProtocol.swift; sourceTree = "<group>"; };
+		01B2F687207D3ACF0061488B /* Tappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tappable.swift; sourceTree = "<group>"; };
+		01B2F689207D3AFA0061488B /* Swipeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swipeable.swift; sourceTree = "<group>"; };
+		01B662182078162A002F76AE /* ComplexKnobRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexKnobRenderer.swift; sourceTree = "<group>"; };
 		01C4A023206404FC00E7ED61 /* StompboxCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StompboxCell.xib; sourceTree = "<group>"; };
 		01CAEB8E202A427800AC556B /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		01CAEB90202A42FE00AC556B /* ComplexKnobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexKnobView.swift; sourceTree = "<group>"; };
@@ -62,8 +66,8 @@
 		01EB57692000562800686767 /* StompboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxViewController.swift; sourceTree = "<group>"; };
 		01EB576B2000578800686767 /* StompboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxCell.swift; sourceTree = "<group>"; };
 		01EB576D200058D700686767 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		01F0DEB7207A5F59004D7E5B /* KnobProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobProtocols.swift; sourceTree = "<group>"; };
-		01F0DEB9207A6080004D7E5B /* SimpleKnobProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleKnobProtocol.swift; sourceTree = "<group>"; };
+		01F0DEB7207A5F59004D7E5B /* Gestureable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gestureable.swift; sourceTree = "<group>"; };
+		01F0DEB9207A6080004D7E5B /* SimpleKnobRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleKnobRenderer.swift; sourceTree = "<group>"; };
 		01FB518C2059C1C200DB25E9 /* UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewDelegate.swift; sourceTree = "<group>"; };
 		01FB518F2059C29600DB25E9 /* UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewDataSource.swift; sourceTree = "<group>"; };
 		01FB51912059C3A800DB25E9 /* NSFetchedResultsControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSFetchedResultsControllerDelegate.swift; sourceTree = "<group>"; };
@@ -84,9 +88,11 @@
 		01B66215207809DB002F76AE /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				01B662182078162A002F76AE /* ComplexKnobProtocol.swift */,
-				01F0DEB7207A5F59004D7E5B /* KnobProtocols.swift */,
-				01F0DEB9207A6080004D7E5B /* SimpleKnobProtocol.swift */,
+				01F0DEB7207A5F59004D7E5B /* Gestureable.swift */,
+				01B2F687207D3ACF0061488B /* Tappable.swift */,
+				01B2F689207D3AFA0061488B /* Swipeable.swift */,
+				01F0DEB9207A6080004D7E5B /* SimpleKnobRenderer.swift */,
+				01B662182078162A002F76AE /* ComplexKnobRenderer.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -151,9 +157,9 @@
 		01EB479E20371ECB0050563E /* Knob */ = {
 			isa = PBXGroup;
 			children = (
-				01CAEB90202A42FE00AC556B /* ComplexKnobView.swift */,
 				0148870B20347F35001C74C6 /* KnobRenderer.swift */,
 				0173E6A920349CE200CD9587 /* KnobPositionLabel.swift */,
+				01CAEB90202A42FE00AC556B /* ComplexKnobView.swift */,
 				01B2F685207BABC00061488B /* SimpleKnobView.swift */,
 			);
 			path = Knob;
@@ -281,10 +287,12 @@
 			files = (
 				01EB576E200058D700686767 /* CoreDataStack.swift in Sources */,
 				01CAEB91202A42FE00AC556B /* ComplexKnobView.swift in Sources */,
+				01B2F688207D3ACF0061488B /* Tappable.swift in Sources */,
 				01FB51902059C29600DB25E9 /* UITableViewDataSource.swift in Sources */,
-				01F0DEB8207A5F59004D7E5B /* KnobProtocols.swift in Sources */,
-				01B662192078162A002F76AE /* ComplexKnobProtocol.swift in Sources */,
+				01F0DEB8207A5F59004D7E5B /* Gestureable.swift in Sources */,
+				01B662192078162A002F76AE /* ComplexKnobRenderer.swift in Sources */,
 				01B2F686207BABC00061488B /* SimpleKnobView.swift in Sources */,
+				01B2F68A207D3AFA0061488B /* Swipeable.swift in Sources */,
 				01FB518D2059C1C200DB25E9 /* UITableViewDelegate.swift in Sources */,
 				01EB57572000123700686767 /* Stompbox_2.xcdatamodeld in Sources */,
 				01FB51942059C41800DB25E9 /* StompboxDetailViewControllerDelegate.swift in Sources */,
@@ -294,7 +302,7 @@
 				0148870C20347F35001C74C6 /* KnobRenderer.swift in Sources */,
 				01E2E2D620619A81008F1C77 /* StompboxInteractionDelegate.swift in Sources */,
 				01CAEB8F202A427800AC556B /* SettingCell.swift in Sources */,
-				01F0DEBA207A6080004D7E5B /* SimpleKnobProtocol.swift in Sources */,
+				01F0DEBA207A6080004D7E5B /* SimpleKnobRenderer.swift in Sources */,
 				01EB576A2000562800686767 /* StompboxViewController.swift in Sources */,
 				01651D5220506553009F2292 /* Stompbox.swift in Sources */,
 				01E70299206D7F57000FB000 /* DeltaButton.swift in Sources */,

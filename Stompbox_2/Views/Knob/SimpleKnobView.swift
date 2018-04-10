@@ -10,30 +10,55 @@ import UIKit
 
 class SimpleKnobView: UIControl, SimpleKnobRenderer, Tappable {
   
-  var knobRenderer = SimpleKnobRenderer()
+  // SimpleKnobRenderer
+  var startAngle = -CGFloat(Double.pi * 11.0 / 8.0)
+  var endAngle = CGFloat(Double.pi * 3.0 / 8.0)
   
-  var value: Float = 0.0
+  var lineWidth: CGFloat = 2.0
+  var trackLayer = CAShapeLayer()
+  var strokeColor = UIColor()
   
-  var minimumValue: Float
+  var tapRecognizer = UITapGestureRecognizer()
   
-  var maximumValue: Float
-  
-  var startAngle: CGFloat
-  
-  var endAngle: CGFloat
-  
-  var lineWidth: CGFloat
-  
-  var pointerLength: CGFloat
-  
-  var tapRecognizer: UITapGestureRecognizer
-  
-  func addGesture() {
-    <#code#>
+  // MARK: - Init & Setup
+  public override init(frame: CGRect) {
+    super.init(frame: frame)
+    set(frame: frame)
   }
   
+  public required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    set(frame: nil)
+  }
+  
+  public func set(frame: CGRect?) {
+    if let frame = frame {
+      self.frame = frame
+    }
+    createSublayers()
+    configureRenderer()
+  }
+  
+  func configureRenderer() {
+    strokeColor = tintColor
+  }
+  
+  func addGesture() {
+    tapRecognizer.addTarget(self, action: #selector(handleTap))
+    self.addGestureRecognizer(tapRecognizer)
+  }
+  
+  @objc private func handleTap() {
+    print("Tap Registered")
+  }
+  
+  // not needed
   func removeGesture() {
-    <#code#>
+    self.removeGestureRecognizer(tapRecognizer)
+  }
+  
+  func createSublayers() {
+    layer.addSublayer(trackLayer)
   }
   
 

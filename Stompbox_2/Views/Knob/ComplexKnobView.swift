@@ -9,25 +9,24 @@
 import UIKit
 
 class ComplexKnobView: UIControl, ComplexKnobRenderer, Swipeable {
+  var trackLayer: CAShapeLayer
   
+  var strokeColor: UIColor
+  
+  var pointerLayer: CAShapeLayer
+  
+  var pointerAngle: CGFloat
+  
+  var swipeRecognizer = UISwipeGestureRecognizer()
   var knobRenderer = KnobRenderer()
-
   var value: Float
-  
   var minimumValue: Float
-  
   var maximumValue: Float
-  
   var startAngle: CGFloat
-  
   var endAngle: CGFloat
-  
   var lineWidth: CGFloat
-  
   var pointerLength: CGFloat
-  
   var valueLabel: KnobPositionLabel
-  
   var knobLabel: UILabel
   
   public override init(frame: CGRect) {
@@ -54,13 +53,15 @@ class ComplexKnobView: UIControl, ComplexKnobRenderer, Swipeable {
     
   }
   
-  func addGestureRecognizer() {
-    
+  func addGesture() {
+    self.addGestureRecognizer(swipeRecognizer)
   }
   
-  func removeGestureRecognizer() {
-  
+  func removeGesture() {
+    self.removeGestureRecognizer(swipeRecognizer)
   }
+}
+  
 //
 //
 //
@@ -233,4 +234,4 @@ class ComplexKnobView: UIControl, ComplexKnobRenderer, Swipeable {
 //  func changeValueLabelTextColor(to color: UIColor) {
 //    valueLabel.textColor = color
 //  }
-}
+
