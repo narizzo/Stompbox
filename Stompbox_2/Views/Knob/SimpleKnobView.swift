@@ -13,7 +13,7 @@ class SimpleKnobView: UIControl, SimpleKnobRenderer, Tappable {
   // SimpleKnobRenderer
   var startAngle = -CGFloat(Double.pi * 11.0 / 8.0)
   var endAngle = CGFloat(Double.pi * 3.0 / 8.0)
-  
+
   var lineWidth: CGFloat = 2.0
   var trackLayer = CAShapeLayer()
   var strokeColor = UIColor()

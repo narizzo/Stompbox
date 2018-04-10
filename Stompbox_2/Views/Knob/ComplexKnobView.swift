@@ -9,25 +9,26 @@
 import UIKit
 
 class ComplexKnobView: UIControl, ComplexKnobRenderer, Swipeable {
-  var trackLayer: CAShapeLayer
   
-  var strokeColor: UIColor
+  // SimpleKnobRenderer Variables
+  var startAngle: CGFloat = -CGFloat(Double.pi * 11.0 / 8.0)
+  var endAngle: CGFloat = CGFloat(Double.pi * 3.0 / 8.0)
+  var lineWidth: CGFloat = 2.0
+  var trackLayer = CAShapeLayer()
+  var strokeColor = UIColor()
   
-  var pointerLayer: CAShapeLayer
+  // ComplexKnobRenderer Variables
+  var pointerLayer = CAShapeLayer()
+  var pointerAngle = -CGFloat(Double.pi * 11.0 / 8.0)
+  var pointerLength: CGFloat = 6.0
+  var minimumValue: Float = 0.0
+  var maximumValue: Float = 1.0
+  var value: Float = 0.0
   
-  var pointerAngle: CGFloat
-  
+  // variables
   var swipeRecognizer = UISwipeGestureRecognizer()
-  var knobRenderer = KnobRenderer()
-  var value: Float
-  var minimumValue: Float
-  var maximumValue: Float
-  var startAngle: CGFloat
-  var endAngle: CGFloat
-  var lineWidth: CGFloat
-  var pointerLength: CGFloat
-  var valueLabel: KnobPositionLabel
-  var knobLabel: UILabel
+  var valueLabel = KnobPositionLabel()
+  var knobNameLabel = UILabel()
   
   public override init(frame: CGRect) {
     super.init(frame: frame)
@@ -41,20 +42,31 @@ class ComplexKnobView: UIControl, ComplexKnobRenderer, Swipeable {
   
   public func set(frame: CGRect?) {
     self.addSubview(valueLabel)
-    self.addSubview(knobLabel)
+    self.addSubview(knobNameLabel)
     if let frame = frame {
       self.frame = frame
     }
+    addSubviews()
     createSublayers()
   }
   
+  private func addSubviews() {
+    self.addSubview(valueLabel)
+    self.addSubview(knobNameLabel)
+  }
   
   func createSublayers() {
-    
+    layer.addSublayer(trackLayer)
+    layer.addSublayer(pointerLayer)
   }
   
   func addGesture() {
+    swipeRecognizer.addTarget(self, action: #selector(handleSwipe))
     self.addGestureRecognizer(swipeRecognizer)
+  }
+  
+  @objc private func handleSwipe() {
+    print("Registered Swipe")
   }
   
   func removeGesture() {

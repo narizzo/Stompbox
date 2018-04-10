@@ -17,6 +17,8 @@ protocol ComplexKnobRenderer: SimpleKnobRenderer {
   var minimumValue: Float { get set }
   var maximumValue: Float { get set }
   var value: Float { get set }
+  var valueLabel: KnobPositionLabel { get set }
+  var knobNameLabel: UILabel { get set }
   
   func setPointerAngle(_ pointerAngle: CGFloat, animated: Bool)
   func updatePointerLayerPath()
@@ -24,24 +26,24 @@ protocol ComplexKnobRenderer: SimpleKnobRenderer {
 
 extension ComplexKnobRenderer {
   // MARK: - Variables
-  var pointerLayer: CAShapeLayer {
-    return CAShapeLayer()
-  }
-  var pointerAngle: CGFloat {
-    return startAngle
-  }
-  var pointerLength: CGFloat {
-    return 6.0
-  }
-  var minimumValue: Float {
-    return 0.0
-  }
-  var maximumValue: Float {
-    return 1.0
-  }
-  var value: Float {
-    return 0.0
-  }
+//  var pointerLayer: CAShapeLayer {
+//    return CAShapeLayer()
+//  }
+//  var pointerAngle: CGFloat {
+//    return startAngle
+//  }
+//  var pointerLength: CGFloat {
+//    return 6.0
+//  }
+//  var minimumValue: Float {
+//    return 0.0
+//  }
+//  var maximumValue: Float {
+//    return 1.0
+//  }
+//  var value: Float {
+//    return 0.0
+//  }
   
   // MARK: - Pointer
   func setPointerAngle(_ pointerAngle: CGFloat, animated: Bool) {

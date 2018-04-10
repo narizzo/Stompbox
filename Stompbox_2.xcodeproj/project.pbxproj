@@ -159,8 +159,8 @@
 			children = (
 				0148870B20347F35001C74C6 /* KnobRenderer.swift */,
 				0173E6A920349CE200CD9587 /* KnobPositionLabel.swift */,
-				01CAEB90202A42FE00AC556B /* ComplexKnobView.swift */,
 				01B2F685207BABC00061488B /* SimpleKnobView.swift */,
+				01CAEB90202A42FE00AC556B /* ComplexKnobView.swift */,
 			);
 			path = Knob;
 			sourceTree = "<group>";

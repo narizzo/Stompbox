@@ -34,21 +34,21 @@ extension SimpleKnobRenderer {
   
   // Variables
   
-  var startAngle: CGFloat {
-    return -CGFloat(Double.pi * 11.0 / 8.0)
-  }
-  var endAngle: CGFloat {
-    return CGFloat(Double.pi * 3.0 / 8.0)
-  }
-  var lineWidth: CGFloat {
-    return 2.0
-  }
-  var trackLayer: CAShapeLayer {
-    return CAShapeLayer()
-  }
-  var strokeColor: UIColor {
-    return UIColor()
-  }
+//  var startAngle: CGFloat {
+//    return -CGFloat(Double.pi * 11.0 / 8.0)
+//  }
+//  var endAngle: CGFloat {
+//    return CGFloat(Double.pi * 3.0 / 8.0)
+//  }
+//  var lineWidth: CGFloat {
+//    return 2.0
+//  }
+//  var trackLayer: CAShapeLayer {
+//    return CAShapeLayer()
+//  }
+//  var strokeColor: UIColor {
+//    return UIColor()
+//  }
   
   // Functions
   
