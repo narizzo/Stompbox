@@ -48,6 +48,17 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     pointerLayer.frame = self.bounds
   }
   
+  // MARK: - Value
+  func setValue(_ value: Float, animated: Bool) {
+    if value != self.value {
+      print("ComplexKnobLayer - setValue(animated:) value is \(value)")
+      self.value = min(maximumValue, max(minimumValue, value))
+      let angleRange = endAngle - startAngle
+      let valueRange = CGFloat(maximumValue - minimumValue)
+      let angle = CGFloat(value - minimumValue) / valueRange * angleRange + startAngle
+      setPointerAngle(angle, animated: animated)
+    }
+  }
   
   // MARK: - Pointer
   func setPointerAngle(_ pointerAngle: CGFloat, animated: Bool) {

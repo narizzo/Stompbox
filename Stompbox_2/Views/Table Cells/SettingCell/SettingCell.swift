@@ -11,7 +11,7 @@ import CoreData
 
 class SettingCell: UITableViewCell {
   
-  var knobViews = [ComplexKnobView]()
+  var knobViews = [UIView]()
   var isBeingEdited = false {
     didSet {
       toggleKnobHighlight()

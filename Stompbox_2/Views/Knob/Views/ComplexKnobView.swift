@@ -11,6 +11,7 @@ import UIKit
 class ComplexKnobView: UIControl, Panable {
 
   // variables
+  var complexKnobLayer = ComplexKnobLayer()
   var panRecognizer = UIPanGestureRecognizer()
   var valueLabel = KnobPositionLabel()
   var knobNameLabel = UILabel()
@@ -35,23 +36,53 @@ class ComplexKnobView: UIControl, Panable {
   }
   
   private func addSubviews() {
+    complexKnobLayer.frame = self.bounds
+    self.layer.addSublayer(ComplexKnobLayer)
+    
+    valueLabel.frame = self.bounds
     self.addSubview(valueLabel)
+    
+    configureKnobLabel()
     self.addSubview(knobNameLabel)
+    
   }
-  
   
   func addGesture() {
     panRecognizer.addTarget(self, action: #selector(handlePan))
     self.addGestureRecognizer(panRecognizer)
   }
   
-  @objc private func handlePan() {
-    print("Registered Pan")
+  @objc func handlePan(recognizer: UIPanGestureRecognizer) {
+    var translation = recognizer.translation(in: recognizer.view)
+    let translationAmount = (-translation.y) / 250
+    complexKnobLayer.value = min( (max(complexKnobLayer.value + Float(translationAmount), 0)), 1)
+    setValue(self.value!, animated: false)
+    recognizer.setTranslation(CGPoint(x: 0.0, y: 0.0), in: recognizer.view)
+    translation = recognizer.translation(in: recognizer.view)
   }
   
   func removeGesture() {
     self.removeGestureRecognizer(panRecognizer)
   }
+  
+  func setValue(_ value: Float, animated: Bool) {
+    complexKnobLayer.setValue(value, animated: animated)
+  }
+  
+    // MARK: - Knob Label
+    private func configureKnobLabel() {
+      knobLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + knobLabel.font.lineHeight / 2.0, width: self.bounds.width, height: self.bounds.height)
+      knobLabel.textAlignment = .center
+      knobLabel.textColor = blue
+    }
+  
+    public func moveKnobLabelAbove() {
+      knobLabel.frame = CGRect(x: 0, y: -self.bounds.height / 2.0 - knobLabel.font.lineHeight / 2.0, width: self.bounds.width, height: self.bounds.height)
+    }
+  
+    public func changeKnobLabelText(to text: String) {
+      knobLabel.text = text
+    }
   
   
 }

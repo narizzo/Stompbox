@@ -29,11 +29,11 @@ class SimpleKnobView: UIControl, Tappable {
       self.frame = frame
     }
     
-    configureSimpleKnobLayer()
+    addSubviews()
     addGesture()
   }
   
-  func configureSimpleKnobLayer() {
+  func addSubviews() {
     self.layer.addSublayer(simpleKnobLayer)
     simpleKnobLayer.frame = self.bounds
   }

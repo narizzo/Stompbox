@@ -18,6 +18,7 @@
 		01B2F68A207D3AFA0061488B /* Panable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2F689207D3AFA0061488B /* Panable.swift */; };
 		01B2F68C207E85C40061488B /* SimpleKnobLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2F68B207E85C40061488B /* SimpleKnobLayer.swift */; };
 		01B2F690207E8D330061488B /* ComplexKnobLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2F68F207E8D330061488B /* ComplexKnobLayer.swift */; };
+		01B2F693207EA65D0061488B /* SimpleSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2F692207EA65D0061488B /* SimpleSettingCell.swift */; };
 		01B662192078162A002F76AE /* ComplexKnobRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B662182078162A002F76AE /* ComplexKnobRenderer.swift */; };
 		01C4A024206404FC00E7ED61 /* StompboxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C4A023206404FC00E7ED61 /* StompboxCell.xib */; };
 		01CAEB8F202A427800AC556B /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB8E202A427800AC556B /* SettingCell.swift */; };
@@ -53,6 +54,7 @@
 		01B2F689207D3AFA0061488B /* Panable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Panable.swift; sourceTree = "<group>"; };
 		01B2F68B207E85C40061488B /* SimpleKnobLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleKnobLayer.swift; sourceTree = "<group>"; };
 		01B2F68F207E8D330061488B /* ComplexKnobLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexKnobLayer.swift; sourceTree = "<group>"; };
+		01B2F692207EA65D0061488B /* SimpleSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSettingCell.swift; sourceTree = "<group>"; };
 		01B662182078162A002F76AE /* ComplexKnobRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexKnobRenderer.swift; sourceTree = "<group>"; };
 		01C4A023206404FC00E7ED61 /* StompboxCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StompboxCell.xib; sourceTree = "<group>"; };
 		01CAEB8E202A427800AC556B /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
@@ -106,6 +108,16 @@
 				01B2F68F207E8D330061488B /* ComplexKnobLayer.swift */,
 			);
 			path = Layers;
+			sourceTree = "<group>";
+		};
+		01B2F691207EA6430061488B /* SettingCell */ = {
+			isa = PBXGroup;
+			children = (
+				01CAEB8E202A427800AC556B /* SettingCell.swift */,
+				0173AC2A206443820010DDEB /* SettingCell.xib */,
+				01B2F692207EA65D0061488B /* SimpleSettingCell.swift */,
+			);
+			path = SettingCell;
 			sourceTree = "<group>";
 		};
 		01B66215207809DB002F76AE /* Protocols */ = {
@@ -171,8 +183,7 @@
 			children = (
 				01EB576B2000578800686767 /* StompboxCell.swift */,
 				01C4A023206404FC00E7ED61 /* StompboxCell.xib */,
-				01CAEB8E202A427800AC556B /* SettingCell.swift */,
-				0173AC2A206443820010DDEB /* SettingCell.xib */,
+				01B2F691207EA6430061488B /* SettingCell */,
 			);
 			path = "Table Cells";
 			sourceTree = "<group>";
@@ -317,6 +328,7 @@
 				01B2F68C207E85C40061488B /* SimpleKnobLayer.swift in Sources */,
 				01B2F68A207D3AFA0061488B /* Panable.swift in Sources */,
 				01FB518D2059C1C200DB25E9 /* UITableViewDelegate.swift in Sources */,
+				01B2F693207EA65D0061488B /* SimpleSettingCell.swift in Sources */,
 				01EB57572000123700686767 /* Stompbox_2.xcdatamodeld in Sources */,
 				01FB51942059C41800DB25E9 /* StompboxDetailViewControllerDelegate.swift in Sources */,
 				01EB574F2000123700686767 /* AppDelegate.swift in Sources */,
