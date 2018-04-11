@@ -8,16 +8,9 @@
 
 import UIKit
 
-class SimpleKnobView: UIControl, SimpleKnobRenderer, Tappable {
+class SimpleKnobView: UIControl, Tappable {
   
-  // SimpleKnobRenderer
-  var startAngle = -CGFloat(Double.pi * 11.0 / 8.0)
-  var endAngle = CGFloat(Double.pi * 3.0 / 8.0)
-
-  var lineWidth: CGFloat = 2.0
-  var trackLayer = CAShapeLayer()
-  var strokeColor = UIColor()
-  
+  var simpleKnobLayer = SimpleKnobLayer()
   var tapRecognizer = UITapGestureRecognizer()
   
   // MARK: - Init & Setup
@@ -35,12 +28,14 @@ class SimpleKnobView: UIControl, SimpleKnobRenderer, Tappable {
     if let frame = frame {
       self.frame = frame
     }
-    createSublayers()
-    configureRenderer()
+    
+    configureSimpleKnobLayer()
+    addGesture()
   }
   
-  func configureRenderer() {
-    strokeColor = tintColor
+  func configureSimpleKnobLayer() {
+    self.layer.addSublayer(simpleKnobLayer)
+    simpleKnobLayer.frame = self.bounds
   }
   
   func addGesture() {
@@ -52,14 +47,9 @@ class SimpleKnobView: UIControl, SimpleKnobRenderer, Tappable {
     print("Tap Registered")
   }
   
-  // not needed
+  // not needed?
   func removeGesture() {
     self.removeGestureRecognizer(tapRecognizer)
   }
   
-  func createSublayers() {
-    layer.addSublayer(trackLayer)
-  }
-  
-
 }

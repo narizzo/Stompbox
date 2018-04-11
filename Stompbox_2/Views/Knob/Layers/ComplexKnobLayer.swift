@@ -1,49 +1,53 @@
 //
-//  ComplexKnobRenderer.swift
+//  ComplexKnobLayer.swift
 //  Stompbox_2
 //
-//  Created by Nicholas Rizzo on 4/6/18.
+//  Created by Nicholas Rizzo on 4/11/18.
 //  Copyright © 2018 Nicholas Rizzo. All rights reserved.
 //
 
 import UIKit
 
-protocol ComplexKnobRenderer: SimpleKnobRenderer {
+class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
+ 
+  var trackLayer = CAShapeLayer()
   
-  var pointerLayer: CAShapeLayer { get set }
-  var pointerAngle: CGFloat { get set }
-  var pointerLength: CGFloat { get set }
+  var pointerLayer = CAShapeLayer()
+  var pointerLength: CGFloat = 6.0
+  var pointerAngle: CGFloat = -CGFloat(Double.pi * 11.0 / 8.0) {
+    didSet { update() }
+  }
+  var startAngle: CGFloat = -CGFloat(Double.pi * 11.0 / 8.0) {
+    didSet { update() }
+  }
+  var endAngle: CGFloat = CGFloat(Double.pi * 3.0 / 8.0) {
+    didSet { update() }
+  }
   
-  var minimumValue: Float { get set }
-  var maximumValue: Float { get set }
-  var value: Float { get set }
-  var valueLabel: KnobPositionLabel { get set }
-  var knobNameLabel: UILabel { get set }
-  
-  func setPointerAngle(_ pointerAngle: CGFloat, animated: Bool)
-  func updatePointerLayerPath()
-}
+  var value: Float = 0.0
+  var minimumValue: Float = 0.0
+  var maximumValue: Float = 1.0
 
-extension ComplexKnobRenderer {
-  // MARK: - Variables
-//  var pointerLayer: CAShapeLayer {
-//    return CAShapeLayer()
-//  }
-//  var pointerAngle: CGFloat {
-//    return startAngle
-//  }
-//  var pointerLength: CGFloat {
-//    return 6.0
-//  }
-//  var minimumValue: Float {
-//    return 0.0
-//  }
-//  var maximumValue: Float {
-//    return 1.0
-//  }
-//  var value: Float {
-//    return 0.0
-//  }
+  
+  // MARK: - Inits
+  override init() {
+    super.init()
+    configure()
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    configure()
+  }
+  
+  private func configure() {
+    self.addSublayer(trackLayer)
+    self.addSublayer(pointerLayer)
+    
+    trackLayer.frame = self.bounds
+    pointerLayer.frame = self.bounds
+  }
+  
   
   // MARK: - Pointer
   func setPointerAngle(_ pointerAngle: CGFloat, animated: Bool) {
@@ -87,7 +91,6 @@ extension ComplexKnobRenderer {
   }
   
   // MARK: - Update
-  // override SimpleKnobRenderer update functions
   func update(bounds: CGRect) {
     let position = CGPoint(x: bounds.width / 2.0, y: bounds.height / 2.0)
     

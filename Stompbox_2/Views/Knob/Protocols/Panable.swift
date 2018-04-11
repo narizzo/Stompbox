@@ -1,5 +1,5 @@
 //
-//  Swipeable.swift
+//  Panable.swift
 //  Stompbox_2
 //
 //  Created by Nicholas Rizzo on 4/10/18.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-protocol Swipeable: Gestureable {
-  var swipeRecognizer: UISwipeGestureRecognizer { set get }
+protocol Panable: Gestureable {
+  var panRecognizer: UIPanGestureRecognizer { set get }
 }

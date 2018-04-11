@@ -1,5 +1,5 @@
 //
-//  KnobView.swift
+//  ComplexKnobView.swift
 //  Stompbox_2
 //
 //  Created by Nicholas Rizzo on 2/6/18.
@@ -8,25 +8,10 @@
 
 import UIKit
 
-class ComplexKnobView: UIControl, ComplexKnobRenderer, Swipeable {
-  
-  // SimpleKnobRenderer Variables
-  var startAngle: CGFloat = -CGFloat(Double.pi * 11.0 / 8.0)
-  var endAngle: CGFloat = CGFloat(Double.pi * 3.0 / 8.0)
-  var lineWidth: CGFloat = 2.0
-  var trackLayer = CAShapeLayer()
-  var strokeColor = UIColor()
-  
-  // ComplexKnobRenderer Variables
-  var pointerLayer = CAShapeLayer()
-  var pointerAngle = -CGFloat(Double.pi * 11.0 / 8.0)
-  var pointerLength: CGFloat = 6.0
-  var minimumValue: Float = 0.0
-  var maximumValue: Float = 1.0
-  var value: Float = 0.0
-  
+class ComplexKnobView: UIControl, Panable {
+
   // variables
-  var swipeRecognizer = UISwipeGestureRecognizer()
+  var panRecognizer = UIPanGestureRecognizer()
   var valueLabel = KnobPositionLabel()
   var knobNameLabel = UILabel()
   
@@ -47,7 +32,6 @@ class ComplexKnobView: UIControl, ComplexKnobRenderer, Swipeable {
       self.frame = frame
     }
     addSubviews()
-    createSublayers()
   }
   
   private func addSubviews() {
@@ -55,23 +39,21 @@ class ComplexKnobView: UIControl, ComplexKnobRenderer, Swipeable {
     self.addSubview(knobNameLabel)
   }
   
-  func createSublayers() {
-    layer.addSublayer(trackLayer)
-    layer.addSublayer(pointerLayer)
-  }
   
   func addGesture() {
-    swipeRecognizer.addTarget(self, action: #selector(handleSwipe))
-    self.addGestureRecognizer(swipeRecognizer)
+    panRecognizer.addTarget(self, action: #selector(handlePan))
+    self.addGestureRecognizer(panRecognizer)
   }
   
-  @objc private func handleSwipe() {
-    print("Registered Swipe")
+  @objc private func handlePan() {
+    print("Registered Pan")
   }
   
   func removeGesture() {
-    self.removeGestureRecognizer(swipeRecognizer)
+    self.removeGestureRecognizer(panRecognizer)
   }
+  
+  
 }
   
 //
