@@ -24,7 +24,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   @IBOutlet weak var stompboxButton: UIButton!
   @IBOutlet weak var doneButton: UIBarButtonItem!
   
-  @IBOutlet weak var settingCell: SettingCell!
+  @IBOutlet weak var settingCell: ComplexSettingCell!
   
   
   weak var delegate: StompboxDetailViewControllerDelegate?

@@ -9,6 +9,9 @@
 import UIKit
 
 protocol Gestureable {
+  
+  var gestureRecognizer: UIGestureRecognizer { get set }
+  
   func addGesture()
   func removeGesture()
 }

@@ -1,5 +1,5 @@
 //
-//  SettingCell.swift
+//  ComplexSettingCell.swift
 //  Stompbox_2
 //
 //  Created by Nicholas Rizzo on 2/6/18.
@@ -9,9 +9,9 @@
 import UIKit
 import CoreData
 
-class SettingCell: UITableViewCell {
-  
-  var knobViews = [UIView]()
+class ComplexSettingCell: SimpleSettingCell {
+
+  var knobViews = [SimpleKnobView]() // fill with protocol SimpleKnobRenderer?
   var isBeingEdited = false {
     didSet {
       toggleKnobHighlight()

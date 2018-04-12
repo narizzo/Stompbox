@@ -8,11 +8,13 @@
 
 import UIKit
 
-class ComplexKnobView: UIControl, Panable {
+class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
 
   // variables
+  var gestureRecognizer: UIGestureRecognizer = UIPanGestureRecognizer()
+  
   var complexKnobLayer = ComplexKnobLayer()
-  var panRecognizer = UIPanGestureRecognizer()
+  
   var valueLabel = KnobPositionLabel()
   var knobNameLabel = UILabel()
   
@@ -26,7 +28,7 @@ class ComplexKnobView: UIControl, Panable {
     set(frame: nil)
   }
   
-  public func set(frame: CGRect?) {
+  func set(frame: CGRect?) {
     self.addSubview(valueLabel)
     self.addSubview(knobNameLabel)
     if let frame = frame {
@@ -35,9 +37,9 @@ class ComplexKnobView: UIControl, Panable {
     addSubviews()
   }
   
-  private func addSubviews() {
+  func addSubviews() {
     complexKnobLayer.frame = self.bounds
-    self.layer.addSublayer(ComplexKnobLayer)
+    self.layer.addSublayer(complexKnobLayer)
     
     valueLabel.frame = self.bounds
     self.addSubview(valueLabel)
@@ -48,41 +50,41 @@ class ComplexKnobView: UIControl, Panable {
   }
   
   func addGesture() {
-    panRecognizer.addTarget(self, action: #selector(handlePan))
-    self.addGestureRecognizer(panRecognizer)
+    gestureRecognizer.addTarget(self, action: #selector(handleGesture))
+    self.addGestureRecognizer(gestureRecognizer)
   }
   
-  @objc func handlePan(recognizer: UIPanGestureRecognizer) {
+  @objc func handleGesture(recognizer: UIPanGestureRecognizer) {
     var translation = recognizer.translation(in: recognizer.view)
     let translationAmount = (-translation.y) / 250
     complexKnobLayer.value = min( (max(complexKnobLayer.value + Float(translationAmount), 0)), 1)
-    setValue(self.value!, animated: false)
+    //setValue(self.value!, animated: false)
     recognizer.setTranslation(CGPoint(x: 0.0, y: 0.0), in: recognizer.view)
     translation = recognizer.translation(in: recognizer.view)
   }
   
   func removeGesture() {
-    self.removeGestureRecognizer(panRecognizer)
+    self.removeGestureRecognizer(gestureRecognizer)
   }
   
   func setValue(_ value: Float, animated: Bool) {
     complexKnobLayer.setValue(value, animated: animated)
   }
   
-    // MARK: - Knob Label
-    private func configureKnobLabel() {
-      knobLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + knobLabel.font.lineHeight / 2.0, width: self.bounds.width, height: self.bounds.height)
-      knobLabel.textAlignment = .center
-      knobLabel.textColor = blue
-    }
+  // MARK: - Knob Label
+  private func configureKnobLabel() {
+    knobNameLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + knobNameLabel.font.lineHeight / 2.0, width: self.bounds.width, height: self.bounds.height)
+    knobNameLabel.textAlignment = .center
+    knobNameLabel.textColor = blue
+  }
   
-    public func moveKnobLabelAbove() {
-      knobLabel.frame = CGRect(x: 0, y: -self.bounds.height / 2.0 - knobLabel.font.lineHeight / 2.0, width: self.bounds.width, height: self.bounds.height)
-    }
+  public func moveKnobLabelAbove() {
+    knobNameLabel.frame = CGRect(x: 0, y: -self.bounds.height / 2.0 - knobNameLabel.font.lineHeight / 2.0, width: self.bounds.width, height: self.bounds.height)
+  }
   
-    public func changeKnobLabelText(to text: String) {
-      knobLabel.text = text
-    }
+  public func changeKnobLabelText(to text: String) {
+    knobNameLabel.text = text
+  }
   
   
 }

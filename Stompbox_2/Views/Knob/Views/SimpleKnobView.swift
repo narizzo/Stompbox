@@ -8,10 +8,10 @@
 
 import UIKit
 
-class SimpleKnobView: UIControl, Tappable {
-  
+class SimpleKnobView: UIControl, Gestureable, KnobViewProtocol {
+
+  var gestureRecognizer: UIGestureRecognizer = UITapGestureRecognizer()
   var simpleKnobLayer = SimpleKnobLayer()
-  var tapRecognizer = UITapGestureRecognizer()
   
   // MARK: - Init & Setup
   public override init(frame: CGRect) {
@@ -24,7 +24,7 @@ class SimpleKnobView: UIControl, Tappable {
     set(frame: nil)
   }
   
-  public func set(frame: CGRect?) {
+  func set(frame: CGRect?) {
     if let frame = frame {
       self.frame = frame
     }
@@ -39,17 +39,17 @@ class SimpleKnobView: UIControl, Tappable {
   }
   
   func addGesture() {
-    tapRecognizer.addTarget(self, action: #selector(handleTap))
-    self.addGestureRecognizer(tapRecognizer)
+    gestureRecognizer.addTarget(self, action: #selector(handleGesture))
+    self.addGestureRecognizer(gestureRecognizer)
   }
   
-  @objc private func handleTap() {
+  @objc private func handleGesture() {
     print("Tap Registered")
   }
   
   // not needed?
   func removeGesture() {
-    self.removeGestureRecognizer(tapRecognizer)
+    self.removeGestureRecognizer(gestureRecognizer)
   }
   
 }

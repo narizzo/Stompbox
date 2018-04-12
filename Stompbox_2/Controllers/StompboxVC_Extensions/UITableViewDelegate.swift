@@ -20,14 +20,14 @@ extension StompboxViewController: UITableViewDelegate {
     if editingStyle == .delete {
       if let _ = tableView.cellForRow(at: indexPath) as? StompboxCell {
         self.deleteStompbox(at: indexPath)
-      } else if let _ = tableView.cellForRow(at: indexPath) as? SettingCell {
+      } else if let _ = tableView.cellForRow(at: indexPath) as? ComplexSettingCell {
         self.deleteSetting(at: indexPath)
       }
     }
   }
   
   func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-    if let cell = tableView.cellForRow(at: indexPath) as? SettingCell {
+    if let cell = tableView.cellForRow(at: indexPath) as? ComplexSettingCell {
       return !cell.isBeingEdited
     } else {
       return true
@@ -47,7 +47,7 @@ extension StompboxViewController: UITableViewDelegate {
     let edit = UIContextualAction(style: .normal, title: "Edit") { action, view, index in
       if let _ = self.tableView.cellForRow(at: indexPath) as? StompboxCell {
         self.editStompbox(at: indexPath)
-      } else if let _ = self.tableView.cellForRow(at: indexPath) as? SettingCell {
+      } else if let _ = self.tableView.cellForRow(at: indexPath) as? ComplexSettingCell {
         self.editSetting(at: indexPath)
       }
     }
@@ -109,13 +109,13 @@ extension StompboxViewController: UITableViewDelegate {
     tableView.setEditing(false, animated: true)
     
     // this method is a mess...
-    if let settingCell = tableView.cellForRow(at: indexPath) as? SettingCell {
+    if let settingCell = tableView.cellForRow(at: indexPath) as? ComplexSettingCell {
       for tableCell in tableView.visibleCells {
         guard tableCell != settingCell else {
           continue
         }
         
-        if let cell = tableCell as? SettingCell {
+        if let cell = tableCell as? ComplexSettingCell {
           if cell.isBeingEdited {
             // should be refactored -- public vars for settingCell?  Not good.
             navigationItem.setLeftBarButton(cell.leftButton, animated: true)

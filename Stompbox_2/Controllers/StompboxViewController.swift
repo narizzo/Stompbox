@@ -26,7 +26,7 @@ class StompboxViewController: UIViewController {
   weak var coreDataStack: CoreDataStack!
   
   var selectedStompbox: Stompbox?
-  var selectedSettingCell: SettingCell?
+  var selectedSettingCell: ComplexSettingCell?
   
   lazy var fetchedResultsController: NSFetchedResultsController<Stompbox> = {
     let fetchRequest: NSFetchRequest<Stompbox> = Stompbox.fetchRequest()
@@ -77,7 +77,7 @@ class StompboxViewController: UIViewController {
     if let cell = cell as? StompboxCell {
       configureStompboxCell(cell, for: indexPath)
     }
-    if let cell = cell as? SettingCell {
+    if let cell = cell as? ComplexSettingCell {
       configureSettingCell(cell, for: indexPath)
     }
   }
@@ -115,7 +115,7 @@ class StompboxViewController: UIViewController {
   }
   
   // Configure helper method
-  private func configureSettingCell(_ cell: SettingCell, for indexPath: IndexPath) {
+  private func configureSettingCell(_ cell: ComplexSettingCell, for indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
     if cell.coreDataStack == nil {
       cell.coreDataStack = coreDataStack
