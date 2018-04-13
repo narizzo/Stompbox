@@ -12,10 +12,12 @@ protocol SettingCell {
   
   associatedtype KnobType
   var knobViews: [KnobType] { get set }
+  var numberOfKnobViews: Int { get set }
   var knobLayoutStyle: Int16 { get set }
   
+  
   func calculateNumberOfKnobViews()
-  func populateKnobViews(number: Int)
+  func populateKnobViews()
   func populateContentView()
   func clearKnobViewsFromContentView()
   func configureKnobViews()

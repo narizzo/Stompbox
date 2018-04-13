@@ -20,5 +20,3 @@ protocol SimpleKnobRenderer {
   
   func changeStrokeColor(to color: UIColor)
 }
-
-// default property values?

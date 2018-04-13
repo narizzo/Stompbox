@@ -12,8 +12,12 @@ import CoreData
 class ComplexSettingCell: UITableViewCell, SettingCell {
 
   var knobViews = [ComplexKnobView]()
+  var numberOfKnobViews: Int = 0 {
+    didSet {
+      populateKnobViews()
+    }
+  }
   var knobLayoutStyle: Int16 = 0
-  
   var isBeingEdited = false {
     didSet {
       toggleKnobHighlight()
@@ -49,18 +53,19 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   func calculateNumberOfKnobViews() {
+    print("calculateNumberOfKnobViews()")
     switch knobLayoutStyle {
     case 0:
-      populateKnobViews(number: 3)
+      numberOfKnobViews = 3
     default:
       return
     }
   }
   
-  func populateKnobViews(number: Int) {
+  func populateKnobViews() {
+    print("populateKnobViews()")
     knobViews.removeAll()
-    
-    for _ in 0..<number {
+    while knobViews.count < numberOfKnobViews {
       knobViews.append(ComplexKnobView())
     }
     
@@ -69,6 +74,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   func populateContentView() {
+    print("populateContentView()")
     clearKnobViewsFromContentView()
     for knobView in knobViews {
       contentView.addSubview(knobView)
@@ -76,6 +82,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   func clearKnobViewsFromContentView() {
+    print("clearKnobViewsFromContentView()")
     for view in contentView.subviews {
       if view is ComplexKnobView {
         print("Removing ComplexKnobView from contentView")
@@ -85,6 +92,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   func configureKnobViews() {
+    print("configureKnobViews()")
     let sideLength = self.bounds.size.height / 2.0
     let size = CGSize(width: sideLength, height: sideLength)
     
@@ -104,9 +112,21 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   private func loadKnobValues() {
+    guard let knobs = setting.knobs else {
+      return
+    }
+    
+    print("loadKnobValues()")
     var index = 0
     for knobView in knobViews {
-      if let knob = setting.knobs![index] as? Knob {
+      print("in knob view loop")
+      
+      guard index < knobs.count else {
+        return
+      }
+      
+      if let knob = knobs[index] as? Knob {
+        print("knob exists")
         knobView.setValue(Float(knob.value) / 100, animated: false)
       }
       index += 1
@@ -114,6 +134,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   private func populateKnobEntities() {
+    print("populateKnobEntities()")
     for _ in knobViews {
       let knob = Knob(entity: Knob.entity(), insertInto: coreDataStack.moc)
       setting.addToKnobs(knob)
