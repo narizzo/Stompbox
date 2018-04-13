@@ -10,7 +10,7 @@
 		013BA65E206ED5F1009D3A93 /* DeltaLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BA65D206ED5F0009D3A93 /* DeltaLayer.swift */; };
 		0148870C20347F35001C74C6 /* KnobRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0148870B20347F35001C74C6 /* KnobRenderer.swift */; };
 		01651D5220506553009F2292 /* Stompbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01651D5120506553009F2292 /* Stompbox.swift */; };
-		0173AC2B206443820010DDEB /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0173AC2A206443820010DDEB /* SettingCell.xib */; };
+		0173AC2B206443820010DDEB /* SimpleSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0173AC2A206443820010DDEB /* SimpleSettingCell.xib */; };
 		0173E6AA20349CE200CD9587 /* KnobPositionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173E6A920349CE200CD9587 /* KnobPositionLabel.swift */; };
 		01869C5F207FE2070013648F /* KnobViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01869C5E207FE2070013648F /* KnobViewProtocol.swift */; };
 		01869C62207FEF900013648F /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01869C61207FEF900013648F /* SettingCell.swift */; };
@@ -21,6 +21,7 @@
 		01B2F68C207E85C40061488B /* SimpleKnobLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2F68B207E85C40061488B /* SimpleKnobLayer.swift */; };
 		01B2F690207E8D330061488B /* ComplexKnobLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2F68F207E8D330061488B /* ComplexKnobLayer.swift */; };
 		01B2F693207EA65D0061488B /* SimpleSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2F692207EA65D0061488B /* SimpleSettingCell.swift */; };
+		01B4E4B6208139B200A90C5B /* ComplexSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01B4E4B5208139B200A90C5B /* ComplexSettingCell.xib */; };
 		01B662192078162A002F76AE /* ComplexKnobRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B662182078162A002F76AE /* ComplexKnobRenderer.swift */; };
 		01C4A024206404FC00E7ED61 /* StompboxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C4A023206404FC00E7ED61 /* StompboxCell.xib */; };
 		01CAEB8F202A427800AC556B /* ComplexSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB8E202A427800AC556B /* ComplexSettingCell.swift */; };
@@ -48,7 +49,7 @@
 		013BA65D206ED5F0009D3A93 /* DeltaLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeltaLayer.swift; sourceTree = "<group>"; };
 		0148870B20347F35001C74C6 /* KnobRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobRenderer.swift; sourceTree = "<group>"; };
 		01651D5120506553009F2292 /* Stompbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stompbox.swift; sourceTree = "<group>"; };
-		0173AC2A206443820010DDEB /* SettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
+		0173AC2A206443820010DDEB /* SimpleSettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleSettingCell.xib; sourceTree = "<group>"; };
 		0173E6A920349CE200CD9587 /* KnobPositionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobPositionLabel.swift; sourceTree = "<group>"; };
 		01869C5E207FE2070013648F /* KnobViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobViewProtocol.swift; sourceTree = "<group>"; };
 		01869C61207FEF900013648F /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
@@ -59,6 +60,7 @@
 		01B2F68B207E85C40061488B /* SimpleKnobLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleKnobLayer.swift; sourceTree = "<group>"; };
 		01B2F68F207E8D330061488B /* ComplexKnobLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexKnobLayer.swift; sourceTree = "<group>"; };
 		01B2F692207EA65D0061488B /* SimpleSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSettingCell.swift; sourceTree = "<group>"; };
+		01B4E4B5208139B200A90C5B /* ComplexSettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComplexSettingCell.xib; sourceTree = "<group>"; };
 		01B662182078162A002F76AE /* ComplexKnobRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexKnobRenderer.swift; sourceTree = "<group>"; };
 		01C4A023206404FC00E7ED61 /* StompboxCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StompboxCell.xib; sourceTree = "<group>"; };
 		01CAEB8E202A427800AC556B /* ComplexSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexSettingCell.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			children = (
 				01B2F687207D3ACF0061488B /* Tappable.swift */,
 				01B2F689207D3AFA0061488B /* Panable.swift */,
+				0148870B20347F35001C74C6 /* KnobRenderer.swift */,
 			);
 			path = DEFUNCT;
 			sourceTree = "<group>";
@@ -129,7 +132,8 @@
 				01869C61207FEF900013648F /* SettingCell.swift */,
 				01B2F692207EA65D0061488B /* SimpleSettingCell.swift */,
 				01CAEB8E202A427800AC556B /* ComplexSettingCell.swift */,
-				0173AC2A206443820010DDEB /* SettingCell.xib */,
+				0173AC2A206443820010DDEB /* SimpleSettingCell.xib */,
+				01B4E4B5208139B200A90C5B /* ComplexSettingCell.xib */,
 			);
 			path = SettingCell;
 			sourceTree = "<group>";
@@ -204,7 +208,6 @@
 		01EB479E20371ECB0050563E /* Knob */ = {
 			isa = PBXGroup;
 			children = (
-				0148870B20347F35001C74C6 /* KnobRenderer.swift */,
 				01B2F68D207E85D30061488B /* Views */,
 				01B2F68E207E85E10061488B /* Layers */,
 				01B66215207809DB002F76AE /* Protocols */,
@@ -285,7 +288,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Nicholas Rizzo";
 				TargetAttributes = {
 					01EB574A2000123700686767 = {
@@ -318,8 +321,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				01EB575C2000123700686767 /* LaunchScreen.storyboard in Resources */,
-				0173AC2B206443820010DDEB /* SettingCell.xib in Resources */,
+				0173AC2B206443820010DDEB /* SimpleSettingCell.xib in Resources */,
 				01C4A024206404FC00E7ED61 /* StompboxCell.xib in Resources */,
+				01B4E4B6208139B200A90C5B /* ComplexSettingCell.xib in Resources */,
 				01EB57592000123700686767 /* Assets.xcassets in Resources */,
 				01EB57542000123700686767 /* Main.storyboard in Resources */,
 			);
@@ -401,6 +405,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -408,6 +413,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -435,7 +441,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -458,6 +464,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -465,6 +472,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -486,7 +494,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

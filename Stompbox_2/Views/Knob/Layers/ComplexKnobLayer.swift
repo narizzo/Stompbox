@@ -91,7 +91,6 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   
   
   // MARK: - Track
-  // override SimpleKnobRenderer updateTrackLayerPath()
   func updateTrackLayerPath() {
     let arcCenter = CGPoint(x: trackLayer.bounds.width / 2.0, y: trackLayer.bounds.height / 2.0)
     let offset = max(pointerLength, trackLayer.lineWidth / 2.0)

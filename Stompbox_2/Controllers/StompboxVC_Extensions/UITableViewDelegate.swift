@@ -128,7 +128,6 @@ extension StompboxViewController: UITableViewDelegate {
       }
       
       settingCell.isBeingEdited = true
-      self.selectedSettingCell = settingCell  // is this being used?
     }
   }
   

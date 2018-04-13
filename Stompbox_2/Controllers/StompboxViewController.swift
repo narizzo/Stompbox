@@ -18,15 +18,12 @@ class StompboxViewController: UIViewController {
     
     static let stompboxCellHeight: CGFloat = 200
     static let settingCellHeight: CGFloat = 200
-    static let stompboxCellIdentifier = "stompboxReuseIdentifier"
-    static let settingCellReuseIdentifier = "settingReuseIdentifier"
+    static let stompboxCellReuseID = "stompboxCellReuseID"
+    static let complexSettingReuseID = "complexSettingReuseID"
   }
 
-  // should be weak?
   weak var coreDataStack: CoreDataStack!
-  
   var selectedStompbox: Stompbox?
-  var selectedSettingCell: ComplexSettingCell?
   
   lazy var fetchedResultsController: NSFetchedResultsController<Stompbox> = {
     let fetchRequest: NSFetchRequest<Stompbox> = Stompbox.fetchRequest()
@@ -61,10 +58,10 @@ class StompboxViewController: UIViewController {
     }
     
     let stompboxNib = UINib(nibName: "StompboxCell", bundle: nil)
-    tableView.register(stompboxNib, forCellReuseIdentifier: Constants.stompboxCellIdentifier)
+    tableView.register(stompboxNib, forCellReuseIdentifier: Constants.stompboxCellReuseID)
     
-    let settingNib = UINib(nibName: "SettingCell", bundle: nil)
-    tableView.register(settingNib, forCellReuseIdentifier: Constants.settingCellReuseIdentifier)
+    let settingNib = UINib(nibName: "ComplexSettingCell", bundle: nil)
+    tableView.register(settingNib, forCellReuseIdentifier: Constants.complexSettingReuseID)
   }
   
   @IBAction func addStompbox(_ sender: AnyObject) {

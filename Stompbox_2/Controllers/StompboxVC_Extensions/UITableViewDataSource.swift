@@ -46,11 +46,11 @@ extension StompboxViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if indexPath.row == 0 {
-      let stompboxCell = tableView.dequeueReusableCell(withIdentifier: Constants.stompboxCellIdentifier, for: indexPath)
+      let stompboxCell = tableView.dequeueReusableCell(withIdentifier: Constants.stompboxCellReuseID, for: indexPath)
       configure(stompboxCell, for: indexPath)
       return stompboxCell
     } else {
-      let settingCell = tableView.dequeueReusableCell(withIdentifier: Constants.settingCellReuseIdentifier, for: indexPath)
+      let settingCell = tableView.dequeueReusableCell(withIdentifier: Constants.complexSettingReuseID, for: indexPath)
       configure(settingCell, for: indexPath)
       return settingCell
     }
