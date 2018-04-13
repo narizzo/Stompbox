@@ -52,4 +52,9 @@ class SimpleKnobView: UIControl, Gestureable, KnobViewProtocol {
     self.removeGestureRecognizer(gestureRecognizer)
   }
   
+  // MARK: - Color
+  func changeStrokeColor(to color: UIColor) {
+    simpleKnobLayer.changeStrokeColor(to: color)
+  }
+  
 }

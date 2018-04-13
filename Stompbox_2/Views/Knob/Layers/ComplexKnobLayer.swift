@@ -9,9 +9,8 @@
 import UIKit
 
 class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
- 
-  var trackLayer = CAShapeLayer()
   
+  var trackLayer = CAShapeLayer()
   var pointerLayer = CAShapeLayer()
   var pointerLength: CGFloat = 6.0
   var pointerAngle: CGFloat = -CGFloat(Double.pi * 11.0 / 8.0) {
@@ -24,9 +23,9 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     didSet { update() }
   }
   
-  var value: Float = 0.0
-  var minimumValue: Float = 0.0
-  var maximumValue: Float = 1.0
+  var knobPosition = KnobPositionLabel()
+  var knobName = UILabel()
+ 
 
   
   // MARK: - Inits
@@ -48,20 +47,10 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     pointerLayer.frame = self.bounds
   }
   
-  // MARK: - Value
-  func setValue(_ value: Float, animated: Bool) {
-    if value != self.value {
-      print("ComplexKnobLayer - setValue(animated:) value is \(value)")
-      self.value = min(maximumValue, max(minimumValue, value))
-      let angleRange = endAngle - startAngle
-      let valueRange = CGFloat(maximumValue - minimumValue)
-      let angle = CGFloat(value - minimumValue) / valueRange * angleRange + startAngle
-      setPointerAngle(angle, animated: animated)
-    }
-  }
-  
   // MARK: - Pointer
-  func setPointerAngle(_ pointerAngle: CGFloat, animated: Bool) {
+  func setPointerAngle(for value: Float, from minValue: Float, to maxValue: Float, animated: Bool) {
+    let pointerAngle = calculateAngle(for: value, from: minValue, to: maxValue)
+    
     CATransaction.begin()
     CATransaction.setDisableActions(true)
     
@@ -80,6 +69,15 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     }
     CATransaction.commit()
   }
+  
+  private func calculateAngle(for value: Float, from minValue: Float, to maxValue: Float) -> CGFloat {
+    let angleRange = endAngle - startAngle
+    let valueRange = CGFloat(maxValue - minValue)
+    let angle = CGFloat(value - minValue) / valueRange * angleRange + startAngle
+    
+    return angle
+  }
+  
   
   func updatePointerLayerPath() {
     let path = UIBezierPath()
@@ -120,5 +118,17 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     
     updateTrackLayerPath()
     updatePointerLayerPath()
+  }
+  
+  func changeStrokeColor(to color: UIColor) {
+    strokeColor = color.cgColor
+  }
+  
+  func changeKnobLabelTextColor(to color: UIColor) {
+    knobName.textColor = color
+  }
+  
+  func changeKnobPositionTextColor(to color: UIColor) {
+    knobPosition.textColor = color
   }
 }

@@ -55,4 +55,8 @@ class SimpleKnobLayer: CAShapeLayer, SimpleKnobRenderer {
     updateTrackLayerPath()
   }
   
+  func changeStrokeColor(to color: UIColor) {
+    trackLayer.strokeColor = color.cgColor
+  }
+  
 }

@@ -14,11 +14,12 @@ protocol ComplexKnobRenderer: SimpleKnobRenderer {
   var pointerAngle: CGFloat { get set }
   var pointerLength: CGFloat { get set }
   
-  var minimumValue: Float { get set }
-  var maximumValue: Float { get set }
-  var value: Float { get set }
+  var knobPosition: KnobPositionLabel { get set }
+  var knobName: UILabel { get set }
   
-  
-  func setPointerAngle(_ pointerAngle: CGFloat, animated: Bool)
+  func setPointerAngle(for value: Float, from minValue: Float, to maxValue: Float, animated: Bool)
   func updatePointerLayerPath()
+  
+  func changeKnobLabelTextColor(to color: UIColor)
+  func changeKnobPositionTextColor(to color: UIColor)
 }

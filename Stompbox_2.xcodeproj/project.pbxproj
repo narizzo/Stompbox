@@ -13,6 +13,7 @@
 		0173AC2B206443820010DDEB /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0173AC2A206443820010DDEB /* SettingCell.xib */; };
 		0173E6AA20349CE200CD9587 /* KnobPositionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173E6A920349CE200CD9587 /* KnobPositionLabel.swift */; };
 		01869C5F207FE2070013648F /* KnobViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01869C5E207FE2070013648F /* KnobViewProtocol.swift */; };
+		01869C62207FEF900013648F /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01869C61207FEF900013648F /* SettingCell.swift */; };
 		01A58F3B200FF4DD00DD5BF3 /* StompboxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */; };
 		01B2F686207BABC00061488B /* SimpleKnobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2F685207BABC00061488B /* SimpleKnobView.swift */; };
 		01B2F688207D3ACF0061488B /* Tappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B2F687207D3ACF0061488B /* Tappable.swift */; };
@@ -50,6 +51,7 @@
 		0173AC2A206443820010DDEB /* SettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
 		0173E6A920349CE200CD9587 /* KnobPositionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobPositionLabel.swift; sourceTree = "<group>"; };
 		01869C5E207FE2070013648F /* KnobViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobViewProtocol.swift; sourceTree = "<group>"; };
+		01869C61207FEF900013648F /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxDetailViewController.swift; sourceTree = "<group>"; };
 		01B2F685207BABC00061488B /* SimpleKnobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleKnobView.swift; sourceTree = "<group>"; };
 		01B2F687207D3ACF0061488B /* Tappable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tappable.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		01B2F691207EA6430061488B /* SettingCell */ = {
 			isa = PBXGroup;
 			children = (
+				01869C61207FEF900013648F /* SettingCell.swift */,
 				01B2F692207EA65D0061488B /* SimpleSettingCell.swift */,
 				01CAEB8E202A427800AC556B /* ComplexSettingCell.swift */,
 				0173AC2A206443820010DDEB /* SettingCell.xib */,
@@ -337,6 +340,7 @@
 				01B662192078162A002F76AE /* ComplexKnobRenderer.swift in Sources */,
 				01B2F686207BABC00061488B /* SimpleKnobView.swift in Sources */,
 				01B2F68C207E85C40061488B /* SimpleKnobLayer.swift in Sources */,
+				01869C62207FEF900013648F /* SettingCell.swift in Sources */,
 				01B2F68A207D3AFA0061488B /* Panable.swift in Sources */,
 				01FB518D2059C1C200DB25E9 /* UITableViewDelegate.swift in Sources */,
 				01B2F693207EA65D0061488B /* SimpleSettingCell.swift in Sources */,

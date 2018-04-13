@@ -12,11 +12,14 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
 
   // variables
   var gestureRecognizer: UIGestureRecognizer = UIPanGestureRecognizer()
-  
   var complexKnobLayer = ComplexKnobLayer()
   
   var valueLabel = KnobPositionLabel()
   var knobNameLabel = UILabel()
+  
+  var value: Float = 0.0
+  var minimumValue: Float = 0.0
+  var maximumValue: Float = 1.0
   
   public override init(frame: CGRect) {
     super.init(frame: frame)
@@ -57,8 +60,10 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   @objc func handleGesture(recognizer: UIPanGestureRecognizer) {
     var translation = recognizer.translation(in: recognizer.view)
     let translationAmount = (-translation.y) / 250
-    complexKnobLayer.value = min( (max(complexKnobLayer.value + Float(translationAmount), 0)), 1)
-    //setValue(self.value!, animated: false)
+   
+    let newValue = self.value + Float(translationAmount)
+    setValue(newValue, animated: false)
+    
     recognizer.setTranslation(CGPoint(x: 0.0, y: 0.0), in: recognizer.view)
     translation = recognizer.translation(in: recognizer.view)
   }
@@ -68,8 +73,25 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   }
   
   func setValue(_ value: Float, animated: Bool) {
-    complexKnobLayer.setValue(value, animated: animated)
+    let oldValue = self.value
+    self.value = min(maximumValue, max(minimumValue, value))
+    
+    if self.value != oldValue {
+      complexKnobLayer.setPointerAngle(for: self.value, from: minimumValue, to: maximumValue, animated: true)
+    }
   }
+  
+//  // MARK: - Value
+//  func setValue(_ value: Float, animated: Bool) {
+//    if value != self.value {
+//      print("ComplexKnobLayer - setValue(animated:) value is \(value)")
+//      self.value = min(maximumValue, max(minimumValue, value))
+//      let angleRange = endAngle - startAngle
+//      let valueRange = CGFloat(maximumValue - minimumValue)
+//      let angle = CGFloat(value - minimumValue) / valueRange * angleRange + startAngle
+//      setPointerAngle(angle, animated: animated)
+//    }
+//  }
   
   // MARK: - Knob Label
   private func configureKnobLabel() {
@@ -86,7 +108,18 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
     knobNameLabel.text = text
   }
   
+  // MARK: - Color
+  func changeStrokeColor(to color: UIColor) {
+    complexKnobLayer.changeStrokeColor(to: color)
+  }
   
+  func changeKnobLabelTextColor(to color: UIColor) {
+    complexKnobLayer.changeKnobLabelTextColor(to: color)
+  }
+  
+  func changeKnobPositionTextColor(to color: UIColor) {
+    complexKnobLayer.changeKnobPositionTextColor(to: color)
+  }
 }
   
 //

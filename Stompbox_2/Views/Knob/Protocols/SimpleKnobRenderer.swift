@@ -17,6 +17,8 @@ protocol SimpleKnobRenderer {
   func updateTrackLayerPath()
   func update(bounds: CGRect)
   func update()
+  
+  func changeStrokeColor(to color: UIColor)
 }
 
 // default property values?

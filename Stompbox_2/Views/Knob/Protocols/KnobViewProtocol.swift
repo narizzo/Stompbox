@@ -12,5 +12,5 @@ protocol KnobViewProtocol {
   
   func set(frame: CGRect?)
   func addSubviews()
-  
+  func changeStrokeColor(to color: UIColor)
 }

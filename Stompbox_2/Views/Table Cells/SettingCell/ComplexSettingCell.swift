@@ -9,9 +9,11 @@
 import UIKit
 import CoreData
 
-class ComplexSettingCell: SimpleSettingCell {
+class ComplexSettingCell: UITableViewCell, SettingCell {
 
-  var knobViews = [SimpleKnobView]() // fill with protocol SimpleKnobRenderer?
+  var knobViews = [ComplexKnobView]()
+  var knobLayoutStyle: Int16 = 0
+  
   var isBeingEdited = false {
     didSet {
       toggleKnobHighlight()
@@ -28,7 +30,7 @@ class ComplexSettingCell: SimpleSettingCell {
   weak var setting: Setting! {
     didSet {
       if setting != nil {
-        populateKnobViews()
+        calculateNumberOfKnobViews()
       }
     }
   }
@@ -46,7 +48,43 @@ class ComplexSettingCell: SimpleSettingCell {
     layoutIfNeeded()
   }
   
-  private func configureKnobViews() {
+  func calculateNumberOfKnobViews() {
+    switch knobLayoutStyle {
+    case 0:
+      populateKnobViews(number: 3)
+    default:
+      return
+    }
+  }
+  
+  func populateKnobViews(number: Int) {
+    knobViews.removeAll()
+    
+    for _ in 0..<number {
+      knobViews.append(ComplexKnobView())
+    }
+    
+    populateContentView()
+    configureKnobViews()
+  }
+  
+  func populateContentView() {
+    clearKnobViewsFromContentView()
+    for knobView in knobViews {
+      contentView.addSubview(knobView)
+    }
+  }
+  
+  func clearKnobViewsFromContentView() {
+    for view in contentView.subviews {
+      if view is ComplexKnobView {
+        print("Removing ComplexKnobView from contentView")
+        view.removeFromSuperview()
+      }
+    }
+  }
+  
+  func configureKnobViews() {
     let sideLength = self.bounds.size.height / 2.0
     let size = CGSize(width: sideLength, height: sideLength)
     
@@ -55,17 +93,14 @@ class ComplexSettingCell: SimpleSettingCell {
     let knobViewPositions = [CGPoint(x: halfWidth - halfSideLength * 3.0, y: 0),
                              CGPoint(x: halfWidth - halfSideLength, y: sideLength),
                              CGPoint(x: halfWidth + halfSideLength, y: 0)]
-    var index = 0
+    var i = 0
     for knobView in knobViews {
-      knobView.set(frame: CGRect(origin: knobViewPositions[index], size: size))
+      knobView.set(frame: CGRect(origin: knobViewPositions[i], size: size))
       knobView.changeKnobLabelText(to: "Default")
-      if index == 1 { knobView.moveKnobLabelAbove() }
-      
-      loadKnobValues()
-      
-      knobView.changeFillColor(to: UIColor.clear)
-      index += 1
+      if i == 1 { knobView.moveKnobLabelAbove() }  // fragile code
+      i += 1
     }
+    loadKnobValues()
   }
   
   private func loadKnobValues() {
@@ -78,20 +113,8 @@ class ComplexSettingCell: SimpleSettingCell {
     }
   }
   
-  private func populateKnobViews() {
-    if setting.knobs!.count == 0 || setting.knobs == nil {
-      populateKnobs()
-    }
-    while knobViews.count < setting.knobs!.count {
-      let knobView = ComplexKnobView()
-      knobViews.append(knobView)
-      contentView.addSubview(knobView)
-    }
-    configureKnobViews()
-  }
-  
-  private func populateKnobs() {
-    for _ in 0...2 {
+  private func populateKnobEntities() {
+    for _ in knobViews {
       let knob = Knob(entity: Knob.entity(), insertInto: coreDataStack.moc)
       setting.addToKnobs(knob)
     }
@@ -109,7 +132,7 @@ class ComplexSettingCell: SimpleSettingCell {
     for knob in knobViews {
       knob.changeStrokeColor(to: color)
       knob.changeKnobLabelTextColor(to: color)
-      knob.changeValueLabelTextColor(to: color)
+      knob.changeKnobPositionTextColor(to: color)
     }
   }
   
@@ -119,13 +142,13 @@ class ComplexSettingCell: SimpleSettingCell {
   }
   private func addPanRecognizers() {
     for knob in knobViews {
-      knob.addPanRecognizer()
+      knob.addGesture()
     }
   }
   
   private func removePanRecognizers() {
     for knob in knobViews {
-      knob.removePanRecognizer()
+      knob.removeGesture()
     }
   }
   
@@ -162,10 +185,8 @@ class ComplexSettingCell: SimpleSettingCell {
   private func saveKnobPositions() {
     var index = 0
     for knobView in knobViews {
-      if let value = knobView.value {
-        if let knob = setting.knobs?[index] as? Knob {
-          knob.value = Int16(value * 100)
-        }
+      if let knob = setting.knobs?[index] as? Knob {
+        knob.value = Int16(knobView.value * 100)
       }
       index += 1
     }
