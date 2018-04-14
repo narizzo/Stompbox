@@ -98,7 +98,6 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     
     var i = 0
     for knobView in knobViews {
-      knobView.backgroundColor = UIColor.red
       knobView.set(frame: CGRect(origin: knobViewPositions[i], size: size))
       
       knobView.changeKnobLabelText(to: "Default")

@@ -9,7 +9,7 @@
 import UIKit
 
 class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
-  
+ 
   var trackLayer = CAShapeLayer()
   var pointerLayer = CAShapeLayer()
   var pointerLength: CGFloat = 6.0
@@ -22,9 +22,6 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   var endAngle: CGFloat = CGFloat(Double.pi * 3.0 / 8.0) {
     didSet { drawSublayers() }
   }
-  
-  var knobPosition = KnobPositionLabel()
-  var knobName = UILabel()
  
   // MARK: - Inits
   override init() {
@@ -50,14 +47,15 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   }
   
   private func configureSublayers() {
-  
-//    print("KnobLayer bounds: \(self.bounds)")
-//    print("trackLayer frame: \(trackLayer.frame)")
-//    print("pointerLayer frame: \(pointerLayer.frame)")
-
-    //color
-    trackLayer.fillColor = foregroundColor.cgColor
-    pointerLayer.fillColor = foregroundColor.cgColor
+    trackLayer.strokeColor = foregroundColor.cgColor
+    pointerLayer.strokeColor = foregroundColor.cgColor
+    
+    trackLayer.fillColor = UIColor.clear.cgColor
+    pointerLayer.fillColor = UIColor.clear.cgColor
+    
+    
+    trackLayer.lineWidth = 2.0
+    pointerLayer.lineWidth = 2.0
     
     drawSublayers()
   }
@@ -68,7 +66,6 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
       self.frame = frame
       
       updateSublayerFrames()
-      
       drawSublayers()
     }
   }
@@ -130,9 +127,6 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   }
   
   func drawSublayers() {
-    trackLayer.lineWidth = lineWidth
-    pointerLayer.lineWidth = lineWidth
-    
     updateTrackLayerPath()
     updatePointerLayerPath()
   }
@@ -140,25 +134,4 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   func changeStrokeColor(to color: UIColor) {
     strokeColor = color.cgColor
   }
-  
-  func changeKnobLabelTextColor(to color: UIColor) {
-    knobName.textColor = color
-  }
-  
-  func changeKnobPositionTextColor(to color: UIColor) {
-    knobPosition.textColor = color
-  }
 }
-
-// MARK: - Update
-//  func update(bounds: CGRect) {
-//    let position = CGPoint(x: bounds.width / 2.0, y: bounds.height / 2.0)
-//
-//    trackLayer.bounds = bounds
-//    pointerLayer.bounds = bounds
-//
-//    trackLayer.position = position
-//    pointerLayer.position = position
-//
-//    update()
-//  }

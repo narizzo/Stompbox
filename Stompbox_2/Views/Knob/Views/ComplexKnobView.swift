@@ -102,11 +102,11 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   }
   
   func changeKnobLabelTextColor(to color: UIColor) {
-    complexKnobLayer.changeKnobLabelTextColor(to: color)
+    knobNameLabel.textColor = color
   }
   
   func changeKnobPositionTextColor(to color: UIColor) {
-    complexKnobLayer.changeKnobPositionTextColor(to: color)
+    // do nothing
   }
 }
   
