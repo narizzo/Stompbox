@@ -33,9 +33,9 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   weak var stompboxVCView: UIView!
   weak var setting: Setting! {
     didSet {
-      if setting != nil {
+      //if setting != nil {
         calculateNumberOfKnobViews()
-      }
+      //}
     }
   }
   
@@ -53,7 +53,6 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   func calculateNumberOfKnobViews() {
-    print("calculateNumberOfKnobViews()")
     switch knobLayoutStyle {
     case 0:
       numberOfKnobViews = 3
@@ -63,7 +62,6 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   func populateKnobViews() {
-    print("populateKnobViews()")
     knobViews.removeAll()
     while knobViews.count < numberOfKnobViews {
       knobViews.append(ComplexKnobView())
@@ -74,7 +72,6 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   func populateContentView() {
-    print("populateContentView()")
     clearKnobViewsFromContentView()
     for knobView in knobViews {
       contentView.addSubview(knobView)
@@ -82,17 +79,14 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   func clearKnobViewsFromContentView() {
-    print("clearKnobViewsFromContentView()")
     for view in contentView.subviews {
       if view is ComplexKnobView {
-        print("Removing ComplexKnobView from contentView")
         view.removeFromSuperview()
       }
     }
   }
   
   func configureKnobViews() {
-    print("configureKnobViews()")
     let sideLength = self.bounds.size.height / 2.0
     let size = CGSize(width: sideLength, height: sideLength)
     
@@ -101,40 +95,40 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     let knobViewPositions = [CGPoint(x: halfWidth - halfSideLength * 3.0, y: 0),
                              CGPoint(x: halfWidth - halfSideLength, y: sideLength),
                              CGPoint(x: halfWidth + halfSideLength, y: 0)]
+    
     var i = 0
     for knobView in knobViews {
+      knobView.backgroundColor = UIColor.red
       knobView.set(frame: CGRect(origin: knobViewPositions[i], size: size))
+      
       knobView.changeKnobLabelText(to: "Default")
       if i == 1 { knobView.moveKnobLabelAbove() }  // fragile code
       i += 1
     }
-    loadKnobValues()
+    loadKnobData()
   }
   
-  private func loadKnobValues() {
+  private func loadKnobData() {
     guard let knobs = setting.knobs else {
       return
     }
-    
-    print("loadKnobValues()")
     var index = 0
     for knobView in knobViews {
-      print("in knob view loop")
-      
       guard index < knobs.count else {
         return
       }
       
       if let knob = knobs[index] as? Knob {
-        print("knob exists")
         knobView.setValue(Float(knob.value) / 100, animated: false)
+        if let name = knob.name {
+          knobView.changeKnobLabelText(to: name)
+        }
       }
       index += 1
     }
   }
   
   private func populateKnobEntities() {
-    print("populateKnobEntities()")
     for _ in knobViews {
       let knob = Knob(entity: Knob.entity(), insertInto: coreDataStack.moc)
       setting.addToKnobs(knob)
@@ -194,7 +188,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   @objc func cancelChanges() {
-    loadKnobValues()
+    loadKnobData()
     restoreBarButtonsToDefault()
   }
   

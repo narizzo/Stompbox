@@ -85,29 +85,17 @@ extension StompboxViewController: UITableViewDelegate {
   // MARK: - Setting
   // add
   func addSetting(at indexPath: IndexPath) {
-    print("1: add setting at \(indexPath)")
     let stompbox = fetchedResultsController.object(at: indexPath)
-    print("2:")
     let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
-    print("3:")
     stompbox.addToSettings(setting)
-    print("4:")
     if stompbox.isExpanded == false {
-      print("4a:")
       expandSection(for: stompbox, at: indexPath)
-      print("4b:")
     } else {
-      print("4c:")
       if let count = stompbox.settings?.count {
-        print("5:")
         controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-        print("6:")
         tableView.insertRows(at: [IndexPath(row: count, section: indexPath.section)], with: .automatic)
-        print("7:")
         controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-        print("8:")
         coreDataStack.saveContext()
-        print("9:")
       }
     }
   }
@@ -182,28 +170,18 @@ extension StompboxViewController: UITableViewDelegate {
   }
   
   private func expandSection(for stompbox: Stompbox, at indexPath: IndexPath) {
-    print("10: \(indexPath)")
     guard let count = stompbox.settings?.count else {
-      print("10a:")
       return
     }
-    print("11:")
     guard let indexPaths = buildIndexPathsArray(at: indexPath, ofSize: count) else {
-      print("11a:")
       return
     }
     print(indexPaths)
-    print("12:")
     controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    print("13:")
     tableView.insertRows(at: indexPaths, with: .automatic)
-    print("14:")
     stompbox.isExpanded = true
-    print("15:")
     controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    print("16:")
     coreDataStack.saveContext()
-    print("17:")
   }
   
   

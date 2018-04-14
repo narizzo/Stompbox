@@ -14,35 +14,66 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   var pointerLayer = CAShapeLayer()
   var pointerLength: CGFloat = 6.0
   var pointerAngle: CGFloat = -CGFloat(Double.pi * 11.0 / 8.0) {
-    didSet { update() }
+    didSet { drawSublayers() }
   }
   var startAngle: CGFloat = -CGFloat(Double.pi * 11.0 / 8.0) {
-    didSet { update() }
+    didSet { drawSublayers() }
   }
   var endAngle: CGFloat = CGFloat(Double.pi * 3.0 / 8.0) {
-    didSet { update() }
+    didSet { drawSublayers() }
   }
   
   var knobPosition = KnobPositionLabel()
   var knobName = UILabel()
  
-
-  
   // MARK: - Inits
   override init() {
     super.init()
-    configure()
+    addSublayers()
+  }
+  
+  override init(layer: Any) {
+    super.init(layer: layer)
+    addSublayers()
   }
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    configure()
+    addSublayers()
   }
   
-  private func configure() {
+  private func addSublayers() {
     self.addSublayer(trackLayer)
     self.addSublayer(pointerLayer)
     
+    configureSublayers()
+  }
+  
+  private func configureSublayers() {
+  
+//    print("KnobLayer bounds: \(self.bounds)")
+//    print("trackLayer frame: \(trackLayer.frame)")
+//    print("pointerLayer frame: \(pointerLayer.frame)")
+
+    //color
+    trackLayer.fillColor = foregroundColor.cgColor
+    pointerLayer.fillColor = foregroundColor.cgColor
+    
+    drawSublayers()
+  }
+  
+  // MARK: - Layer
+  func set(frame: CGRect?) {
+    if let frame = frame {
+      self.frame = frame
+      
+      updateSublayerFrames()
+      
+      drawSublayers()
+    }
+  }
+  
+  private func updateSublayerFrames() {
     trackLayer.frame = self.bounds
     pointerLayer.frame = self.bounds
   }
@@ -98,20 +129,7 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     trackLayer.path = UIBezierPath(arcCenter: arcCenter, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).cgPath
   }
   
-  // MARK: - Update
-  func update(bounds: CGRect) {
-    let position = CGPoint(x: bounds.width / 2.0, y: bounds.height / 2.0)
-    
-    trackLayer.bounds = bounds
-    pointerLayer.bounds = bounds
-    
-    trackLayer.position = position
-    pointerLayer.position = position
-    
-    update()
-  }
-  
-  func update() {
+  func drawSublayers() {
     trackLayer.lineWidth = lineWidth
     pointerLayer.lineWidth = lineWidth
     
@@ -131,3 +149,16 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     knobPosition.textColor = color
   }
 }
+
+// MARK: - Update
+//  func update(bounds: CGRect) {
+//    let position = CGPoint(x: bounds.width / 2.0, y: bounds.height / 2.0)
+//
+//    trackLayer.bounds = bounds
+//    pointerLayer.bounds = bounds
+//
+//    trackLayer.position = position
+//    pointerLayer.position = position
+//
+//    update()
+//  }

@@ -125,8 +125,8 @@
 		01B66215207809DB002F76AE /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				01869C5E207FE2070013648F /* KnobViewProtocol.swift */,
 				01F0DEB7207A5F59004D7E5B /* Gestureable.swift */,
+				01869C5E207FE2070013648F /* KnobViewProtocol.swift */,
 				01F0DEB9207A6080004D7E5B /* SimpleKnobRenderer.swift */,
 				01B662182078162A002F76AE /* ComplexKnobRenderer.swift */,
 			);

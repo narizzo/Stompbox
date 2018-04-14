@@ -23,33 +23,33 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   
   public override init(frame: CGRect) {
     super.init(frame: frame)
-    set(frame: frame)
+    initialize()
   }
   
   public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    set(frame: nil)
+    initialize()
+  }
+  
+  private func initialize() {
+    addSubviews()
+    self.layer.addSublayer(complexKnobLayer)
   }
   
   func set(frame: CGRect?) {
-    self.addSubview(valueLabel)
-    self.addSubview(knobNameLabel)
     if let frame = frame {
       self.frame = frame
+      
+      complexKnobLayer.set(frame: self.bounds)
     }
-    addSubviews()
   }
   
   func addSubviews() {
-    complexKnobLayer.frame = self.bounds
-    self.layer.addSublayer(complexKnobLayer)
-    
     valueLabel.frame = self.bounds
     self.addSubview(valueLabel)
     
     configureKnobLabel()
     self.addSubview(knobNameLabel)
-    
   }
   
   func addGesture() {
@@ -80,18 +80,6 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
       complexKnobLayer.setPointerAngle(for: self.value, from: minimumValue, to: maximumValue, animated: true)
     }
   }
-  
-//  // MARK: - Value
-//  func setValue(_ value: Float, animated: Bool) {
-//    if value != self.value {
-//      print("ComplexKnobLayer - setValue(animated:) value is \(value)")
-//      self.value = min(maximumValue, max(minimumValue, value))
-//      let angleRange = endAngle - startAngle
-//      let valueRange = CGFloat(maximumValue - minimumValue)
-//      let angle = CGFloat(value - minimumValue) / valueRange * angleRange + startAngle
-//      setPointerAngle(angle, animated: animated)
-//    }
-//  }
   
   // MARK: - Knob Label
   private func configureKnobLabel() {

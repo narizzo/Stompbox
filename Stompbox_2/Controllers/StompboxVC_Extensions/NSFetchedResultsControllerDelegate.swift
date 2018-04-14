@@ -13,16 +13,12 @@ import CoreData
 extension StompboxViewController: NSFetchedResultsControllerDelegate {
   
   func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    print("CONTROLLER WILL CHANGE CONTENT")
     tableView.beginUpdates()
   }
   
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-    print("CONTROLLER DIDCHANGE AN OBJECT")
     switch type {
     case .insert:
-      print("didChange object: indexPath -> \(indexPath)")
-      print("didChange: object newIndexPath -> \(newIndexPath)")
       tableView.insertRows(at: [newIndexPath!], with: .automatic)
     case .delete:
       tableView.deleteRows(at: [indexPath!], with: .automatic)
@@ -39,12 +35,10 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
   }
   
   func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    print("CONTROLLER DID CHANGE CONTENT")
     tableView.endUpdates()
   }
   
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-    print("didChange: section -> \(sectionIndex)")
     let indexSet = IndexSet(integer: sectionIndex)
     switch type {
     case .insert:

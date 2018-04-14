@@ -29,10 +29,15 @@ class SimpleKnobLayer: CAShapeLayer, SimpleKnobRenderer {
   // MARK: - Private Methods
   private func configure() {
     trackLayer.frame = self.bounds
+    
     self.addSublayer(trackLayer)
     
     lineWidth = 2.0
     strokeColor = foregroundColor.cgColor
+    
+    
+    
+    drawSublayers()
   }
   
   // MARK: - Internal Methods
@@ -47,10 +52,10 @@ class SimpleKnobLayer: CAShapeLayer, SimpleKnobRenderer {
     trackLayer.bounds = bounds
     trackLayer.position = position
     
-    update()
+    drawSublayers()
   }
   
-  func update() {
+  func drawSublayers() {
     trackLayer.lineWidth = lineWidth
     updateTrackLayerPath()
   }

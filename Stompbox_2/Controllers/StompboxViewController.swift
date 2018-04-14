@@ -86,6 +86,7 @@ class StompboxViewController: UIViewController {
     cell.typeLabel.text = stompbox.type
     cell.manufacturerLabel.text = stompbox.manufacturer
     
+    // refactor to helper function?
     var image: UIImage?
     if let imageFilePath = stompbox.imageFilePath {
       image = UIImage(contentsOfFile: imageFilePath.path)
