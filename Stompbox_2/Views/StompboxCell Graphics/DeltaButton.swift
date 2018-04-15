@@ -37,7 +37,6 @@ class DeltaButton: UIButton {
   }
   
   private func initializeLayer() {
-    print("initializeLayer()")
     self.layer.addSublayer(deltaLayer)
     deltaLayer.initialize()
   }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+// protocol syntax?
 protocol StompboxInteractionDelegate: class {
   func stompboxExpandCollapse(_ stompboxCell: StompboxCell)
   func stompboxGestureDoubleTap(_ stompboxCell: StompboxCell)
@@ -72,7 +73,6 @@ class StompboxCell: UITableViewCell {
   
   // MARK: - Gesture Methods
   @objc func handleDoubleTap(sender: UITapGestureRecognizer) {
-    print("1: handleDoubleTap")
     delegate?.stompboxGestureDoubleTap(self)
   }
   
@@ -94,5 +94,15 @@ class StompboxCell: UITableViewCell {
 extension StompboxCell: DeltaButtonDelegate {
   func deltaButtonTapped(_ button: DeltaButton) {
     delegate?.stompboxExpandCollapse(self)
+  }
+}
+
+extension StompboxCell: EditingSettingCellDelegate {
+  func startedEditingSetting(_ complexSettingCell: ComplexSettingCell) {
+    deltaButton.hide()
+  }
+  
+  func stoppedEditingSetting(_ complexSettingCell: ComplexSettingCell) {
+    deltaButton.show()
   }
 }

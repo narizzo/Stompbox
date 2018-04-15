@@ -9,6 +9,11 @@
 import UIKit
 import CoreData
 
+protocol EditingSettingCellDelegate: class {
+  func startedEditingSetting(_ complexSettingCell: ComplexSettingCell)
+  func stoppedEditingSetting(_ complexSettingCell: ComplexSettingCell)
+}
+
 class ComplexSettingCell: UITableViewCell, SettingCell {
 
   var knobViews = [ComplexKnobView]()
@@ -28,14 +33,13 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   var rightButton: UIBarButtonItem?
   
   weak var coreDataStack: CoreDataStack!
-  weak var stompboxVCView: UIView!
+  weak var stompboxVCView: UIView! // still needed?
   weak var setting: Setting! {
     didSet {
-      //if setting != nil {
         calculateNumberOfKnobViews()
-      //}
     }
   }
+  weak var delegate: EditingSettingCellDelegate!
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -55,6 +59,9 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     toggleToolBarButtons()
     toggleKnobHighlight()
     toggleKnobNameEditing()
+    
+    // Toggle Delta Button
+    isBeingEdited ? delegate.startedEditingSetting(self) : delegate.stoppedEditingSetting(self)
   }
   
   private func toggleKnobNameEditing() {

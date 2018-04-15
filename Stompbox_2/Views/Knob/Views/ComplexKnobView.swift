@@ -62,7 +62,6 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
     valueLabel.frame = self.bounds
     if let font = knobNameTextField.font {
       knobNameTextField.frame = CGRect(origin: self.bounds.origin, size: CGSize(width: self.bounds.width, height: font.lineHeight))
-      print(knobNameTextField.frame)
     }
   }
   

@@ -124,6 +124,11 @@ class StompboxViewController: UIViewController {
     if cell.viewController == nil {
       cell.viewController = self
     }
+    if cell.delegate == nil {
+      if let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: indexPath.section)) as? StompboxCell {
+        cell.delegate = stompboxCell
+      }
+    }
     cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
     
     // Color Cell
