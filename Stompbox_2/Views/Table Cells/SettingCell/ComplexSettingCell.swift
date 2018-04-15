@@ -99,9 +99,6 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     var i = 0
     for knobView in knobViews {
       knobView.set(frame: CGRect(origin: knobViewPositions[i], size: size))
-      
-      knobView.changeKnobLabelText(to: "Default")
-      if i == 1 { knobView.moveKnobLabelAbove() }  // fragile code
       i += 1
     }
     loadKnobData()
@@ -119,9 +116,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
       
       if let knob = knobs[index] as? Knob {
         knobView.setValue(Float(knob.value) / 100, animated: false)
-        if let name = knob.name {
-          knobView.changeKnobLabelText(to: name)
-        }
+        knobView.knobNameLabel.text = knob.name
       }
       index += 1
     }

@@ -122,6 +122,15 @@
 			path = SettingCell;
 			sourceTree = "<group>";
 		};
+		01B4E4B72082CE7500A90C5B /* StompboxCell */ = {
+			isa = PBXGroup;
+			children = (
+				01EB576B2000578800686767 /* StompboxCell.swift */,
+				01C4A023206404FC00E7ED61 /* StompboxCell.xib */,
+			);
+			path = StompboxCell;
+			sourceTree = "<group>";
+		};
 		01B66215207809DB002F76AE /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,8 +191,7 @@
 		01EB479D20371EA20050563E /* Table Cells */ = {
 			isa = PBXGroup;
 			children = (
-				01EB576B2000578800686767 /* StompboxCell.swift */,
-				01C4A023206404FC00E7ED61 /* StompboxCell.xib */,
+				01B4E4B72082CE7500A90C5B /* StompboxCell */,
 				01B2F691207EA6430061488B /* SettingCell */,
 			);
 			path = "Table Cells";
