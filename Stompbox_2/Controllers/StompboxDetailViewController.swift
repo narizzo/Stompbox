@@ -76,9 +76,6 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
         stompboxButton.setImage(UIImage(contentsOfFile: imageFilePath.path), for: .normal)
       }
     }
-    
-    // Configure Setting Cell
-    
   }
   
   @IBAction func cancel(_ sender: Any) {

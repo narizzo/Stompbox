@@ -59,7 +59,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   
   private func toggleKnobNameEditing() {
     for knobView in knobViews {
-      knobView.isEditable = true
+      knobView.isEditable = isBeingEdited
     }
   }
   

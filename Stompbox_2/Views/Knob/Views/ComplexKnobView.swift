@@ -23,7 +23,7 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   
   var isEditable = false {
     didSet {
-      knobNameTextField.isUserInteractionEnabled = isEditable
+      knobNameTextField.allowsEditingTextAttributes = isEditable
     }
   }
   
@@ -40,7 +40,6 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   private func initialize() {
     addViewsAndLayers()
     configureKnobNameLabel()
-    knobNameTextField.isUserInteractionEnabled = false
   }
   
   private func addViewsAndLayers() {
@@ -63,6 +62,7 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
     valueLabel.frame = self.bounds
     if let font = knobNameTextField.font {
       knobNameTextField.frame = CGRect(origin: self.bounds.origin, size: CGSize(width: self.bounds.width, height: font.lineHeight))
+      print(knobNameTextField.frame)
     }
   }
   
@@ -114,15 +114,14 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
     
     if knobViewVerticalInset + knobViewHeight + knobNameLabelHeight < superview.frame.height {
       // position name below
-      knobNameTextField.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + knobNameTextField.frame.height / 2.0, width: self.bounds.width, height: self.bounds.height)
+      knobNameTextField.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: knobNameTextField.frame.height)
     } else if knobNameLabelHeight < knobViewVerticalInset {
       // position name above
-      knobNameTextField.frame = CGRect(x: 0, y: -self.bounds.height / 2.0 - knobNameTextField.frame.height / 2.0, width: self.bounds.width, height: self.bounds.height)
+      knobNameTextField.frame = CGRect(x: 0, y: -knobNameTextField.frame.height, width: self.bounds.width, height: knobNameTextField.frame.height)
     } else {
       print("Error: Something is wrong with the knob positioning algorithm.  The knobNameLabel doesn't have room above or below its knobView")
     }
   }
-  
   
   // MARK: - Color
   func changeStrokeColor(to color: UIColor) {
