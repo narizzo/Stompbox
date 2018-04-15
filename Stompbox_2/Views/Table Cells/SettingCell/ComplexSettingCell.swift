@@ -108,12 +108,15 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     guard let knobs = setting.knobs else {
       return
     }
+    
+    if knobs.count == 0 {
+      populateKnobEntities()
+    }
     var index = 0
     for knobView in knobViews {
       guard index < knobs.count else {
         return
       }
-      
       if let knob = knobs[index] as? Knob {
         knobView.setValue(Float(knob.value) / 100, animated: false)
         knobView.knobNameLabel.text = knob.name
@@ -123,7 +126,8 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   private func populateKnobEntities() {
-    for _ in knobViews {
+    // loadKnobData guards against nil knobs - refactor?
+    while setting.knobs!.count < numberOfKnobViews {
       let knob = Knob(entity: Knob.entity(), insertInto: coreDataStack.moc)
       setting.addToKnobs(knob)
     }
