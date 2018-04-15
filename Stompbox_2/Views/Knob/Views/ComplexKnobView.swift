@@ -15,27 +15,37 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   var complexKnobLayer = ComplexKnobLayer()
   
   var valueLabel = KnobPositionLabel()
-  var knobNameLabel = UILabel()
+  var knobNameTextField = UITextField()
   
   var value: Float = 0.0
   var minimumValue: Float = 0.0
   var maximumValue: Float = 1.0
   
+  var isEditable = false {
+    didSet {
+      knobNameTextField.isUserInteractionEnabled = isEditable
+    }
+  }
+  
   public override init(frame: CGRect) {
     super.init(frame: frame)
-    addViewsAndLayers()
-    configureKnobNameLabel()
+    initialize()
   }
   
   public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
+    initialize()
+  }
+  
+  private func initialize() {
     addViewsAndLayers()
     configureKnobNameLabel()
+    knobNameTextField.isUserInteractionEnabled = false
   }
   
   private func addViewsAndLayers() {
     self.addSubview(valueLabel)
-    self.addSubview(knobNameLabel)
+    self.addSubview(knobNameTextField)
     self.layer.addSublayer(complexKnobLayer)
   }
   
@@ -51,7 +61,9 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   
   private func updateSubviewFrames() {
     valueLabel.frame = self.bounds
-    knobNameLabel.frame = CGRect(origin: self.bounds.origin, size: CGSize(width: self.bounds.width, height: knobNameLabel.font.lineHeight))
+    if let font = knobNameTextField.font {
+      knobNameTextField.frame = CGRect(origin: self.bounds.origin, size: CGSize(width: self.bounds.width, height: font.lineHeight))
+    }
   }
   
   func addGesture() {
@@ -85,8 +97,8 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   
   // MARK: - Knob Label
   private func configureKnobNameLabel() {
-    knobNameLabel.textAlignment = .center
-    knobNameLabel.textColor = blue
+    knobNameTextField.textAlignment = .center
+    knobNameTextField.textColor = blue
     
     positionKnobLabel()
   }
@@ -98,14 +110,14 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
     
     let knobViewVerticalInset = self.frame.origin.y
     let knobViewHeight = self.frame.height
-    let knobNameLabelHeight = knobNameLabel.bounds.height
+    let knobNameLabelHeight = knobNameTextField.bounds.height
     
     if knobViewVerticalInset + knobViewHeight + knobNameLabelHeight < superview.frame.height {
       // position name below
-      knobNameLabel.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + knobNameLabel.frame.height / 2.0, width: self.bounds.width, height: self.bounds.height)
+      knobNameTextField.frame = CGRect(x: 0, y: self.bounds.height / 2.0 + knobNameTextField.frame.height / 2.0, width: self.bounds.width, height: self.bounds.height)
     } else if knobNameLabelHeight < knobViewVerticalInset {
       // position name above
-      knobNameLabel.frame = CGRect(x: 0, y: -self.bounds.height / 2.0 - knobNameLabel.frame.height / 2.0, width: self.bounds.width, height: self.bounds.height)
+      knobNameTextField.frame = CGRect(x: 0, y: -self.bounds.height / 2.0 - knobNameTextField.frame.height / 2.0, width: self.bounds.width, height: self.bounds.height)
     } else {
       print("Error: Something is wrong with the knob positioning algorithm.  The knobNameLabel doesn't have room above or below its knobView")
     }
@@ -118,7 +130,7 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   }
   
   func changeKnobLabelTextColor(to color: UIColor) {
-    knobNameLabel.textColor = color
+    knobNameTextField.textColor = color
   }
   
   func changeKnobPositionTextColor(to color: UIColor) {

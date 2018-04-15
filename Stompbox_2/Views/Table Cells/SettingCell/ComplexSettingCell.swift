@@ -20,9 +20,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   var knobLayoutStyle: Int16 = 0
   var isBeingEdited = false {
     didSet {
-      toggleKnobHighlight()
-      togglePanRecognizers()
-      toggleToolBarButtons()
+      toggleEditing()
     }
   }
   var viewController: UIViewController!
@@ -51,6 +49,20 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     frame.size.width = UIScreen.main.bounds.width
     layoutIfNeeded()
   }
+  
+  private func toggleEditing() {
+    togglePanRecognizers()
+    toggleToolBarButtons()
+    toggleKnobHighlight()
+    toggleKnobNameEditing()
+  }
+  
+  private func toggleKnobNameEditing() {
+    for knobView in knobViews {
+      knobView.isEditable = true
+    }
+  }
+  
   
   func calculateNumberOfKnobViews() {
     switch knobLayoutStyle {
@@ -87,6 +99,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   func configureKnobViews() {
+    /* Need to refactor into reusable positioning system --> */
     let sideLength = self.bounds.size.height / 2.0
     let size = CGSize(width: sideLength, height: sideLength)
     
@@ -95,7 +108,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     let knobViewPositions = [CGPoint(x: halfWidth - halfSideLength * 3.0, y: 0),
                              CGPoint(x: halfWidth - halfSideLength, y: sideLength),
                              CGPoint(x: halfWidth + halfSideLength, y: 0)]
-    
+    /* <-- Need to refactor into reusable positioning system */
     var i = 0
     for knobView in knobViews {
       knobView.set(frame: CGRect(origin: knobViewPositions[i], size: size))
@@ -119,7 +132,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
       }
       if let knob = knobs[index] as? Knob {
         knobView.setValue(Float(knob.value) / 100, animated: false)
-        knobView.knobNameLabel.text = knob.name
+        knobView.knobNameTextField.text = knob.name
       }
       index += 1
     }
@@ -142,10 +155,10 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     var color: UIColor
     isBeingEdited ? (color = UIColor.yellow) : (color = blue)
     
-    for knob in knobViews {
-      knob.changeStrokeColor(to: color)
-      knob.changeKnobLabelTextColor(to: color)
-      knob.changeKnobPositionTextColor(to: color)
+    for knobView in knobViews {
+      knobView.changeStrokeColor(to: color)
+      knobView.changeKnobLabelTextColor(to: color)
+      knobView.changeKnobPositionTextColor(to: color)
     }
   }
   

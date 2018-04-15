@@ -132,6 +132,7 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   }
   
   func changeStrokeColor(to color: UIColor) {
-    strokeColor = color.cgColor
+    trackLayer.strokeColor = color.cgColor
+    pointerLayer.strokeColor = color.cgColor
   }
 }
