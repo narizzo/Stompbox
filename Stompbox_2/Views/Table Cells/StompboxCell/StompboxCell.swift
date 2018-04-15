@@ -97,12 +97,12 @@ extension StompboxCell: DeltaButtonDelegate {
   }
 }
 
-extension StompboxCell: EditingSettingCellDelegate {
-  func startedEditingSetting(_ complexSettingCell: ComplexSettingCell) {
-    deltaButton.hide()
-  }
-  
-  func stoppedEditingSetting(_ complexSettingCell: ComplexSettingCell) {
-    deltaButton.show()
-  }
-}
+//extension StompboxCell: EditingSettingCellDelegate {
+//  func startedEditingSetting(_ complexSettingCell: ComplexSettingCell) {
+//    deltaButton.hide()
+//  }
+//  
+//  func stoppedEditingSetting(_ complexSettingCell: ComplexSettingCell) {
+//    deltaButton.show()
+//  }
+//}

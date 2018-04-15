@@ -81,6 +81,8 @@ class StompboxViewController: UIViewController {
   
   // Configure helper method
   private func configureStompboxCell(_ cell: StompboxCell, for indexPath: IndexPath) {
+    print("configureStompboxCell")
+    
     let stompbox = fetchedResultsController.object(at: indexPath)
     cell.nameLabel.text = stompbox.name
     cell.typeLabel.text = stompbox.type
@@ -124,10 +126,10 @@ class StompboxViewController: UIViewController {
     if cell.viewController == nil {
       cell.viewController = self
     }
+    
+    // StompboxViewController is the delegate for ComplexSettingCell because StompboxCell is not guaranteed to exist when editing occurs
     if cell.delegate == nil {
-      if let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: indexPath.section)) as? StompboxCell {
-        cell.delegate = stompboxCell
-      }
+      cell.delegate = self
     }
     cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
     

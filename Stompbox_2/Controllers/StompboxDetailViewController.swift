@@ -83,6 +83,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   }
   
   @IBAction func done() {
+    
     func isUniqueName(name: String) -> Bool {
       let request = Stompbox.fetchRequest() as NSFetchRequest<Stompbox>
       request.predicate = NSPredicate(format: "name == %@", name)
@@ -99,7 +100,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func alertPromptNotUniqueStompboxName() {
-      let alert = UIAlertController(title: "Stompboxes must have unique names",
+      let alert = UIAlertController(title: "A Stompbox already has this name",
                                     message: nil,
                                     preferredStyle: .alert)
       let okAction = UIAlertAction(title: "OK", style: .default)
@@ -118,6 +119,9 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       }
     }
     
+    guard stompboxName.text!.isEmpty == false else {
+      return
+    }
     if let stompboxToEdit = stompboxToEdit {
       stompboxToEdit.setPropertiesTo(name: stompboxName.text!, type: stompboxType.text!, manufacturer: stompboxManufacturer.text!)
       updateThumbnail()
