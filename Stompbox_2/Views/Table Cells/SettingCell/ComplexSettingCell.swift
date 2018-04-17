@@ -14,9 +14,12 @@ protocol EditingSettingCellDelegate: class {
   func stoppedEditingSetting(_ complexSettingCell: ComplexSettingCell)
 }
 
-class ComplexSettingCell: UITableViewCell, SettingCell {
+class ComplexSettingCell: UITableViewCell, Cell {
 
-  var knobViews = [ComplexKnobView]()
+  typealias knobViewType = ComplexKnobView
+  
+  var knobViews = [knobViewType]()
+  var contentViewRef = UIView()
   var numberOfKnobViews: Int = 0 {
     didSet {
       populateKnobViews()
@@ -43,10 +46,12 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
+    contentViewRef = contentView
   }
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
+    contentViewRef = contentView
   }
   
   override func awakeFromNib() {
@@ -67,9 +72,11 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   private func toggleKnobNameEditing() {
     for knobView in knobViews {
       knobView.isEditable = isBeingEdited
+      
+      knobView.knobNameTextField.backgroundColor = UIColor(red: 0.2, green: 0.3, blue: 0.4, alpha: 0.25)
+      //knobView.bringSubview(toFront: knobView.knobNameTextField)
     }
   }
-  
   
   func calculateNumberOfKnobViews() {
     switch knobLayoutStyle {
@@ -81,29 +88,29 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   func populateKnobViews() {
-    knobViews.removeAll()
+    knobViews.removeAll() // remove?
     while knobViews.count < numberOfKnobViews {
-      knobViews.append(ComplexKnobView())
+      knobViews.append(knobViewType())
     }
     
     populateContentView()
     configureKnobViews()
   }
   
-  func populateContentView() {
-    clearKnobViewsFromContentView()
-    for knobView in knobViews {
-      contentView.addSubview(knobView)
-    }
-  }
+//  func populateContentView() {
+//    clearKnobViewsFromContentView()
+//    for knobView in knobViews {
+//      contentView.addSubview(knobView)
+//    }
+//  }
   
-  func clearKnobViewsFromContentView() {
-    for view in contentView.subviews {
-      if view is ComplexKnobView {
-        view.removeFromSuperview()
-      }
-    }
-  }
+//  func clearKnobViewsFromContentView() {
+//    for view in contentView.subviews {
+//      if view is KnobType {
+//        view.removeFromSuperview()
+//      }
+//    }
+//  }
   
   func configureKnobViews() {
     /* Need to refactor into reusable positioning system --> */

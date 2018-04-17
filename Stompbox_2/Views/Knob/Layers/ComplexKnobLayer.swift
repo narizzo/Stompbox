@@ -106,7 +106,6 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     return angle
   }
   
-  
   func updatePointerLayerPath() {
     let path = UIBezierPath()
     let width = pointerLayer.bounds.width
@@ -116,7 +115,6 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     path.addLine(to: CGPoint(x: width - (width * 0.15), y: height / 2.0))
     pointerLayer.path = path.cgPath
   }
-  
   
   // MARK: - Track
   func updateTrackLayerPath() {

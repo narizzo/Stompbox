@@ -24,9 +24,11 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   var isEditable = false {
     didSet {
       knobNameTextField.allowsEditingTextAttributes = isEditable
+      knobNameTextField.endEditing(isEditable)
     }
   }
   
+  // MARK: - Inits
   public override init(frame: CGRect) {
     super.init(frame: frame)
     initialize()
@@ -40,8 +42,11 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   private func initialize() {
     addViewsAndLayers()
     configureKnobNameLabel()
+    
+    knobNameTextField.keyboardAppearance = .dark
   }
   
+  // MARK: - Subviews
   private func addViewsAndLayers() {
     self.addSubview(valueLabel)
     self.addSubview(knobNameTextField)
@@ -65,6 +70,20 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
     }
   }
   
+  
+  // MARK: - Hit Test
+  override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    print(point)
+    print(knobNameTextField.frame)
+    if knobNameTextField.point(inside: point, with: event) {
+      print("Hit")
+      return knobNameTextField
+    } else {
+      return nil
+    }
+  }
+  
+  // MARK: - Gestures
   func addGesture() {
     gestureRecognizer.addTarget(self, action: #selector(handleGesture))
     self.addGestureRecognizer(gestureRecognizer)
@@ -85,6 +104,7 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
     self.removeGestureRecognizer(gestureRecognizer)
   }
   
+  // MARK: - Knob Value
   func setValue(_ value: Float, animated: Bool) {
     let oldValue = self.value
     self.value = min(maximumValue, max(minimumValue, value))
@@ -111,15 +131,17 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
     let knobViewHeight = self.frame.height
     let knobNameLabelHeight = knobNameTextField.bounds.height
     
-    if knobViewVerticalInset + knobViewHeight + knobNameLabelHeight < superview.frame.height {
-      // position name below
-      knobNameTextField.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: knobNameTextField.frame.height)
-    } else if knobNameLabelHeight < knobViewVerticalInset {
-      // position name above
-      knobNameTextField.frame = CGRect(x: 0, y: -knobNameTextField.frame.height, width: self.bounds.width, height: knobNameTextField.frame.height)
-    } else {
-      print("Error: Something is wrong with the knob positioning algorithm.  The knobNameLabel doesn't have room above or below its knobView")
-    }
+    knobNameTextField.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: knobNameTextField.frame.height)
+    
+//    if knobViewVerticalInset + knobViewHeight + knobNameLabelHeight < superview.frame.height {
+//      // position name below
+//      knobNameTextField.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: knobNameTextField.frame.height)
+//    } else if knobNameLabelHeight < knobViewVerticalInset {
+//      // position name above
+//      knobNameTextField.frame = CGRect(x: 0, y: -knobNameTextField.frame.height, width: self.bounds.width, height: knobNameTextField.frame.height)
+//    } else {
+//      print("Error: Something is wrong with the knob positioning algorithm.  The knobNameLabel doesn't have room above or below its knobView")
+//    }
   }
   
   // MARK: - Color

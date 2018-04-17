@@ -176,7 +176,6 @@ extension StompboxViewController: UITableViewDelegate {
     guard let indexPaths = buildIndexPathsArray(at: indexPath, ofSize: count) else {
       return
     }
-    print(indexPaths)
     controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
     tableView.insertRows(at: indexPaths, with: .automatic)
     stompbox.isExpanded = true
