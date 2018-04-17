@@ -129,7 +129,10 @@ class StompboxViewController: UIViewController {
     if cell.delegate == nil {
       cell.delegate = self
     }
-    cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
+    
+    if cell.setting == nil {
+      cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
+    }
     
     // Color Cell
     indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lightGray)

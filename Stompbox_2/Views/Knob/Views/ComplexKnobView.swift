@@ -131,17 +131,15 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
     let knobViewHeight = self.frame.height
     let knobNameLabelHeight = knobNameTextField.bounds.height
     
-    knobNameTextField.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: knobNameTextField.frame.height)
-    
-//    if knobViewVerticalInset + knobViewHeight + knobNameLabelHeight < superview.frame.height {
-//      // position name below
-//      knobNameTextField.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: knobNameTextField.frame.height)
-//    } else if knobNameLabelHeight < knobViewVerticalInset {
-//      // position name above
-//      knobNameTextField.frame = CGRect(x: 0, y: -knobNameTextField.frame.height, width: self.bounds.width, height: knobNameTextField.frame.height)
-//    } else {
-//      print("Error: Something is wrong with the knob positioning algorithm.  The knobNameLabel doesn't have room above or below its knobView")
-//    }
+    if knobViewVerticalInset + knobViewHeight + knobNameLabelHeight < superview.frame.height {
+      // position name below
+      knobNameTextField.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: knobNameTextField.frame.height)
+    } else if knobNameLabelHeight < knobViewVerticalInset {
+      // position name above
+      knobNameTextField.frame = CGRect(x: 0, y: -knobNameTextField.frame.height, width: self.bounds.width, height: knobNameTextField.frame.height)
+    } else {
+      print("Error: Something is wrong with the knob positioning algorithm.  The knobNameLabel doesn't have room above or below its knobView")
+    }
   }
   
   // MARK: - Color

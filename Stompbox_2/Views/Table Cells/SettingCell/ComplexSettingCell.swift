@@ -14,17 +14,12 @@ protocol EditingSettingCellDelegate: class {
   func stoppedEditingSetting(_ complexSettingCell: ComplexSettingCell)
 }
 
-class ComplexSettingCell: UITableViewCell, Cell {
+class ComplexSettingCell: UITableViewCell, SettingCell {
 
   typealias knobViewType = ComplexKnobView
   
   var knobViews = [knobViewType]()
   var contentViewRef = UIView()
-  var numberOfKnobViews: Int = 0 {
-    didSet {
-      populateKnobViews()
-    }
-  }
   var knobLayoutStyle: Int16 = 0
   var isBeingEdited = false {
     didSet {
@@ -39,9 +34,10 @@ class ComplexSettingCell: UITableViewCell, Cell {
   weak var stompboxVCView: UIView! // still needed?
   weak var setting: Setting! {
     didSet {
-        calculateNumberOfKnobViews()
+      initializeCell()
     }
   }
+
   weak var delegate: EditingSettingCellDelegate!
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -59,76 +55,27 @@ class ComplexSettingCell: UITableViewCell, Cell {
     layoutIfNeeded()
   }
   
-  private func toggleEditing() {
-    togglePanRecognizers()
-    toggleToolBarButtons()
-    toggleKnobHighlight()
-    toggleKnobNameEditing()
-    
-    // Toggle Delta Button
-    isBeingEdited ? delegate.startedEditingSetting(self) : delegate.stoppedEditingSetting(self)
-  }
-  
-  private func toggleKnobNameEditing() {
-    for knobView in knobViews {
-      knobView.isEditable = isBeingEdited
-      
-      knobView.knobNameTextField.backgroundColor = UIColor(red: 0.2, green: 0.3, blue: 0.4, alpha: 0.25)
-      //knobView.bringSubview(toFront: knobView.knobNameTextField)
+  // MARK: - Custom Init
+  private func initializeCell() {
+    if let stompbox = setting.stompbox {
+      knobLayoutStyle = stompbox.knobLayoutStyle
+    } else {
+      knobLayoutStyle = 0 // default
     }
-  }
-  
-  func calculateNumberOfKnobViews() {
-    switch knobLayoutStyle {
-    case 0:
-      numberOfKnobViews = 3
-    default:
-      return
-    }
-  }
-  
-  func populateKnobViews() {
-    knobViews.removeAll() // remove?
-    while knobViews.count < numberOfKnobViews {
-      knobViews.append(knobViewType())
-    }
-    
+    populateKnobViews()
     populateContentView()
     configureKnobViews()
+    loadKnobData()
   }
   
-//  func populateContentView() {
-//    clearKnobViewsFromContentView()
-//    for knobView in knobViews {
-//      contentView.addSubview(knobView)
-//    }
-//  }
-  
-//  func clearKnobViewsFromContentView() {
-//    for view in contentView.subviews {
-//      if view is KnobType {
-//        view.removeFromSuperview()
-//      }
-//    }
-//  }
-  
   func configureKnobViews() {
-    /* Need to refactor into reusable positioning system --> */
-    let sideLength = self.bounds.size.height / 2.0
-    let size = CGSize(width: sideLength, height: sideLength)
+    let rects = calculateKnobViewRects(for: self.bounds)
     
-    let halfSideLength = sideLength / 2.0
-    let halfWidth = self.bounds.size.width / 2.0
-    let knobViewPositions = [CGPoint(x: halfWidth - halfSideLength * 3.0, y: 0),
-                             CGPoint(x: halfWidth - halfSideLength, y: sideLength),
-                             CGPoint(x: halfWidth + halfSideLength, y: 0)]
-    /* <-- Need to refactor into reusable positioning system */
     var i = 0
     for knobView in knobViews {
-      knobView.set(frame: CGRect(origin: knobViewPositions[i], size: size))
+      knobView.set(frame: rects[i])
       i += 1
     }
-    loadKnobData()
   }
   
   private func loadKnobData() {
@@ -152,9 +99,19 @@ class ComplexSettingCell: UITableViewCell, Cell {
     }
   }
   
+  private func toggleKnobNameEditing() {
+    for knobView in knobViews {
+      knobView.isEditable = isBeingEdited
+      
+      knobView.knobNameTextField.backgroundColor = UIColor(red: 0.2, green: 0.3, blue: 0.4, alpha: 0.25)
+    }
+  }
+  
   private func populateKnobEntities() {
     // loadKnobData guards against nil knobs - refactor?
-    while setting.knobs!.count < numberOfKnobViews {
+    let count = calculateNumberOfKnobViews()
+    
+    while setting.knobs!.count < count {
       let knob = Knob(entity: Knob.entity(), insertInto: coreDataStack.moc)
       setting.addToKnobs(knob)
     }
@@ -163,17 +120,6 @@ class ComplexSettingCell: UITableViewCell, Cell {
   // MARK: - Color
   func changeBackgroundColor(to color: UIColor) {
     backgroundColor = color
-  }
-  
-  private func toggleKnobHighlight() {
-    var color: UIColor
-    isBeingEdited ? (color = UIColor.yellow) : (color = blue)
-    
-    for knobView in knobViews {
-      knobView.changeStrokeColor(to: color)
-      knobView.changeKnobLabelTextColor(to: color)
-      knobView.changeKnobPositionTextColor(to: color)
-    }
   }
   
   // MARK: - Pan Recognizers
@@ -192,7 +138,28 @@ class ComplexSettingCell: UITableViewCell, Cell {
     }
   }
   
-  // MARK: - Tool Bar Buttons
+  // MARK: - Edit Setting Cell
+  private func toggleEditing() {
+    togglePanRecognizers()
+    toggleToolBarButtons()
+    toggleKnobHighlight()
+    toggleKnobNameEditing()
+    
+    // Toggle Delta Button
+    isBeingEdited ? delegate.startedEditingSetting(self) : delegate.stoppedEditingSetting(self)
+  }
+  
+  private func toggleKnobHighlight() {
+    var color: UIColor
+    isBeingEdited ? (color = UIColor.yellow) : (color = blue)
+    
+    for knobView in knobViews {
+      knobView.changeStrokeColor(to: color)
+      knobView.changeKnobLabelTextColor(to: color)
+      knobView.changeKnobPositionTextColor(to: color)
+    }
+  }
+  
   private func toggleToolBarButtons() {
     if isBeingEdited { addToolBarButtons() }
   }

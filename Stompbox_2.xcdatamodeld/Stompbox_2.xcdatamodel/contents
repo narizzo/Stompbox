@@ -19,7 +19,7 @@
     <entity name="Stompbox" representedClassName="Stompbox" syncable="YES" codeGenerationType="class">
         <attribute name="imageFilePath" optional="YES" attributeType="URI" syncable="YES"/>
         <attribute name="isExpanded" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="knobConfiguration" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="knobLayoutStyle" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="manufacturer" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
