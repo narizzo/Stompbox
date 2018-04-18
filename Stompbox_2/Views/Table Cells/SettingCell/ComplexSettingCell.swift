@@ -17,28 +17,23 @@ protocol EditingSettingCellDelegate: class {
 class ComplexSettingCell: UITableViewCell, SettingCell {
 
   typealias knobViewType = ComplexKnobView
-  
   var knobViews = [knobViewType]()
   var contentViewRef = UIView()
   var knobLayoutStyle: Int16 = 0
-  var isBeingEdited = false {
-    didSet {
-      toggleEditing()
-    }
-  }
+  var isBeingEdited = false { didSet { toggleEditing() } }
   var viewController: UIViewController!
   var leftButton: UIBarButtonItem?
   var rightButton: UIBarButtonItem?
   
+  // dependency injection
   weak var coreDataStack: CoreDataStack!
-  weak var stompboxVCView: UIView! // still needed?
+  weak var stompboxVCView: UIView!
+  weak var delegate: EditingSettingCellDelegate!
   weak var setting: Setting! {
     didSet {
       initializeCell()
     }
   }
-
-  weak var delegate: EditingSettingCellDelegate!
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -65,12 +60,13 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     populateKnobViews()
     populateContentView()
     configureKnobViews()
+    populateKnobEntities()
     loadKnobData()
   }
   
+  // REDUNDANT
   func configureKnobViews() {
     let rects = calculateKnobViewRects(for: self.bounds)
-    
     var i = 0
     for knobView in knobViews {
       knobView.set(frame: rects[i])
@@ -79,19 +75,12 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   private func loadKnobData() {
-    guard let knobs = setting.knobs else {
-      return
-    }
-    
-    if knobs.count == 0 {
-      populateKnobEntities()
-    }
     var index = 0
     for knobView in knobViews {
-      guard index < knobs.count else {
+      guard index < setting.knobs!.count else {
         return
       }
-      if let knob = knobs[index] as? Knob {
+      if let knob = setting.knobs![index] as? Knob {
         knobView.setValue(Float(knob.value) / 100, animated: false)
         knobView.knobNameTextField.text = knob.name
       }
@@ -99,23 +88,22 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     }
   }
   
-  private func toggleKnobNameEditing() {
-    for knobView in knobViews {
-      knobView.isEditable = isBeingEdited
-      
-      knobView.knobNameTextField.backgroundColor = UIColor(red: 0.2, green: 0.3, blue: 0.4, alpha: 0.25)
-    }
-  }
-  
   private func populateKnobEntities() {
+    print("1: loadKnobData()")
+    guard let _ = setting.knobs else {
+      return
+    }
+    print("2:")
     // loadKnobData guards against nil knobs - refactor?
     let count = calculateNumberOfKnobViews()
     
     while setting.knobs!.count < count {
       let knob = Knob(entity: Knob.entity(), insertInto: coreDataStack.moc)
       setting.addToKnobs(knob)
+      print("3:")
     }
   }
+  
   
   // MARK: - Color
   func changeBackgroundColor(to color: UIColor) {
@@ -160,9 +148,19 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     }
   }
   
+  private func toggleKnobNameEditing() {
+    for knobView in knobViews {
+      knobView.isEditable = isBeingEdited
+      
+      knobView.knobNameTextField.backgroundColor = UIColor(red: 0.2, green: 0.3, blue: 0.4, alpha: 0.25)
+    }
+  }
+  
   private func toggleToolBarButtons() {
     if isBeingEdited { addToolBarButtons() }
   }
+  
+  
   
   private func addToolBarButtons() {
     let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelChanges))

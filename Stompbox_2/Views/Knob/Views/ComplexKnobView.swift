@@ -42,7 +42,7 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   private func initialize() {
     addViewsAndLayers()
     configureKnobNameLabel()
-    
+
     knobNameTextField.keyboardAppearance = .dark
   }
   
@@ -71,17 +71,15 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   }
   
   
-  // MARK: - Hit Test
-  override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-    print(point)
-    print(knobNameTextField.frame)
-    if knobNameTextField.point(inside: point, with: event) {
-      print("Hit")
-      return knobNameTextField
-    } else {
-      return nil
-    }
-  }
+//  // MARK: - Hit Test
+//  override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//    if knobNameTextField.point(inside: point, with: event) {
+//      print("Hit")
+//      return knobNameTextField
+//    } else {
+//      return nil
+//    }
+//  }
   
   // MARK: - Gestures
   func addGesture() {
@@ -106,12 +104,8 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   
   // MARK: - Knob Value
   func setValue(_ value: Float, animated: Bool) {
-    let oldValue = self.value
     self.value = min(maximumValue, max(minimumValue, value))
-    
-    if self.value != oldValue {
-      complexKnobLayer.setPointerAngle(for: self.value, from: minimumValue, to: maximumValue, animated: true)
-    }
+    complexKnobLayer.setPointerAngle(for: self.value, from: minimumValue, to: maximumValue, animated: animated)
   }
   
   // MARK: - Knob Label

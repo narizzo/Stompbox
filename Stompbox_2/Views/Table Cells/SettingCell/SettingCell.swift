@@ -22,11 +22,10 @@ protocol SettingCell: class {
   func populateContentView()
   func configureKnobViews()
   func calculateKnobViewRects(for bounds: CGRect) -> [CGRect]
-  func clearKnobViewsFromContentView()
 }
 
 // MARK: - Cell Extension
-extension SettingCell {
+extension SettingCell where Self: UITableViewCell {
   
   func calculateNumberOfKnobViews() -> Int {
     switch knobLayoutStyle {
@@ -76,9 +75,6 @@ extension SettingCell {
     }
     
     return knobViewRects
-  }
-  
-  func clearKnobViewsFromContentView() {
   }
 }
 
