@@ -82,25 +82,19 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
       }
       if let knob = setting.knobs![index] as? Knob {
         knobView.setValue(Float(knob.value) / 100, animated: false)
-        knobView.knobNameTextField.text = knob.name
+        knobView.knobNameLabel.text = knob.name
       }
       index += 1
     }
   }
   
   private func populateKnobEntities() {
-    print("1: loadKnobData()")
-    guard let _ = setting.knobs else {
-      return
-    }
-    print("2:")
-    // loadKnobData guards against nil knobs - refactor?
-    let count = calculateNumberOfKnobViews()
-    
-    while setting.knobs!.count < count {
-      let knob = Knob(entity: Knob.entity(), insertInto: coreDataStack.moc)
-      setting.addToKnobs(knob)
-      print("3:")
+    if let knobs = setting.knobs {
+      let count = calculateNumberOfKnobViews()
+      while knobs.count < count {
+        let knob = Knob(entity: Knob.entity(), insertInto: coreDataStack.moc)
+        setting.addToKnobs(knob)
+      }
     }
   }
   
@@ -151,8 +145,6 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   private func toggleKnobNameEditing() {
     for knobView in knobViews {
       knobView.isEditable = isBeingEdited
-      
-      knobView.knobNameTextField.backgroundColor = UIColor(red: 0.2, green: 0.3, blue: 0.4, alpha: 0.25)
     }
   }
   

@@ -12,15 +12,15 @@ import CoreData
 class StompboxViewController: UIViewController {
   
   // MARK: - Properties
-  struct Constants {
-    static let addStompboxSegue = "AddStompboxSegue"
-    static let stompboxCache = "stompboxCache"
-    
-    static let stompboxCellHeight: CGFloat = 200
-    static let settingCellHeight: CGFloat = 200
-    static let stompboxCellReuseID = "stompboxCellReuseID"
-    static let complexSettingReuseID = "complexSettingReuseID"
-  }
+//  struct Constants {
+//    static let addStompboxSegue = "AddStompboxSegue"
+//    static let stompboxCache = "stompboxCache"
+//
+//    static let stompboxCellHeight: CGFloat = 200
+//    static let settingCellHeight: CGFloat = 200
+//    static let stompboxCellReuseID = "stompboxCellReuseID"
+//    static let complexSettingReuseID = "complexSettingReuseID"
+//  }
 
   weak var coreDataStack: CoreDataStack!
   var selectedStompbox: Stompbox?
@@ -57,10 +57,10 @@ class StompboxViewController: UIViewController {
       print("Fetching error: \(error), \(error.userInfo)")
     }
     
-    let stompboxNib = UINib(nibName: "StompboxCell", bundle: nil)
+    let stompboxNib = UINib(nibName: Constants.stompboxNib, bundle: nil)
     tableView.register(stompboxNib, forCellReuseIdentifier: Constants.stompboxCellReuseID)
     
-    let settingNib = UINib(nibName: "ComplexSettingCell", bundle: nil)
+    let settingNib = UINib(nibName: Constants.settingCellComplexNib, bundle: nil)
     tableView.register(settingNib, forCellReuseIdentifier: Constants.complexSettingReuseID)
   }
   

@@ -16,6 +16,11 @@ class SimpleKnobLayer: CAShapeLayer, SimpleKnobRenderer {
   var trackLayer = CAShapeLayer()
   
   // MARK: - Inits
+  override init(layer: Any) {
+    super.init(layer: layer)
+    configure()
+  }
+  
   override init() {
     super.init()
     configure()
@@ -29,13 +34,9 @@ class SimpleKnobLayer: CAShapeLayer, SimpleKnobRenderer {
   // MARK: - Private Methods
   private func configure() {
     trackLayer.frame = self.bounds
-    
     self.addSublayer(trackLayer)
-    
     lineWidth = 2.0
     strokeColor = foregroundColor.cgColor
-    
-    
     
     drawSublayers()
   }

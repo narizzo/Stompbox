@@ -18,14 +18,16 @@ protocol StompboxDetailViewControllerDelegate: class {
 
 class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   
+  // MARK: - Stompbox Outlets
+  @IBOutlet weak var stompboxCell: UITableViewCell!
   @IBOutlet weak var stompboxName: UITextField!
   @IBOutlet weak var stompboxType: UITextField!
   @IBOutlet weak var stompboxManufacturer: UITextField!
   @IBOutlet weak var stompboxButton: UIButton!
+  
+  // MARK: - Other Outlets
   @IBOutlet weak var doneButton: UIBarButtonItem!
-  
-  @IBOutlet weak var settingCell: SimpleSettingCell!
-  
+  @IBOutlet weak var settingCell: SimpleSettingCell!  // needed?
   
   weak var delegate: StompboxDetailViewControllerDelegate?
   weak var coreDataStack: CoreDataStack!
@@ -37,14 +39,19 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    stompboxName.allowsEditingTextAttributes = false
-    self.navigationController?.navigationBar.barTintColor = UIColor.black  // doesn't work????
     
-    // background color
-    stompboxName.backgroundColor = darkerGray
-    stompboxType.backgroundColor = darkerGray
-    stompboxManufacturer.backgroundColor = darkerGray
-    stompboxButton.backgroundColor = darkerGray
+    print("StompboxDetailViewController did load")
+    
+    stompboxName.allowsEditingTextAttributes = false
+    navigationController?.navigationBar.barTintColor = UIColor.black  // doesn't work????
+    tableView.backgroundColor = black
+    stompboxCell.backgroundColor = black
+    
+    // text background color
+    stompboxName.backgroundColor = black
+    stompboxType.backgroundColor = black
+    stompboxManufacturer.backgroundColor = black
+    stompboxButton.backgroundColor = black
     
     // text color
     stompboxName.textColor = blue
@@ -61,6 +68,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     stompboxType.clearsOnBeginEditing = true
     stompboxManufacturer.clearsOnBeginEditing = true
     
+    // additional setup
     doneButton.isEnabled = true
     stompboxButton.imageView?.contentMode = .scaleAspectFit
     navigationItem.largeTitleDisplayMode = .never
@@ -71,6 +79,8 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
       stompboxName.text = stompbox.name
       stompboxType.text = stompbox.type
       stompboxManufacturer.text = stompbox.manufacturer
+      
+      //settingCell.knobLayoutStyle = stompbox.knobLayoutStyle
       
       if let imageFilePath = stompbox.imageFilePath {
         stompboxButton.setImage(UIImage(contentsOfFile: imageFilePath.path), for: .normal)
@@ -140,26 +150,26 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     showPhotoMenu()
   }
   
-  // MARK: - Table view data source
-  override func numberOfSections(in tableView: UITableView) -> Int {
-    return 1
-  }
-  
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 1
-  }
-  
-  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    return super.tableView(tableView, cellForRowAt: indexPath)
-  }
-  
-  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 200
-  }
-  
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
-  }
+//  // MARK: - Table view data source
+//  override func numberOfSections(in tableView: UITableView) -> Int {
+//    return 1
+//  }
+//
+//  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//    return 1
+//  }
+//
+//  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//    return super.tableView(tableView, cellForRowAt: indexPath)
+//  }
+//
+//  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//    return 200
+//  }
+//
+//  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//    tableView.deselectRow(at: indexPath, animated: true)
+//  }
   
 }
 

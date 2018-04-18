@@ -77,7 +77,6 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   
   // MARK: - Pointer
   func setPointerAngle(for value: Float, from minValue: Float, to maxValue: Float, animated: Bool) {
-    print("set pointer angle")
     let pointerAngle = calculateAngle(for: value, from: minValue, to: maxValue)
     
     CATransaction.begin()
