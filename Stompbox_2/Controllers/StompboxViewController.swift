@@ -11,25 +11,15 @@ import CoreData
 
 class StompboxViewController: UIViewController {
   
-  // MARK: - Properties
-//  struct Constants {
-//    static let addStompboxSegue = "AddStompboxSegue"
-//    static let stompboxCache = "stompboxCache"
-//
-//    static let stompboxCellHeight: CGFloat = 200
-//    static let settingCellHeight: CGFloat = 200
-//    static let stompboxCellReuseID = "stompboxCellReuseID"
-//    static let complexSettingReuseID = "complexSettingReuseID"
-//  }
-
   weak var coreDataStack: CoreDataStack!
   var selectedStompbox: Stompbox?
   
-  // StompboxButtonDelegate vars
+  /* StompboxButtonDelegate vars  */
   var imagePicker = UIImagePickerController()
   var didPickNewThumbnail = false
   var imageData = Data()
-  
+  var selectedStompboxButton: StompboxButton?
+
   lazy var fetchedResultsController: NSFetchedResultsController<Stompbox> = {
     let fetchRequest: NSFetchRequest<Stompbox> = Stompbox.fetchRequest()
     let nameSort = NSSortDescriptor(key: #keyPath(Stompbox.name), ascending: true)
@@ -84,7 +74,7 @@ class StompboxViewController: UIViewController {
     }
   }
   
-  // Configure helper method
+  /* Configure helper method */
   private func configureStompboxCell(_ cell: StompboxCell, for indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
     cell.nameLabel.text = stompbox.name

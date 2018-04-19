@@ -11,12 +11,11 @@ import AVFoundation
 
 extension StompboxViewController: StompboxButtonDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   func stompboxButtonTapped(_ button: StompboxButton) {
-    print("delegate message received")
+    selectedStompboxButton = button
     showPhotoMenu()
   }
   
   func showPhotoMenu() {
-    print("showPhotoMenu()")
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     
     let actCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -92,10 +91,14 @@ extension StompboxViewController: StompboxButtonDelegate, UIImagePickerControlle
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     didPickNewThumbnail = true
     let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-   // let thumbnailPNG = image.resized(withBounds: self.stompboxButton.bounds.size)
-    //self.imageData = UIImageJPEGRepresentation(thumbnailPNG, 0.4)!
-    DispatchQueue.main.async {
-     // self.stompboxButton.setImage(UIImage(data: self.imageData), for: UIControlState.normal)
+    if let button = selectedStompboxButton {
+      // resize new thumbnail
+      let thumbnailPNG = image.resized(withBounds: button.bounds.size)
+      // format imageData
+      self.imageData = UIImageJPEGRepresentation(thumbnailPNG, 0.4)!
+      DispatchQueue.main.async {
+        button.setImage(UIImage(data: self.imageData), for: UIControlState.normal)
+      }
     }
     dismiss(animated: true, completion: nil)
   }
