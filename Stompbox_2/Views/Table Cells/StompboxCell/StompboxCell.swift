@@ -29,7 +29,7 @@ class StompboxCell: UITableViewCell {
   @IBOutlet weak var nameLabel: UITextField!
   @IBOutlet weak var typeLabel: UITextField!
   @IBOutlet weak var manufacturerLabel: UITextField!
-  @IBOutlet weak var stompboxImageView: UIImageView!
+  @IBOutlet weak var stompboxButton: StompboxButton!
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,6 +42,7 @@ class StompboxCell: UITableViewCell {
   }
   
   private func setup() {
+    print("stompbox setup")
     self.backgroundColor = darkerGray
     frame.size.width = UIScreen.main.bounds.width
     layoutIfNeeded()
@@ -52,6 +53,7 @@ class StompboxCell: UITableViewCell {
     deltaButton.delegate = self
     deltaButton.initializeButton()
     
+    //stompboxButton.imageView?.contentMode = .scaleAspectFit
   }
   
   // MARK: - Methods for DeltaButton
@@ -87,13 +89,19 @@ class StompboxCell: UITableViewCell {
     nameLabel.text = nil
     typeLabel.text = nil
     manufacturerLabel.text = nil
-    stompboxImageView.image = nil
+    stompboxButton.imageView?.image = nil
   }
 }
 
 extension StompboxCell: DeltaButtonDelegate {
   func deltaButtonTapped(_ button: DeltaButton) {
     delegate?.stompboxExpandCollapse(self)
+  }
+}
+
+extension StompboxCell: StompboxButtonDelegate {
+  func stompboxButtonTapped(_ button: StompboxButton) {
+    
   }
 }
 

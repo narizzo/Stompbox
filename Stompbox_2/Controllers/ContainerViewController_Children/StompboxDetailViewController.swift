@@ -6,6 +6,7 @@
 //  Copyright © 2018 Nicholas Rizzo. All rights reserved.
 //
 
+
 import UIKit
 import CoreData
 import AVFoundation
@@ -17,7 +18,17 @@ protocol StompboxDetailViewControllerDelegate: class {
 }
 
 class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
-  
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.view.backgroundColor = UIColor.purple
+    tableView.isScrollEnabled = false
+
+  }
+
+}
+
+/*
   // MARK: - Stompbox Outlets
   @IBOutlet weak var stompboxCell: UITableViewCell!
   @IBOutlet weak var stompboxName: UITextField!
@@ -254,3 +265,5 @@ extension StompboxDetailViewController: UIImagePickerControllerDelegate, UINavig
     dismiss(animated: true, completion: nil)
   }
 }
+
+ */

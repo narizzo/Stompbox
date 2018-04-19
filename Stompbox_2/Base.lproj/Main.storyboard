@@ -41,17 +41,41 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="kFy-BU-UIm" id="IYR-63-PMU"/>
-                        <segue destination="pc3-vU-K68" kind="show" identifier="AddStompboxSegue" id="fgs-mr-Mp6"/>
+                        <segue destination="wo9-qS-Ez0" kind="show" identifier="AddStompboxSegue" id="r8h-YH-m4Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5AZ-wf-kpp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="124.58770614692655"/>
         </scene>
-        <!--Add Stompbox-->
+        <!--Container View Controller-->
+        <scene sceneID="h1Y-Kz-JNM">
+            <objects>
+                <viewController id="wo9-qS-Ez0" customClass="ContainerViewController" customModule="Stompbox_2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Eak-VJ-3JH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="UzQ-Fx-V4a">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="qpa-nF-apE"/>
+                    </view>
+                    <connections>
+                        <outlet property="stackView" destination="UzQ-Fx-V4a" id="irA-R1-OBQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZTy-FW-vYI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="848.79999999999995" y="124.58770614692655"/>
+        </scene>
+        <!--StompboxDetailView-->
         <scene sceneID="NSq-jh-TTo">
             <objects>
-                <tableViewController title="Add Stompbox" id="pc3-vU-K68" customClass="StompboxDetailViewController" customModule="Stompbox_2" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Add Stompbox" id="pc3-vU-K68" userLabel="StompboxDetailView" customClass="StompboxDetailViewController" customModule="Stompbox_2" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Itd-PH-EVw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,14 +122,6 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="200" id="sLg-Im-rqR" customClass="SimpleSettingCell" customModule="Stompbox_2" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="200" width="375" height="200"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sLg-Im-rqR" id="ZnD-AK-DUq">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -128,7 +144,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="doneButton" destination="dVB-Gp-7Ab" id="Sr8-4T-Qz3"/>
-                        <outlet property="settingCell" destination="sLg-Im-rqR" id="mtR-fj-z2B"/>
                         <outlet property="stompboxButton" destination="Wun-PW-bvH" id="Gp3-a1-mSb"/>
                         <outlet property="stompboxCell" destination="rgZ-40-tE2" id="msf-6H-jf5"/>
                         <outlet property="stompboxManufacturer" destination="djr-c0-5BY" id="bra-Q2-5JQ"/>
@@ -138,7 +153,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W12-FY-ZGj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="948" y="128.18590704647679"/>
+            <point key="canvasLocation" x="1625" y="125"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lRX-SS-Gti">

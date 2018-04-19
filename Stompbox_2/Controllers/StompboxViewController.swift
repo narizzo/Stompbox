@@ -25,6 +25,11 @@ class StompboxViewController: UIViewController {
   weak var coreDataStack: CoreDataStack!
   var selectedStompbox: Stompbox?
   
+  // StompboxButtonDelegate vars
+  var imagePicker = UIImagePickerController()
+  var didPickNewThumbnail = false
+  var imageData = Data()
+  
   lazy var fetchedResultsController: NSFetchedResultsController<Stompbox> = {
     let fetchRequest: NSFetchRequest<Stompbox> = Stompbox.fetchRequest()
     let nameSort = NSSortDescriptor(key: #keyPath(Stompbox.name), ascending: true)
@@ -92,12 +97,11 @@ class StompboxViewController: UIViewController {
       image = UIImage(contentsOfFile: imageFilePath.path)
     }
     if image != nil {
-      cell.stompboxImageView.image = image
-    } else {
-      cell.stompboxImageView.image = #imageLiteral(resourceName: "BD2-large")
+      cell.stompboxButton.imageView?.image = image
     }
     
     cell.delegate = self
+    cell.stompboxButton.delegate = self
     cell.backgroundColor = darkerGray
     
     // Configure delta button
@@ -140,6 +144,7 @@ class StompboxViewController: UIViewController {
   
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    /*
     if segue.identifier == Constants.addStompboxSegue {
       let controller = segue.destination as! StompboxDetailViewController
       controller.delegate = self
@@ -148,6 +153,7 @@ class StompboxViewController: UIViewController {
         controller.stompboxToEdit = selectedStompbox
       }
     }
+ */
   }
   
   public func showStompboxDetailView() {
