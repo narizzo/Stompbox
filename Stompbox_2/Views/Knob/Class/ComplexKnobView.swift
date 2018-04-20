@@ -35,7 +35,6 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   }
   
   private func initialize() {
-    self.backgroundColor = UIColor.red
     addViewsAndLayers()
     configureKnobNameLabel()
   }

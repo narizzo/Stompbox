@@ -108,8 +108,9 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   }
   
   // MARK: - Pointer
+  
+  // delete 'animated'
   func setPointerAngle(for value: Float, from minValue: Float, to maxValue: Float, animated: Bool) {
-    print("3: pointerLayer: \(pointerLayer.bounds)")
     let pointerAngle = calculateAngle(for: value, from: minValue, to: maxValue)
     
     CATransaction.begin()
@@ -117,19 +118,7 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     
     pointerLayer.transform = CATransform3DMakeRotation(pointerAngle, 0.0, 0.0, 0.1)
     
-//    // animate angle change
-//    if animated {
-//      let midAngle = (max(pointerAngle, self.pointerAngle) - min(pointerAngle, self.pointerAngle) ) / 2.0 + min(pointerAngle, self.pointerAngle)
-//      let animation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
-//      animation.duration = 0.25
-//
-//      animation.values = [self.pointerAngle, midAngle, pointerAngle]
-//      animation.keyTimes = [0.0, 0.5, 1.0]
-//      animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-//      pointerLayer.add(animation, forKey: nil)
-//    }
     CATransaction.commit()
-    print("4: pointerLayer: \(pointerLayer.bounds)")
   }
   
   private func calculateAngle(for value: Float, from minValue: Float, to maxValue: Float) -> CGFloat {
