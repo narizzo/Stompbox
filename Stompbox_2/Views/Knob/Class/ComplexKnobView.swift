@@ -35,6 +35,7 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   }
   
   private func initialize() {
+    self.backgroundColor = UIColor.red
     addViewsAndLayers()
     configureKnobNameLabel()
   }
@@ -46,13 +47,23 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
     self.layer.addSublayer(complexKnobLayer)
   }
   
+  // MARK: - Knob Label
+  private func configureKnobNameLabel() {
+    knobNameLabel.textAlignment = .center
+    knobNameLabel.textColor = blue
+    
+    positionKnobLabel()
+  }
+  
   func set(frame: CGRect?) {
     if let frame = frame {
       self.frame = frame
-      
+  
       updateSubviewFrames()
       positionKnobLabel()
-      complexKnobLayer.set(frame: self.bounds)
+      
+      complexKnobLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+      complexKnobLayer.set(size: bounds.size)
     }
   }
   
@@ -88,14 +99,6 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   func setValue(_ value: Float, animated: Bool) {
     self.value = min(maximumValue, max(minimumValue, value))
     complexKnobLayer.setPointerAngle(for: self.value, from: minimumValue, to: maximumValue, animated: animated)
-  }
-  
-  // MARK: - Knob Label
-  private func configureKnobNameLabel() {
-    knobNameLabel.textAlignment = .center
-    knobNameLabel.textColor = blue
-    
-    positionKnobLabel()
   }
   
   private func positionKnobLabel() {

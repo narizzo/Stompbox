@@ -83,7 +83,6 @@ extension StompboxViewController: UITableViewDelegate {
   
   
   // MARK: - Setting
-  // add
   func addSetting(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
     let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
@@ -100,7 +99,6 @@ extension StompboxViewController: UITableViewDelegate {
     }
   }
   
-  // edit
   func editSetting(at indexPath: IndexPath) {
     // shouldn't need to update the whole table but targeting the cell to setEditing doesn't work yet
     tableView.setEditing(false, animated: true)
@@ -127,11 +125,10 @@ extension StompboxViewController: UITableViewDelegate {
     }
   }
   
-  
-  // delete
   func deleteSetting(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
     let setting = stompbox.settings![indexPath.row - 1] as! Setting
+    
     
     coreDataStack.moc.perform {
       self.controllerWillChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
@@ -160,12 +157,12 @@ extension StompboxViewController: UITableViewDelegate {
     guard let indexPaths = buildIndexPathsArray(at: indexPath, ofSize: count) else {
       return
     }
-    controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
     
+    controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
     tableView.deleteRows(at: indexPaths, with: .automatic)
     stompbox.isExpanded = false
-    
     controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    
     coreDataStack.saveContext()
   }
   
@@ -180,6 +177,7 @@ extension StompboxViewController: UITableViewDelegate {
     tableView.insertRows(at: indexPaths, with: .automatic)
     stompbox.isExpanded = true
     controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    
     coreDataStack.saveContext()
   }
   

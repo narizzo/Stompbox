@@ -16,6 +16,17 @@ class ContainerViewController: UIViewController {
   var settingDetailViewController = SettingDetailViewController()
   var settingCollectionViewController = SettingCollectionViewController()
   
+  weak var stompboxButtonDelegate: StompboxButtonDelegate? {
+    didSet {
+      stompboxDetailViewController.stompboxButtonDelegate = stompboxButtonDelegate
+    }
+  }
+  weak var stompboxToEdit: Stompbox? {
+    didSet {
+      stompboxDetailViewController.stompboxToEdit = stompboxToEdit
+    }
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     initializeViewControllers()

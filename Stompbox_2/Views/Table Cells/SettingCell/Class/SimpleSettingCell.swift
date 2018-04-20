@@ -37,12 +37,12 @@ class SimpleSettingCell: UITableViewCell, SettingCell {
   private func initializeCell() {
     populateKnobViews()
     populateContentView()
-    configureKnobViews()
+    configureKnobViewsRects()
   }
   
   // REDUNDANT
-  func configureKnobViews() {
-    let rects = calculateKnobViewRects(for: self.bounds)
+  func configureKnobViewsRects() {
+    let rects = calculateKnobViewRects(with: self.bounds)
     var i = 0
     for knobView in knobViews {
       knobView.set(frame: rects[i])

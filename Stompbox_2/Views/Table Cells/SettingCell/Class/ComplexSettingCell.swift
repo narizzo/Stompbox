@@ -34,7 +34,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
       initializeCell()
     }
   }
-  
+
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     contentViewRef = contentView
@@ -52,25 +52,36 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   
   // MARK: - Custom Init
   private func initializeCell() {
+    guard setting != nil else {
+      return
+    }
     if let stompbox = setting.stompbox {
       knobLayoutStyle = stompbox.knobLayoutStyle
-    } else {
-      knobLayoutStyle = 0 // default
     }
-    populateKnobViews()
-    populateContentView()
-    configureKnobViews()
+    
+    populateKnobViews()   /* protocol default */
+    populateContentView() /* protocol default */
+    configureKnobViewsRects()
     populateKnobEntities()
     loadKnobData()
   }
   
-  // REDUNDANT
-  func configureKnobViews() {
-    let rects = calculateKnobViewRects(for: self.bounds)
+  func configureKnobViewsRects() {
+    let rects = calculateKnobViewRects(with: self.bounds)
     var i = 0
     for knobView in knobViews {
       knobView.set(frame: rects[i])
       i += 1
+    }
+  }
+  
+  private func populateKnobEntities() {
+    if let knobs = setting.knobs {
+      let count = calculateNumberOfKnobViews()
+      while knobs.count < count {
+        let knob = Knob(entity: Knob.entity(), insertInto: coreDataStack.moc)
+        setting.addToKnobs(knob)
+      }
     }
   }
   
@@ -87,17 +98,6 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
       index += 1
     }
   }
-  
-  private func populateKnobEntities() {
-    if let knobs = setting.knobs {
-      let count = calculateNumberOfKnobViews()
-      while knobs.count < count {
-        let knob = Knob(entity: Knob.entity(), insertInto: coreDataStack.moc)
-        setting.addToKnobs(knob)
-      }
-    }
-  }
-  
   
   // MARK: - Color
   func changeBackgroundColor(to color: UIColor) {

@@ -51,8 +51,7 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     pointerLayer.strokeColor = foregroundColor.cgColor
     
     trackLayer.fillColor = UIColor.clear.cgColor
-    pointerLayer.fillColor = UIColor.clear.cgColor
-    
+    pointerLayer.fillColor = UIColor.clear.cgColor  // doesn't have an effect because pointerLayer is a line
     
     trackLayer.lineWidth = 2.0
     pointerLayer.lineWidth = 2.0
@@ -64,50 +63,34 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   func set(frame: CGRect?) {
     if let frame = frame {
       self.frame = frame
-      
-      updateSublayerFrames()
+      updateSublayers()
       drawSublayers()
     }
   }
   
-  private func updateSublayerFrames() {
-    trackLayer.frame = self.bounds
-    pointerLayer.frame = self.bounds
+  func set(size: CGSize) {
+    self.bounds.size = size
+    updateSublayers()
   }
   
-  // MARK: - Pointer
-  func setPointerAngle(for value: Float, from minValue: Float, to maxValue: Float, animated: Bool) {
-    let pointerAngle = calculateAngle(for: value, from: minValue, to: maxValue)
+  func updateSublayers() {
+    trackLayer.bounds.size = self.bounds.size
+    pointerLayer.bounds.size = self.bounds.size
     
-    CATransaction.begin()
-    CATransaction.setDisableActions(true)
+    trackLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+    pointerLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
     
-    pointerLayer.transform = CATransform3DMakeRotation(pointerAngle, 0.0, 0.0, 0.1)
-    
-    // animate angle change
-    if animated {
-      let midAngle = (max(pointerAngle, self.pointerAngle) - min(pointerAngle, self.pointerAngle) ) / 2.0 + min(pointerAngle, self.pointerAngle)
-      let animation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
-      animation.duration = 0.25
-      
-      animation.values = [self.pointerAngle, midAngle, pointerAngle]
-      animation.keyTimes = [0.0, 0.5, 1.0]
-      animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-      pointerLayer.add(animation, forKey: nil)
-    }
-    CATransaction.commit()
+    drawSublayers()
   }
   
-  private func calculateAngle(for value: Float, from minValue: Float, to maxValue: Float) -> CGFloat {
-    let angleRange = endAngle - startAngle
-    let valueRange = CGFloat(maxValue - minValue)
-    let angle = CGFloat(value - minValue) / valueRange * angleRange + startAngle
-    
-    return angle
+  func drawSublayers() {
+    updateTrackLayerPath()
+    updatePointerLayerPath()
   }
   
   func updatePointerLayerPath() {
     let path = UIBezierPath()
+    
     let width = pointerLayer.bounds.width
     let height = pointerLayer.bounds.height
     
@@ -124,9 +107,37 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     trackLayer.path = UIBezierPath(arcCenter: arcCenter, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).cgPath
   }
   
-  func drawSublayers() {
-    updateTrackLayerPath()
-    updatePointerLayerPath()
+  // MARK: - Pointer
+  func setPointerAngle(for value: Float, from minValue: Float, to maxValue: Float, animated: Bool) {
+    print("3: pointerLayer: \(pointerLayer.bounds)")
+    let pointerAngle = calculateAngle(for: value, from: minValue, to: maxValue)
+    
+    CATransaction.begin()
+    CATransaction.setDisableActions(true)
+    
+    pointerLayer.transform = CATransform3DMakeRotation(pointerAngle, 0.0, 0.0, 0.1)
+    
+//    // animate angle change
+//    if animated {
+//      let midAngle = (max(pointerAngle, self.pointerAngle) - min(pointerAngle, self.pointerAngle) ) / 2.0 + min(pointerAngle, self.pointerAngle)
+//      let animation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
+//      animation.duration = 0.25
+//
+//      animation.values = [self.pointerAngle, midAngle, pointerAngle]
+//      animation.keyTimes = [0.0, 0.5, 1.0]
+//      animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+//      pointerLayer.add(animation, forKey: nil)
+//    }
+    CATransaction.commit()
+    print("4: pointerLayer: \(pointerLayer.bounds)")
+  }
+  
+  private func calculateAngle(for value: Float, from minValue: Float, to maxValue: Float) -> CGFloat {
+    let angleRange = endAngle - startAngle
+    let valueRange = CGFloat(maxValue - minValue)
+    let angle = CGFloat(value - minValue) / valueRange * angleRange + startAngle
+    
+    return angle
   }
   
   func changeStrokeColor(to color: UIColor) {

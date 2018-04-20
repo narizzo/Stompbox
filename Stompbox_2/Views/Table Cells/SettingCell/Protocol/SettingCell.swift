@@ -20,8 +20,8 @@ protocol SettingCell: class {
   func calculateNumberOfKnobViews() -> Int
   func populateKnobViews()
   func populateContentView()
-  func configureKnobViews()
-  func calculateKnobViewRects(for bounds: CGRect) -> [CGRect]
+  func configureKnobViewsRects()
+  func calculateKnobViewRects(with bounds: CGRect) -> [CGRect]
 }
 
 // MARK: - Cell Extension
@@ -40,7 +40,8 @@ extension SettingCell where Self: UITableViewCell {
     }
   }
   
-  func calculateKnobViewRects(for bounds: CGRect) -> [CGRect] {
+  func calculateKnobViewRects(with bounds: CGRect) -> [CGRect] {
+    print("calculateKnobViewRects(with:)")
     let knobSide = bounds.size.height / 2.0
     let halfKnobSide = knobSide / 2.0
     let halfCellWidth = bounds.size.width / 2.0
@@ -56,7 +57,7 @@ extension SettingCell where Self: UITableViewCell {
                            CGPoint(x: halfCellWidth - halfKnobSide,       y: knobSide),
                            CGPoint(x: halfCellWidth + halfKnobSide,       y: 0),]
     case 1:
-      // Right-side-up Triangle
+      // Triangle
       knobViewPositions = [CGPoint(x: halfCellWidth - halfKnobSide * 3.0, y: knobSide),
                            CGPoint(x: halfCellWidth - halfKnobSide,       y: 0),
                            CGPoint(x: halfCellWidth + halfKnobSide,       y: knobSide),]
@@ -66,6 +67,7 @@ extension SettingCell where Self: UITableViewCell {
                            CGPoint(x: halfCellWidth - halfKnobSide,       y: halfCellHeight - halfKnobSide),
                            CGPoint(x: halfCellWidth + halfKnobSide,       y: halfCellHeight - halfKnobSide),]
     default:
+      // One Centered
       knobViewPositions = [CGPoint(x: halfCellWidth - halfKnobSide,       y: halfCellHeight - halfKnobSide),]
     }
     
@@ -101,18 +103,19 @@ extension SettingCell where knobViewType == SimpleKnobView {
 // MARK: - Extension for Complex
 extension SettingCell where knobViewType == ComplexKnobView {
   
-  //REDUNDANT
-  func populateContentView() {
-    for knobView in knobViews {
-      contentViewRef.addSubview(knobView)
-    }
-  }
-  
   func populateKnobViews() {
     print("populateKnobViews()")
     let targetCount = calculateNumberOfKnobViews()
     while knobViews.count < targetCount {
       knobViews.append(ComplexKnobView())
+    }
+  }
+  
+  //REDUNDANT
+  func populateContentView() {
+    print("populateContentView()")
+    for knobView in knobViews {
+      contentViewRef.addSubview(knobView)
     }
   }
 }

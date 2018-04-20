@@ -135,9 +135,9 @@ class StompboxViewController: UIViewController {
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == Constants.stompboxDetailSegue {
-      if let destination = segue.destination as? StompboxDetailViewController {
-        destination.stompboxToEdit = self.selectedStompbox
+      if let destination = segue.destination as? ContainerViewController {
         destination.stompboxButtonDelegate = self
+        destination.stompboxToEdit = self.selectedStompbox
       }
     }
     

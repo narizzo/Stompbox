@@ -34,5 +34,6 @@ class StompboxButton: UIButton {
   
   @objc private func handleTap() {
     delegate.stompboxButtonTapped(self)
+    
   }
 }

@@ -56,12 +56,12 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     if indexPath.row == 0 {
       cell = tableView.dequeueReusableCell(withIdentifier: Constants.stompboxCellReuseID, for: indexPath)
       if let stompboxCell = cell as? StompboxCell {
+        stompboxCell.isEditable = true
         stompboxCell.deltaButton.hide()
         if let stompboxToEdit = stompboxToEdit {
           stompboxCell.nameLabel.text = stompboxToEdit.name
           stompboxCell.typeLabel.text = stompboxToEdit.type
           stompboxCell.manufacturerLabel.text = stompboxToEdit.manufacturer
-          stompboxCell.isEditable = true
           stompboxCell.stompboxButton.delegate = stompboxButtonDelegate
         }
       }
@@ -79,7 +79,6 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
                 while i < knobs.count && i < simpleCell.knobViews.count {
                   if let knob = knobs[i] as? Knob {
                     simpleCell.knobViews[i].knobNameLabel.text = knob.name
-                    print("Knob name: \(knob.name)")
                   }
                   i += 1
                 }
