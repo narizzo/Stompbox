@@ -41,12 +41,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="kFy-BU-UIm" id="IYR-63-PMU"/>
-                        <segue destination="wo9-qS-Ez0" kind="show" identifier="AddStompboxSegue" id="r8h-YH-m4Y"/>
+                        <segue destination="wo9-qS-Ez0" kind="show" identifier="stompboxDetailSegue" id="r8h-YH-m4Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5AZ-wf-kpp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="124.58770614692655"/>
+            <point key="canvasLocation" x="-102" y="125"/>
         </scene>
         <!--Container View Controller-->
         <scene sceneID="h1Y-Kz-JNM">
@@ -56,7 +56,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="UzQ-Fx-V4a">
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UzQ-Fx-V4a">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </stackView>
@@ -70,7 +70,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZTy-FW-vYI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="848.79999999999995" y="124.58770614692655"/>
+            <point key="canvasLocation" x="377" y="125"/>
         </scene>
         <!--StompboxDetailView-->
         <scene sceneID="NSq-jh-TTo">

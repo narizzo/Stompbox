@@ -105,51 +105,155 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		01A92BDB2088CC23003AD225 /* ContainerViewController_Children */ = {
+		01A92BDB2088CC23003AD225 /* Children */ = {
 			isa = PBXGroup;
 			children = (
 				01A58F3A200FF4DD00DD5BF3 /* StompboxDetailViewController.swift */,
 				01A92BDC2088CC50003AD225 /* SettingDetailViewController.swift */,
 				01A92BDE2088CC83003AD225 /* SettingCollectionViewController.swift */,
 			);
-			path = ContainerViewController_Children;
+			path = Children;
 			sourceTree = "<group>";
 		};
-		01A92BE02088D5F3003AD225 /* StompboxCell Components */ = {
+		01A92BE02088D5F3003AD225 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				01A92BED208A2AF5003AD225 /* Layer */,
+				01A92BEC208A2AE9003AD225 /* Button */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		01A92BE520892551003AD225 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				01A92BD92088CB66003AD225 /* ContainerViewController.swift */,
+				01A92BDB2088CC23003AD225 /* Children */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
+		01A92BE62089256B003AD225 /* StompboxViewController */ = {
+			isa = PBXGroup;
+			children = (
+				01EB57692000562800686767 /* StompboxViewController.swift */,
+				01A92BE320891B08003AD225 /* StompboxViewControllerStompboxButtonDelegate.swift */,
+				01FB518E2059C21A00DB25E9 /* StompboxVC_Extensions */,
+			);
+			path = StompboxViewController;
+			sourceTree = "<group>";
+		};
+		01A92BE7208A2A62003AD225 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				01869C61207FEF900013648F /* SettingCell.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		01A92BE8208A2A74003AD225 /* Nib */ = {
+			isa = PBXGroup;
+			children = (
+				0173AC2A206443820010DDEB /* SimpleSettingCell.xib */,
+				01B4E4B5208139B200A90C5B /* ComplexSettingCell.xib */,
+			);
+			path = Nib;
+			sourceTree = "<group>";
+		};
+		01A92BE9208A2A7E003AD225 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				01B2F692207EA65D0061488B /* SimpleSettingCell.swift */,
+				01CAEB8E202A427800AC556B /* ComplexSettingCell.swift */,
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
+		01A92BEA208A2AA1003AD225 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				01EB576B2000578800686767 /* StompboxCell.swift */,
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
+		01A92BEB208A2AA8003AD225 /* Nib */ = {
+			isa = PBXGroup;
+			children = (
+				01C4A023206404FC00E7ED61 /* StompboxCell.xib */,
+			);
+			path = Nib;
+			sourceTree = "<group>";
+		};
+		01A92BEC208A2AE9003AD225 /* Button */ = {
 			isa = PBXGroup;
 			children = (
 				01A92BE12088D628003AD225 /* StompboxButton.swift */,
+				01E70298206D7F57000FB000 /* DeltaButton.swift */,
 			);
-			path = "StompboxCell Components";
+			path = Button;
 			sourceTree = "<group>";
 		};
-		01B2F68D207E85D30061488B /* Views */ = {
+		01A92BED208A2AF5003AD225 /* Layer */ = {
+			isa = PBXGroup;
+			children = (
+				013BA65D206ED5F0009D3A93 /* DeltaLayer.swift */,
+			);
+			path = Layer;
+			sourceTree = "<group>";
+		};
+		01A92BEE208A2B72003AD225 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				01FB518C2059C1C200DB25E9 /* UITableViewDelegate.swift */,
+				01FB518F2059C29600DB25E9 /* UITableViewDataSource.swift */,
+				01FB51912059C3A800DB25E9 /* NSFetchedResultsControllerDelegate.swift */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		01A92BEF208A2B7D003AD225 /* StompboxCell */ = {
+			isa = PBXGroup;
+			children = (
+				01FB51932059C41800DB25E9 /* StompboxDetailViewControllerDelegate.swift */,
+				01E2E2D520619A81008F1C77 /* StompboxInteractionDelegate.swift */,
+			);
+			path = StompboxCell;
+			sourceTree = "<group>";
+		};
+		01A92BF0208A2B83003AD225 /* SettingCell */ = {
+			isa = PBXGroup;
+			children = (
+				018463442083BF0400AFA7E7 /* EditingSettingCellDelegate.swift */,
+			);
+			path = SettingCell;
+			sourceTree = "<group>";
+		};
+		01B2F68D207E85D30061488B /* Class */ = {
 			isa = PBXGroup;
 			children = (
 				01B2F685207BABC00061488B /* SimpleKnobView.swift */,
 				01CAEB90202A42FE00AC556B /* ComplexKnobView.swift */,
 				0173E6A920349CE200CD9587 /* KnobPositionLabel.swift */,
 			);
-			path = Views;
+			path = Class;
 			sourceTree = "<group>";
 		};
-		01B2F68E207E85E10061488B /* Layers */ = {
+		01B2F68E207E85E10061488B /* Layer */ = {
 			isa = PBXGroup;
 			children = (
 				01B2F68B207E85C40061488B /* SimpleKnobLayer.swift */,
 				01B2F68F207E8D330061488B /* ComplexKnobLayer.swift */,
 			);
-			path = Layers;
+			path = Layer;
 			sourceTree = "<group>";
 		};
 		01B2F691207EA6430061488B /* SettingCell */ = {
 			isa = PBXGroup;
 			children = (
-				01869C61207FEF900013648F /* SettingCell.swift */,
-				01B2F692207EA65D0061488B /* SimpleSettingCell.swift */,
-				01CAEB8E202A427800AC556B /* ComplexSettingCell.swift */,
-				0173AC2A206443820010DDEB /* SimpleSettingCell.xib */,
-				01B4E4B5208139B200A90C5B /* ComplexSettingCell.xib */,
+				01A92BE9208A2A7E003AD225 /* Class */,
+				01A92BE7208A2A62003AD225 /* Protocol */,
+				01A92BE8208A2A74003AD225 /* Nib */,
 			);
 			path = SettingCell;
 			sourceTree = "<group>";
@@ -157,14 +261,14 @@
 		01B4E4B72082CE7500A90C5B /* StompboxCell */ = {
 			isa = PBXGroup;
 			children = (
-				01EB576B2000578800686767 /* StompboxCell.swift */,
-				01C4A023206404FC00E7ED61 /* StompboxCell.xib */,
-				01A92BE02088D5F3003AD225 /* StompboxCell Components */,
+				01A92BEA208A2AA1003AD225 /* Class */,
+				01A92BEB208A2AA8003AD225 /* Nib */,
+				01A92BE02088D5F3003AD225 /* View */,
 			);
 			path = StompboxCell;
 			sourceTree = "<group>";
 		};
-		01B66215207809DB002F76AE /* Protocols */ = {
+		01B66215207809DB002F76AE /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
 				01F0DEB7207A5F59004D7E5B /* Gestureable.swift */,
@@ -172,17 +276,14 @@
 				01F0DEB9207A6080004D7E5B /* SimpleKnobRenderer.swift */,
 				01B662182078162A002F76AE /* ComplexKnobRenderer.swift */,
 			);
-			path = Protocols;
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		01CAEB37201BB22800AC556B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				01EB57692000562800686767 /* StompboxViewController.swift */,
-				01A92BE320891B08003AD225 /* StompboxViewControllerStompboxButtonDelegate.swift */,
-				01A92BD92088CB66003AD225 /* ContainerViewController.swift */,
-				01A92BDB2088CC23003AD225 /* ContainerViewController_Children */,
-				01FB518E2059C21A00DB25E9 /* StompboxVC_Extensions */,
+				01A92BE62089256B003AD225 /* StompboxViewController */,
+				01A92BE520892551003AD225 /* Container */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -200,7 +301,6 @@
 			isa = PBXGroup;
 			children = (
 				01EB479D20371EA20050563E /* Table Cells */,
-				01E70297206D7F25000FB000 /* StompboxCell Graphics */,
 				01EB479E20371ECB0050563E /* Knob */,
 			);
 			path = Views;
@@ -215,15 +315,6 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		01E70297206D7F25000FB000 /* StompboxCell Graphics */ = {
-			isa = PBXGroup;
-			children = (
-				01E70298206D7F57000FB000 /* DeltaButton.swift */,
-				013BA65D206ED5F0009D3A93 /* DeltaLayer.swift */,
-			);
-			path = "StompboxCell Graphics";
-			sourceTree = "<group>";
-		};
 		01EB479D20371EA20050563E /* Table Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -236,9 +327,9 @@
 		01EB479E20371ECB0050563E /* Knob */ = {
 			isa = PBXGroup;
 			children = (
-				01B2F68D207E85D30061488B /* Views */,
-				01B2F68E207E85E10061488B /* Layers */,
-				01B66215207809DB002F76AE /* Protocols */,
+				01B2F68D207E85D30061488B /* Class */,
+				01B2F68E207E85E10061488B /* Layer */,
+				01B66215207809DB002F76AE /* Protocol */,
 			);
 			path = Knob;
 			sourceTree = "<group>";
@@ -279,12 +370,9 @@
 		01FB518E2059C21A00DB25E9 /* StompboxVC_Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				01FB518C2059C1C200DB25E9 /* UITableViewDelegate.swift */,
-				01FB518F2059C29600DB25E9 /* UITableViewDataSource.swift */,
-				01FB51912059C3A800DB25E9 /* NSFetchedResultsControllerDelegate.swift */,
-				01FB51932059C41800DB25E9 /* StompboxDetailViewControllerDelegate.swift */,
-				01E2E2D520619A81008F1C77 /* StompboxInteractionDelegate.swift */,
-				018463442083BF0400AFA7E7 /* EditingSettingCellDelegate.swift */,
+				01A92BEE208A2B72003AD225 /* TableView */,
+				01A92BEF208A2B7D003AD225 /* StompboxCell */,
+				01A92BF0208A2B83003AD225 /* SettingCell */,
 			);
 			path = StompboxVC_Extensions;
 			sourceTree = "<group>";

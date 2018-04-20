@@ -30,7 +30,7 @@ class ContainerViewController: UIViewController {
   private func initializeViewControllers() {
     // Add views
     stackView.addArrangedSubview(stompboxDetailViewController.view)
-    stackView.addArrangedSubview(settingDetailViewController.view)
+    //// stackView.addArrangedSubview(settingDetailViewController.view)
     stackView.addArrangedSubview(settingCollectionViewController.view)
   }
   

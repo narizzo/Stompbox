@@ -12,6 +12,7 @@ class SimpleKnobView: UIControl, Gestureable, KnobViewProtocol {
 
   var gestureRecognizer: UIGestureRecognizer = UITapGestureRecognizer()
   var simpleKnobLayer = SimpleKnobLayer()
+  var knobNameLabel = UILabel()
   
   // MARK: - Init & Setup
   public override init(frame: CGRect) {

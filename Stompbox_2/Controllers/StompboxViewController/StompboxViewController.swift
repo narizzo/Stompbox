@@ -61,7 +61,7 @@ class StompboxViewController: UIViewController {
   
   @IBAction func addStompbox(_ sender: AnyObject) {
     selectedStompbox = nil
-    performSegue(withIdentifier: Constants.addStompboxSegue, sender: nil)
+    performSegue(withIdentifier: Constants.stompboxDetailSegue, sender: nil)
   }
   
   // MARK: - Methods
@@ -134,6 +134,13 @@ class StompboxViewController: UIViewController {
   
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == Constants.stompboxDetailSegue {
+      if let destination = segue.destination as? StompboxDetailViewController {
+        destination.stompboxToEdit = self.selectedStompbox
+        destination.stompboxButtonDelegate = self
+      }
+    }
+    
     /*
     if segue.identifier == Constants.addStompboxSegue {
       let controller = segue.destination as! StompboxDetailViewController
@@ -147,6 +154,6 @@ class StompboxViewController: UIViewController {
   }
   
   public func showStompboxDetailView() {
-    performSegue(withIdentifier: Constants.addStompboxSegue, sender: nil)
+    performSegue(withIdentifier: Constants.stompboxDetailSegue, sender: nil)
   }
 }

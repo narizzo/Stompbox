@@ -15,7 +15,7 @@ protocol StompboxButtonDelegate: class {
 class StompboxButton: UIButton {
   
   var delegate: StompboxButtonDelegate!
-  
+
   override init(frame: CGRect) {
     super.init(frame: frame)
     customInit()
@@ -28,12 +28,11 @@ class StompboxButton: UIButton {
   
   private func customInit() {
     imageView?.contentMode = .scaleAspectFit
-    isUserInteractionEnabled = true // should be false with full implementation
+    isUserInteractionEnabled = false
     self.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
   }
   
   @objc private func handleTap() {
-    print("handleTap")
     delegate.stompboxButtonTapped(self)
   }
 }

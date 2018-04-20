@@ -7,7 +7,7 @@
 //
 
 import UIKit
-// protocol syntax?
+
 protocol StompboxInteractionDelegate: class {
   func stompboxExpandCollapse(_ stompboxCell: StompboxCell)
   func stompboxGestureDoubleTap(_ stompboxCell: StompboxCell)
@@ -20,6 +20,14 @@ class StompboxCell: UITableViewCell {
   var isExpanded = false {
     didSet {
       deltaButton.setIsExpanded(to: isExpanded)
+    }
+  }
+  var isEditable = false {
+    didSet {
+      nameLabel.isUserInteractionEnabled = isEditable
+      typeLabel.isUserInteractionEnabled = isEditable
+      manufacturerLabel.isUserInteractionEnabled = isEditable
+      stompboxButton.isUserInteractionEnabled = isEditable
     }
   }
   
@@ -42,7 +50,6 @@ class StompboxCell: UITableViewCell {
   }
   
   private func setup() {
-    print("stompbox setup")
     self.backgroundColor = darkerGray
     frame.size.width = UIScreen.main.bounds.width
     layoutIfNeeded()
@@ -52,8 +59,6 @@ class StompboxCell: UITableViewCell {
     self.addSubview(deltaButton)
     deltaButton.delegate = self
     deltaButton.initializeButton()
-    
-    //stompboxButton.imageView?.contentMode = .scaleAspectFit
   }
   
   // MARK: - Methods for DeltaButton

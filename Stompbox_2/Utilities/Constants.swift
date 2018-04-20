@@ -9,7 +9,7 @@
 import UIKit
 
 public struct Constants {
-  static let addStompboxSegue = "AddStompboxSegue"
+  static let stompboxDetailSegue = "stompboxDetailSegue"
   static let stompboxCache = "stompboxCache"
   
   static let stompboxCellReuseID = "stompboxCellReuseID"
