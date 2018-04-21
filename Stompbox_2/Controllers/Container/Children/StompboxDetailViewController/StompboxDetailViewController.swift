@@ -24,15 +24,14 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.view.backgroundColor = UIColor.purple
     
+    configureViewColors()
     configureTableView()
-    
-    let stompboxNib = UINib(nibName: Constants.stompboxNib, bundle: nil)
-    tableView.register(stompboxNib, forCellReuseIdentifier: Constants.stompboxCellReuseID)
-    
-    let settingNib = UINib(nibName: Constants.settingCellSimpleNib, bundle: nil)
-    tableView.register(settingNib, forCellReuseIdentifier: Constants.simpleSettingReuseID)
+    registerNibs()
+  }
+  
+  private func configureViewColors() {
+    self.view.backgroundColor = UIColor.purple
   }
   
   private func configureTableView() {
@@ -42,67 +41,20 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     tableView.backgroundColor = black
   }
   
+  private func registerNibs() {
+    let stompboxNib = UINib(nibName: Constants.stompboxNib, bundle: nil)
+    tableView.register(stompboxNib, forCellReuseIdentifier: Constants.stompboxCellReuseID)
+    
+    let settingNib = UINib(nibName: Constants.settingCellSimpleNib, bundle: nil)
+    tableView.register(settingNib, forCellReuseIdentifier: Constants.simpleSettingReuseID)
+  }
+  
   // MARK: - Table view data source
-  override func numberOfSections(in tableView: UITableView) -> Int {
-    return 1
-  }
   
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 2
-  }
   
-  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell: UITableViewCell
-    if indexPath.row == 0 {
-      cell = tableView.dequeueReusableCell(withIdentifier: Constants.stompboxCellReuseID, for: indexPath)
-      if let stompboxCell = cell as? StompboxCell {
-        stompboxCell.isEditable = true
-        stompboxCell.deltaButton.hide()
-        if let stompboxToEdit = stompboxToEdit {
-          stompboxCell.nameLabel.text = stompboxToEdit.name
-          stompboxCell.typeLabel.text = stompboxToEdit.type
-          stompboxCell.manufacturerLabel.text = stompboxToEdit.manufacturer
-          stompboxCell.stompboxButton.delegate = stompboxButtonDelegate
-        }
-      }
-    } else {
-      cell = tableView.dequeueReusableCell(withIdentifier: Constants.simpleSettingReuseID, for: indexPath)
-      if let simpleCell = cell as? SimpleSettingCell {
-        if let stompboxToEdit = stompboxToEdit {
-          simpleCell.knobLayoutStyle = stompboxToEdit.knobLayoutStyle
-          
-          // Load knobNameLabels into the SimpleSettingView
-          if let settings = stompboxToEdit.settings {
-            if let setting = settings.firstObject as? Setting {
-              if let knobs = setting.knobs {
-                var i: Int = 0
-                while i < knobs.count && i < simpleCell.knobViews.count {
-                  if let knob = knobs[i] as? Knob {
-                    simpleCell.knobViews[i].knobNameLabel.text = knob.name
-                  }
-                  i += 1
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    return cell
-  }
   
-  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    if indexPath.row == 0 {
-      return Constants.stompboxCellHeight
-    } else {
-      return Constants.settingCellHeight
-    }
-  }
   
-  // shouldn't need this because StompboxCell isn't highlightable
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
-  }
+ 
   
   // MARK: - Table view delegate
   
