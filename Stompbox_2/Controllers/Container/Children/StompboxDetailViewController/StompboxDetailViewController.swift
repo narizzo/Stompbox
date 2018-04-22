@@ -11,16 +11,22 @@ import UIKit
 import CoreData
 import AVFoundation
 
-protocol StompboxDetailViewControllerDelegate: class {
-  func stompboxDetailViewControllerDidCancel(_ controller: StompboxDetailViewController)
-  func stompboxDetailViewController(_ controller: StompboxDetailViewController, didFinishAdding stompbox: Stompbox)
-  func stompboxDetailViewController(_ controller: StompboxDetailViewController, didFinishEditing stompbox: Stompbox)
+//protocol StompboxDetailViewControllerDelegate: class {
+//  func stompboxDetailViewControllerDidCancel(_ controller: StompboxDetailViewController)
+//  func stompboxDetailViewController(_ controller: StompboxDetailViewController, didFinishAdding stompbox: Stompbox)
+//  func stompboxDetailViewController(_ controller: StompboxDetailViewController, didFinishEditing stompbox: Stompbox)
+//}
+
+protocol DoneBarButtonDelegate: class {
+  func enableDoneBarButton(_ controller: StompboxDetailViewController)
+  func disableDoneBarButton(_ controller: StompboxDetailViewController)
 }
 
-class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
+class StompboxDetailViewController: UITableViewController {
   
   weak var stompboxToEdit: Stompbox?
   weak var stompboxButtonDelegate: StompboxButtonDelegate!
+  weak var doneBarButtonDelegate: DoneBarButtonDelegate!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -31,7 +37,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   }
   
   private func configureViewColors() {
-    
+    //
   }
   
   private func configureTableView() {
@@ -48,7 +54,6 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     let settingNib = UINib(nibName: Constants.settingCellSimpleNib, bundle: nil)
     tableView.register(settingNib, forCellReuseIdentifier: Constants.simpleSettingReuseID)
   }
-  
 }
 
 /*  ---------------- 

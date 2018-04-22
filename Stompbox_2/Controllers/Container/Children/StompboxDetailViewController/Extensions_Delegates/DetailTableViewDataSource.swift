@@ -18,16 +18,16 @@ extension StompboxDetailViewController {
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    print("cellForRowAt in DetailTableViewDataSource")
     let cell: UITableViewCell
     if indexPath.row == 0 {
       cell = tableView.dequeueReusableCell(withIdentifier: Constants.stompboxCellReuseID, for: indexPath)
       if let stompboxCell = cell as? StompboxCell {
-        
         // configure cell
         stompboxCell.isEditable = true
         stompboxCell.deltaButton.hide()
 
+        // set UITextFieldDelegate
+        stompboxCell.nameTextField.delegate = self // only need name because everything else is optional
         
         stompboxCell.nameTextField.attributedPlaceholder = NSAttributedString(string: "name", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
         stompboxCell.typeTextField.attributedPlaceholder = NSAttributedString(string: "type", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
@@ -48,10 +48,8 @@ extension StompboxDetailViewController {
       }
     } else {
       cell = tableView.dequeueReusableCell(withIdentifier: Constants.simpleSettingReuseID, for: indexPath)
-      print("Cell is dequeuableCell with simpleID")
       if let simpleCell = cell as? SimpleSettingCell {
         simpleCell.backgroundColor = darkerGray
-        print("simpleCell is a SimpleSettingCell")
         if let stompboxToEdit = stompboxToEdit {
           simpleCell.knobLayoutStyle = stompboxToEdit.knobLayoutStyle
           

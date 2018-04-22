@@ -18,8 +18,10 @@ class ContainerViewController: UIViewController {
   @IBOutlet weak var stackView: UIStackView!
   
   var stompboxDetailViewController = StompboxDetailViewController()
-  var settingDetailViewController = SettingDetailViewController()
+  //var settingDetailViewController = SettingDetailViewController()
   var settingCollectionViewController = SettingCollectionViewController()
+  
+  var doneBarButton: UIBarButtonItem!
   
   weak var delegate: ContainerViewControllerDelegate!
   
@@ -36,13 +38,11 @@ class ContainerViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    stompboxDetailViewController.doneBarButtonDelegate = self
+    
     initializeViewControllers()
     configureNavigationTitle()
     configureToolBarButtons()
-  }
-  
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
   }
   
   private func initializeViewControllers() {
@@ -60,11 +60,12 @@ class ContainerViewController: UIViewController {
   }
   
   private func configureToolBarButtons() {
-    let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelChanges))
-    let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(acceptChanges))
-    
-    navigationItem.setLeftBarButton(cancelButton, animated: true)
-    navigationItem.setRightBarButton(doneButton, animated: true)
+    // Add cancel & done bar buttons
+    let cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelChanges))
+    doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(acceptChanges))
+    doneBarButton.isEnabled = false
+    navigationItem.setLeftBarButton(cancelBarButton, animated: true)
+    navigationItem.setRightBarButton(doneBarButton, animated: true)
   }
   
   @objc func cancelChanges() {

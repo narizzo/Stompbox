@@ -48,6 +48,4 @@ class SimpleSettingCell: UITableViewCell, SettingCell {
       i += 1
     }
   }
-  
-  
 }
