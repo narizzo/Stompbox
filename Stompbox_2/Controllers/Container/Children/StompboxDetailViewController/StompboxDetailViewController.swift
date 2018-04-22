@@ -24,7 +24,10 @@ protocol DoneBarButtonDelegate: class {
 
 class StompboxDetailViewController: UITableViewController {
   
+  // Dependencies
   weak var stompboxToEdit: Stompbox?
+  weak var coreDataStack: CoreDataStack!
+  // Delegates
   weak var stompboxButtonDelegate: StompboxButtonDelegate!
   weak var doneBarButtonDelegate: DoneBarButtonDelegate!
   
@@ -53,6 +56,23 @@ class StompboxDetailViewController: UITableViewController {
     
     let settingNib = UINib(nibName: Constants.settingCellSimpleNib, bundle: nil)
     tableView.register(settingNib, forCellReuseIdentifier: Constants.simpleSettingReuseID)
+  }
+  
+  // MARK: - Internal Methods
+  func saveChanges() {
+    let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell
+    guard stompboxCell != nil else {
+      return
+    }
+    if stompboxToEdit == nil {
+      print(coreDataStack)
+      stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
+    }
+    
+    stompboxToEdit?.setPropertiesTo(name: (stompboxCell?.nameTextField.text)!,
+                                    type: (stompboxCell?.typeTextField.text),
+                                    manufacturer: (stompboxCell?.manufacturerTextField.text))
+    coreDataStack.saveContext()
   }
 }
 

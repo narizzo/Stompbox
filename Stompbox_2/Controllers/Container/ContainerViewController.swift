@@ -20,17 +20,17 @@ class ContainerViewController: UIViewController {
   var stompboxDetailViewController = StompboxDetailViewController()
   var settingCollectionViewController = SettingCollectionViewController()
   
-  weak var delegate: ContainerViewControllerDelegate!
-  
-  weak var stompboxButtonDelegate: StompboxButtonDelegate? {
-    didSet {
-      stompboxDetailViewController.stompboxButtonDelegate = stompboxButtonDelegate
-    }
-  }
+  // Dependencies
   weak var stompboxToEdit: Stompbox? {
-    didSet {
-      stompboxDetailViewController.stompboxToEdit = stompboxToEdit
-    }
+    didSet { stompboxDetailViewController.stompboxToEdit = stompboxToEdit }
+  }
+  weak var coreDataStack: CoreDataStack! {
+    didSet { stompboxDetailViewController.coreDataStack = coreDataStack }
+  }
+  // Delegates
+  weak var delegate: ContainerViewControllerDelegate!
+  weak var stompboxButtonDelegate: StompboxButtonDelegate! {
+    didSet { stompboxDetailViewController.stompboxButtonDelegate = stompboxButtonDelegate }
   }
   
   override func viewDidLoad() {
@@ -74,7 +74,7 @@ class ContainerViewController: UIViewController {
   }
   
   @objc func acceptChanges() {
-    /* save changes */
+    stompboxDetailViewController.saveChanges()
     delegate.didAcceptChanges(self)
   }
   
