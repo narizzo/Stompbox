@@ -82,13 +82,17 @@ class StompboxViewController: UIViewController {
     cell.typeTextField.text = stompbox.type
     cell.manufacturerTextField.text = stompbox.manufacturer
     
-    // refactor to helper function?
+    // load image
     var image: UIImage?
     if let imageFilePath = stompbox.imageFilePath {
-      image = UIImage(contentsOfFile: imageFilePath.path)
+      if let data = try? Data(contentsOf: imageFilePath) {
+        image = UIImage(data: data)
+      }
     }
-    if image != nil {
-      cell.stompboxButton.imageView?.image = image
+    if let image = image {
+      cell.stompboxButton.setImage(image, for: .normal)
+    } else {
+      cell.stompboxButton.setImage(#imageLiteral(resourceName: "BD2-large"), for: .normal)
     }
     
     cell.delegate = self
@@ -145,17 +149,6 @@ class StompboxViewController: UIViewController {
         destination.stompboxButtonDelegate = self
       }
     }
-    
-    /*
-    if segue.identifier == Constants.addStompboxSegue {
-      let controller = segue.destination as! StompboxDetailViewController
-      controller.delegate = self
-      controller.coreDataStack = self.coreDataStack
-      if let selectedStompbox = selectedStompbox {
-        controller.stompboxToEdit = selectedStompbox
-      }
-    }
- */
   }
   
   public func showStompboxDetailView() {

@@ -15,7 +15,9 @@ protocol StompboxButtonDelegate: class {
 class StompboxButton: UIButton {
   
   var delegate: StompboxButtonDelegate!
-
+  var didPickNewThumbnail = false
+  var imageData = Data()
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     customInit()

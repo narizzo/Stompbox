@@ -92,12 +92,15 @@ extension StompboxViewController: StompboxButtonDelegate, UIImagePickerControlle
     didPickNewThumbnail = true
     let image = info[UIImagePickerControllerOriginalImage] as! UIImage
     if let button = selectedStompboxButton {
+      button.didPickNewThumbnail = true
       // resize new thumbnail
       let thumbnailPNG = image.resized(withBounds: button.bounds.size)
-      // format imageData
-      self.imageData = UIImageJPEGRepresentation(thumbnailPNG, 0.4)!
+      
       DispatchQueue.main.async {
+        // format imageData
+        self.imageData = UIImageJPEGRepresentation(thumbnailPNG, 0.4)!
         button.setImage(UIImage(data: self.imageData), for: UIControlState.normal)
+        button.imageData = self.imageData
       }
     }
     dismiss(animated: true, completion: nil)

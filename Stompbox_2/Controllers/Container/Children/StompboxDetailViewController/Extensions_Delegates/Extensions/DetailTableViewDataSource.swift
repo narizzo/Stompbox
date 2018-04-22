@@ -26,9 +26,13 @@ extension StompboxDetailViewController {
         stompboxCell.isEditable = true
         stompboxCell.deltaButton.hide()
 
+        // Set button image delegate
+        stompboxCell.stompboxButton.delegate = stompboxButtonDelegate
+        
         // set UITextFieldDelegate
         stompboxCell.nameTextField.delegate = self // only need name because everything else is optional
         
+        // set placeholders
         stompboxCell.nameTextField.attributedPlaceholder = NSAttributedString(string: "name", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
         stompboxCell.typeTextField.attributedPlaceholder = NSAttributedString(string: "type", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
         stompboxCell.manufacturerTextField.attributedPlaceholder = NSAttributedString(string: "manufacturer", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
@@ -42,8 +46,19 @@ extension StompboxDetailViewController {
           if let manufacturer = stompboxToEdit.manufacturer {
             stompboxCell.manufacturerTextField.text = manufacturer
           }
-
-          stompboxCell.stompboxButton.delegate = stompboxButtonDelegate
+          
+          // Load button image
+          var image: UIImage?
+          if let imageFilePath = stompboxToEdit.imageFilePath {
+            if let data = try? Data(contentsOf: imageFilePath) {
+              image = UIImage(data: data)
+            }
+          }
+          if let image = image {
+            stompboxCell.stompboxButton.setImage(image, for: .normal)
+          } else {
+            stompboxCell.stompboxButton.setImage(#imageLiteral(resourceName: "BD2-large"), for: .normal)
+          }
         }
       }
     } else {

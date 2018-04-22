@@ -11,12 +11,6 @@ import UIKit
 import CoreData
 import AVFoundation
 
-//protocol StompboxDetailViewControllerDelegate: class {
-//  func stompboxDetailViewControllerDidCancel(_ controller: StompboxDetailViewController)
-//  func stompboxDetailViewController(_ controller: StompboxDetailViewController, didFinishAdding stompbox: Stompbox)
-//  func stompboxDetailViewController(_ controller: StompboxDetailViewController, didFinishEditing stompbox: Stompbox)
-//}
-
 protocol DoneBarButtonDelegate: class {
   func enableDoneBarButton(_ controller: StompboxDetailViewController)
   func disableDoneBarButton(_ controller: StompboxDetailViewController)
@@ -33,15 +27,8 @@ class StompboxDetailViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    print("StompboxDetailViewController")
-    
-    configureViewColors()
     configureTableView()
     registerNibs()
-  }
-  
-  private func configureViewColors() {
-    //
   }
   
   private func configureTableView() {
@@ -61,18 +48,25 @@ class StompboxDetailViewController: UITableViewController {
   
   // MARK: - Internal Methods
   func saveChanges() {
-    let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell
-    guard stompboxCell != nil else {
-      return
+    if let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell {
+      if stompboxToEdit == nil {
+        stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
+      }
+      
+      stompboxToEdit?.setPropertiesTo(name: (stompboxCell.nameTextField.text)!,
+                                      type: (stompboxCell.typeTextField.text)!,
+                                      manufacturer: (stompboxCell.manufacturerTextField.text)!)
+      
+      // save new thumbnail
+      if stompboxCell.stompboxButton.didPickNewThumbnail {
+        let filePath = createUniqueJPGFilePath()
+        stompboxToEdit?.imageFilePath = filePath.absoluteURL
+        do {
+          try? stompboxCell.stompboxButton.imageData.write(to: filePath, options: .atomic)
+        }
+      }
+      coreDataStack.saveContext()
     }
-    if stompboxToEdit == nil {
-      stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
-    }
-    
-    stompboxToEdit?.setPropertiesTo(name: (stompboxCell?.nameTextField.text)!,
-                                    type: (stompboxCell?.typeTextField.text)!,
-                                    manufacturer: (stompboxCell?.manufacturerTextField.text)!)
-    coreDataStack.saveContext()
   }
 }
 
