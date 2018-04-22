@@ -28,7 +28,7 @@ class ContainerViewController: UIViewController {
     didSet { stompboxDetailViewController.coreDataStack = coreDataStack }
   }
   // Delegates
-  weak var delegate: ContainerViewControllerDelegate!
+  weak var containerViewControllerDelegate: ContainerViewControllerDelegate!
   weak var stompboxButtonDelegate: StompboxButtonDelegate! {
     didSet { stompboxDetailViewController.stompboxButtonDelegate = stompboxButtonDelegate }
   }
@@ -37,8 +37,8 @@ class ContainerViewController: UIViewController {
     super.viewDidLoad()
     
     initializeViewControllers()
-    configureNavigationTitle()
     configureToolBarButtons()
+    configureNavigationTitle()
   }
   
   private func initializeViewControllers() {
@@ -50,32 +50,34 @@ class ContainerViewController: UIViewController {
     stompboxDetailViewController.doneBarButtonDelegate = self
   }
   
-  private func configureNavigationTitle() {
-    if let _ = stompboxToEdit {
-      title = "Edit Stompbox"
-    } else {
-      title = "Add Stompbox"
-    }
-  }
-  
   private func configureToolBarButtons() {
     // Add cancel & done bar buttons
     let cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelChanges))
     let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(acceptChanges))
     
-    doneBarButton.isEnabled = false
-    
     navigationItem.setLeftBarButton(cancelBarButton, animated: true)
     navigationItem.setRightBarButton(doneBarButton, animated: true)
   }
   
+  private func configureNavigationTitle() {
+    let doneButton = navigationItem.rightBarButtonItem
+    
+    if let _ = stompboxToEdit {
+      title = "Edit Stompbox"
+      doneButton?.isEnabled = true
+    } else {
+      title = "Add Stompbox"
+      doneButton?.isEnabled = false
+    }
+  }
+  
   @objc func cancelChanges() {
-    delegate.didCancelChanges(self)
+    containerViewControllerDelegate.didCancelChanges(self)
   }
   
   @objc func acceptChanges() {
     stompboxDetailViewController.saveChanges()
-    delegate.didAcceptChanges(self)
+    containerViewControllerDelegate.didAcceptChanges(self)
   }
   
 }

@@ -33,6 +33,7 @@ class StompboxDetailViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    print("StompboxDetailViewController")
     
     configureViewColors()
     configureTableView()
@@ -65,13 +66,12 @@ class StompboxDetailViewController: UITableViewController {
       return
     }
     if stompboxToEdit == nil {
-      print(coreDataStack)
       stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
     }
     
     stompboxToEdit?.setPropertiesTo(name: (stompboxCell?.nameTextField.text)!,
-                                    type: (stompboxCell?.typeTextField.text),
-                                    manufacturer: (stompboxCell?.manufacturerTextField.text))
+                                    type: (stompboxCell?.typeTextField.text)!,
+                                    manufacturer: (stompboxCell?.manufacturerTextField.text)!)
     coreDataStack.saveContext()
   }
 }

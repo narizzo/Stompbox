@@ -141,7 +141,7 @@ class StompboxViewController: UIViewController {
         destination.stompboxToEdit = self.selectedStompbox
         destination.coreDataStack = self.coreDataStack
         // set delegates
-        destination.delegate = self
+        destination.containerViewControllerDelegate = self
         destination.stompboxButtonDelegate = self
       }
     }
