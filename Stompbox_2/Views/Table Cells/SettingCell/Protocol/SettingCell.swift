@@ -82,18 +82,14 @@ extension SettingCell where Self: UITableViewCell {
 extension SettingCell where knobViewType == SimpleKnobView {
   
   func populateKnobViews() {
-    print("SimpleKnobView : populateKnobViews")
     let targetCount = calculateNumberOfKnobViews()
-    print("targetCount: \(targetCount)")
     while knobViews.count < targetCount {
-      print("append KnobView")
       knobViews.append(SimpleKnobView())
     }
   }
   
   //REDUNDANT
   func populateContentView() {
-    print("SimpleKnobView : populateContentView")
     for knobView in knobViews {
       contentViewRef.addSubview(knobView)
     }
