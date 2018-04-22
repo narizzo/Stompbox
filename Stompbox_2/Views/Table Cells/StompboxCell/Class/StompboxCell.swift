@@ -24,9 +24,9 @@ class StompboxCell: UITableViewCell {
   }
   var isEditable = false {
     didSet {
-      nameLabel.isUserInteractionEnabled = isEditable
-      typeLabel.isUserInteractionEnabled = isEditable
-      manufacturerLabel.isUserInteractionEnabled = isEditable
+      nameTextField.isUserInteractionEnabled = isEditable
+      typeTextField.isUserInteractionEnabled = isEditable
+      manufacturerTextField.isUserInteractionEnabled = isEditable
       stompboxButton.isUserInteractionEnabled = isEditable
     }
   }
@@ -34,9 +34,9 @@ class StompboxCell: UITableViewCell {
   weak var delegate: StompboxInteractionDelegate?
   
   // MARK: - IBOutlets
-  @IBOutlet weak var nameLabel: UITextField!
-  @IBOutlet weak var typeLabel: UITextField!
-  @IBOutlet weak var manufacturerLabel: UITextField!
+  @IBOutlet weak var nameTextField: UITextField!
+  @IBOutlet weak var typeTextField: UITextField!
+  @IBOutlet weak var manufacturerTextField: UITextField!
   @IBOutlet weak var stompboxButton: StompboxButton!
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -91,9 +91,9 @@ class StompboxCell: UITableViewCell {
   // MARK: - View Life Cycle
   override func prepareForReuse() {
     super.prepareForReuse()
-    nameLabel.text = nil
-    typeLabel.text = nil
-    manufacturerLabel.text = nil
+    nameTextField.text = nil
+    typeTextField.text = nil
+    manufacturerTextField.text = nil
     stompboxButton.imageView?.image = nil
   }
 }

@@ -32,6 +32,7 @@
 		01C4A024206404FC00E7ED61 /* StompboxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C4A023206404FC00E7ED61 /* StompboxCell.xib */; };
 		01CAEB8F202A427800AC556B /* ComplexSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB8E202A427800AC556B /* ComplexSettingCell.swift */; };
 		01CAEB91202A42FE00AC556B /* ComplexKnobView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CAEB90202A42FE00AC556B /* ComplexKnobView.swift */; };
+		01CF5C37208BC33500D0618F /* ContainerViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CF5C36208BC33500D0618F /* ContainerViewControllerDelegate.swift */; };
 		01E2E2D620619A81008F1C77 /* StompboxInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E2E2D520619A81008F1C77 /* StompboxInteractionDelegate.swift */; };
 		01E70299206D7F57000FB000 /* DeltaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E70298206D7F57000FB000 /* DeltaButton.swift */; };
 		01EB574F2000123700686767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB574E2000123700686767 /* AppDelegate.swift */; };
@@ -77,6 +78,7 @@
 		01C4A023206404FC00E7ED61 /* StompboxCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StompboxCell.xib; sourceTree = "<group>"; };
 		01CAEB8E202A427800AC556B /* ComplexSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexSettingCell.swift; sourceTree = "<group>"; };
 		01CAEB90202A42FE00AC556B /* ComplexKnobView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexKnobView.swift; sourceTree = "<group>"; };
+		01CF5C36208BC33500D0618F /* ContainerViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerDelegate.swift; sourceTree = "<group>"; };
 		01E2E2D520619A81008F1C77 /* StompboxInteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxInteractionDelegate.swift; sourceTree = "<group>"; };
 		01E70298206D7F57000FB000 /* DeltaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaButton.swift; sourceTree = "<group>"; };
 		01EB574B2000123700686767 /* Stompbox_2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stompbox_2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -371,6 +373,7 @@
 				01A92BE320891B08003AD225 /* StompboxViewControllerStompboxButtonDelegate.swift */,
 				01FB518F2059C29600DB25E9 /* StompboxTableViewDataSource.swift */,
 				01FB518C2059C1C200DB25E9 /* StompboxTableViewDelegate.swift */,
+				01CF5C36208BC33500D0618F /* ContainerViewControllerDelegate.swift */,
 			);
 			path = Extensions_Delegates;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 				01EB57572000123700686767 /* Stompbox_2.xcdatamodeld in Sources */,
 				01FB51942059C41800DB25E9 /* StompboxDetailViewControllerDelegate.swift in Sources */,
 				01869C5F207FE2070013648F /* KnobViewProtocol.swift in Sources */,
+				01CF5C37208BC33500D0618F /* ContainerViewControllerDelegate.swift in Sources */,
 				01A92BF6208A8302003AD225 /* DetailTableViewDelegate.swift in Sources */,
 				01EB574F2000123700686767 /* AppDelegate.swift in Sources */,
 				01EB576C2000578800686767 /* StompboxCell.swift in Sources */,

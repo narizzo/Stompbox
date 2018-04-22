@@ -17,12 +17,32 @@ class SimpleKnobView: UIControl, Gestureable, KnobViewProtocol {
   // MARK: - Init & Setup
   public override init(frame: CGRect) {
     super.init(frame: frame)
-    set(frame: frame)
+    initialize()
   }
   
   public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    set(frame: nil)
+    initialize()
+  }
+  
+  private func initialize() {
+    addViewsAndLayers()
+    configureKnobNameLabel()
+    addGesture()
+  }
+  
+  // MARK: - Subviews
+  private func addViewsAndLayers() {
+    self.addSubview(knobNameLabel)
+    self.layer.addSublayer(simpleKnobLayer)
+  }
+  
+  // MARK: - Knob Label
+  private func configureKnobNameLabel() {
+    knobNameLabel.textAlignment = .center
+    knobNameLabel.textColor = blue
+    
+    positionKnobLabel()
   }
   
   func set(frame: CGRect?) {
@@ -30,8 +50,38 @@ class SimpleKnobView: UIControl, Gestureable, KnobViewProtocol {
       self.frame = frame
     }
     
-    addSubviews()
-    addGesture()
+    updateSubviewFrames()
+    positionKnobLabel()
+    
+    simpleKnobLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+    simpleKnobLayer.set(size: bounds.size)
+    //addSubviews()
+  }
+  
+  private func updateSubviewFrames() {
+    if let font = knobNameLabel.font {
+      knobNameLabel.frame = CGRect(origin: self.bounds.origin, size: CGSize(width: self.bounds.width, height: font.lineHeight))
+    }
+  }
+  
+  private func positionKnobLabel() {
+    guard let superview = self.superview else {
+      return
+    }
+    
+    let knobViewVerticalInset = self.frame.origin.y
+    let knobViewHeight = self.frame.height
+    let knobNameLabelHeight = knobNameLabel.bounds.height
+    
+    if knobViewVerticalInset + knobViewHeight + knobNameLabelHeight < superview.frame.height {
+      // position name below
+      knobNameLabel.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: knobNameLabel.frame.height)
+    } else if knobNameLabelHeight < knobViewVerticalInset {
+      // position name above
+      knobNameLabel.frame = CGRect(x: 0, y: -knobNameLabel.frame.height, width: self.bounds.width, height: knobNameLabel.frame.height)
+    } else {
+      print("Error: Something is wrong with the knob positioning algorithm.  The knobNameLabel doesn't have room above or below its knobView")
+    }
   }
   
   func addSubviews() {

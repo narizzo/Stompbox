@@ -17,13 +17,11 @@ class SimpleSettingCell: UITableViewCell, SettingCell {
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    contentViewRef = contentView
     initializeCell()
   }
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    contentViewRef = contentView
     initializeCell()
   }
   
@@ -35,6 +33,7 @@ class SimpleSettingCell: UITableViewCell, SettingCell {
   
   // MARK: - Custom Init
   private func initializeCell() {
+    contentViewRef = contentView
     populateKnobViews()
     populateContentView()
     configureKnobViewsRects()

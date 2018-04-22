@@ -31,7 +31,7 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
   }
   
   private func configureViewColors() {
-    self.view.backgroundColor = UIColor.purple
+    
   }
   
   private func configureTableView() {
@@ -49,18 +49,9 @@ class StompboxDetailViewController: UITableViewController, UITextFieldDelegate {
     tableView.register(settingNib, forCellReuseIdentifier: Constants.simpleSettingReuseID)
   }
   
-  // MARK: - Table view data source
-  
-  
-  
-  
- 
-  
-  // MARK: - Table view delegate
-  
 }
 
-/*
+/*  ---------------- 
  // MARK: - Stompbox Outlets
  @IBOutlet weak var stompboxCell: UITableViewCell!
  @IBOutlet weak var stompboxName: UITextField!

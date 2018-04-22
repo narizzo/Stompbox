@@ -18,22 +18,40 @@ extension StompboxDetailViewController {
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    print("cellForRowAt in DetailTableViewDataSource")
     let cell: UITableViewCell
     if indexPath.row == 0 {
       cell = tableView.dequeueReusableCell(withIdentifier: Constants.stompboxCellReuseID, for: indexPath)
       if let stompboxCell = cell as? StompboxCell {
+        
+        // configure cell
         stompboxCell.isEditable = true
         stompboxCell.deltaButton.hide()
+
+        
+        stompboxCell.nameTextField.attributedPlaceholder = NSAttributedString(string: "name", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
+        stompboxCell.typeTextField.attributedPlaceholder = NSAttributedString(string: "type", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
+        stompboxCell.manufacturerTextField.attributedPlaceholder = NSAttributedString(string: "manufacturer", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
+        
+        // load stompbox info if it exists
         if let stompboxToEdit = stompboxToEdit {
-          stompboxCell.nameLabel.text = stompboxToEdit.name
-          stompboxCell.typeLabel.text = stompboxToEdit.type
-          stompboxCell.manufacturerLabel.text = stompboxToEdit.manufacturer
+          stompboxCell.nameTextField.text = stompboxToEdit.name
+          if let type = stompboxToEdit.type {
+             stompboxCell.typeTextField.text = type
+          }
+          if let manufacturer = stompboxToEdit.manufacturer {
+            stompboxCell.manufacturerTextField.text = manufacturer
+          }
+
           stompboxCell.stompboxButton.delegate = stompboxButtonDelegate
         }
       }
     } else {
       cell = tableView.dequeueReusableCell(withIdentifier: Constants.simpleSettingReuseID, for: indexPath)
+      print("Cell is dequeuableCell with simpleID")
       if let simpleCell = cell as? SimpleSettingCell {
+        simpleCell.backgroundColor = darkerGray
+        print("simpleCell is a SimpleSettingCell")
         if let stompboxToEdit = stompboxToEdit {
           simpleCell.knobLayoutStyle = stompboxToEdit.knobLayoutStyle
           

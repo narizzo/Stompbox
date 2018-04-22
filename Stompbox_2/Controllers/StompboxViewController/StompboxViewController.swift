@@ -15,6 +15,7 @@ class StompboxViewController: UIViewController {
   var selectedStompbox: Stompbox?
   
   /* StompboxButtonDelegate vars  */
+  // make separate object for this?
   var imagePicker = UIImagePickerController()
   var didPickNewThumbnail = false
   var imageData = Data()
@@ -77,9 +78,9 @@ class StompboxViewController: UIViewController {
   /* Configure helper method */
   private func configureStompboxCell(_ cell: StompboxCell, for indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
-    cell.nameLabel.text = stompbox.name
-    cell.typeLabel.text = stompbox.type
-    cell.manufacturerLabel.text = stompbox.manufacturer
+    cell.nameTextField.text = stompbox.name
+    cell.typeTextField.text = stompbox.type
+    cell.manufacturerTextField.text = stompbox.manufacturer
     
     // refactor to helper function?
     var image: UIImage?
@@ -136,6 +137,7 @@ class StompboxViewController: UIViewController {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == Constants.stompboxDetailSegue {
       if let destination = segue.destination as? ContainerViewController {
+        destination.delegate = self
         destination.stompboxButtonDelegate = self
         destination.stompboxToEdit = self.selectedStompbox
       }

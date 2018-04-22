@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol ContainerViewControllerDelegate: class {
+  func didCancelChanges(_ controller: ContainerViewController)
+  func didAcceptChanges(_ controller: ContainerViewController)
+}
+
 class ContainerViewController: UIViewController {
   
   @IBOutlet weak var stackView: UIStackView!
@@ -15,6 +20,8 @@ class ContainerViewController: UIViewController {
   var stompboxDetailViewController = StompboxDetailViewController()
   var settingDetailViewController = SettingDetailViewController()
   var settingCollectionViewController = SettingCollectionViewController()
+  
+  weak var delegate: ContainerViewControllerDelegate!
   
   weak var stompboxButtonDelegate: StompboxButtonDelegate? {
     didSet {
@@ -30,29 +37,43 @@ class ContainerViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     initializeViewControllers()
-    // Do any additional setup after loading the view.
+    configureNavigationTitle()
+    configureToolBarButtons()
   }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
   }
   
   private func initializeViewControllers() {
     // Add views
     stackView.addArrangedSubview(stompboxDetailViewController.view)
-    //// stackView.addArrangedSubview(settingDetailViewController.view)
     stackView.addArrangedSubview(settingCollectionViewController.view)
   }
   
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
+  private func configureNavigationTitle() {
+    if let _ = stompboxToEdit {
+      title = "Edit Stompbox"
+    } else {
+      title = "Add Stompbox"
+    }
+  }
+  
+  private func configureToolBarButtons() {
+    let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelChanges))
+    let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(acceptChanges))
+    
+    navigationItem.setLeftBarButton(cancelButton, animated: true)
+    navigationItem.setRightBarButton(doneButton, animated: true)
+  }
+  
+  @objc func cancelChanges() {
+    delegate.didCancelChanges(self)
+  }
+  
+  @objc func acceptChanges() {
+    /* save changes */
+    delegate.didAcceptChanges(self)
+  }
   
 }

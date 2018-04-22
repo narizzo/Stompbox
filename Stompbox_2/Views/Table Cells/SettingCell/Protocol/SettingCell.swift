@@ -13,7 +13,6 @@ protocol SettingCell: class {
   associatedtype knobViewType
   var knobViews: [knobViewType] { get set }
   var contentViewRef: UIView { get set }
-  //var numberOfKnobViews: Int { get set }
   var knobLayoutStyle: Int16 { get set }
   
   
@@ -41,7 +40,6 @@ extension SettingCell where Self: UITableViewCell {
   }
   
   func calculateKnobViewRects(with bounds: CGRect) -> [CGRect] {
-    print("calculateKnobViewRects(with:)")
     let knobSide = bounds.size.height / 2.0
     let halfKnobSide = knobSide / 2.0
     let halfCellWidth = bounds.size.width / 2.0
@@ -80,31 +78,32 @@ extension SettingCell where Self: UITableViewCell {
   }
 }
 
-
 // MARK: - Extension for Simple
 extension SettingCell where knobViewType == SimpleKnobView {
   
+  func populateKnobViews() {
+    print("SimpleKnobView : populateKnobViews")
+    let targetCount = calculateNumberOfKnobViews()
+    print("targetCount: \(targetCount)")
+    while knobViews.count < targetCount {
+      print("append KnobView")
+      knobViews.append(SimpleKnobView())
+    }
+  }
+  
   //REDUNDANT
   func populateContentView() {
+    print("SimpleKnobView : populateContentView")
     for knobView in knobViews {
       contentViewRef.addSubview(knobView)
     }
   }
-  
-  func populateKnobViews() {
-    let targetCount = calculateNumberOfKnobViews()
-    while knobViews.count < targetCount {
-      knobViews.append(SimpleKnobView())
-    }
-  }
 }
-
 
 // MARK: - Extension for Complex
 extension SettingCell where knobViewType == ComplexKnobView {
   
   func populateKnobViews() {
-    print("populateKnobViews()")
     let targetCount = calculateNumberOfKnobViews()
     while knobViews.count < targetCount {
       knobViews.append(ComplexKnobView())
@@ -113,7 +112,6 @@ extension SettingCell where knobViewType == ComplexKnobView {
   
   //REDUNDANT
   func populateContentView() {
-    print("populateContentView()")
     for knobView in knobViews {
       contentViewRef.addSubview(knobView)
     }
