@@ -60,14 +60,14 @@ class ContainerViewController: UIViewController {
   }
   
   private func configureNavigationTitle() {
-    let doneButton = navigationItem.rightBarButtonItem
+    //let doneButton = navigationItem.rightBarButtonItem
     
     if let _ = stompboxToEdit {
       title = "Edit Stompbox"
-      doneButton?.isEnabled = true
+      //doneButton?.isEnabled = true
     } else {
       title = "Add Stompbox"
-      doneButton?.isEnabled = false
+      //doneButton?.isEnabled = false
     }
   }
   
@@ -76,8 +76,20 @@ class ContainerViewController: UIViewController {
   }
   
   @objc func acceptChanges() {
+    guard stompboxDetailViewController.isStompboxInfoIncomplete() == false else {
+      alertUserIncompleteInformation()
+      return
+    }
     stompboxDetailViewController.saveChanges()
     containerViewControllerDelegate.didAcceptChanges(self)
   }
   
+  private func alertUserIncompleteInformation() {
+    let alert = UIAlertController(title: "Please enter the Stompbox's name, type, and manufacturer.",
+                                  message: nil,
+                                  preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "OK", style: .default)
+    alert.addAction(okAction)
+    present(alert, animated: true, completion: nil)
+  }
 }

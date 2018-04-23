@@ -47,6 +47,15 @@ class StompboxDetailViewController: UITableViewController {
   }
   
   // MARK: - Internal Methods
+  func isStompboxInfoIncomplete() -> Bool {
+    if let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell {
+       return (stompboxCell.nameTextField.text == "")
+          || (stompboxCell.typeTextField.text == "")
+          || (stompboxCell.manufacturerTextField.text == "")
+    }
+   return false
+  }
+  
   func saveChanges() {
     if let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell {
       if stompboxToEdit == nil {
