@@ -14,6 +14,9 @@ protocol ComplexKnobRenderer: SimpleKnobRenderer {
   var pointerAngle: CGFloat { get set }
   var pointerLength: CGFloat { get set }
   
-  func setPointerAngle(for value: Float, from minValue: Float, to maxValue: Float, animated: Bool)
-  func updatePointerLayerPath()
+  func setPointerAngle(to value: Float, animated: Bool)
+  func setAngle(for layer: CAShapeLayer, to value: Float, animated: Bool)
+  func calculateAngle(for value: Float) -> CGFloat
+  
+  func updatePointerPath()
 }

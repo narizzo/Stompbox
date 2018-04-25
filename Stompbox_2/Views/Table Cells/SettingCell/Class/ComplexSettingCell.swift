@@ -148,11 +148,10 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     }
   }
   
+  // Should be refactored out
   private func toggleToolBarButtons() {
     if isBeingEdited { addToolBarButtons() }
   }
-  
-  
   
   private func addToolBarButtons() {
     let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelChanges))

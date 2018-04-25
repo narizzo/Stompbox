@@ -1,16 +1,16 @@
 //
-//  SimpleSettingCell.swift
+//  TemplateSettingCell.swift
 //  Stompbox_2
 //
-//  Created by Nicholas Rizzo on 4/11/18.
+//  Created by Nicholas Rizzo on 4/24/18.
 //  Copyright © 2018 Nicholas Rizzo. All rights reserved.
 //
 
 import UIKit
 
-class SimpleSettingCell: UITableViewCell, SettingCell {
-  
-  typealias knobViewType = SimpleKnobView
+class TemplateSettingCell: UITableViewCell, SettingCell {
+
+  typealias knobViewType = TemplateKnobView
   var knobViews = [knobViewType]()
   var contentViewRef = UIView()
   var knobLayoutStyle: Int16 = 0
@@ -48,4 +48,5 @@ class SimpleSettingCell: UITableViewCell, SettingCell {
       i += 1
     }
   }
+
 }

@@ -26,6 +26,9 @@ protocol SettingCell: class {
 // MARK: - Cell Extension
 extension SettingCell where Self: UITableViewCell {
   
+  // default inits in protocol?
+  
+  // replace with a dictionary?
   func calculateNumberOfKnobViews() -> Int {
     switch knobLayoutStyle {
     case 0:
@@ -40,10 +43,10 @@ extension SettingCell where Self: UITableViewCell {
   }
   
   func calculateKnobViewRects(with bounds: CGRect) -> [CGRect] {
-    let knobSide = bounds.size.height / 2.0
+    let centerY = bounds.midY
+    let centerX = bounds.midX
+    let knobSide = centerY
     let halfKnobSide = knobSide / 2.0
-    let halfCellWidth = bounds.size.width / 2.0
-    let halfCellHeight = bounds.size.height / 2.0
     
     var knobViewPositions = [CGPoint]()
     var knobViewRects = [CGRect]()
@@ -51,22 +54,22 @@ extension SettingCell where Self: UITableViewCell {
     switch knobLayoutStyle {
     case 0:
       // Upside-down Triangle
-      knobViewPositions = [CGPoint(x: halfCellWidth - halfKnobSide * 3.0, y: 0),
-                           CGPoint(x: halfCellWidth - halfKnobSide,       y: knobSide),
-                           CGPoint(x: halfCellWidth + halfKnobSide,       y: 0),]
+      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0, y: 0),
+                           CGPoint(x: centerX - halfKnobSide,       y: knobSide),
+                           CGPoint(x: centerX + halfKnobSide,       y: 0),]
     case 1:
       // Triangle
-      knobViewPositions = [CGPoint(x: halfCellWidth - halfKnobSide * 3.0, y: knobSide),
-                           CGPoint(x: halfCellWidth - halfKnobSide,       y: 0),
-                           CGPoint(x: halfCellWidth + halfKnobSide,       y: knobSide),]
+      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0,                 y: knobSide),
+                           CGPoint(x: centerX - halfKnobSide,       y: 0),
+                           CGPoint(x: centerX + halfKnobSide,       y: knobSide),]
     case 2:
       // Three Horizontal
-      knobViewPositions = [CGPoint(x: halfCellWidth - halfKnobSide * 3.0, y: halfCellHeight - halfKnobSide),
-                           CGPoint(x: halfCellWidth - halfKnobSide,       y: halfCellHeight - halfKnobSide),
-                           CGPoint(x: halfCellWidth + halfKnobSide,       y: halfCellHeight - halfKnobSide),]
+      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0, y: centerY - halfKnobSide),
+                           CGPoint(x: centerX - halfKnobSide,       y: centerY - halfKnobSide),
+                           CGPoint(x: centerX + halfKnobSide,       y: centerY - halfKnobSide),]
     default:
       // One Centered
-      knobViewPositions = [CGPoint(x: halfCellWidth - halfKnobSide,       y: halfCellHeight - halfKnobSide),]
+      knobViewPositions = [CGPoint(x: centerX - halfKnobSide,       y: centerY - halfKnobSide),]
     }
     
     let size = CGSize(width: knobSide, height: knobSide)
@@ -77,6 +80,25 @@ extension SettingCell where Self: UITableViewCell {
     return knobViewRects
   }
 }
+
+// MARK: - Extension for Template
+extension SettingCell where knobViewType == TemplateKnobView {
+  
+  func populateKnobViews() {
+    let targetCount = calculateNumberOfKnobViews()
+    while knobViews.count < targetCount {
+      knobViews.append(TemplateKnobView())
+    }
+  }
+  
+  //REDUNDANT
+  func populateContentView() {
+    for knobView in knobViews {
+      contentViewRef.addSubview(knobView)
+    }
+  }
+}
+
 
 // MARK: - Extension for Simple
 extension SettingCell where knobViewType == SimpleKnobView {

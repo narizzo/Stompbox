@@ -12,4 +12,11 @@ protocol KnobViewProtocol {
   
   func set(frame: CGRect?)
   func changeStrokeColor(to color: UIColor)
+  func addViewsAndLayers()
 }
+
+//extension KnobViewProtocol {
+//  func changeStrokerColor(to color: UIColor) {
+//    
+//  }
+//}

@@ -72,11 +72,11 @@ class SimpleKnobLayer: CAShapeLayer, SimpleKnobRenderer {
   }
   
   func drawSublayers() {
-    updateTrackLayerPath()
+    updateTrackPath()
   }
   
   // MARK: - Track
-  func updateTrackLayerPath() {
+  func updateTrackPath() {
     let arcCenter = CGPoint(x: trackLayer.bounds.width / 2.0, y: trackLayer.bounds.height / 2.0)
     let radius = min(trackLayer.bounds.height, trackLayer.bounds.width) / 2.0 - 6.0 // 6.0 is the pointerLength used in ComplexKnobLayers
     trackLayer.path = UIBezierPath(arcCenter: arcCenter, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).cgPath

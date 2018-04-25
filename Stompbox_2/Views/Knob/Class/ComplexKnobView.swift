@@ -40,7 +40,7 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   }
   
   // MARK: - Subviews
-  private func addViewsAndLayers() {
+  func addViewsAndLayers() {
     self.addSubview(valueLabel)
     self.addSubview(knobNameLabel)
     self.layer.addSublayer(complexKnobLayer)
@@ -97,7 +97,7 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   // MARK: - Knob Value
   func setValue(_ value: Float, animated: Bool) {
     self.value = min(maximumValue, max(minimumValue, value))
-    complexKnobLayer.setPointerAngle(for: self.value, from: minimumValue, to: maximumValue, animated: animated)
+    complexKnobLayer.setPointerAngle(to: self.value, animated: animated)
   }
   
   private func positionKnobLabel() {
