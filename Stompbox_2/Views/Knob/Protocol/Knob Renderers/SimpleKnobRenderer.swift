@@ -15,6 +15,6 @@ protocol SimpleKnobRenderer {
   var trackLayer: CAShapeLayer { get set }
   
   func updateTrackPath()
-  func drawSublayers()
+  func updateSublayers()
   func changeStrokeColor(to color: UIColor)
 }

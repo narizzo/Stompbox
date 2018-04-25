@@ -21,13 +21,14 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     didSet { updatePointerPath() }
   }
   var startAngle: CGFloat = CGFloat(Double.pi * 4.0 / 6.0) { //-CGFloat(Double.pi * 11.0 / 8.0) {
-    didSet { updateLayers() }
+    didSet { updateSublayers() }
   }
   var endAngle: CGFloat = CGFloat(Double.pi * 2.0 / 6.0) {
-    didSet { updateLayers() }
+    didSet { updateSublayers() }
   }
  
   // MARK: - Inits
+  // This init is used
   override init() {
     super.init()
     addSublayers()
@@ -44,23 +45,27 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   }
   
   private func addSublayers() {
+    print("addSublayers()")
     self.addSublayer(trackLayer)
     self.addSublayer(pointerLayer)
     
-    populateClockLayers()
+    trackLayer.strokeColor = foregroundColor.cgColor
+    pointerLayer.strokeColor = UIColor.white.cgColor
     
-    configureSublayers()
+    trackLayer.fillColor = UIColor.clear.cgColor
+    pointerLayer.fillColor = UIColor.clear.cgColor
+    
+    trackLayer.lineWidth = 2.0
+    pointerLayer.lineWidth = 2.0
+    
+    
+    updateClockLayers()
   }
   
-  private func updateLayers() {
-    populateClockLayers()
-    drawSublayers()
-  }
-  
-  
-  private func populateClockLayers() {
+  private func updateClockLayers() {
+    print("updateClockLayers()")
     removeClockLayers()
-    print("populateClockLayers")
+
     let hourIncrement = CGFloat.pi / 6.0
     var clockPosition: CGFloat = 0.0
     while clockPosition < (2.0 * CGFloat.pi) {
@@ -72,43 +77,28 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
         
         layer.bounds.size = self.bounds.size
         layer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+        layer.strokeColor = foregroundColor.cgColor
+        layer.lineWidth = 2.0
         
-        layer.backgroundColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.05).cgColor
+        //layer.backgroundColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.05).cgColor
         layer.path = generateClockLayerPath()
-        let value = Float(clockPosition / (2.0 * CGFloat.pi)) // value is a percentage representation of the clock position over 2pi
-        setAngle(for: layer, to: value, animated: false)
+        setClockAngle(for: layer, to: clockPosition)
       }
       clockPosition += hourIncrement
     }
   }
   
   private func removeClockLayers() {
+    print("removeClockLayers()")
     for layer in clockLayers {
       layer.removeFromSuperlayer()
     }
     clockLayers.removeAll()
   }
   
-  private func configureSublayers() {
-    trackLayer.strokeColor = foregroundColor.cgColor
-    pointerLayer.strokeColor = UIColor.white.cgColor
-    
-    trackLayer.fillColor = UIColor.clear.cgColor
-    pointerLayer.fillColor = UIColor.clear.cgColor
-    
-    trackLayer.lineWidth = 2.0
-    pointerLayer.lineWidth = 2.0
-    
-    for layer in clockLayers {
-      layer.strokeColor = foregroundColor.cgColor
-      layer.lineWidth = 2.0
-    }
-    
-    drawSublayers()
-  }
-  
   // MARK: - Layer
   func set(frame: CGRect?) {
+    print("set(frame: CGRect?)")
     if let frame = frame {
       self.frame = frame
       updateSublayers()
@@ -116,30 +106,28 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   }
   
   func set(size: CGSize) {
+    print("set(size: CGSize)")
     self.bounds.size = size
     updateSublayers()
   }
   
   func updateSublayers() {
+    print("updateSublayers()")
     trackLayer.bounds.size = self.bounds.size
     pointerLayer.bounds.size = self.bounds.size
     
     trackLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
     pointerLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
     
-    drawSublayers()
-    
-    populateClockLayers()
-  }
-  
-  func drawSublayers() {
     updateTrackPath()
     updatePointerPath()
+    updateClockLayers()
   }
   
   
   // MARK: - Track
   func updateTrackPath() {
+    print("updateTrackPath()")
     let arcCenter = CGPoint(x: bounds.midX, y: bounds.midY)
     let offset = max(pointerLength, trackLayer.lineWidth / 2.0)
     let radius = min(trackLayer.bounds.height, trackLayer.bounds.width) / 2.0 - offset
@@ -149,16 +137,17 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   
   // MARK: - Pointer
   func updatePointerPath() {
+    print("updatePointerPath()")
     let path = UIBezierPath()
     let width = pointerLayer.bounds.width
     path.move(to: CGPoint(x: width - pointerLength, y: self.bounds.midY))
     path.addLine(to: CGPoint(x: width - (width * 0.20), y: self.bounds.midY))
     pointerLayer.path = path.cgPath
-    pointerLayer.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 0.5).cgColor
   }
   
   // MARK: - Clock
   private func generateClockLayerPath() -> CGPath {
+    print("generateClockLayerPath() -> CGPath")
     let path = UIBezierPath()
     let width = pointerLayer.bounds.width
     path.move(to: CGPoint(x: width - pointerLength, y: self.bounds.midY))
@@ -169,10 +158,12 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   
   // MARK: - Angle
   func setPointerAngle(to value: Float, animated: Bool) {
+    print("setPointerAngle(to value: Float, animated: Bool)")
     setAngle(for: pointerLayer, to: value, animated: animated)
   }
   
   func setAngle(for layer: CAShapeLayer, to value: Float, animated: Bool) {
+    print("setAngle(for layer: CAShapeLayer, to value: Float, animated: Bool)")
     let angle = calculateAngle(for: value)
     
     CATransaction.begin()
@@ -181,8 +172,13 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     CATransaction.commit()
   }
   
+  func setClockAngle(for layer: CAShapeLayer, to angle: CGFloat) {
+    print("setClockAngle(for layer: CAShapeLayer, to angle: CGFloat)")
+    layer.transform = CATransform3DMakeRotation(angle, 0.0, 0.0, 0.1)
+  }
+  
   func calculateAngle(for value: Float) -> CGFloat {
-    
+    print("calculateAngle(for value: Float) -> CGFloat")
     let angleRange = 2.0 * CGFloat.pi - (startAngle - endAngle)
     let angle = CGFloat(value) * angleRange + startAngle
     return angle
