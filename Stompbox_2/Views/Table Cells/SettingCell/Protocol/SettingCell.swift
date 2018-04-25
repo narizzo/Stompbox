@@ -48,15 +48,17 @@ extension SettingCell where Self: UITableViewCell {
     let knobSide = centerY
     let halfKnobSide = knobSide / 2.0
     
+    let verticalBuffer = bounds.height * 0.05
+    
     var knobViewPositions = [CGPoint]()
     var knobViewRects = [CGRect]()
     
     switch knobLayoutStyle {
     case 0:
       // Upside-down Triangle
-      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0, y: 0),
-                           CGPoint(x: centerX - halfKnobSide,       y: knobSide),
-                           CGPoint(x: centerX + halfKnobSide,       y: 0),]
+      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0, y: verticalBuffer),
+                           CGPoint(x: centerX - halfKnobSide,       y: knobSide - verticalBuffer),
+                           CGPoint(x: centerX + halfKnobSide,       y: verticalBuffer),]
     case 1:
       // Triangle
       knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0,                 y: knobSide),
