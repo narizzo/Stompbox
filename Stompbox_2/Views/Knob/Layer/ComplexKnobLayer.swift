@@ -145,7 +145,6 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   
   // MARK: - Clock
   private func generateClockLayerPath() -> CGPath {
-    print("generateClockLayerPath() -> CGPath")
     let path = UIBezierPath()
     let width = pointerLayer.bounds.width
     path.move(to: CGPoint(x: width - clockTickLength, y: self.bounds.midY))
@@ -156,12 +155,28 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   
   // MARK: - Angle
   func setPointerAngle(to value: Float, animated: Bool) {
-    print("setPointerAngle(to value: Float, animated: Bool)")
     setAngle(for: pointerLayer, to: value, animated: animated)
   }
   
+//  private func calculateNearestAngle(for value: Float) -> Float {
+//    let snapIncrement: Float = 1.0 / Float(clockLayers.count)
+//    var closestValue: Float = 1.0
+//    var iterator: Float = 0.0
+//    while iterator < 1.0 {
+//      print("iterator: \(iterator)")
+//      var i = value - iterator
+//      if i < 0 { i *= -1 }
+//      
+//      if i < closestValue {
+//        closestValue = iterator
+//      }
+//      iterator += snapIncrement
+//    }
+//    print(closestValue)
+//    return closestValue
+//  }
+  
   func setAngle(for layer: CAShapeLayer, to value: Float, animated: Bool) {
-    print("setAngle(for layer: CAShapeLayer, to value: Float, animated: Bool)")
     let angle = calculateAngle(for: value)
     
     CATransaction.begin()
@@ -181,6 +196,7 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     let angle = CGFloat(value) * angleRange + startAngle
     return angle
   }
+  
   
   // MARK: - Color
   func changeStrokeColor(to color: UIColor) {
