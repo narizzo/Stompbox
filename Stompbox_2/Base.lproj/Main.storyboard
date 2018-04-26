@@ -55,105 +55,13 @@
                     <view key="view" contentMode="scaleToFill" id="Eak-VJ-3JH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UzQ-Fx-V4a">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </stackView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="qpa-nF-apE"/>
                     </view>
-                    <connections>
-                        <outlet property="stackView" destination="UzQ-Fx-V4a" id="irA-R1-OBQ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZTy-FW-vYI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="596" y="125"/>
-        </scene>
-        <!--StompboxDetailView-->
-        <scene sceneID="NSq-jh-TTo">
-            <objects>
-                <tableViewController title="Add Stompbox" id="pc3-vU-K68" userLabel="StompboxDetailView" customClass="StompboxDetailViewController" customModule="Stompbox_2" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Itd-PH-EVw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <sections>
-                            <tableViewSection id="g2r-jo-RXG">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="200" id="rgZ-40-tE2">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rgZ-40-tE2" id="LcK-31-Usb">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dRL-0L-2rp">
-                                                    <rect key="frame" x="158" y="11" width="201" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1zm-gM-6Pn">
-                                                    <rect key="frame" x="158" y="70" width="202" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Manufacturer" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="djr-c0-5BY">
-                                                    <rect key="frame" x="158" y="108" width="202" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                                <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wun-PW-bvH">
-                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <state key="normal" image="BD2-large"/>
-                                                    <connections>
-                                                        <action selector="changePicture:" destination="pc3-vU-K68" eventType="touchUpInside" id="T1C-Qw-POv"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="pc3-vU-K68" id="Wml-ih-avW"/>
-                            <outlet property="delegate" destination="pc3-vU-K68" id="neT-JL-LyR"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="Gnp-B7-98u">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="2Lw-1e-Xbi">
-                            <connections>
-                                <action selector="cancel:" destination="pc3-vU-K68" id="MS8-kk-fg5"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="done" id="dVB-Gp-7Ab">
-                            <connections>
-                                <action selector="done" destination="pc3-vU-K68" id="89P-eC-TgU"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="doneButton" destination="dVB-Gp-7Ab" id="Sr8-4T-Qz3"/>
-                        <outlet property="stompboxButton" destination="Wun-PW-bvH" id="Gp3-a1-mSb"/>
-                        <outlet property="stompboxCell" destination="rgZ-40-tE2" id="msf-6H-jf5"/>
-                        <outlet property="stompboxManufacturer" destination="djr-c0-5BY" id="bra-Q2-5JQ"/>
-                        <outlet property="stompboxName" destination="dRL-0L-2rp" id="e5O-Pw-GuE"/>
-                        <outlet property="stompboxType" destination="1zm-gM-6Pn" id="JKJ-ux-OZE"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="W12-FY-ZGj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1625" y="125"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lRX-SS-Gti">
@@ -174,8 +82,5 @@
             <point key="canvasLocation" x="-815" y="125"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="BD2-large" width="222" height="375"/>
-    </resources>
     <color key="tintColor" red="0.015686274510000001" green="0.66274509800000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

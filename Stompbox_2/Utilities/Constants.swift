@@ -9,17 +9,23 @@
 import UIKit
 
 public struct Constants {
+  
+  // Misc
   static let stompboxDetailSegue = "stompboxDetailSegue"
   static let stompboxCache = "stompboxCache"
   
+  // Reusable Cells
   static let stompboxCellReuseID = "stompboxCellReuseID"
   static let simpleSettingReuseID = "simpleSettingReuseID"
   static let complexSettingReuseID = "complexSettingReuseID"
+  static let collectionCellReuseID = "collectionCellReuseID"
   
+  // Nibs
   static let stompboxNib = "StompboxCell"
   static let settingCellSimpleNib = "SimpleSettingCell"
   static let settingCellComplexNib = "ComplexSettingCell"
   
+  // Cell Dimensions
   static let stompboxCellHeight: CGFloat = 200
   static let settingCellHeight: CGFloat = 200
 }

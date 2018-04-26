@@ -15,10 +15,10 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   var trackLayer = CAShapeLayer()
   var pointerLayer = CAShapeLayer()
   var pointerLength: CGFloat = 2.0
-  var pointerAngle: CGFloat = CGFloat(Double.pi * 4.0 / 6.0) {//-CGFloat(Double.pi * 11.0 / 8.0) { //CGFloat(Double.pi * 5.0 / 8.0) {
+  var pointerAngle: CGFloat = CGFloat(Double.pi * 4.0 / 6.0) { //-CGFloat(Double.pi * 11.0 / 8.0) {
     didSet { updatePointerPath() }
   }
-  var startAngle: CGFloat = CGFloat(Double.pi * 4.0 / 6.0) { //-CGFloat(Double.pi * 11.0 / 8.0) {
+  var startAngle: CGFloat = CGFloat(Double.pi * 4.0 / 6.0) {   //-CGFloat(Double.pi * 11.0 / 8.0) {
     didSet { updateSublayers() }
   }
   var endAngle: CGFloat = CGFloat(Double.pi * 2.0 / 6.0) {
@@ -45,10 +45,6 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   private func addSublayers() {
     self.addSublayer(trackLayer)
     self.addSublayer(pointerLayer)
-//    if let sublayers = sublayers {
-//      insertSublayer(pointerLayer, at: UInt32(sublayers.count))
-//    }
-    //self.addSublayer(pointerLayer)
     
     trackLayer.strokeColor = foregroundColor.cgColor
     pointerLayer.strokeColor = UIColor.red.cgColor
@@ -74,13 +70,13 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
         
         clockLayers.append(layer)
         insertSublayer(layer, below: pointerLayer)
-        
-        
+  
         layer.bounds.size = self.bounds.size
         layer.position = CGPoint(x: bounds.midX, y: bounds.midY)
         layer.strokeColor = foregroundColor.cgColor
         layer.lineWidth = 2.0
         layer.path = generateClockLayerPath()
+        
         setClockAngle(for: layer, to: clockPosition)
       }
       clockPosition += hourIncrement
@@ -96,7 +92,6 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   
   // MARK: - Layer
   func set(frame: CGRect?) {
-    print("set(frame: CGRect?)")
     if let frame = frame {
       self.frame = frame
       updateSublayers()
@@ -104,13 +99,11 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   }
   
   func set(size: CGSize) {
-    print("set(size: CGSize)")
     self.bounds.size = size
     updateSublayers()
   }
   
   func updateSublayers() {
-    print("updateSublayers()")
     trackLayer.bounds.size = self.bounds.size
     pointerLayer.bounds.size = self.bounds.size
     
@@ -125,7 +118,6 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   
   // MARK: - Track
   func updateTrackPath() {
-    print("updateTrackPath()")
     let arcCenter = CGPoint(x: bounds.midX, y: bounds.midY)
     let offset = max(pointerLength, trackLayer.lineWidth / 2.0)
     let radius = min(trackLayer.bounds.height, trackLayer.bounds.width) / 2.0 - offset
@@ -135,7 +127,6 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   
   // MARK: - Pointer
   func updatePointerPath() {
-    print("updatePointerPath()")
     let path = UIBezierPath()
     let width = pointerLayer.bounds.width
     path.move(to: CGPoint(x: width - trackLayer.lineWidth / 2.0, y: self.bounds.midY))
@@ -186,12 +177,10 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   }
   
   func setClockAngle(for layer: CAShapeLayer, to angle: CGFloat) {
-    print("setClockAngle(for layer: CAShapeLayer, to angle: CGFloat)")
     layer.transform = CATransform3DMakeRotation(angle, 0.0, 0.0, 0.1)
   }
   
   func calculateAngle(for value: Float) -> CGFloat {
-    print("calculateAngle(for value: Float) -> CGFloat")
     let angleRange = 2.0 * CGFloat.pi - (startAngle - endAngle)
     let angle = CGFloat(value) * angleRange + startAngle
     return angle
@@ -201,7 +190,6 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   // MARK: - Color
   func changeStrokeColor(to color: UIColor) {
     trackLayer.strokeColor = color.cgColor
-    //pointerLayer.strokeColor = color.cgColor
     
     for layer in clockLayers {
       layer.strokeColor = color.cgColor

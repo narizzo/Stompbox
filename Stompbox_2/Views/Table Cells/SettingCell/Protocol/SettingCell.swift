@@ -61,9 +61,9 @@ extension SettingCell where Self: UITableViewCell {
                            CGPoint(x: centerX + halfKnobSide,       y: verticalBuffer),]
     case 1:
       // Triangle
-      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0,                 y: knobSide),
-                           CGPoint(x: centerX - halfKnobSide,       y: 0),
-                           CGPoint(x: centerX + halfKnobSide,       y: knobSide),]
+      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0, y: knobSide - verticalBuffer),
+                           CGPoint(x: centerX - halfKnobSide,       y: verticalBuffer),
+                           CGPoint(x: centerX + halfKnobSide,       y: knobSide - verticalBuffer),]
     case 2:
       // Three Horizontal
       knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0, y: centerY - halfKnobSide),

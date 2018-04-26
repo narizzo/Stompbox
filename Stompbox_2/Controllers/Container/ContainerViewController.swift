@@ -15,7 +15,7 @@ protocol ContainerViewControllerDelegate: class {
 
 class ContainerViewController: UIViewController {
   
-  @IBOutlet weak var stackView: UIStackView!
+  var stackView: UIStackView!
   
   var stompboxDetailViewController = StompboxDetailViewController()
   var settingCollectionViewController = SettingCollectionViewController()
@@ -43,8 +43,28 @@ class ContainerViewController: UIViewController {
   
   private func initializeViewControllers() {
     // Add views
-    stackView.addArrangedSubview(stompboxDetailViewController.view)
-    stackView.addArrangedSubview(settingCollectionViewController.view)
+    stackView = UIStackView(arrangedSubviews: [stompboxDetailViewController.view, settingCollectionViewController.view])
+    stackView.axis = .vertical
+    stackView.distribution = .fill
+    
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(stackView)
+    
+    
+    NSLayoutConstraint.activate([
+      stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      
+      stompboxDetailViewController.view.topAnchor.constraint(equalTo: stackView.topAnchor),
+      stompboxDetailViewController.view.bottomAnchor.constraint(equalTo: settingCollectionViewController.view.topAnchor),
+      stompboxDetailViewController.view.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 2/3),
+      
+      settingCollectionViewController.view.topAnchor.constraint(equalTo: stompboxDetailViewController.view.bottomAnchor),
+      settingCollectionViewController.view.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+      settingCollectionViewController.view.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/3),
+      ])
     
     // Set delegates
     stompboxDetailViewController.doneBarButtonDelegate = self

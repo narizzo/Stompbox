@@ -24,13 +24,9 @@ func fatalCoreDataError(_ error: Error) {
   NotificationCenter.default.post(name: CoreDataSaveFailedNotification, object: nil)
 }
 
+/*
 func getPopertyListURL() -> URL {
   return getDocumentsDirectory().appendingPathComponent("dictionary.plist")
-}
-
-func getDocumentsDirectory() -> URL {
-  let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-  return paths[0]
 }
 
 func savePropertyList(_ plist: Any) throws {
@@ -66,7 +62,12 @@ func addDictionaryEntry(key: String, value: Int) throws {
   }
 }
 
+*/
 
+func getDocumentsDirectory() -> URL {
+  let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+  return paths[0]
+}
 
 func createUniqueJPGFilePath() -> URL {
   let uuid = NSUUID().uuidString
