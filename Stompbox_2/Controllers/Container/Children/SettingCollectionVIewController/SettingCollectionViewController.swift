@@ -55,7 +55,7 @@ extension SettingCollectionViewController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     print("cellForItemAt: \(indexPath)")
     if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.collectionCellReuseID, for: indexPath) as? SettingCollectionViewCell {
-      print(layout.itemSize)
+      indexPath.row % 3 == 0 ? (cell.backgroundColor = darkerGray) : (cell.backgroundColor = lighterGray)
       cell.setSize(to: layout.itemSize)
       return cell
     }

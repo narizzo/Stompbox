@@ -25,7 +25,7 @@ class SettingCollectionViewCell: UICollectionViewCell {
   private func initialize() {
     //templateSettingCell = TemplateSettingCell(frame: bounds)
     contentView.addSubview(templateSettingCell)
-    contentView.backgroundColor = UIColor.orange
+//    contentView.backgroundColor = UIColor.orange
     self.contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
   }
   
@@ -34,11 +34,10 @@ class SettingCollectionViewCell: UICollectionViewCell {
   }
   
   func setSize(to size: CGSize) {
+    print("contentView.frame: \(contentView.frame)")
     bounds.size = size
-    templateSettingCell.bounds.size = size
+    templateSettingCell.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: size)
+    //templateSettingCell.bounds.size = size
     templateSettingCell.configureKnobViewsRects()
-    
-    
   }
-  
 }

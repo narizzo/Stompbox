@@ -28,15 +28,9 @@ class TemplateSettingCell: UITableViewCell, SettingCell {
   // MARK: - Custom Init
   private func initializeCell() {
     contentViewRef = contentView
-    contentView.backgroundColor = UIColor.blue
     populateKnobViews()
     populateContentView()
     configureKnobViewsRects()
-  }
-  
-  func setContentViewSize(to size: CGSize) {
-    contentView.bounds.size = size
-    initializeCell()
   }
   
   // REDUNDANT

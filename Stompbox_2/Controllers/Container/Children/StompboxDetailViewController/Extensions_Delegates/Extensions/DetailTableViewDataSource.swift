@@ -71,8 +71,7 @@ extension StompboxDetailViewController {
     } else {
       cell = tableView.dequeueReusableCell(withIdentifier: Constants.simpleSettingReuseID, for: indexPath)
       if let simpleCell = cell as? SimpleSettingCell {
-        //simpleCell.backgroundColor = darkerGray
-        simpleCell.backgroundColor = UIColor.yellow
+        simpleCell.backgroundColor = darkerGray
         if let stompboxToEdit = stompboxToEdit {
           simpleCell.knobLayoutStyle = stompboxToEdit.knobLayoutStyle
           
