@@ -51,6 +51,7 @@
 		01EB576C2000578800686767 /* StompboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB576B2000578800686767 /* StompboxCell.swift */; };
 		01EB576E200058D700686767 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB576D200058D700686767 /* CoreDataStack.swift */; };
 		01EC0CFB20920EA90086659C /* CollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01EC0CFA20920EA90086659C /* CollectionCell.xib */; };
+		01EC0CFD2092660D0086659C /* SettingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EC0CFC2092660D0086659C /* SettingCollectionViewCell.swift */; };
 		01F0DEB8207A5F59004D7E5B /* Gestureable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F0DEB7207A5F59004D7E5B /* Gestureable.swift */; };
 		01F0DEBA207A6080004D7E5B /* SimpleKnobRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F0DEB9207A6080004D7E5B /* SimpleKnobRenderer.swift */; };
 		01FB518D2059C1C200DB25E9 /* StompboxTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB518C2059C1C200DB25E9 /* StompboxTableViewDelegate.swift */; };
@@ -106,6 +107,7 @@
 		01EB576B2000578800686767 /* StompboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxCell.swift; sourceTree = "<group>"; };
 		01EB576D200058D700686767 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		01EC0CFA20920EA90086659C /* CollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionCell.xib; sourceTree = "<group>"; };
+		01EC0CFC2092660D0086659C /* SettingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCollectionViewCell.swift; sourceTree = "<group>"; };
 		01F0DEB7207A5F59004D7E5B /* Gestureable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gestureable.swift; sourceTree = "<group>"; };
 		01F0DEB9207A6080004D7E5B /* SimpleKnobRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleKnobRenderer.swift; sourceTree = "<group>"; };
 		01FB518C2059C1C200DB25E9 /* StompboxTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompboxTableViewDelegate.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 			isa = PBXGroup;
 			children = (
 				01A92BDE2088CC83003AD225 /* SettingCollectionViewController.swift */,
+				01EC0CF920920E8A0086659C /* CollectionCell */,
 			);
 			path = SettingCollectionVIewController;
 			sourceTree = "<group>";
@@ -403,7 +406,6 @@
 		01EB479D20371EA20050563E /* Table Cells */ = {
 			isa = PBXGroup;
 			children = (
-				01EC0CF920920E8A0086659C /* CollectionCell */,
 				01B4E4B72082CE7500A90C5B /* StompboxCell */,
 				01B2F691207EA6430061488B /* SettingCell */,
 			);
@@ -458,6 +460,7 @@
 			isa = PBXGroup;
 			children = (
 				01EC0CFA20920EA90086659C /* CollectionCell.xib */,
+				01EC0CFC2092660D0086659C /* SettingCollectionViewCell.swift */,
 			);
 			path = CollectionCell;
 			sourceTree = "<group>";
@@ -585,6 +588,7 @@
 				01A92BF4208A8269003AD225 /* DetailTableViewDataSource.swift in Sources */,
 				01A92BE420891B08003AD225 /* StompboxViewControllerStompboxButtonDelegate.swift in Sources */,
 				01E70299206D7F57000FB000 /* DeltaButton.swift in Sources */,
+				01EC0CFD2092660D0086659C /* SettingCollectionViewCell.swift in Sources */,
 				013BA65E206ED5F1009D3A93 /* DeltaLayer.swift in Sources */,
 				01A58F3B200FF4DD00DD5BF3 /* StompboxDetailViewController.swift in Sources */,
 				01A92BE22088D628003AD225 /* StompboxButton.swift in Sources */,

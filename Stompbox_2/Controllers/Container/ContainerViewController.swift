@@ -46,8 +46,13 @@ class ContainerViewController: UIViewController {
     stackView = UIStackView(arrangedSubviews: [stompboxDetailViewController.view, settingCollectionViewController.view])
     stackView.axis = .vertical
     stackView.distribution = .fill
-    
     stackView.translatesAutoresizingMaskIntoConstraints = false
+    
+//    stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//    stackView.isLayoutMarginsRelativeArrangement = true
+//    stackView.setNeedsLayout()
+//    stackView.layoutIfNeeded()
+    
     view.addSubview(stackView)
     
     
@@ -65,6 +70,24 @@ class ContainerViewController: UIViewController {
       settingCollectionViewController.view.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
       settingCollectionViewController.view.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/3),
       ])
+    
+    
+    stackView.setNeedsLayout()
+    stackView.layoutIfNeeded()
+    
+    stompboxDetailViewController.view.setNeedsLayout()
+    stompboxDetailViewController.view.layoutIfNeeded()
+  
+    /* view.bounds.size is 375 x 667 before forcing its bounds to update to its current constraints.
+       The bounds are 375 x 222.5 after the update. */
+    settingCollectionViewController.view.setNeedsLayout()
+    settingCollectionViewController.view.layoutIfNeeded()
+    settingCollectionViewController.updateCollectionViewHeight()
+    
+    
+//    print("stackView: \(stackView.bounds.size)")
+//    print("stompboxDetailViewController: \(stompboxDetailViewController.view.bounds.size)")
+//    print("settingCollectionViewController: \(settingCollectionViewController.view.bounds.size)")
     
     // Set delegates
     stompboxDetailViewController.doneBarButtonDelegate = self

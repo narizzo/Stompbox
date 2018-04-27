@@ -25,18 +25,18 @@ class TemplateSettingCell: UITableViewCell, SettingCell {
     initializeCell()
   }
   
-  override func awakeFromNib() {
-    frame.size.width = UIScreen.main.bounds.width
-    layoutIfNeeded()
-    initializeCell()
-  }
-  
   // MARK: - Custom Init
   private func initializeCell() {
     contentViewRef = contentView
+    contentView.backgroundColor = UIColor.blue
     populateKnobViews()
     populateContentView()
     configureKnobViewsRects()
+  }
+  
+  func setContentViewSize(to size: CGSize) {
+    contentView.bounds.size = size
+    initializeCell()
   }
   
   // REDUNDANT
@@ -48,5 +48,4 @@ class TemplateSettingCell: UITableViewCell, SettingCell {
       i += 1
     }
   }
-
 }
