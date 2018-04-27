@@ -13,10 +13,11 @@ protocol SettingCell: class {
   associatedtype knobViewType
   var knobViews: [knobViewType] { get set }
   var contentViewRef: UIView { get set }
-  var knobLayoutStyle: Int16 { get set }
+  var knobLayoutStyle: Int { get set }
   
   
   func calculateNumberOfKnobViews() -> Int
+  func clearExistingKnobViews()
   func populateKnobViews()
   func populateContentView()
   func configureKnobViewsRects()
@@ -93,6 +94,13 @@ extension SettingCell where knobViewType == TemplateKnobView {
     }
   }
   
+  func clearExistingKnobViews() {
+    for knobView in knobViews {
+      knobView.removeFromSuperview()
+    }
+    knobViews.removeAll()
+  }
+  
   //REDUNDANT
   func populateContentView() {
     for knobView in knobViews {
@@ -100,7 +108,6 @@ extension SettingCell where knobViewType == TemplateKnobView {
     }
   }
 }
-
 
 // MARK: - Extension for Simple
 extension SettingCell where knobViewType == SimpleKnobView {
@@ -110,6 +117,13 @@ extension SettingCell where knobViewType == SimpleKnobView {
     while knobViews.count < targetCount {
       knobViews.append(SimpleKnobView())
     }
+  }
+  
+  func clearExistingKnobViews() {
+    for knobView in knobViews {
+      knobView.removeFromSuperview()
+    }
+    knobViews.removeAll()
   }
   
   //REDUNDANT
@@ -128,6 +142,13 @@ extension SettingCell where knobViewType == ComplexKnobView {
     while knobViews.count < targetCount {
       knobViews.append(ComplexKnobView())
     }
+  }
+  
+  func clearExistingKnobViews() {
+    for knobView in knobViews {
+      knobView.removeFromSuperview()
+    }
+    knobViews.removeAll()
   }
   
   //REDUNDANT

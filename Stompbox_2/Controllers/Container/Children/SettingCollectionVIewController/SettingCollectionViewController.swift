@@ -53,9 +53,13 @@ extension SettingCollectionViewController: UICollectionViewDataSource {
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    print("cellForItemAt: \(indexPath)")
     if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.collectionCellReuseID, for: indexPath) as? SettingCollectionViewCell {
-      indexPath.row % 3 == 0 ? (cell.backgroundColor = darkerGray) : (cell.backgroundColor = lighterGray)
+      
+      // Shade cell backgrounds using bit mask 1001 as the shading pattern
+      let mask = [1,0,0,1]
+      mask[indexPath.row % 4] == 1 ? (cell.backgroundColor = darkerGray) : (cell.backgroundColor = lighterGray)
+      
+      cell.templateSettingCell.knobLayoutStyle = indexPath.row
       cell.setSize(to: layout.itemSize)
       return cell
     }

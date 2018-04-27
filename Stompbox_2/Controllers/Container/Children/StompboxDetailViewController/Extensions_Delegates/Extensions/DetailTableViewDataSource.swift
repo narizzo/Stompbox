@@ -73,7 +73,7 @@ extension StompboxDetailViewController {
       if let simpleCell = cell as? SimpleSettingCell {
         simpleCell.backgroundColor = darkerGray
         if let stompboxToEdit = stompboxToEdit {
-          simpleCell.knobLayoutStyle = stompboxToEdit.knobLayoutStyle
+          simpleCell.knobLayoutStyle = Int(stompboxToEdit.knobLayoutStyle)
           
           // Load knobNameLabels into the SimpleSettingView
           if let settings = stompboxToEdit.settings {

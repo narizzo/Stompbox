@@ -13,7 +13,7 @@ class SimpleSettingCell: UITableViewCell, SettingCell {
   typealias knobViewType = SimpleKnobView
   var knobViews = [knobViewType]()
   var contentViewRef = UIView()
-  var knobLayoutStyle: Int16 = 0
+  var knobLayoutStyle: Int = 0
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -34,13 +34,14 @@ class SimpleSettingCell: UITableViewCell, SettingCell {
   // MARK: - Custom Init
   private func initializeCell() {
     contentViewRef = contentView
-    populateKnobViews()
-    populateContentView()
     configureKnobViewsRects()
   }
   
   // REDUNDANT
   func configureKnobViewsRects() {
+    clearExistingKnobViews()
+    populateKnobViews()
+    populateContentView()
     let rects = calculateKnobViewRects(with: self.bounds)
     var i = 0
     for knobView in knobViews {

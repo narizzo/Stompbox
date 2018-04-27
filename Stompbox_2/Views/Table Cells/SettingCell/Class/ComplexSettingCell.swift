@@ -19,7 +19,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   typealias knobViewType = ComplexKnobView
   var knobViews = [knobViewType]()
   var contentViewRef = UIView()
-  var knobLayoutStyle: Int16 = 0
+  var knobLayoutStyle: Int = 0
   var isBeingEdited = false { didSet { toggleEditing() } }
   var viewController: UIViewController!
   var leftButton: UIBarButtonItem?
@@ -56,17 +56,18 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
       return
     }
     if let stompbox = setting.stompbox {
-      knobLayoutStyle = stompbox.knobLayoutStyle
+      knobLayoutStyle = Int(stompbox.knobLayoutStyle)
     }
     
-    populateKnobViews()   /* protocol default */
-    populateContentView() /* protocol default */
     configureKnobViewsRects()
     populateKnobEntities()
     loadKnobData()
   }
   
   func configureKnobViewsRects() {
+    clearExistingKnobViews()
+    populateKnobViews()   /* protocol default */
+    populateContentView() /* protocol default */
     let rects = calculateKnobViewRects(with: self.bounds)
     var i = 0
     for knobView in knobViews {
