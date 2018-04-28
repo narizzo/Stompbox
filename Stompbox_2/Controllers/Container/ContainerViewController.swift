@@ -84,13 +84,9 @@ class ContainerViewController: UIViewController {
     settingCollectionViewController.view.layoutIfNeeded()
     settingCollectionViewController.updateCollectionViewHeight()
     
-    
-//    print("stackView: \(stackView.bounds.size)")
-//    print("stompboxDetailViewController: \(stompboxDetailViewController.view.bounds.size)")
-//    print("settingCollectionViewController: \(settingCollectionViewController.view.bounds.size)")
-    
     // Set delegates
     stompboxDetailViewController.doneBarButtonDelegate = self
+    settingCollectionViewController.collectionCellDelegate = self
   }
   
   private func configureToolBarButtons() {
@@ -123,7 +119,7 @@ class ContainerViewController: UIViewController {
       alertUserIncompleteInformation()
       return
     }
-    stompboxDetailViewController.saveChanges()
+    //stompboxDetailViewController.saveChanges()
     containerViewControllerDelegate.didAcceptChanges(self)
   }
   
@@ -134,5 +130,13 @@ class ContainerViewController: UIViewController {
     let okAction = UIAlertAction(title: "OK", style: .default)
     alert.addAction(okAction)
     present(alert, animated: true, completion: nil)
+  }
+}
+
+extension ContainerViewController: CollectionCellDelegate {
+  func didSelectCollectionCell(_ settingCollectionViewCell: SettingCollectionViewCell) {
+    print("delegate function called")
+    stompboxDetailViewController.stompboxToEdit?.knobLayoutStyle = Int64(settingCollectionViewCell.templateSettingCell.knobLayoutStyle)
+    stompboxDetailViewController.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
   }
 }

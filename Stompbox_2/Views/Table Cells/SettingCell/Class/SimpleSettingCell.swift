@@ -13,7 +13,11 @@ class SimpleSettingCell: UITableViewCell, SettingCell {
   typealias knobViewType = SimpleKnobView
   var knobViews = [knobViewType]()
   var contentViewRef = UIView()
-  var knobLayoutStyle: Int = 0
+  var knobLayoutStyle: Int = 0 {
+    didSet {
+      configureKnobViewsRects()
+    }
+  }
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)

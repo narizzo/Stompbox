@@ -8,10 +8,17 @@
 
 import UIKit
 
+protocol CollectionCellDelegate: class {
+  func didSelectCollectionCell(_ settingCollectionViewCell: SettingCollectionViewCell)
+}
+
 class SettingCollectionViewCell: UICollectionViewCell {
   
+  // MARK: - Properties
+  var collectionCellDelegate: CollectionCellDelegate!
   var templateSettingCell = TemplateSettingCell()
   
+  // MARK: - Init
   override init(frame: CGRect) {
     super.init(frame: frame)
     initialize()
@@ -25,19 +32,18 @@ class SettingCollectionViewCell: UICollectionViewCell {
   private func initialize() {
     //templateSettingCell = TemplateSettingCell(frame: bounds)
     contentView.addSubview(templateSettingCell)
-//    contentView.backgroundColor = UIColor.orange
     self.contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
   }
   
+  // MARK: - Gesture Recognizer
   @objc private func handleTap() {
-    print("Collection View Cell Tapped")
+    collectionCellDelegate.didSelectCollectionCell(self)
   }
   
+  // MARK: - Frame
   func setSize(to size: CGSize) {
-    print("contentView.frame: \(contentView.frame)")
     bounds.size = size
     templateSettingCell.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: size)
-    //templateSettingCell.bounds.size = size
     templateSettingCell.configureKnobViewsRects()
   }
 }

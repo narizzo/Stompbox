@@ -10,6 +10,8 @@ import UIKit
 
 class SettingCollectionViewController: UIViewController {
   
+  var collectionCellDelegate: CollectionCellDelegate!
+  
   var collectionView: UICollectionView!
   let layout = UICollectionViewFlowLayout()
   
@@ -59,6 +61,7 @@ extension SettingCollectionViewController: UICollectionViewDataSource {
       let mask = [1,0,0,1]
       mask[indexPath.row % 4] == 1 ? (cell.backgroundColor = darkerGray) : (cell.backgroundColor = lighterGray)
       
+      cell.collectionCellDelegate = self.collectionCellDelegate
       cell.templateSettingCell.knobLayoutStyle = indexPath.row
       cell.setSize(to: layout.itemSize)
       return cell
