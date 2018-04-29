@@ -58,6 +58,7 @@ class StompboxDetailViewController: UITableViewController {
   
   func saveChanges() {
     if let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell {
+      
       if stompboxToEdit == nil {
         stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
       }
@@ -74,8 +75,8 @@ class StompboxDetailViewController: UITableViewController {
           try? stompboxCell.stompboxButton.imageData.write(to: filePath, options: .atomic)
         }
       }
-      coreDataStack.saveContext()
     }
+    //coreDataStack.saveContext()
   }
 }
  

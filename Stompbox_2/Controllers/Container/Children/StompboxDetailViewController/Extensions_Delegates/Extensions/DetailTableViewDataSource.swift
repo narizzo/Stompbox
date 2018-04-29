@@ -29,6 +29,11 @@ extension StompboxDetailViewController {
         // Set button image delegate
         stompboxCell.stompboxButton.delegate = stompboxButtonDelegate
         
+        // Set textField delegates
+        stompboxCell.nameTextField.delegate = self
+        stompboxCell.typeTextField.delegate = self
+        stompboxCell.manufacturerTextField.delegate = self
+          
         // set placeholders
         stompboxCell.nameTextField.attributedPlaceholder = NSAttributedString(string: "name", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
         stompboxCell.typeTextField.attributedPlaceholder = NSAttributedString(string: "type", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])

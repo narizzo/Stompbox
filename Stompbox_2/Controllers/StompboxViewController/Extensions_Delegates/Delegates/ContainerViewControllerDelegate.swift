@@ -21,6 +21,7 @@ extension StompboxViewController: ContainerViewControllerDelegate {
   }
   
   func didAcceptChanges(_ controller: ContainerViewController) {
+    coreDataStack.saveContext()
     navigationController?.popViewController(animated: true)
   }
 }

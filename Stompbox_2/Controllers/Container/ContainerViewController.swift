@@ -47,15 +47,17 @@ class ContainerViewController: UIViewController {
     stackView.axis = .vertical
     stackView.distribution = .fill
     stackView.translatesAutoresizingMaskIntoConstraints = false
-    
-//    stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//    stackView.isLayoutMarginsRelativeArrangement = true
-//    stackView.setNeedsLayout()
-//    stackView.layoutIfNeeded()
-    
+
     view.addSubview(stackView)
     
+    setLayoutConstraints()
     
+    // Set delegates
+    stompboxDetailViewController.doneBarButtonDelegate = self
+    settingCollectionViewController.collectionCellDelegate = self
+  }
+  
+  private func setLayoutConstraints() {
     NSLayoutConstraint.activate([
       stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -71,24 +73,19 @@ class ContainerViewController: UIViewController {
       settingCollectionViewController.view.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/3),
       ])
     
-    
+    /* view.bounds.size is 375 x 667 before forcing its bounds to update to its current constraints.
+     The bounds are 375 x 222.5 after the update. */
     stackView.setNeedsLayout()
     stackView.layoutIfNeeded()
-    
     stompboxDetailViewController.view.setNeedsLayout()
     stompboxDetailViewController.view.layoutIfNeeded()
-  
-    /* view.bounds.size is 375 x 667 before forcing its bounds to update to its current constraints.
-       The bounds are 375 x 222.5 after the update. */
     settingCollectionViewController.view.setNeedsLayout()
     settingCollectionViewController.view.layoutIfNeeded()
-    settingCollectionViewController.updateCollectionViewHeight()
     
-    // Set delegates
-    stompboxDetailViewController.doneBarButtonDelegate = self
-    settingCollectionViewController.collectionCellDelegate = self
+    settingCollectionViewController.updateCollectionViewHeight()
   }
   
+  // MARK: - Cancel / Done
   private func configureToolBarButtons() {
     // Add cancel & done bar buttons
     let cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelChanges))
@@ -98,6 +95,20 @@ class ContainerViewController: UIViewController {
     navigationItem.setRightBarButton(doneBarButton, animated: true)
   }
   
+  @objc func cancelChanges() {
+    containerViewControllerDelegate.didCancelChanges(self)
+  }
+  
+  @objc func acceptChanges() {
+    guard stompboxDetailViewController.isStompboxInfoIncomplete() == false else {
+      alertUserIncompleteInformation()
+      return
+    }
+    stompboxDetailViewController.saveChanges()
+    containerViewControllerDelegate.didAcceptChanges(self)
+  }
+  
+  // MARK: - Navigation Title
   private func configureNavigationTitle() {
     //let doneButton = navigationItem.rightBarButtonItem
     
@@ -110,19 +121,6 @@ class ContainerViewController: UIViewController {
     }
   }
   
-  @objc func cancelChanges() {
-    containerViewControllerDelegate.didCancelChanges(self)
-  }
-  
-  @objc func acceptChanges() {
-    guard stompboxDetailViewController.isStompboxInfoIncomplete() == false else {
-      alertUserIncompleteInformation()
-      return
-    }
-    //stompboxDetailViewController.saveChanges()
-    containerViewControllerDelegate.didAcceptChanges(self)
-  }
-  
   private func alertUserIncompleteInformation() {
     let alert = UIAlertController(title: "Please enter the Stompbox's name, type, and manufacturer.",
                                   message: nil,
@@ -131,7 +129,11 @@ class ContainerViewController: UIViewController {
     alert.addAction(okAction)
     present(alert, animated: true, completion: nil)
   }
+  
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+  }
 }
+
 
 extension ContainerViewController: CollectionCellDelegate {
   func didSelectCollectionCell(_ settingCollectionViewCell: SettingCollectionViewCell) {
