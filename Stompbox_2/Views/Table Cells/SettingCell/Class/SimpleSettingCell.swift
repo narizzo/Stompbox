@@ -41,6 +41,11 @@ class SimpleSettingCell: UITableViewCell, SettingCell {
     configureKnobViewsRects()
   }
   
+  func set(_ height: CGFloat) {
+    self.bounds.size = CGSize(width: bounds.size.width, height: height)
+    configureKnobViewsRects()
+  }
+  
   // REDUNDANT
   func configureKnobViewsRects() {
     clearExistingKnobViews()

@@ -21,6 +21,10 @@ extension StompboxDetailViewController {
 //    }
 //  }
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return tableView.bounds.height / 2
+    let height = tableView.bounds.height / 2.0
+    if let cell = tableView.cellForRow(at: indexPath) as? SimpleSettingCell {
+      cell.set(height) // set height so that the simpleSettingCell can redraw its content using the current height
+    }
+    return height
   }
 }

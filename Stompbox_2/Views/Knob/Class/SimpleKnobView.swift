@@ -25,7 +25,7 @@ class SimpleKnobView: TemplateKnobView, Gestureable {
   }
   
   private func initialize() {
-    //backgroundColor = UIColor(red: 0.2, green: 0, blue: 0, alpha: 1.0)
+    backgroundColor = UIColor(red: 0.2, green: 0, blue: 0, alpha: 1.0)
     addViewsAndLayers()
     configureNameTextField()
     addGesture()
@@ -51,6 +51,7 @@ class SimpleKnobView: TemplateKnobView, Gestureable {
   
   // MARK: - Bounds
   private func updateNameTextFieldBounds() {
+    print("updateNameTextFieldBounds()")
     // 1. set nameTextField's height to its font height.
     // 2. expand the view by nameTextField's height
     if let font = nameTextField.font {
@@ -61,6 +62,7 @@ class SimpleKnobView: TemplateKnobView, Gestureable {
   
   // this method expands the bounds of knobView down to include the nameField, so that the nameField can respond to touches.
   private func expandBoundsDown(by textFieldHeight: CGFloat) {
+    print("exandBoundsDown(by:)")
     bounds.size = CGSize(width: bounds.width, height: bounds.height + textFieldHeight)
     positionNameTextField()
   }
@@ -74,6 +76,7 @@ class SimpleKnobView: TemplateKnobView, Gestureable {
   }
   
   private func positionNameTextField() {
+    print("positionNameTextField()")
     guard let superview = self.superview else {
       return
     }

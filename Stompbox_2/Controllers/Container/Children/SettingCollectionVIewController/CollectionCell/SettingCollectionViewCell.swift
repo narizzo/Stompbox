@@ -15,7 +15,7 @@ protocol CollectionCellDelegate: class {
 class SettingCollectionViewCell: UICollectionViewCell {
   
   // MARK: - Properties
-  var collectionCellDelegate: CollectionCellDelegate!
+  //var collectionCellDelegate: CollectionCellDelegate!
   var templateSettingCell = TemplateSettingCell()
   
   // MARK: - Init
@@ -32,13 +32,13 @@ class SettingCollectionViewCell: UICollectionViewCell {
   private func initialize() {
     //templateSettingCell = TemplateSettingCell(frame: bounds)
     contentView.addSubview(templateSettingCell)
-    self.contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+    //self.contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
   }
   
   // MARK: - Gesture Recognizer
-  @objc private func handleTap() {
-    collectionCellDelegate.didSelectCollectionCell(self)
-  }
+//  @objc private func handleTap() {
+//    collectionCellDelegate.didSelectCollectionCell(self)
+//  }
   
   // MARK: - Frame
   func setSize(to size: CGSize) {

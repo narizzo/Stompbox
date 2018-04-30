@@ -43,9 +43,18 @@ class StompboxViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   
   
+  override func viewWillAppear(_ animated: Bool) {
+     UIApplication.shared.statusBarStyle = .lightContent
+  }
+  
+  override var preferredStatusBarStyle : UIStatusBarStyle {
+    return .lightContent
+  }
+  
   // MARK: - ViewDidLoad
   override func viewDidLoad() {
     super.viewDidLoad()
+
     tableView.backgroundColor = black
     do {
       try fetchedResultsController.performFetch()
@@ -134,7 +143,7 @@ class StompboxViewController: UIViewController {
     }
     
     // Color Cell
-    indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lightGray)
+    indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lighterGray)
   }
   
   // MARK: - Navigation

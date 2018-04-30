@@ -38,7 +38,13 @@ class SettingCollectionViewController: UIViewController {
 
 // MARK: UICollectionView
 extension SettingCollectionViewController: UICollectionViewDelegate {
-  // interaction
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    if let collectionCell = collectionView.cellForItem(at: indexPath) as? SettingCollectionViewCell {
+      collectionCellDelegate.didSelectCollectionCell(collectionCell)
+    }
+    collectionView.deselectItem(at: indexPath, animated: false)
+  }
 }
 
 extension SettingCollectionViewController: UICollectionViewDataSource {
@@ -55,7 +61,7 @@ extension SettingCollectionViewController: UICollectionViewDataSource {
       let mask = [1,0,0,1]
       mask[indexPath.row % 4] == 1 ? (cell.backgroundColor = darkerGray) : (cell.backgroundColor = lighterGray)
       
-      cell.collectionCellDelegate = self.collectionCellDelegate
+      //cell.collectionCellDelegate = self.collectionCellDelegate
       cell.templateSettingCell.knobLayoutStyle = indexPath.row
       // cell.setSize(to: layout.itemSize)
       return cell
@@ -76,7 +82,7 @@ extension SettingCollectionViewController: UICollectionViewDelegateFlowLayout {
     if let cell = collectionView.cellForItem(at: indexPath) as? SettingCollectionViewCell {
       cell.setSize(to: size)
     }
-    print("size: \(size)")
+    //print("size: \(size)")
     return size
     //layout.itemSize = size
   }
