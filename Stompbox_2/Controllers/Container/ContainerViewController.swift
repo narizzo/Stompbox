@@ -104,8 +104,8 @@ class ContainerViewController: UIViewController {
       alertUserIncompleteInformation()
       return
     }
-    stompboxDetailViewController.saveChanges()
-    containerViewControllerDelegate.didAcceptChanges(self)
+    stompboxDetailViewController.saveChanges() // 'go down' -> tell controller that owns stompboxCell to prepare for saving
+    containerViewControllerDelegate.didAcceptChanges(self) // 'go up' -> tell the controller that owns the coreDataStack to saveContext
   }
   
   // MARK: - Navigation Title

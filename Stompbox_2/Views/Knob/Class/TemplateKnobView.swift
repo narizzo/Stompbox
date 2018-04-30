@@ -30,6 +30,7 @@ class TemplateKnobView: UIControl, KnobViewProtocol {
   // MARK: - Subviews
   func addViewsAndLayers() {
     self.layer.addSublayer(simpleKnobLayer)
+    simpleKnobLayer.frame = self.bounds
   }
   
   func set(frame: CGRect?) {
@@ -40,11 +41,6 @@ class TemplateKnobView: UIControl, KnobViewProtocol {
     simpleKnobLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
     simpleKnobLayer.set(size: bounds.size)
 
-  }
-  
-  func addSubviews() {
-    self.layer.addSublayer(simpleKnobLayer)
-    simpleKnobLayer.frame = self.bounds
   }
   
   // MARK: - Color

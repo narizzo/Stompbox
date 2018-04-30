@@ -65,12 +65,10 @@ extension StompboxDetailViewController {
       }
     } else {
       cell = tableView.dequeueReusableCell(withIdentifier: Constants.simpleSettingReuseID, for: indexPath)
-      print("Load setting cell")
       if let simpleCell = cell as? SimpleSettingCell {
         simpleCell.backgroundColor = darkerGray
         if let stompboxToEdit = stompboxToEdit {
           simpleCell.knobLayoutStyle = Int(stompboxToEdit.knobLayoutStyle)
-          
           // Load knobNameLabels into the SimpleSettingView
           if let settings = stompboxToEdit.settings {
             if let setting = settings.firstObject as? Setting {
@@ -78,7 +76,7 @@ extension StompboxDetailViewController {
                 var i: Int = 0
                 while i < knobs.count && i < simpleCell.knobViews.count {
                   if let knob = knobs[i] as? Knob {
-                    simpleCell.knobViews[i].knobNameLabel.text = knob.name
+                    simpleCell.knobViews[i].nameTextField.text = knob.name
                   }
                   i += 1
                 }
