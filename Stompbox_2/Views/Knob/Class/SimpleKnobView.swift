@@ -68,8 +68,9 @@ class SimpleKnobView: TemplateKnobView, Gestureable {
   // MARK: - SimpleKnobView Methods
   private func configureNameTextField() {
     nameTextField.textAlignment = .center
-    nameTextField.returnKeyType = .done // DOESN'T WORK
+    nameTextField.returnKeyType = .done
     nameTextField.textColor = blue
+    nameTextField.delegate = self
   }
   
   private func positionNameTextField() {
@@ -110,5 +111,12 @@ class SimpleKnobView: TemplateKnobView, Gestureable {
   func removeGesture() {
     // DO NOTHING
     //self.removeGestureRecognizer(gestureRecognizer)
+  }
+}
+
+extension SimpleKnobView: UITextFieldDelegate {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    return true
   }
 }
