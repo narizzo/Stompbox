@@ -6,6 +6,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,34 +20,53 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RO2-Gt-CZn" customClass="StompboxButton" customModule="Stompbox_2" customModuleProvider="target">
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RO2-Gt-CZn" customClass="StompboxButton" customModule="Stompbox_2" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="rJG-0q-Kqn"/>
+                        </constraints>
                         <state key="normal" image="BD2-large"/>
                     </button>
-                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LVk-XE-2lc">
-                        <rect key="frame" x="158" y="11" width="201" height="64"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="top" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LVk-XE-2lc">
+                        <rect key="frame" x="158" y="11" width="201" height="59"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="next"/>
                     </textField>
-                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mym-Px-Sda">
+                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mym-Px-Sda">
                         <rect key="frame" x="158" y="78" width="202" height="44"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="jyn-31-jco"/>
+                        </constraints>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="next"/>
                     </textField>
-                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="j0L-NH-DcC">
+                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="j0L-NH-DcC">
                         <rect key="frame" x="158" y="125" width="202" height="44"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="next"/>
                     </textField>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="mym-Px-Sda" firstAttribute="trailing" secondItem="j0L-NH-DcC" secondAttribute="trailing" id="0lR-Rv-7r6"/>
+                    <constraint firstItem="RO2-Gt-CZn" firstAttribute="top" secondItem="Bt3-Ig-Qg1" secondAttribute="top" id="8w6-77-4M3"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="j0L-NH-DcC" secondAttribute="bottom" constant="20" id="9UC-Rp-2hn"/>
+                    <constraint firstItem="RO2-Gt-CZn" firstAttribute="centerY" secondItem="mym-Px-Sda" secondAttribute="centerY" id="Aaz-eh-fxB"/>
+                    <constraint firstItem="RO2-Gt-CZn" firstAttribute="centerY" secondItem="Bt3-Ig-Qg1" secondAttribute="centerY" id="UPb-fR-afK"/>
+                    <constraint firstItem="LVk-XE-2lc" firstAttribute="leading" secondItem="mym-Px-Sda" secondAttribute="leading" id="WqE-Zv-bng"/>
+                    <constraint firstItem="LVk-XE-2lc" firstAttribute="top" secondItem="Bt3-Ig-Qg1" secondAttribute="topMargin" id="YmD-0n-E78"/>
+                    <constraint firstItem="RO2-Gt-CZn" firstAttribute="leading" secondItem="Bt3-Ig-Qg1" secondAttribute="leading" id="doK-Wz-zC2"/>
+                    <constraint firstItem="j0L-NH-DcC" firstAttribute="top" secondItem="mym-Px-Sda" secondAttribute="bottom" constant="3" id="ha6-Zu-Vcj"/>
+                    <constraint firstItem="mym-Px-Sda" firstAttribute="leading" secondItem="j0L-NH-DcC" secondAttribute="leading" id="lyU-yf-E3h"/>
+                    <constraint firstItem="mym-Px-Sda" firstAttribute="top" secondItem="LVk-XE-2lc" secondAttribute="bottom" constant="8" symbolic="YES" id="meN-2q-kNK"/>
+                    <constraint firstItem="LVk-XE-2lc" firstAttribute="trailing" secondItem="Bt3-Ig-Qg1" secondAttribute="trailingMargin" id="nqt-Hw-VdI"/>
+                    <constraint firstItem="LVk-XE-2lc" firstAttribute="centerX" secondItem="mym-Px-Sda" secondAttribute="centerX" id="qVU-fr-bWl"/>
+                    <constraint firstItem="LVk-XE-2lc" firstAttribute="leading" secondItem="RO2-Gt-CZn" secondAttribute="trailing" constant="8" symbolic="YES" id="tIF-vg-s8E"/>
+                </constraints>
             </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="mNq-Xi-bxA"/>
             <connections>
                 <outlet property="manufacturerTextField" destination="j0L-NH-DcC" id="vO5-mV-7uF"/>
                 <outlet property="nameTextField" destination="LVk-XE-2lc" id="T0k-sq-EYf"/>

@@ -37,11 +37,12 @@ extension StompboxViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    if indexPath.row == 0 {
-      return Constants.stompboxCellHeight
-    } else {
-      return Constants.settingCellHeight
-    }
+    return (tableView.bounds.height - tableView.safeAreaInsets.top) / 3
+//    if indexPath.row == 0 {
+//      return Constants.stompboxCellHeight
+//    } else {
+//      return Constants.settingCellHeight
+//    }
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -36,10 +36,22 @@ class ContainerViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    print("1: view.frame.size: \(view.frame.size)")
+    view.frame.size = UIScreen.main.bounds.size
+    view.layoutIfNeeded()
+    print("2: view.frame.size: \(view.frame.size)")
+    // 736 height
+    
     initializeViewControllers()
     configureToolBarButtons()
     configureNavigationTitle()
   }
+  
+//  override func awakeFromNib() {
+//    view.frame.size = UIScreen.main.bounds.size
+//    view.setNeedsLayout()
+//    view.layoutIfNeeded()
+//  }
   
   private func initializeViewControllers() {
     // Add views
@@ -59,19 +71,41 @@ class ContainerViewController: UIViewController {
   
   private func setLayoutConstraints() {
     NSLayoutConstraint.activate([
+      stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+      // left | right
+      stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      
+      
+      stompboxDetailViewController.view.topAnchor.constraint(equalTo: stackView.topAnchor),
+      //stompboxDetailViewController.view.bottomAnchor.constraint(equalTo: settingCollectionViewController.view.topAnchor),
+      stompboxDetailViewController.view.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 2/3), //constant: view.safeAreaInsets.top),
+      settingCollectionViewController.view.topAnchor.constraint(equalTo: stompboxDetailViewController.view.bottomAnchor),
+      settingCollectionViewController.view.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+//      settingCollectionViewController.view.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+//      settingCollectionViewController.view.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/3),
+      ])
+    /*
+    NSLayoutConstraint.activate([
+      // top | bottom
       stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      // left | right
       stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      //stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
       
       stompboxDetailViewController.view.topAnchor.constraint(equalTo: stackView.topAnchor),
       stompboxDetailViewController.view.bottomAnchor.constraint(equalTo: settingCollectionViewController.view.topAnchor),
-      stompboxDetailViewController.view.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 2/3),
+      //stompboxDetailViewController.view.bottomAnchor.constraint(equalTo: settingCollectionViewController.view.topAnchor),
+      //stompboxDetailViewController.view.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 2/3),
       
-      settingCollectionViewController.view.topAnchor.constraint(equalTo: stompboxDetailViewController.view.bottomAnchor),
+      //settingCollectionViewController.view.topAnchor.constraint(equalTo: stompboxDetailViewController.view.bottomAnchor),
       settingCollectionViewController.view.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
       settingCollectionViewController.view.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/3),
       ])
+ */
     
     /* view.bounds.size is 375 x 667 before forcing its bounds to update to its current constraints.
      The bounds are 375 x 222.5 after the update. */
@@ -81,8 +115,9 @@ class ContainerViewController: UIViewController {
     stompboxDetailViewController.view.layoutIfNeeded()
     settingCollectionViewController.view.setNeedsLayout()
     settingCollectionViewController.view.layoutIfNeeded()
+
+    settingCollectionViewController.collectionView.reloadData()
     
-    settingCollectionViewController.updateCollectionViewHeight()
   }
   
   // MARK: - Cancel / Done

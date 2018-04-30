@@ -17,24 +17,18 @@ class SettingCollectionViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    initialize()
   }
   
-  func updateCollectionViewHeight() {
+  private func initialize() {
     collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
     
     let spacing: CGFloat = 3.0
     layout.minimumLineSpacing = spacing
     layout.minimumInteritemSpacing = spacing
     
-    let buffer = layout.minimumInteritemSpacing / 2.0
-    let width = collectionView.frame.width / 2.0 - buffer
-    let height = collectionView.frame.height / 2.0 - buffer
-    let size = CGSize(width: width, height: height)
-    layout.itemSize = size
-    
     collectionView.delegate = self
     collectionView.dataSource = self
-    
     
     let collectionCellNib = UINib(nibName: "CollectionCell", bundle: nil)
     collectionView.register(collectionCellNib, forCellWithReuseIdentifier: Constants.collectionCellReuseID)
@@ -63,7 +57,7 @@ extension SettingCollectionViewController: UICollectionViewDataSource {
       
       cell.collectionCellDelegate = self.collectionCellDelegate
       cell.templateSettingCell.knobLayoutStyle = indexPath.row
-      cell.setSize(to: layout.itemSize)
+      // cell.setSize(to: layout.itemSize)
       return cell
     }
     
@@ -72,23 +66,22 @@ extension SettingCollectionViewController: UICollectionViewDataSource {
 }
 
 // MARK: UICollectionViewDelegateFlowLayout
-//extension SettingCollectionViewController: UICollectionViewDelegateFlowLayout {
-//
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-//      print("sizeForItemAt: \(indexPath)")
-//      let buffer = layout.minimumInteritemSpacing / 2.0
-//      let width = collectionView.frame.width / 2.0 - buffer
-//      let height = collectionView.frame.height / 2.0 - buffer
-//      let size = CGSize(width: width, height: height)
-//
-////      collectionView.cellForItem(at: indexPath)?.bounds.size = size
-//
-//      return size
-//    }
-//
-//  /*
-//   func  collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) {
-//   } */
-//}
+extension SettingCollectionViewController: UICollectionViewDelegateFlowLayout {
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let buffer = layout.minimumInteritemSpacing / 2.0
+    let width = collectionView.frame.width / 2.0 - buffer
+    let height = collectionView.frame.height / 2.0 - buffer
+    let size = CGSize(width: width, height: height)
+    if let cell = collectionView.cellForItem(at: indexPath) as? SettingCollectionViewCell {
+      cell.setSize(to: size)
+    }
+    print("size: \(size)")
+    return size
+    //layout.itemSize = size
+  }
+  
+  /*
+   func  collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) {
+   } */
+}

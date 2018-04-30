@@ -9,6 +9,7 @@
 import UIKit
 
 extension StompboxDetailViewController {
+  
   override func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
