@@ -133,19 +133,20 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   private func toggleKnobHighlight() {
-    var color: UIColor
-    isBeingEdited ? (color = UIColor.yellow) : (color = blue)
+//    var color: UIColor
+//    isBeingEdited ? (color = UIColor.yellow) : (color = blue)
     
     for knobView in knobViews {
-      knobView.changeStrokeColor(to: color)
-      knobView.changeKnobLabelTextColor(to: color)
-      knobView.changeKnobPositionTextColor(to: color)
+      knobView.isBeingEdited = isBeingEdited
+//      knobView.changeStrokeColor(to: color)
+//      knobView.changeKnobLabelTextColor(to: color)
+//      knobView.changeKnobPositionTextColor(to: color)
     }
   }
   
   private func toggleKnobNameEditing() {
     for knobView in knobViews {
-      knobView.isEditable = isBeingEdited
+      knobView.isBeingEdited = isBeingEdited
     }
   }
   

@@ -109,13 +109,3 @@ extension StompboxCell: StompboxButtonDelegate {
     
   }
 }
-
-//extension StompboxCell: EditingSettingCellDelegate {
-//  func startedEditingSetting(_ complexSettingCell: ComplexSettingCell) {
-//    deltaButton.hide()
-//  }
-//  
-//  func stoppedEditingSetting(_ complexSettingCell: ComplexSettingCell) {
-//    deltaButton.show()
-//  }
-//}

@@ -47,7 +47,7 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     self.addSublayer(pointerLayer)
     
     trackLayer.strokeColor = foregroundColor.cgColor
-    pointerLayer.strokeColor = UIColor.red.cgColor
+    pointerLayer.strokeColor = systemLightGray.cgColor
     
     trackLayer.fillColor = UIColor.clear.cgColor
     pointerLayer.fillColor = UIColor.clear.cgColor
@@ -60,6 +60,8 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   }
   
   private func updateClockLayers() {
+    return
+    
     removeClockLayers()
 
     let hourIncrement = CGFloat.pi / 6.0
@@ -188,6 +190,27 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   
   
   // MARK: - Color
+  func hightlight() {
+    let breatheAnimation = CABasicAnimation(keyPath: "strokeColor")
+    breatheAnimation.fromValue = trackLayerHighlight
+    breatheAnimation.toValue = trackLayerDefault
+    breatheAnimation.duration = 1.0
+    breatheAnimation.repeatCount = 0
+
+    trackLayer.add(breatheAnimation, forKey: "strokeColor")
+    for layer in clockLayers {
+      layer.add(breatheAnimation, forKey: "strokeColor")
+    }
+  }
+  
+  func unhighlight() {
+    trackLayer.strokeColor = trackLayerDefault
+    for tick in clockLayers {
+      tick.strokeColor = clockLayerDefault
+    }
+  }
+  
+  // unused
   func changeStrokeColor(to color: UIColor) {
     trackLayer.strokeColor = color.cgColor
     

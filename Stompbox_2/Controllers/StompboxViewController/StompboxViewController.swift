@@ -44,7 +44,8 @@ class StompboxViewController: UIViewController {
   
   
   override func viewWillAppear(_ animated: Bool) {
-     UIApplication.shared.statusBarStyle = .lightContent
+    UIApplication.shared.statusBarStyle = .lightContent
+    tableView.reloadData()
   }
   
   override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -113,7 +114,7 @@ class StompboxViewController: UIViewController {
       cell.hideDeltaButton()
     } else {
       cell.showDeltaButton()
-      // prevents didSet from firing when not necessary - this should be made simpler
+      // prevents didSet in the cell from firing when not necessary
       if cell.isExpanded != stompbox.isExpanded {
         cell.isExpanded = stompbox.isExpanded
       }
@@ -144,6 +145,24 @@ class StompboxViewController: UIViewController {
     
     // Color Cell
     indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lighterGray)
+    
+    // load knob names
+    if let settings = stompbox.settings {
+      if let setting = settings.firstObject as? Setting {
+        if let knobs = setting.knobs {
+          var i = 0
+          for knob in knobs {
+            if let aKnob = knob as? Knob {
+              if i < cell.knobViews.count {
+                cell.knobViews[i].knobNameLabel.text = aKnob.name
+              }
+            }
+            i += 1
+          }
+        }
+      }
+    }
+    
   }
   
   // MARK: - Navigation

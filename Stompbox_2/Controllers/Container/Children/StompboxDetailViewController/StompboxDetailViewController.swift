@@ -58,48 +58,48 @@ class StompboxDetailViewController: UITableViewController {
   
   func saveChanges() {
     if let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell {
-      
       if stompboxToEdit == nil {
         stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
       }
       
-      stompboxToEdit?.setPropertiesTo(name: (stompboxCell.nameTextField.text)!,
+      stompboxToEdit!.setPropertiesTo(name: (stompboxCell.nameTextField.text)!,
                                       type: (stompboxCell.typeTextField.text)!,
                                       manufacturer: (stompboxCell.manufacturerTextField.text)!)
       
       // save new thumbnail
       if stompboxCell.stompboxButton.didPickNewThumbnail {
         let filePath = createUniqueJPGFilePath()
-        stompboxToEdit?.imageFilePath = filePath.absoluteURL
+        stompboxToEdit!.imageFilePath = filePath.absoluteURL
         do {
           try? stompboxCell.stompboxButton.imageData.write(to: filePath, options: .atomic)
         }
       }
+      
+      // save knob names
+      if let simpleSettingCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? SimpleSettingCell {
+        var knobNames = [String]()
+        for knobView in simpleSettingCell.knobViews {
+          knobNames.append(knobView.nameTextField.text!)
+        }
+        
+        if let settings = stompboxToEdit!.settings {
+          for setting in settings {
+            if let aSetting = setting as? Setting {
+              if let knobs = aSetting.knobs {
+                var i = 0
+                for aKnob in knobs {
+                  if let knob = aKnob as? Knob {
+                    if i < knobNames.count {
+                      knob.name = knobNames[i]
+                    }
+                  }
+                  i += 1
+                }
+              }
+            }
+          }
+        }
+      }
     }
-    //coreDataStack.saveContext()
   }
 }
- 
-// func isUniqueName(name: String) -> Bool {
-// let request = Stompbox.fetchRequest() as NSFetchRequest<Stompbox>
-// request.predicate = NSPredicate(format: "name == %@", name)
-// do {
-// // cache?
-// if !(try coreDataStack.moc.fetch(request)).isEmpty {
-// alertPromptNotUniqueStompboxName()
-// return false
-// }
-// } catch let error as NSError {
-// print(error)
-// }
-// return true
-// }
-//
-// func alertPromptNotUniqueStompboxName() {
-// let alert = UIAlertController(title: "A Stompbox already has this name",
-// message: nil,
-// preferredStyle: .alert)
-// let okAction = UIAlertAction(title: "OK", style: .default)
-// alert.addAction(okAction)
-// present(alert, animated: true, completion: nil)
-// }

@@ -25,7 +25,6 @@ class SimpleKnobView: TemplateKnobView, Gestureable {
   }
   
   private func initialize() {
-    //backgroundColor = UIColor(red: 0.2, green: 0, blue: 0, alpha: 1.0)
     addViewsAndLayers()
     configureNameTextField()
     addGesture()
@@ -65,9 +64,10 @@ class SimpleKnobView: TemplateKnobView, Gestureable {
   
   // MARK: - SimpleKnobView Methods
   private func configureNameTextField() {
+    nameTextField.attributedPlaceholder = NSAttributedString(string:"knob", attributes: [NSAttributedStringKey.foregroundColor: darkerGray])
     nameTextField.textAlignment = .center
     nameTextField.returnKeyType = .done
-    nameTextField.textColor = blue
+    nameTextField.textColor = systemLightGray
     nameTextField.delegate = self
   }
   
@@ -105,11 +105,7 @@ class SimpleKnobView: TemplateKnobView, Gestureable {
     print("Tap Registered")
   }
   
-  // not needed?
-  func removeGesture() {
-    // DO NOTHING
-    //self.removeGestureRecognizer(gestureRecognizer)
-  }
+  func removeGesture() {} // Does nothing - satisfies protocol 
 }
 
 extension SimpleKnobView: UITextFieldDelegate {

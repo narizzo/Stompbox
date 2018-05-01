@@ -37,7 +37,6 @@ class SettingCollectionViewController: UIViewController {
     view.setNeedsLayout()
     view.layoutIfNeeded()
     
-//    collectionView.frame = view.bounds
     collectionView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height - 21)
     /* 21 is a magic number to offset the collectionView's height.  For some reason it's too tall by exactly 21 points on every size phone */
     collectionView.setNeedsLayout()

@@ -21,7 +21,11 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   var minimumValue: Float = 0.0
   var maximumValue: Float = 1.0
   
-  var isEditable = false
+  var isBeingEdited = false {
+    didSet {
+      updateKnobColors()
+    }
+  }
   
   // MARK: - Inits
   public override init(frame: CGRect) {
@@ -49,7 +53,7 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   // MARK: - Knob Label
   private func configureKnobNameLabel() {
     knobNameLabel.textAlignment = .center
-    knobNameLabel.textColor = blue
+    knobNameLabel.textColor = systemLightGray
     
     positionKnobLabel()
   }
@@ -120,6 +124,9 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
     }
   }
   
+  private func updateKnobColors() {
+    isBeingEdited ? complexKnobLayer.hightlight() : complexKnobLayer.unhighlight()
+  }
   // MARK: - Color
   func changeStrokeColor(to color: UIColor) {
     complexKnobLayer.changeStrokeColor(to: color)
