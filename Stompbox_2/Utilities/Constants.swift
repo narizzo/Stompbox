@@ -26,7 +26,7 @@ public struct Constants {
   static let settingCellComplexNib = "ComplexSettingCell"
   static let settingCollectionCellNib = "SettingCollectionCell"
   
-  // Cell Dimensions
+  // Cell Dimensions - NOT NEEDED?
   static let stompboxCellHeight: CGFloat = 200
   static let settingCellHeight: CGFloat = 200
 }

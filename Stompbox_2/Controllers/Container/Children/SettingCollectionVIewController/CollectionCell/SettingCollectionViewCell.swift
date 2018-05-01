@@ -16,6 +16,7 @@ class SettingCollectionViewCell: UICollectionViewCell {
   
   // MARK: - Properties
   var templateSettingCell = TemplateSettingCell()
+  var delegate: CollectionCellDelegate!
   
   // MARK: - Init
   override init(frame: CGRect) {
@@ -30,11 +31,16 @@ class SettingCollectionViewCell: UICollectionViewCell {
   
   private func initialize() {
     contentView.addSubview(templateSettingCell)
+    
+    addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+  }
+  
+  @objc private func handleTap() {
+    delegate.didSelectCollectionCell(self)
   }
   
   // MARK: - Frame
   func setSize(to size: CGSize) {
-    print("setting new size for collection cell")
     bounds.size = size
     templateSettingCell.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: size)
     templateSettingCell.configureKnobViewsRects()
