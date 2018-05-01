@@ -44,19 +44,17 @@ class ContainerViewController: UIViewController {
     configureNavigationTitle()
   }
   
-//  // this fixes a rendering issue -> WHAT'S THE DEEPER PROBLEM?
 //  override func viewDidAppear(_ animated: Bool) {
-//    //stompboxDetailViewController.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
+//    settingCollectionViewController.collectionView.reloadData()
 //  }
-//
   
   private func initializeViewControllers() {
     // Add views
     stackView = UIStackView(arrangedSubviews: [stompboxDetailViewController.view, settingCollectionViewController.view])
     stackView.axis = .vertical
     stackView.distribution = .fill
-    stackView.translatesAutoresizingMaskIntoConstraints = false
-
+    stackView.translatesAutoresizingMaskIntoConstraints = false // set false when programmatically instantiating views
+    
     // Set delegates
     stompboxDetailViewController.doneBarButtonDelegate = self
     settingCollectionViewController.collectionCellDelegate = self
@@ -70,6 +68,7 @@ class ContainerViewController: UIViewController {
       stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
       stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
       // left | right
+//      stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
       stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
       stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
       
@@ -80,7 +79,12 @@ class ContainerViewController: UIViewController {
       settingCollectionViewController.view.topAnchor.constraint(equalTo: stompboxDetailViewController.view.bottomAnchor),
       settingCollectionViewController.view.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
       settingCollectionViewController.view.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/3),
+      
+      //settingCollectionViewController.collectionView.topAnchor.constraint(equalTo: settingCollectionViewController.view.topAnchor),
+      //settingCollectionViewController.collectionView.bottomAnchor.constraint(equalTo: settingCollectionViewController.view.bottomAnchor),
       ])
+    
+    settingCollectionViewController.updateView()
   }
   
   // MARK: - Cancel / Done
