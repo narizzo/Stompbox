@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-extension StompboxViewController: StompboxButtonDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension StompboxViewController: StompboxButtonImageDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   func stompboxButtonTapped(_ button: StompboxButton) {
     selectedStompboxButton = button
     showPhotoMenu()

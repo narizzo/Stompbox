@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ControlName" representedClassName="ControlName" syncable="YES" codeGenerationType="class">
+        <attribute name="name" attributeType="String" minValueString="1" defaultValueString="name" syncable="YES"/>
+        <relationship name="stompbox" maxCount="1" deletionRule="Nullify" destinationEntity="Stompbox" inverseName="controlNames" inverseEntity="Stompbox" syncable="YES"/>
+    </entity>
     <entity name="Knob" representedClassName="Knob" syncable="YES" codeGenerationType="class">
         <attribute name="name" attributeType="String" minValueString="1" defaultValueString="knob" syncable="YES"/>
         <attribute name="value" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -23,6 +27,7 @@
         <attribute name="manufacturer" attributeType="String" minValueString="0" syncable="YES"/>
         <attribute name="name" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="type" attributeType="String" minValueString="0" syncable="YES"/>
+        <relationship name="controlNames" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ControlName" inverseName="stompbox" inverseEntity="ControlName" syncable="YES"/>
         <relationship name="settings" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Setting" inverseName="stompbox" inverseEntity="Setting" syncable="YES"/>
     </entity>
     <entity name="Switch" representedClassName="Switch" syncable="YES" codeGenerationType="class"/>
@@ -33,8 +38,9 @@
         <element name="Knob" positionX="-27" positionY="165" width="128" height="105"/>
         <element name="KnobSub" positionX="-270" positionY="162" width="128" height="90"/>
         <element name="Setting" positionX="-54" positionY="-18" width="144" height="90"/>
-        <element name="Stompbox" positionX="-371" positionY="-48" width="128" height="150"/>
+        <element name="Stompbox" positionX="-371" positionY="-48" width="128" height="165"/>
         <element name="Switch" positionX="9" positionY="-117" width="128" height="45"/>
         <element name="SwitchPosition" positionX="-153" positionY="-117" width="128" height="60"/>
+        <element name="ControlName" positionX="-180" positionY="36" width="128" height="75"/>
     </elements>
 </model>

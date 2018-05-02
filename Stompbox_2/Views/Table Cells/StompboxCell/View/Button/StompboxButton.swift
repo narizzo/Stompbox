@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol StompboxButtonDelegate: class {
+protocol StompboxButtonImageDelegate: class {
   func stompboxButtonTapped(_ button: StompboxButton)
 }
 
 class StompboxButton: UIButton {
   
-  var delegate: StompboxButtonDelegate!
+  var delegate: StompboxButtonImageDelegate!
   var didPickNewThumbnail = false
   var imageData = Data()
   

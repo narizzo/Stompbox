@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-protocol EditingSettingCellDelegate: class {
+protocol SettingCellDelegate: class {
   func startedEditingSetting(_ complexSettingCell: ComplexSettingCell)
   func stoppedEditingSetting(_ complexSettingCell: ComplexSettingCell)
 }
@@ -32,7 +32,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   // dependency injection
   weak var coreDataStack: CoreDataStack!
   weak var stompboxVCView: UIView!
-  weak var delegate: EditingSettingCellDelegate!
+  weak var delegate: SettingCellDelegate!
   weak var setting: Setting! {
     didSet {
       initializeCell()

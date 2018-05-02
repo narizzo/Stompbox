@@ -64,7 +64,7 @@ extension StompboxDetailViewController {
     stompboxCell.typeTextField.attributedPlaceholder = NSAttributedString(string: "type", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
     stompboxCell.manufacturerTextField.attributedPlaceholder = NSAttributedString(string: "manufacturer", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
     
-    // configure text wrapping for textFields
+    // configure textFields
     stompboxCell.nameTextField.adjustsFontSizeToFitWidth = true
     stompboxCell.typeTextField.adjustsFontSizeToFitWidth = true
     stompboxCell.manufacturerTextField.adjustsFontSizeToFitWidth = true
@@ -102,105 +102,40 @@ extension StompboxDetailViewController {
       // set textField delegates
       for knobView in simpleSettingCell.knobViews {
         knobView.nameTextField.delegate = self
+        knobView.nameTextField.keyboardAppearance = .dark
       }
       
       // Load knobNameLabels into the SimpleSettingView
-      if let settings = stompboxToEdit.settings {
-        if let setting = settings.firstObject as? Setting {
-          if let knobs = setting.knobs {
-            var i: Int = 0
-            while i < knobs.count && i < simpleSettingCell.knobViews.count {
-              if let knob = knobs[i] as? Knob {
-                simpleSettingCell.knobViews[i].nameTextField.text = knob.name
-              }
-              i += 1
-            }
+      var names = [String]()
+      if let controlNames = stompboxToEdit.controlNames {
+        for controlName in controlNames {
+          if let aControlName = controlName as? ControlName {
+            names.append(aControlName.name!) // name is non-optional but xcode thinks it's optional and requires unwrapping
           }
         }
       }
-    }
-  }
-  
-}
-
-//let cell: UITableViewCell
-//if indexPath.row == 0 {
-//  cell = tableView.dequeueReusableCell(withIdentifier: Constants.stompboxCellReuseID, for: indexPath)
-//  if let stompboxCell = cell as? StompboxCell {
-//    // configure cell
-//    stompboxCell.isEditable = true
-//    stompboxCell.deltaButton.hide()
-//
-//    // Set button image delegate
-//    stompboxCell.stompboxButton.delegate = stompboxButtonDelegate
-//
-//    // Set textField delegates
-//    stompboxCell.nameTextField.delegate = self
-//    stompboxCell.typeTextField.delegate = self
-//    stompboxCell.manufacturerTextField.delegate = self
-//
-//    // set placeholders
-//    stompboxCell.nameTextField.attributedPlaceholder = NSAttributedString(string: "name", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
-//    stompboxCell.typeTextField.attributedPlaceholder = NSAttributedString(string: "type", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
-//    stompboxCell.manufacturerTextField.attributedPlaceholder = NSAttributedString(string: "manufacturer", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
-//
-//    // configure text wrapping for textFields
-//    stompboxCell.nameTextField.adjustsFontSizeToFitWidth = true
-//    stompboxCell.typeTextField.adjustsFontSizeToFitWidth = true
-//    stompboxCell.manufacturerTextField.adjustsFontSizeToFitWidth = true
-//
-//    // load stompbox info if it exists
-//    if let stompboxToEdit = stompboxToEdit {
-//      stompboxCell.nameTextField.text = stompboxToEdit.name
-//      if let type = stompboxToEdit.type {
-//        stompboxCell.typeTextField.text = type
-//      }
-//      if let manufacturer = stompboxToEdit.manufacturer {
-//        stompboxCell.manufacturerTextField.text = manufacturer
-//      }
-//
-//      // Load button image
-//      var image: UIImage?
-//      if let imageFilePath = stompboxToEdit.imageFilePath {
-//        if let data = try? Data(contentsOf: imageFilePath) {
-//          image = UIImage(data: data)
-//        }
-//      }
-//      if let image = image {
-//        stompboxCell.stompboxButton.setImage(image, for: .normal)
-//      } else {
-//        stompboxCell.stompboxButton.setImage(#imageLiteral(resourceName: "BD2-large"), for: .normal)
-//      }
-//    }
-//  }
-//} else {
-//  cell = tableView.dequeueReusableCell(withIdentifier: Constants.simpleSettingReuseID, for: indexPath)
-//  if let simpleCell = cell as? SimpleSettingCell {
-//    simpleCell.backgroundColor = lighterGray
-//    if let stompboxToEdit = stompboxToEdit {
-//      simpleCell.knobLayoutStyle = Int(stompboxToEdit.knobLayoutStyle)
-//
-//      // set textField delegates
-//      for knobView in simpleCell.knobViews {
-//        knobView.nameTextField.delegate = self
-//      }
-//
-//      // Load knobNameLabels into the SimpleSettingView
+      
+      // load names into knobViews
+      var i = 0
+      while i < names.count && i < simpleSettingCell.knobViews.count { // while i < the number of knob data model objects and UI knobViews
+        simpleSettingCell.knobViews[i].nameTextField.text = names[i]
+      }
+      i += 1
+      
 //      if let settings = stompboxToEdit.settings {
 //        if let setting = settings.firstObject as? Setting {
 //          if let knobs = setting.knobs {
 //            var i: Int = 0
-//            while i < knobs.count && i < simpleCell.knobViews.count {
+//            while i < knobs.count && i < simpleSettingCell.knobViews.count {
 //              if let knob = knobs[i] as? Knob {
-//                simpleCell.knobViews[i].nameTextField.text = knob.name
+//                simpleSettingCell.knobViews[i].nameTextField.text = knob.name
 //              }
 //              i += 1
 //            }
 //          }
 //        }
 //      }
-//    }
-//  }
-//}
-//return cell
-//}
+    }
+  }
+  
+}

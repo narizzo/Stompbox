@@ -15,8 +15,8 @@ protocol ContainerViewControllerDelegate: class {
 
 class ContainerViewController: UIViewController {
   
+  // Subviews
   var stackView: UIStackView!
-  
   var stompboxDetailViewController = StompboxDetailViewController()
   var settingCollectionViewController = SettingCollectionViewController()
   
@@ -29,7 +29,7 @@ class ContainerViewController: UIViewController {
   }
   // Delegates
   weak var containerViewControllerDelegate: ContainerViewControllerDelegate!
-  weak var stompboxButtonDelegate: StompboxButtonDelegate! {
+  weak var stompboxButtonDelegate: StompboxButtonImageDelegate! {
     didSet { stompboxDetailViewController.stompboxButtonDelegate = stompboxButtonDelegate }
   }
   
@@ -43,10 +43,6 @@ class ContainerViewController: UIViewController {
     configureToolBarButtons()
     configureNavigationTitle()
   }
-  
-//  override func viewDidAppear(_ animated: Bool) {
-//    settingCollectionViewController.collectionView.reloadData()
-//  }
   
   private func initializeViewControllers() {
     // Add views
@@ -78,7 +74,7 @@ class ContainerViewController: UIViewController {
       
       settingCollectionViewController.view.topAnchor.constraint(equalTo: stompboxDetailViewController.view.bottomAnchor),
       settingCollectionViewController.view.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
-      settingCollectionViewController.view.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/3),
+      //settingCollectionViewController.view.heightAnchor.constraint(equalTo: stackView.heightAnchor, multiplier: 1/3),
       ])
     
     settingCollectionViewController.updateView()
@@ -109,8 +105,8 @@ class ContainerViewController: UIViewController {
       return
     }
     
-    stompboxDetailViewController.saveChanges() // go 'down' the hierarchy and tell the controller that owns stompboxCell to prepare for saving
-    containerViewControllerDelegate.didAcceptChanges(self) // go 'up' the hierarchy and tell the controller that owns the coreDataStack to saveContext
+    stompboxDetailViewController.saveChanges()
+    containerViewControllerDelegate.didAcceptChanges(self) 
   }
   
   // MARK: - Navigation Title

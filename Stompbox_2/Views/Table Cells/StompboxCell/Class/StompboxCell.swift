@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol StompboxInteractionDelegate: class {
+protocol StompboxCellDelegate: class {
   func stompboxExpandCollapse(_ stompboxCell: StompboxCell)
   func stompboxGestureDoubleTap(_ stompboxCell: StompboxCell)
 }
@@ -31,7 +31,7 @@ class StompboxCell: UITableViewCell {
     }
   }
   
-  weak var delegate: StompboxInteractionDelegate?
+  weak var delegate: StompboxCellDelegate?
   
   // MARK: - IBOutlets
   @IBOutlet weak var nameTextField: UITextField!
@@ -104,7 +104,7 @@ extension StompboxCell: DeltaButtonDelegate {
   }
 }
 
-extension StompboxCell: StompboxButtonDelegate {
+extension StompboxCell: StompboxButtonImageDelegate {
   func stompboxButtonTapped(_ button: StompboxButton) {
     
   }

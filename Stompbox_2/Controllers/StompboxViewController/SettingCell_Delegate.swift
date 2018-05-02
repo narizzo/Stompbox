@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension StompboxViewController: EditingSettingCellDelegate {
+extension StompboxViewController: SettingCellDelegate {
   
   func startedEditingSetting(_ complexSettingCell: ComplexSettingCell) {
     if let indexPath = tableView.indexPath(for: complexSettingCell) {

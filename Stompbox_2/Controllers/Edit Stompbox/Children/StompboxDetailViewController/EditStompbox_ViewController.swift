@@ -22,7 +22,7 @@ class StompboxDetailViewController: UITableViewController {
   weak var stompboxToEdit: Stompbox?
   weak var coreDataStack: CoreDataStack!
   // Delegates
-  weak var stompboxButtonDelegate: StompboxButtonDelegate!
+  weak var stompboxButtonDelegate: StompboxButtonImageDelegate!
   weak var doneBarButtonDelegate: DoneBarButtonDelegate!
   
   override func viewDidLoad() {
@@ -74,6 +74,7 @@ class StompboxDetailViewController: UITableViewController {
   
   func saveChanges() {
     if let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell {
+      
       if stompboxToEdit == nil {
         stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
       }
@@ -93,11 +94,30 @@ class StompboxDetailViewController: UITableViewController {
       
       // save knob names
       if let simpleSettingCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? SimpleSettingCell {
+        // compile list of control names
         var knobNames = [String]()
         for knobView in simpleSettingCell.knobViews {
           knobNames.append(knobView.nameTextField.text!)
         }
         
+        // make ControlName entities for each knob name
+        var i = 0
+        while i < stompboxToEdit!.controlNames!.count {
+          let newControlName = ControlName.init(entity: NSEntityDescription.entity(forEntityName: "ControlName", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
+          stompboxToEdit!.addToControlNames(newControlName)
+          i += 1
+        }
+        
+        // store knob names in control names
+        var j = 0
+        for controlName in stompboxToEdit!.controlNames! {
+          if let controlName = controlName as? ControlName {
+            controlName.name = knobNames[j]
+          }
+          j += 1
+        }
+        
+        /*
         if let settings = stompboxToEdit!.settings {
           for setting in settings {
             if let aSetting = setting as? Setting {
@@ -114,7 +134,7 @@ class StompboxDetailViewController: UITableViewController {
               }
             }
           }
-        }
+        } */
       }
     }
   }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension StompboxViewController: StompboxInteractionDelegate {
+extension StompboxViewController: StompboxCellDelegate {
   func stompboxExpandCollapse(_ stompboxCell: StompboxCell) {
     collapseExpandSection(for: stompboxCell)
   }

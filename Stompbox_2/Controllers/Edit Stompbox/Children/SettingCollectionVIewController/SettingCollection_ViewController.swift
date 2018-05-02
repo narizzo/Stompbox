@@ -72,7 +72,7 @@ extension SettingCollectionViewController: UICollectionViewDataSource {
       
       // propagate size changes : redraw knob layers
       cell.templateSettingCell.knobLayoutStyle = indexPath.row
-      cell.setSize(to: layout.itemSize)
+      cell.setSize(to: layout.itemSize) // custom knob drawing redraws according to the new size
       cell.delegate = collectionCellDelegate
       
       return cell
