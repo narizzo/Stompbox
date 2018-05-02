@@ -95,7 +95,7 @@ extension StompboxViewController: UITableViewDelegate {
         controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
         let indexPath = IndexPath(row: count, section: indexPath.section)
         tableView.insertRows(at: [indexPath], with: .automatic)
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+        //tableView.reloadRows(at: [indexPath], with: .automatic)
         controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
         coreDataStack.saveContext()
       }
