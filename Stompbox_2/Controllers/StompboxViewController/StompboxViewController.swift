@@ -154,11 +154,10 @@ class StompboxViewController: UIViewController {
       cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
     }
     
-    indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lighterGray)
+    shade(cell, at: indexPath)
     
     // load knob configuration
     cell.knobLayoutStyle = Int(stompbox.knobLayoutStyle)
-    print("cell.layout: \(cell.knobLayoutStyle)")
     
     // load knob names
     if let settings = stompbox.settings {
@@ -179,19 +178,21 @@ class StompboxViewController: UIViewController {
     
   }
   
-  func shadeSettingCells() {
-    print("shadeSettingCells()")
-    let sections = tableView.numberOfSections
-    for section in 0..<sections {
-      let rows = tableView.numberOfRows(inSection: section)
-      for row in 0..<rows {
-        if let cell = tableView.cellForRow(at: IndexPath(row: row, section: section)) as? ComplexSettingCell {
-          print("coloring cell")
-          row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lighterGray)
-        }
-      }
-    }
+  private func shade(_ cell: ComplexSettingCell, at indexPath: IndexPath) {
+    indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lighterGray)
   }
+  
+//  func shadeSettingCells() {
+//    let sections = tableView.numberOfSections
+//    for section in 0..<sections {
+//      let rows = tableView.numberOfRows(inSection: section)
+//      for row in 0..<rows {
+//        if let cell = tableView.cellForRow(at: IndexPath(row: row, section: section)) as? ComplexSettingCell {
+//          row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lighterGray)
+//        }
+//      }
+//    }
+//  }
   
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

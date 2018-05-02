@@ -148,7 +148,7 @@ extension StompboxViewController: UITableViewDelegate {
     self.coreDataStack.saveContext()
     
     self.controllerDidChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    self.shadeSettingCells()
+    //self.shadeSettingCells()
   }
   
   // MARK: - Collapse/Expand Section
