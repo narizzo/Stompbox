@@ -44,8 +44,7 @@ extension StompboxDetailViewController {
         stompboxCell.nameTextField.adjustsFontSizeToFitWidth = true
         stompboxCell.typeTextField.adjustsFontSizeToFitWidth = true
         stompboxCell.manufacturerTextField.adjustsFontSizeToFitWidth = true
-
-        
+      
         // load stompbox info if it exists
         if let stompboxToEdit = stompboxToEdit {
           stompboxCell.nameTextField.text = stompboxToEdit.name
@@ -76,18 +75,20 @@ extension StompboxDetailViewController {
         simpleCell.backgroundColor = lighterGray
         if let stompboxToEdit = stompboxToEdit {
           simpleCell.knobLayoutStyle = Int(stompboxToEdit.knobLayoutStyle)
+          
+          // set textField delegates
+          for knobView in simpleCell.knobViews {
+            knobView.nameTextField.delegate = self
+          }
+          
           // Load knobNameLabels into the SimpleSettingView
           if let settings = stompboxToEdit.settings {
             if let setting = settings.firstObject as? Setting {
               if let knobs = setting.knobs {
                 var i: Int = 0
                 while i < knobs.count && i < simpleCell.knobViews.count {
-                  print("This setting has \(knobs.count) knobs")
                   if let knob = knobs[i] as? Knob {
-//                    if knob.name != "" {
-                    
                       simpleCell.knobViews[i].nameTextField.text = knob.name
-//                    }
                   }
                   i += 1
                 }

@@ -130,16 +130,25 @@ extension StompboxViewController: UITableViewDelegate {
     let setting = stompbox.settings![indexPath.row - 1] as! Setting
     
     
-    coreDataStack.moc.perform {
-      self.controllerWillChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-      
-      self.tableView.deleteRows(at: [indexPath], with: .automatic)
-      stompbox.removeFromSettings(setting)
-      self.coreDataStack.moc.delete(setting)
-      self.coreDataStack.saveContext()
-      
-      self.controllerDidChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    }
+//    coreDataStack.moc.perform {
+//      self.controllerWillChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+//
+//      self.tableView.deleteRows(at: [indexPath], with: .automatic)
+//      stompbox.removeFromSettings(setting)
+//      self.coreDataStack.moc.delete(setting)
+//      self.coreDataStack.saveContext()
+//
+//      self.controllerDidChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+//    }
+    self.controllerWillChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    
+    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+    stompbox.removeFromSettings(setting)
+    self.coreDataStack.moc.delete(setting)
+    self.coreDataStack.saveContext()
+    
+    self.controllerDidChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    self.shadeSettingCells()
   }
   
   // MARK: - Collapse/Expand Section

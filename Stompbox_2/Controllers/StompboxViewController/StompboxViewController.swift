@@ -20,6 +20,8 @@ class StompboxViewController: UIViewController {
   var didPickNewThumbnail = false
   var imageData = Data()
   var selectedStompboxButton: StompboxButton?
+  
+  var tableNeedsReload = false
 
   lazy var fetchedResultsController: NSFetchedResultsController<Stompbox> = {
     let fetchRequest: NSFetchRequest<Stompbox> = Stompbox.fetchRequest()
@@ -45,7 +47,16 @@ class StompboxViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     UIApplication.shared.statusBarStyle = .lightContent
-    tableView.reloadData()
+    
+    // stop unnecessary reload of table elements
+    if tableNeedsReload {
+      tableView.reloadData()
+      tableNeedsReload = false
+    }
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    tableNeedsReload = true
   }
   
   override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -143,8 +154,11 @@ class StompboxViewController: UIViewController {
       cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
     }
     
-    // Color Cell
     indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lighterGray)
+    
+    // load knob configuration
+    cell.knobLayoutStyle = Int(stompbox.knobLayoutStyle)
+    print("cell.layout: \(cell.knobLayoutStyle)")
     
     // load knob names
     if let settings = stompbox.settings {
@@ -163,6 +177,20 @@ class StompboxViewController: UIViewController {
       }
     }
     
+  }
+  
+  func shadeSettingCells() {
+    print("shadeSettingCells()")
+    let sections = tableView.numberOfSections
+    for section in 0..<sections {
+      let rows = tableView.numberOfRows(inSection: section)
+      for row in 0..<rows {
+        if let cell = tableView.cellForRow(at: IndexPath(row: row, section: section)) as? ComplexSettingCell {
+          print("coloring cell")
+          row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lighterGray)
+        }
+      }
+    }
   }
   
   // MARK: - Navigation

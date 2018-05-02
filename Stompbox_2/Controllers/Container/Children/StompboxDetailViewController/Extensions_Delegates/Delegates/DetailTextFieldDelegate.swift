@@ -14,7 +14,12 @@ extension StompboxDetailViewController: UITextFieldDelegate {
     textField.returnKeyType = .done
   }
   
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    textField.text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+  }
+  
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    //textField.text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
     textField.resignFirstResponder()
     return true
   }

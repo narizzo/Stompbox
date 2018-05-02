@@ -88,7 +88,7 @@ class ContainerViewController: UIViewController {
   private func configureToolBarButtons() {
     // Add cancel & done bar buttons
     let cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelChanges))
-    let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(acceptChanges))
+    let doneBarButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(acceptChanges))
     
     navigationItem.setLeftBarButton(cancelBarButton, animated: true)
     navigationItem.setRightBarButton(doneBarButton, animated: true)
@@ -100,11 +100,17 @@ class ContainerViewController: UIViewController {
   
   @objc func acceptChanges() {
     guard stompboxDetailViewController.isStompboxInfoIncomplete() == false else {
-      alertUserIncompleteInformation()
+      alertUserIncompleteStompboxInformation()
       return
     }
-    stompboxDetailViewController.saveChanges() // 'go down' -> tell controller that owns stompboxCell to prepare for saving
-    containerViewControllerDelegate.didAcceptChanges(self) // 'go up' -> tell the controller that owns the coreDataStack to saveContext
+    
+    guard stompboxDetailViewController.isSettingInfoIncomplete() == false else {
+      alertUserIncompleteSettingInformation()
+      return
+    }
+    
+    stompboxDetailViewController.saveChanges() // go 'down' the hierarchy and tell the controller that owns stompboxCell to prepare for saving
+    containerViewControllerDelegate.didAcceptChanges(self) // go 'up' the hierarchy and tell the controller that owns the coreDataStack to saveContext
   }
   
   // MARK: - Navigation Title
@@ -119,8 +125,17 @@ class ContainerViewController: UIViewController {
     }
   }
   
-  private func alertUserIncompleteInformation() {
+  private func alertUserIncompleteStompboxInformation() {
     let alert = UIAlertController(title: "Please enter the Stompbox's name, type, and manufacturer.",
+                                  message: nil,
+                                  preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "OK", style: .default)
+    alert.addAction(okAction)
+    present(alert, animated: true, completion: nil)
+  }
+  
+  private func alertUserIncompleteSettingInformation() {
+    let alert = UIAlertController(title: "Please enter a name for each knob.",
                                   message: nil,
                                   preferredStyle: .alert)
     let okAction = UIAlertAction(title: "OK", style: .default)

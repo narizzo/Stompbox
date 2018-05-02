@@ -51,5 +51,4 @@ extension StompboxViewController: UITableViewDataSource {
       return settingCell
     }
   }
-  
 }

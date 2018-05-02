@@ -19,7 +19,11 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   typealias knobViewType = ComplexKnobView
   var knobViews = [knobViewType]()
   var contentViewRef = UIView()
-  var knobLayoutStyle: Int = 0
+  var knobLayoutStyle: Int = 0 {
+    didSet {
+      configureKnobViewsRects()
+    }
+  }
   var isBeingEdited = false { didSet { toggleEditing() } }
   var viewController: UIViewController!
   var leftButton: UIBarButtonItem?

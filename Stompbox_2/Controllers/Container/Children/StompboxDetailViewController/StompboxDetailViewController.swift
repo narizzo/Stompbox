@@ -56,6 +56,22 @@ class StompboxDetailViewController: UITableViewController {
    return false
   }
   
+  func isSettingInfoIncomplete() -> Bool {
+    guard let settingCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? SimpleSettingCell else {
+      return true
+    }
+    
+    for knobView in settingCell.knobViews {
+      if let text = knobView.nameTextField.text {
+        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmedText.isEmpty {
+          return true
+        }
+      }
+    }
+    return false
+  }
+  
   func saveChanges() {
     if let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell {
       if stompboxToEdit == nil {

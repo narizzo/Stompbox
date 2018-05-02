@@ -13,13 +13,6 @@ extension StompboxDetailViewController {
     tableView.deselectRow(at: indexPath, animated: true)
   }
   
-//  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//    if indexPath.row == 0 {
-//      return Constants.stompboxCellHeight
-//    } else {
-//      return Constants.settingCellHeight
-//    }
-//  }
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     let height = tableView.bounds.height / 2.0
     if let cell = tableView.cellForRow(at: indexPath) as? SimpleSettingCell {
