@@ -119,8 +119,8 @@ extension StompboxDetailViewController {
       var i = 0
       while i < names.count && i < simpleSettingCell.knobViews.count { // while i < the number of knob data model objects and UI knobViews
         simpleSettingCell.knobViews[i].nameTextField.text = names[i]
+         i += 1
       }
-      i += 1
       
 //      if let settings = stompboxToEdit.settings {
 //        if let setting = settings.firstObject as? Setting {

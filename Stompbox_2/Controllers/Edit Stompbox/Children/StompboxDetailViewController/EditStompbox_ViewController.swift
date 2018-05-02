@@ -74,12 +74,12 @@ class StompboxDetailViewController: UITableViewController {
   
   func saveChanges() {
     if let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell {
-      
+      print("1:")
       if stompboxToEdit == nil {
         stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
       }
       
-      stompboxToEdit!.setPropertiesTo(name: (stompboxCell.nameTextField.text)!,
+      stompboxToEdit!.setTextPropertiesTo(name: (stompboxCell.nameTextField.text)!,
                                       type: (stompboxCell.typeTextField.text)!,
                                       manufacturer: (stompboxCell.manufacturerTextField.text)!)
       
@@ -101,12 +101,12 @@ class StompboxDetailViewController: UITableViewController {
         }
         
         // make ControlName entities for each knob name
-        var i = 0
-        while i < stompboxToEdit!.controlNames!.count {
+        while stompboxToEdit!.controlNames!.count < knobNames.count {
           let newControlName = ControlName.init(entity: NSEntityDescription.entity(forEntityName: "ControlName", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
           stompboxToEdit!.addToControlNames(newControlName)
-          i += 1
         }
+        
+        print("2: \(stompboxToEdit!.controlNames!.count)")
         
         // store knob names in control names
         var j = 0
