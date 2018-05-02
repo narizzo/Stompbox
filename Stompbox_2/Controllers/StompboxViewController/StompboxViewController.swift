@@ -15,7 +15,6 @@ class StompboxViewController: UIViewController {
   var selectedStompbox: Stompbox?
   
   /* StompboxButtonDelegate vars  */
-  // make separate object for this?
   var imagePicker = UIImagePickerController()
   var didPickNewThumbnail = false
   var imageData = Data()
@@ -49,6 +48,7 @@ class StompboxViewController: UIViewController {
     UIApplication.shared.statusBarStyle = .lightContent
     
     // stop unnecessary reload of table elements
+    // make method that takes the stompbox that was modified and only reload that section?
     if tableNeedsReload {
       tableView.reloadData()
       tableNeedsReload = false
@@ -178,21 +178,20 @@ class StompboxViewController: UIViewController {
     
   }
   
+  // MARK: - Shade Setting Cells
   private func shade(_ cell: ComplexSettingCell, at indexPath: IndexPath) {
     indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lighterGray)
   }
   
-//  func shadeSettingCells() {
-//    let sections = tableView.numberOfSections
-//    for section in 0..<sections {
-//      let rows = tableView.numberOfRows(inSection: section)
-//      for row in 0..<rows {
-//        if let cell = tableView.cellForRow(at: IndexPath(row: row, section: section)) as? ComplexSettingCell {
-//          row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lighterGray)
-//        }
-//      }
-//    }
-//  }
+  func shadeSettingCells(in section: Int) {
+      let rows = tableView.numberOfRows(inSection: section)
+      for row in 0..<rows {
+        let indexPath = IndexPath(row: row, section: section)
+        if let cell = tableView.cellForRow(at: IndexPath(row: row, section: section)) as? ComplexSettingCell {
+          shade(cell, at: indexPath)
+        }
+      }
+  }
   
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

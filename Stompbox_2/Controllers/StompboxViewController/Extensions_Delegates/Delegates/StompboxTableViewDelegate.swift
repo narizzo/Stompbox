@@ -84,6 +84,7 @@ extension StompboxViewController: UITableViewDelegate {
   
   // MARK: - Setting
   func addSetting(at indexPath: IndexPath) {
+    print("add Setting")
     let stompbox = fetchedResultsController.object(at: indexPath)
     let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
     stompbox.addToSettings(setting)
@@ -129,17 +130,6 @@ extension StompboxViewController: UITableViewDelegate {
     let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
     let setting = stompbox.settings![indexPath.row - 1] as! Setting
     
-    
-//    coreDataStack.moc.perform {
-//      self.controllerWillChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-//
-//      self.tableView.deleteRows(at: [indexPath], with: .automatic)
-//      stompbox.removeFromSettings(setting)
-//      self.coreDataStack.moc.delete(setting)
-//      self.coreDataStack.saveContext()
-//
-//      self.controllerDidChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-//    }
     self.controllerWillChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
     
     self.tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -148,7 +138,7 @@ extension StompboxViewController: UITableViewDelegate {
     self.coreDataStack.saveContext()
     
     self.controllerDidChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    //self.shadeSettingCells()
+    self.shadeSettingCells(in: indexPath.section)
   }
   
   // MARK: - Collapse/Expand Section
