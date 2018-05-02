@@ -46,7 +46,6 @@ class StompboxViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     UIApplication.shared.statusBarStyle = .lightContent
-    
     // stop unnecessary reload of table elements
     // make method that takes the stompbox that was modified and only reload that section?
     if tableNeedsReload {
@@ -134,6 +133,7 @@ class StompboxViewController: UIViewController {
   
   // Configure helper method
   private func configureSettingCell(_ cell: ComplexSettingCell, for indexPath: IndexPath) {
+    print("configureSettingCell")
     let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
     if cell.coreDataStack == nil {
       cell.coreDataStack = coreDataStack
@@ -154,6 +154,7 @@ class StompboxViewController: UIViewController {
       cell.setting = stompbox.settings?[indexPath.row - 1] as? Setting
     }
     
+    // Color the Setting background
     shade(cell, at: indexPath)
     
     // load knob configuration
