@@ -8,9 +8,9 @@
 
 import UIKit
 
-// MARK: - UITableViewDataSource
 extension StompboxViewController: UITableViewDataSource {
   
+  // MARK: - Table Data Source Methods
   func numberOfSections(in tableView: UITableView) -> Int {
     guard let sections = fetchedResultsController.sections else {
       return 0
@@ -40,7 +40,6 @@ extension StompboxViewController: UITableViewDataSource {
     return (tableView.bounds.height - tableView.safeAreaInsets.top) / 3
   }
   
-  // MARK: - Cell For Row At
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if indexPath.row == 0 {
       let stompboxCell = tableView.dequeueReusableCell(withIdentifier: Constants.stompboxCellReuseID, for: indexPath)
@@ -53,17 +52,18 @@ extension StompboxViewController: UITableViewDataSource {
     }
   }
   
-  // MARK: - Configure Methods
+  // MARK: - Configure Cells
   func configure(_ cell: UITableViewCell, for indexPath: IndexPath) {
     if let cell = cell as? StompboxCell {
-      configureStompboxCell(cell, for: indexPath)
+      configureStompboxCell(cell, at: indexPath)
     }
     if let cell = cell as? ComplexSettingCell {
-      configureSettingCell(cell, for: indexPath)
+      configureSettingCell(cell, at: indexPath)
     }
   }
   
-  private func configureStompboxCell(_ cell: StompboxCell, for indexPath: IndexPath) {
+  // MARK: - Configure Stompbox Cell
+  private func configureStompboxCell(_ cell: StompboxCell, at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
     cell.nameTextField.text = stompbox.name
     cell.typeTextField.text = stompbox.type
@@ -98,25 +98,15 @@ extension StompboxViewController: UITableViewDataSource {
     }
   }
   
-  private func configureSettingCell(_ cell: ComplexSettingCell, for indexPath: IndexPath) {
-    print("configureSettingCell")
+  // MARK: - Configure Setting Cell
+  private func configureSettingCell(_ cell: ComplexSettingCell, at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
-    print("1:")
-    // Configure
+    
+    // Configure Setting Cell
     loadDependencies(for: cell, at: indexPath, with: stompbox)
-    shade(cell, at: indexPath) // Color the Setting background
-    cell.knobLayoutStyle = Int(stompbox.knobLayoutStyle)
-    print("2:")
-    /* load knob names and values */
-    guard let settings = stompbox.settings else {
-      return
-    }
-    print("3:")
-    // all of the settings will have the same knob names; the setting used is arbitrary
-    guard let setting = settings.firstObject as? Setting else {
-      return
-    }
     loadKnobNames(for: cell, from: stompbox)
+    //loadKnobValues(for: cell, at: indexPath, from: stompbox)
+    shade(cell, at: indexPath) // Color the Setting background
   }
   
   private func loadDependencies(for cell: ComplexSettingCell, at indexPath: IndexPath, with stompbox: Stompbox) {
@@ -138,20 +128,17 @@ extension StompboxViewController: UITableViewDataSource {
     if cell.delegate == nil {
       cell.delegate = self
     }
+    
+    cell.knobLayoutStyle = Int(stompbox.knobLayoutStyle)
   }
   
   private func loadKnobNames(for cell: ComplexSettingCell, from stompbox: Stompbox) {
     // load names from storage
     var names = [String]()
-    print("5a:")
     if let controlNames = stompbox.controlNames {
-      print("5b:")
       for controlName in controlNames {
-        print("5c:")
         if let aControlName = controlName as? ControlName {
-          print("5d:")
           names.append(aControlName.name!) // name is non-optional but xcode thinks it's optional and requires unwrapping
-          print("5e:")
         }
       }
     }
@@ -159,15 +146,33 @@ extension StompboxViewController: UITableViewDataSource {
     // load names into knobViews
     var i = 0
     while i < names.count && i < cell.knobViews.count { // while i < the number of knob data model objects and UI knobViews
-      print("5f:")
       cell.knobViews[i].knobNameLabel.text = names[i]
-      print("5g:")
       i += 1
     }
-    print("5h: end")
   }
   
-  // MARK: - Shade Setting Cells
+//  private func loadKnobValues(for cell: ComplexSettingCell, at indexPath: IndexPath, from stompbox: Stompbox) {
+//    guard let settings = stompbox.settings else {
+//      return
+//    }
+//
+//    guard let setting = settings[indexPath.row - 1] as? Setting else {
+//      return
+//    }
+//
+//    guard let knobs = setting.knobs else {
+//      return
+//    }
+//
+//    var i = 0
+//    while i < cell.knobViews.count && i < knobs.count {
+//      if let knob = knobs[i] as? Knob {
+//        cell.knobViews[i].setValue(Float(knob.value / 100), animated: false)
+//      }
+//      i += 1
+//    }
+//  }
+  
   private func shade(_ cell: ComplexSettingCell, at indexPath: IndexPath) {
     indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lighterGray)
   }

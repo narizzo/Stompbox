@@ -21,7 +21,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   var contentViewRef = UIView()
   var knobLayoutStyle: Int = 0 {
     didSet {
-      configureKnobViewsRects()
+      configureKnobViewRects()
     }
   }
   var isBeingEdited = false { didSet { toggleEditing() } }
@@ -63,15 +63,19 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
       knobLayoutStyle = Int(stompbox.knobLayoutStyle)
     }
     
-    configureKnobViewsRects()
+    configureKnobViews()
+    configureKnobViewRects()
+  }
+  
+  private func configureKnobViews() {
+    clearExistingKnobViews()
+    populateKnobViews()   /* protocol default */
+    populateContentView() /* protocol default */
     populateKnobEntities()
     loadKnobData()
   }
   
-  func configureKnobViewsRects() {
-    clearExistingKnobViews()
-    populateKnobViews()   /* protocol default */
-    populateContentView() /* protocol default */
+  func configureKnobViewRects() {
     let rects = calculateKnobViewRects(with: self.bounds)
     var i = 0
     for knobView in knobViews {
@@ -97,6 +101,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
         return
       }
       if let knob = setting.knobs![index] as? Knob {
+        print("1: stored knob value: \(Float(knob.value) / 100))")
         knobView.setValue(Float(knob.value) / 100, animated: false)
         knobView.knobNameLabel.text = knob.name
       }
@@ -137,14 +142,8 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   private func toggleKnobHighlight() {
-//    var color: UIColor
-//    isBeingEdited ? (color = UIColor.yellow) : (color = blue)
-    
     for knobView in knobViews {
       knobView.isBeingEdited = isBeingEdited
-//      knobView.changeStrokeColor(to: color)
-//      knobView.changeKnobLabelTextColor(to: color)
-//      knobView.changeKnobPositionTextColor(to: color)
     }
   }
   
@@ -188,7 +187,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     var index = 0
     for knobView in knobViews {
       if let knob = setting.knobs?[index] as? Knob {
-        knob.value = Int16(knobView.value * 100)
+        knob.value = Int16(knobView.getValue() * 100)
       }
       index += 1
     }

@@ -20,7 +20,7 @@ protocol SettingCell: class {
   func clearExistingKnobViews()
   func populateKnobViews()
   func populateContentView()
-  func configureKnobViewsRects()
+  func configureKnobViewRects()
   func calculateKnobViewRects(with bounds: CGRect) -> [CGRect]
 }
 
@@ -51,6 +51,8 @@ extension SettingCell where Self: UITableViewCell {
     
     let verticalBuffer = bounds.height * 0.05
     
+    let threeKnobBuffer = bounds.width * 0.05
+    
     var knobViewPositions = [CGPoint]()
     var knobViewRects = [CGRect]()
     
@@ -67,9 +69,9 @@ extension SettingCell where Self: UITableViewCell {
                            CGPoint(x: centerX + halfKnobSide,       y: knobSide - verticalBuffer),]
     case 2:
       // Three Horizontal
-      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0, y: centerY - halfKnobSide),
-                           CGPoint(x: centerX - halfKnobSide,       y: centerY - halfKnobSide),
-                           CGPoint(x: centerX + halfKnobSide,       y: centerY - halfKnobSide),]
+      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0 - threeKnobBuffer, y: centerY - halfKnobSide),
+                           CGPoint(x: centerX - halfKnobSide,                         y: centerY - halfKnobSide),
+                           CGPoint(x: centerX + halfKnobSide + threeKnobBuffer,       y: centerY - halfKnobSide),]
     default:
       // One Centered
       knobViewPositions = [CGPoint(x: centerX - halfKnobSide,       y: centerY - halfKnobSide),]

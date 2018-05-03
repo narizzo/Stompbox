@@ -148,6 +148,7 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   
   // MARK: - Angle
   func setPointerAngle(to value: Float, animated: Bool) {
+    print("3: \(value)")
     setAngle(for: pointerLayer, to: value, animated: animated)
   }
   
@@ -170,16 +171,12 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
 //  }
   
   func setAngle(for layer: CAShapeLayer, to value: Float, animated: Bool) {
+    print("4: \(value)")
     let angle = calculateAngle(for: value)
-    
     CATransaction.begin()
     CATransaction.setDisableActions(true)
     layer.transform = CATransform3DMakeRotation(angle, 0.0, 0.0, 0.1)
     CATransaction.commit()
-  }
-  
-  func setClockAngle(for layer: CAShapeLayer, to angle: CGFloat) {
-    layer.transform = CATransform3DMakeRotation(angle, 0.0, 0.0, 0.1)
   }
   
   func calculateAngle(for value: Float) -> CGFloat {
@@ -188,18 +185,16 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     return angle
   }
   
+  func setClockAngle(for layer: CAShapeLayer, to angle: CGFloat) {
+    layer.transform = CATransform3DMakeRotation(angle, 0.0, 0.0, 0.1)
+  }
+  
   
   // MARK: - Color
   func hightlight() {
-    let breatheAnimation = CABasicAnimation(keyPath: "strokeColor")
-    breatheAnimation.fromValue = trackLayerHighlight
-    breatheAnimation.toValue = trackLayerDefault
-    breatheAnimation.duration = 1.0
-    breatheAnimation.repeatCount = 0
-
-    trackLayer.add(breatheAnimation, forKey: "strokeColor")
-    for layer in clockLayers {
-      layer.add(breatheAnimation, forKey: "strokeColor")
+    trackLayer.strokeColor = trackLayerHighlight
+    for tick in clockLayers {
+      tick.strokeColor = clockLayerHighlight
     }
   }
   

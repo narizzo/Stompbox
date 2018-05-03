@@ -15,7 +15,7 @@ class SimpleSettingCell: UITableViewCell, SettingCell {
   var contentViewRef = UIView()
   var knobLayoutStyle: Int = 0 {
     didSet {
-      configureKnobViewsRects()
+      configureKnobViewRects()
     }
   }
   
@@ -38,16 +38,16 @@ class SimpleSettingCell: UITableViewCell, SettingCell {
   // MARK: - Custom Init
   private func initializeCell() {
     contentViewRef = contentView
-    configureKnobViewsRects()
+    configureKnobViewRects()
   }
   
   func set(_ height: CGFloat) {
     self.bounds.size = CGSize(width: bounds.size.width, height: height)
-    configureKnobViewsRects()
+    configureKnobViewRects()
   }
   
   // REDUNDANT
-  func configureKnobViewsRects() {
+  func configureKnobViewRects() {
     clearExistingKnobViews()
     populateKnobViews()
     populateContentView()

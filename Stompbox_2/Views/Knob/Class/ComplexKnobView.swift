@@ -9,7 +9,7 @@
 import UIKit
 
 class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
-
+  
   // variables
   var gestureRecognizer: UIGestureRecognizer = UIPanGestureRecognizer()
   var complexKnobLayer = ComplexKnobLayer()
@@ -17,7 +17,7 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   var valueLabel = KnobPositionLabel()
   var knobNameLabel = UILabel()
   
-  var value: Float = 0.0
+  private var value: Float = 0.0
   var minimumValue: Float = 0.0
   var maximumValue: Float = 1.0
   
@@ -100,8 +100,14 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   
   // MARK: - Knob Value
   func setValue(_ value: Float, animated: Bool) {
+    print("2: \(value)")
     self.value = min(maximumValue, max(minimumValue, value))
+    print("2a: \(self.value)")
     complexKnobLayer.setPointerAngle(to: self.value, animated: animated)
+  }
+  
+  public func getValue() -> Float {
+    return self.value
   }
   
   private func positionKnobLabel() {
@@ -124,10 +130,12 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
     }
   }
   
+  
+  // MARK: - Color
   private func updateKnobColors() {
     isBeingEdited ? complexKnobLayer.hightlight() : complexKnobLayer.unhighlight()
   }
-  // MARK: - Color
+  
   func changeStrokeColor(to color: UIColor) {
     complexKnobLayer.changeStrokeColor(to: color)
   }

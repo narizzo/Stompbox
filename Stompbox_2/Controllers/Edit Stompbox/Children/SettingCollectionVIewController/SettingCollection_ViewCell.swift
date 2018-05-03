@@ -43,6 +43,6 @@ class SettingCollectionViewCell: UICollectionViewCell {
   func setSize(to size: CGSize) {
     bounds.size = size
     templateSettingCell.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: size)
-    templateSettingCell.configureKnobViewsRects()
+    templateSettingCell.configureKnobViewRects()
   }
 }

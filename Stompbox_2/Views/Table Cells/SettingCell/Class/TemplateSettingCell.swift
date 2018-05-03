@@ -28,11 +28,11 @@ class TemplateSettingCell: UITableViewCell, SettingCell {
   // MARK: - Custom Init
   private func initializeCell() {
     contentViewRef = contentView
-    configureKnobViewsRects()
+    configureKnobViewRects()
   }
   
   // REDUNDANT
-  func configureKnobViewsRects() {
+  func configureKnobViewRects() {
     clearExistingKnobViews()
     populateKnobViews()
     populateContentView()
