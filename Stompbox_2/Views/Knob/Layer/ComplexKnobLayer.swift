@@ -8,8 +8,15 @@
 
 import UIKit
 
+// unused protocol
+protocol ComplexKnobLayerValueDelegate: class {
+  func setValue(_ value: Float)
+}
+
 class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
  
+  var valueDelegate: ComplexKnobLayerValueDelegate!
+  
   var clockLayers = [CAShapeLayer]()
   var clockTickLength: CGFloat = 1.0
   var trackLayer = CAShapeLayer()
@@ -148,34 +155,34 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   
   // MARK: - Angle
   func setPointerAngle(to value: Float, animated: Bool) {
-    print("3: \(value)")
     setAngle(for: pointerLayer, to: value, animated: animated)
   }
   
-//  private func calculateNearestAngle(for value: Float) -> Float {
-//    let snapIncrement: Float = 1.0 / Float(clockLayers.count)
-//    var closestValue: Float = 1.0
-//    var iterator: Float = 0.0
-//    while iterator < 1.0 {
-//      print("iterator: \(iterator)")
-//      var i = value - iterator
-//      if i < 0 { i *= -1 }
-//      
-//      if i < closestValue {
-//        closestValue = iterator
-//      }
-//      iterator += snapIncrement
-//    }
-//    print(closestValue)
-//    return closestValue
-//  }
-  
   func setAngle(for layer: CAShapeLayer, to value: Float, animated: Bool) {
-    let angle = calculateAngle(for: value)
-    CATransaction.begin()
-    CATransaction.setDisableActions(true)
-    layer.transform = CATransform3DMakeRotation(angle, 0.0, 0.0, 0.1)
-    CATransaction.commit()
+    
+    let currentAngle = calculateAngle(for: value)
+    let closestValue = calculateNearestClockHourAngle(for: value)
+    let closestAngle = calculateAngle(for: closestValue)
+    
+    if animated {
+      let midAngle = (max(currentAngle, closestAngle) - min(currentAngle, closestAngle) ) / 2.0 + min(currentAngle, closestAngle)
+      print("currentAngle: \(currentAngle)")
+      print("midAngle: \(midAngle)")
+      print("closestAngle: \(closestAngle)")
+      
+      let animation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
+      animation.duration = 0.25
+      
+      animation.values = [currentAngle, midAngle, closestAngle]
+      animation.keyTimes = [0.0, 0.5, 1.0]
+      animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+      pointerLayer.add(animation, forKey: nil)
+    } else {
+      CATransaction.begin()
+      CATransaction.setDisableActions(true)
+      layer.transform = CATransform3DMakeRotation(currentAngle, 0.0, 0.0, 0.1)
+      CATransaction.commit()
+    }
   }
   
   func calculateAngle(for value: Float) -> CGFloat {
@@ -184,8 +191,36 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     return angle
   }
   
+  func calculateValue(for angle: CGFloat) -> Float {
+    return Float(angle / (CGFloat.pi * 2.0))
+  }
+  
   func setClockAngle(for layer: CAShapeLayer, to angle: CGFloat) {
     layer.transform = CATransform3DMakeRotation(angle, 0.0, 0.0, 0.1)
+  }
+  
+  func calculateNearestClockHourAngle(for value: Float) -> Float {
+    let value = CGFloat(value)
+    /// 360 degrees - the section that the knob can't rotate to
+    let knobRange = (CGFloat.pi * 2) - (startAngle - endAngle)
+    /// each hour is Pi/6.  Find how many hours fit within the knobRange
+    let hour = CGFloat.pi / 6.0
+    let numberOfHours: CGFloat = (knobRange / hour) + 1.0 // + 1 because 0 based hours 0 to 10 is 11 hours
+    let valueIncrement = 1.0 / CGFloat(numberOfHours)
+  
+    var closestValue = CGFloat.infinity
+    var closestIncrement: CGFloat = 0.0
+    
+    for i in 0...Int(numberOfHours) {
+      let temp = CGFloat(i) * valueIncrement
+      let difference = abs(value - temp)
+      if difference < closestValue {
+        closestValue = difference
+        closestIncrement = temp
+      }
+    }
+    print("closestIncrement: \(closestIncrement)")
+    return Float(closestIncrement)
   }
   
   

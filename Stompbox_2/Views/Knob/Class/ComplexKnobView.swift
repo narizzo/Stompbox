@@ -48,6 +48,7 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
     self.addSubview(valueLabel)
     self.addSubview(knobNameLabel)
     self.layer.addSublayer(complexKnobLayer)
+    complexKnobLayer.valueDelegate = self
   }
   
   // MARK: - Knob Label
@@ -86,10 +87,11 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   @objc func handleGesture(recognizer: UIPanGestureRecognizer) {
     var translation = recognizer.translation(in: recognizer.view)
     let translationAmount = (-translation.y) / 250
-   
-    let newValue = self.value + Float(translationAmount)
-    setValue(newValue, animated: false)
     
+    let newValue = self.value + Float(translationAmount)
+    
+    let gestureHasEnded = recognizer.state == .ended // animate to closest position if gesture has ended
+    setValue(newValue, animated: gestureHasEnded)
     recognizer.setTranslation(CGPoint(x: 0.0, y: 0.0), in: recognizer.view)
     translation = recognizer.translation(in: recognizer.view)
   }
@@ -100,9 +102,7 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   
   // MARK: - Knob Value
   func setValue(_ value: Float, animated: Bool) {
-    print("2: \(value)")
     self.value = min(maximumValue, max(minimumValue, value))
-    print("2a: \(self.value)")
     complexKnobLayer.setPointerAngle(to: self.value, animated: animated)
   }
   
@@ -146,5 +146,11 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   
   func changeKnobPositionTextColor(to color: UIColor) {
     // do nothing
+  }
+}
+
+extension ComplexKnobView: ComplexKnobLayerValueDelegate {
+  func setValue(_ value: Float) {
+    self.value = value
   }
 }
