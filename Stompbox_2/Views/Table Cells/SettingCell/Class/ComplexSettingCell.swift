@@ -101,7 +101,6 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
         return
       }
       if let knob = setting.knobs![index] as? Knob {
-        print("1: stored knob value: \(Float(knob.value) / 100))")
         knobView.setValue(Float(knob.value) / 100, animated: false)
         knobView.knobNameLabel.text = knob.name
       }

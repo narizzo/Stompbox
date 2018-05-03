@@ -36,13 +36,13 @@ extension StompboxViewController: UITableViewDelegate {
   
   // MARK: - Swipe Actions
   
-  // Leading Swipe Actions
+  /* Leading */
   func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     let edit = editAction(at: indexPath)
     return UISwipeActionsConfiguration(actions: [edit])
   }
   
-  // Trailing Swipe Actions
+  /* Trailing */
   private func editAction(at indexPath: IndexPath) -> UIContextualAction {
     let edit = UIContextualAction(style: .normal, title: "Edit") { action, view, index in
       if let _ = self.tableView.cellForRow(at: indexPath) as? StompboxCell {
@@ -57,14 +57,14 @@ extension StompboxViewController: UITableViewDelegate {
   
   
   // MARK: - Stompbox
-  // edit
+  /* edit */
   func editStompbox(at indexPath: IndexPath) {
     self.selectedStompbox = self.fetchedResultsController.object(at: indexPath)
     tableView.setEditing(false, animated: true)
     showStompboxDetailView()
   }
 
-  // delete
+  /* delete */
   func deleteStompbox(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
     
@@ -83,6 +83,7 @@ extension StompboxViewController: UITableViewDelegate {
   
   
   // MARK: - Setting
+  /* add */
   func addSetting(at indexPath: IndexPath) {
     print("add Setting")
     let stompbox = fetchedResultsController.object(at: indexPath)
@@ -102,6 +103,7 @@ extension StompboxViewController: UITableViewDelegate {
     }
   }
   
+  /* edit */
   func editSetting(at indexPath: IndexPath) {
     // shouldn't need to update the whole table but targeting the cell to setEditing doesn't work yet
     tableView.setEditing(false, animated: true)
@@ -128,6 +130,7 @@ extension StompboxViewController: UITableViewDelegate {
     }
   }
   
+  /* delete */
   func deleteSetting(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
     let setting = stompbox.settings![indexPath.row - 1] as! Setting
@@ -144,6 +147,7 @@ extension StompboxViewController: UITableViewDelegate {
   }
   
   // MARK: - Collapse/Expand Section
+  /* StompboxCell */
   func collapseExpandSection(for stompboxCell: StompboxCell) {
     if let indexPath = tableView.indexPath(for: stompboxCell) {
       let stompbox = fetchedResultsController.object(at: indexPath)
@@ -151,6 +155,7 @@ extension StompboxViewController: UITableViewDelegate {
     }
   }
   
+  /* Stompbox Data Object */
   private func collapseSection(for stompbox: Stompbox, at indexPath: IndexPath) {
     guard let count = stompbox.settings?.count else {
       return
@@ -182,7 +187,7 @@ extension StompboxViewController: UITableViewDelegate {
     coreDataStack.saveContext()
   }
   
-  
+  /* expand-collapse helper method */
   private func buildIndexPathsArray(at indexPath: IndexPath, ofSize count: Int) -> [IndexPath]? {
     if count > 0 {
       var indexPaths = [IndexPath]()

@@ -171,7 +171,6 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
 //  }
   
   func setAngle(for layer: CAShapeLayer, to value: Float, animated: Bool) {
-    print("4: \(value)")
     let angle = calculateAngle(for: value)
     CATransaction.begin()
     CATransaction.setDisableActions(true)
