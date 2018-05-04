@@ -89,9 +89,10 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
     let translationAmount = (-translation.y) / 250
     
     let newValue = self.value + Float(translationAmount)
-    
     let gestureHasEnded = recognizer.state == .ended // animate to closest position if gesture has ended
     setValue(newValue, animated: gestureHasEnded)
+    
+    // reset recognizer
     recognizer.setTranslation(CGPoint(x: 0.0, y: 0.0), in: recognizer.view)
     translation = recognizer.translation(in: recognizer.view)
   }
