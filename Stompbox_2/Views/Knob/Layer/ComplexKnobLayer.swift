@@ -166,11 +166,8 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     
     /* set angle is animated only when touches have ended */
     if animated {
+      // performs an animation of the rotation
       let midAngle = (max(currentAngle, closestAngle) - min(currentAngle, closestAngle) ) / 2.0 + min(currentAngle, closestAngle)
-//      print("currentAngle: \(currentAngle)")
-//      print("midAngle: \(midAngle)")
-//      print("closestAngle: \(closestAngle)")
-      
       let animation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
       animation.duration = 0.50
       
@@ -178,7 +175,11 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
       animation.keyTimes = [0.0, 0.5, 1.0]
       animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
       pointerLayer.add(animation, forKey: nil)
+      
+      // set the value in complexKnobView so that the 'snap' value can be saved to the data model.
+      valueDelegate.setValue(closestValue)
     }
+    // perform the actual rotation
     CATransaction.begin()
     CATransaction.setDisableActions(true)
     var angle: CGFloat

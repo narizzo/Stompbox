@@ -41,6 +41,8 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   private func initialize() {
     addViewsAndLayers()
     configureKnobNameLabel()
+    
+    complexKnobLayer.valueDelegate = self
   }
   
   // MARK: - Subviews
@@ -48,7 +50,6 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
     self.addSubview(valueLabel)
     self.addSubview(knobNameLabel)
     self.layer.addSublayer(complexKnobLayer)
-    complexKnobLayer.valueDelegate = self
   }
   
   // MARK: - Knob Label

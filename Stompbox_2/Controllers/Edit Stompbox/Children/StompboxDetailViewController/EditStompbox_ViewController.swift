@@ -108,8 +108,10 @@ class StompboxDetailViewController: UITableViewController {
         // store knob names in control names
         var j = 0
         for controlName in stompboxToEdit!.controlNames! {
-          if let controlName = controlName as? ControlName {
-            controlName.name = knobNames[j]
+          if j < knobNames.count {
+            if let controlName = controlName as? ControlName {
+              controlName.name = knobNames[j]
+            }
           }
           j += 1
         }

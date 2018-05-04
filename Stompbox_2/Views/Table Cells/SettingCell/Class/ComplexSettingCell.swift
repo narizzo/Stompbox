@@ -79,7 +79,9 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     let rects = calculateKnobViewRects(with: self.bounds)
     var i = 0
     for knobView in knobViews {
-      knobView.set(frame: rects[i])
+      if i < rects.count {
+        knobView.set(frame: rects[i])
+      }
       i += 1
     }
   }
