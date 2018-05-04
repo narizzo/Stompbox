@@ -47,7 +47,8 @@ class SettingCollectionViewController: UIViewController {
   }
   
   private func updateItemSize() {
-    layout.itemSize = CGSize(width: view.bounds.width / 2.0, height: view.bounds.height / 2.0)
+    /* 21 is a magical vertical offset number.  The view height is too large by 21. */ 
+    layout.itemSize = CGSize(width: view.bounds.width / 2.0, height: (view.bounds.height - 21) / 2.0)
   }
 }
 

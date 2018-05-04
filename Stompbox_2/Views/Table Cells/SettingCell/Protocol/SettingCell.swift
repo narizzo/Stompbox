@@ -38,6 +38,8 @@ extension SettingCell where Self: UITableViewCell {
       return 3
     case 2:
       return 3
+    case 3:
+      return 4
     default:
       return 1
     }
@@ -51,7 +53,7 @@ extension SettingCell where Self: UITableViewCell {
     
     let verticalBuffer = bounds.height * 0.05
     
-    let threeKnobBuffer = bounds.width * 0.05
+    let knobBuffer = bounds.width * 0.05
     
     var knobViewPositions = [CGPoint]()
     var knobViewRects = [CGRect]()
@@ -69,9 +71,15 @@ extension SettingCell where Self: UITableViewCell {
                            CGPoint(x: centerX + halfKnobSide,       y: knobSide - verticalBuffer),]
     case 2:
       // Three Horizontal
-      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0 - threeKnobBuffer, y: centerY - halfKnobSide),
+      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0 - knobBuffer, y: centerY - halfKnobSide),
                            CGPoint(x: centerX - halfKnobSide,                         y: centerY - halfKnobSide),
-                           CGPoint(x: centerX + halfKnobSide + threeKnobBuffer,       y: centerY - halfKnobSide),]
+                           CGPoint(x: centerX + halfKnobSide + knobBuffer,       y: centerY - halfKnobSide),]
+    case 3:
+      // Four
+      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0 - knobBuffer, y: centerY - halfKnobSide),
+                           CGPoint(x: centerX - halfKnobSide,                         y: centerY - halfKnobSide),
+                           CGPoint(x: centerX + halfKnobSide + knobBuffer,       y: centerY - halfKnobSide),
+                           CGPoint(x: centerX + knobSide + knobBuffer,       y: centerY - halfKnobSide),]
     default:
       // One Centered
       knobViewPositions = [CGPoint(x: centerX - halfKnobSide,       y: centerY - halfKnobSide),]
