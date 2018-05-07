@@ -65,10 +65,23 @@ extension StompboxViewController: UITableViewDataSource {
   // MARK: - Configure Stompbox Cell
   private func configureStompboxCell(_ cell: StompboxCell, at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
+    
+    loadTextFields(from: stompbox, into: cell)
+    loadImage(from: stompbox, into: cell)
+    setDelegates(for: cell)
+    configureCellState(for: cell, with: stompbox)
+    
+    // color
+    cell.backgroundColor = AppColors.darkerGray
+  }
+  
+  private func loadTextFields(from stompbox: Stompbox, into cell: StompboxCell) {
     cell.nameTextField.text = stompbox.name
     cell.typeTextField.text = stompbox.type
     cell.manufacturerTextField.text = stompbox.manufacturer
-    
+  }
+  
+  private func loadImage(from stompbox: Stompbox, into cell: StompboxCell) {
     // load image
     var image: UIImage?
     if let imageFilePath = stompbox.imageFilePath {
@@ -81,11 +94,14 @@ extension StompboxViewController: UITableViewDataSource {
     } else {
       cell.stompboxButton.setImage(#imageLiteral(resourceName: "BD2-large"), for: .normal)
     }
-    
+  }
+  
+  private func setDelegates(for cell: StompboxCell) {
     cell.delegate = self
     cell.stompboxButton.delegate = self
-    cell.backgroundColor = AppColors.darkerGray
-    
+  }
+  
+  private func configureCellState(for cell: StompboxCell, with stompbox: Stompbox) {
     // Configure delta button
     if stompbox.settings == nil || stompbox.settings!.count < 1 {
       cell.hideDeltaButton()
@@ -97,6 +113,7 @@ extension StompboxViewController: UITableViewDataSource {
       }
     }
   }
+  
   
   // MARK: - Configure Setting Cell
   private func configureSettingCell(_ cell: ComplexSettingCell, at indexPath: IndexPath) {
@@ -145,7 +162,6 @@ extension StompboxViewController: UITableViewDataSource {
         }
       }
     }
-
     // load names into knobViews
     var i = 0
     while i < names.count && i < cell.knobViews.count { // while i < the number of knob data model objects and UI knobViews
