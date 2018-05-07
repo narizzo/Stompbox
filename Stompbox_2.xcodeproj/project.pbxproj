@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0115BB8A2087E2790080CF37 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0115BB892087E2790080CF37 /* Constants.swift */; };
 		013BA65E206ED5F1009D3A93 /* DeltaLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013BA65D206ED5F0009D3A93 /* DeltaLayer.swift */; };
+		014E9847209E597400F0E9FE /* EditStompbox_KeyboardWillShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014E9846209E597400F0E9FE /* EditStompbox_KeyboardWillShow.swift */; };
 		01651D5220506553009F2292 /* Stompbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01651D5120506553009F2292 /* Stompbox.swift */; };
 		0173AC2B206443820010DDEB /* SimpleSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0173AC2A206443820010DDEB /* SimpleSettingCell.xib */; };
 		0173E6AA20349CE200CD9587 /* KnobPositionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0173E6A920349CE200CD9587 /* KnobPositionLabel.swift */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		0115BB892087E2790080CF37 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		013BA65D206ED5F0009D3A93 /* DeltaLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeltaLayer.swift; sourceTree = "<group>"; };
+		014E9846209E597400F0E9FE /* EditStompbox_KeyboardWillShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStompbox_KeyboardWillShow.swift; sourceTree = "<group>"; };
 		01651D5120506553009F2292 /* Stompbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stompbox.swift; sourceTree = "<group>"; };
 		0173AC2A206443820010DDEB /* SimpleSettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleSettingCell.xib; sourceTree = "<group>"; };
 		0173E6A920349CE200CD9587 /* KnobPositionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobPositionLabel.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				01A92BF3208A8269003AD225 /* EditStompbox_TableView_DataSource.swift */,
 				01A92BF5208A8302003AD225 /* EditStompbox_TableView_Delegate.swift */,
 				01E8D327208CD082008699D1 /* EditStompbox_TextField_Delegate.swift */,
+				014E9846209E597400F0E9FE /* EditStompbox_KeyboardWillShow.swift */,
 			);
 			path = StompboxDetailViewController;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 			files = (
 				018463452083BF0400AFA7E7 /* SettingCell_Delegate.swift in Sources */,
 				01EB576E200058D700686767 /* CoreDataStack.swift in Sources */,
+				014E9847209E597400F0E9FE /* EditStompbox_KeyboardWillShow.swift in Sources */,
 				01CAEB91202A42FE00AC556B /* ComplexKnobView.swift in Sources */,
 				01FB51902059C29600DB25E9 /* Stompbox_TableView_DataSource.swift in Sources */,
 				01F0DEB8207A5F59004D7E5B /* Gestureable.swift in Sources */,

@@ -109,6 +109,7 @@ extension StompboxViewController: UITableViewDataSource {
     shade(cell, at: indexPath) // Color the Setting background
   }
   
+  /* Inject properties into Complex Setting */
   private func loadDependencies(for cell: ComplexSettingCell, at indexPath: IndexPath, with stompbox: Stompbox) {
     if cell.coreDataStack == nil {
       cell.coreDataStack = coreDataStack
@@ -141,7 +142,7 @@ extension StompboxViewController: UITableViewDataSource {
         }
       }
     }
-    
+
     // load names into knobViews
     var i = 0
     while i < names.count && i < cell.knobViews.count { // while i < the number of knob data model objects and UI knobViews
@@ -149,28 +150,6 @@ extension StompboxViewController: UITableViewDataSource {
       i += 1
     }
   }
-  
-//  private func loadKnobValues(for cell: ComplexSettingCell, at indexPath: IndexPath, from stompbox: Stompbox) {
-//    guard let settings = stompbox.settings else {
-//      return
-//    }
-//
-//    guard let setting = settings[indexPath.row - 1] as? Setting else {
-//      return
-//    }
-//
-//    guard let knobs = setting.knobs else {
-//      return
-//    }
-//
-//    var i = 0
-//    while i < cell.knobViews.count && i < knobs.count {
-//      if let knob = knobs[i] as? Knob {
-//        cell.knobViews[i].setValue(Float(knob.value / 100), animated: false)
-//      }
-//      i += 1
-//    }
-//  }
   
   private func shade(_ cell: ComplexSettingCell, at indexPath: IndexPath) {
     indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lighterGray)

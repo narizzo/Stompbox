@@ -29,6 +29,7 @@ class StompboxDetailViewController: UITableViewController {
     super.viewDidLoad()
     configureTableView()
     registerNibs()
+    initializeKeyboardNotifications()
   }
   
   private func configureTableView() {

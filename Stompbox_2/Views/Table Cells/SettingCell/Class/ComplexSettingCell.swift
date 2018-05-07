@@ -72,7 +72,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     populateKnobViews()   /* protocol default */
     populateContentView() /* protocol default */
     populateKnobEntities()
-    loadKnobData()
+    loadKnobValues()
   }
   
   func configureKnobViewRects() {
@@ -96,7 +96,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     }
   }
   
-  private func loadKnobData() {
+  private func loadKnobValues() {
     var index = 0
     for knobView in knobViews {
       guard index < setting.knobs!.count else {
@@ -104,7 +104,6 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
       }
       if let knob = setting.knobs![index] as? Knob {
         knobView.setValue(Float(knob.value) / 100, animated: false)
-        knobView.knobNameLabel.text = knob.name
       }
       index += 1
     }
@@ -175,7 +174,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   @objc func cancelChanges() {
-    loadKnobData()
+    loadKnobValues()
     restoreBarButtonsToDefault()
   }
   
@@ -188,7 +187,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
     var index = 0
     for knobView in knobViews {
       if let knob = setting.knobs?[index] as? Knob {
-        knob.value = Int16(knobView.getValue() * 100)
+        knob.value = knobView.getValue()
       }
       index += 1
     }

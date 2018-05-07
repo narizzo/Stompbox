@@ -35,6 +35,7 @@ class ContainerViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    print("view did load")
     
     view.frame.size = UIScreen.main.bounds.size
     view.layoutIfNeeded()
@@ -42,6 +43,10 @@ class ContainerViewController: UIViewController {
     initializeViewControllers()
     configureToolBarButtons()
     configureNavigationTitle()
+  }
+  
+  override func viewWillLayoutSubviews() {
+    print("viewWilllayoutSubviews")
   }
   
   private func initializeViewControllers() {

@@ -22,10 +22,10 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   var trackLayer = CAShapeLayer()
   var pointerLayer = CAShapeLayer()
   var pointerLength: CGFloat = 2.0
-  var pointerAngle: CGFloat = CGFloat(Double.pi * 4.0 / 6.0) { //-CGFloat(Double.pi * 11.0 / 8.0) {
+  var pointerAngle: CGFloat = CGFloat(Double.pi * 4.0 / 6.0) {
     didSet { updatePointerPath() }
   }
-  var startAngle: CGFloat = CGFloat(Double.pi * 4.0 / 6.0) {   //-CGFloat(Double.pi * 11.0 / 8.0) {
+  var startAngle: CGFloat = CGFloat(Double.pi * 4.0 / 6.0) {
     didSet { updateSublayers() }
   }
   var endAngle: CGFloat = CGFloat(Double.pi * 2.0 / 6.0) {
