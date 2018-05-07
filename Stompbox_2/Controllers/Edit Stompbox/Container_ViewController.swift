@@ -45,10 +45,6 @@ class ContainerViewController: UIViewController {
     configureNavigationTitle()
   }
   
-  override func viewWillLayoutSubviews() {
-    print("viewWilllayoutSubviews")
-  }
-  
   private func initializeViewControllers() {
     // Add views
     stackView = UIStackView(arrangedSubviews: [stompboxDetailViewController.view, settingCollectionViewController.view])
