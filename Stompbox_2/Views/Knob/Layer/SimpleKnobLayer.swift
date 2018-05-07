@@ -43,7 +43,7 @@ class SimpleKnobLayer: CAShapeLayer, SimpleKnobRenderer {
   }
   
   private func configureSublayers() {
-    trackLayer.strokeColor = foregroundColor.cgColor
+    trackLayer.strokeColor = AppColors.foregroundColor.cgColor
     trackLayer.fillColor = UIColor.clear.cgColor
     trackLayer.lineWidth = 2.0
     

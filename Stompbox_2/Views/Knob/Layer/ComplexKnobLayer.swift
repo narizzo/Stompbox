@@ -53,8 +53,8 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
     self.addSublayer(trackLayer)
     self.addSublayer(pointerLayer)
     
-    trackLayer.strokeColor = foregroundColor.cgColor
-    pointerLayer.strokeColor = systemLightGray.cgColor
+    trackLayer.strokeColor = AppColors.foregroundColor.cgColor
+    pointerLayer.strokeColor = AppColors.systemLightGray.cgColor
     
     trackLayer.fillColor = UIColor.clear.cgColor
     pointerLayer.fillColor = UIColor.clear.cgColor
@@ -82,7 +82,7 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   
         layer.bounds.size = self.bounds.size
         layer.position = CGPoint(x: bounds.midX, y: bounds.midY)
-        layer.strokeColor = foregroundColor.cgColor
+        layer.strokeColor = AppColors.foregroundColor.cgColor
         layer.lineWidth = 2.0
         layer.path = generateClockLayerPath()
         
@@ -223,16 +223,16 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   
   // MARK: - Color
   func hightlight() {
-    trackLayer.strokeColor = trackLayerHighlight
+    trackLayer.strokeColor = AppColors.trackLayerHighlight
     for tick in clockLayers {
-      tick.strokeColor = clockLayerHighlight
+      tick.strokeColor = AppColors.clockLayerHighlight
     }
   }
   
   func unhighlight() {
-    trackLayer.strokeColor = trackLayerDefault
+    trackLayer.strokeColor = AppColors.trackLayerDefault
     for tick in clockLayers {
-      tick.strokeColor = clockLayerDefault
+      tick.strokeColor = AppColors.clockLayerDefault
     }
   }
   

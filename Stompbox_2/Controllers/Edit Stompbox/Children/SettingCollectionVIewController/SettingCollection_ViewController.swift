@@ -69,7 +69,7 @@ extension SettingCollectionViewController: UICollectionViewDataSource {
     if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.settingCollectionCellReuseID, for: indexPath) as? SettingCollectionViewCell {
       // Shade cell backgrounds using bit mask 1001 as the shading pattern
       let mask = [1,0,0,1]
-      mask[indexPath.row % 4] == 1 ? (cell.backgroundColor = darkerGray) : (cell.backgroundColor = lighterGray)
+      mask[indexPath.row % 4] == 1 ? (cell.backgroundColor = AppColors.darkerGray) : (cell.backgroundColor = AppColors.lighterGray)
       
       // propagate size changes : redraw knob layers
       cell.templateSettingCell.knobLayoutStyle = indexPath.row

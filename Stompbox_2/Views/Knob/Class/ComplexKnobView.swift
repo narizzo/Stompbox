@@ -55,7 +55,7 @@ class ComplexKnobView: UIControl, Gestureable, KnobViewProtocol {
   // MARK: - Knob Label
   private func configureKnobNameLabel() {
     knobNameLabel.textAlignment = .center
-    knobNameLabel.textColor = systemLightGray
+    knobNameLabel.textColor = AppColors.systemLightGray
     
     positionKnobLabel()
   }

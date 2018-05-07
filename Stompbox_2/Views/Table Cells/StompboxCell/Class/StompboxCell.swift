@@ -50,7 +50,7 @@ class StompboxCell: UITableViewCell {
   }
   
   private func setup() {
-    self.backgroundColor = darkerGray
+    self.backgroundColor = AppColors.darkerGray
     frame.size.width = UIScreen.main.bounds.width
     layoutIfNeeded()
     

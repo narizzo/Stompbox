@@ -38,8 +38,8 @@ class DeltaShapeLayer: CAShapeLayer {
     
     let centroid = findCentroidForTriangle(with: trianglePoints)
     setAnchorPointY(to: centroid)
-    strokeColor = lighterGray.cgColor
-    fillColor = lighterGray.cgColor
+    strokeColor = AppColors.lighterGray.cgColor
+    fillColor = AppColors.lighterGray.cgColor
     lineWidth = 1.0
   }
   

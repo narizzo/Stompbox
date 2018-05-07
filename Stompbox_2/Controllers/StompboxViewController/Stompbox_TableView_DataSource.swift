@@ -84,7 +84,7 @@ extension StompboxViewController: UITableViewDataSource {
     
     cell.delegate = self
     cell.stompboxButton.delegate = self
-    cell.backgroundColor = darkerGray
+    cell.backgroundColor = AppColors.darkerGray
     
     // Configure delta button
     if stompbox.settings == nil || stompbox.settings!.count < 1 {
@@ -152,7 +152,7 @@ extension StompboxViewController: UITableViewDataSource {
   }
   
   private func shade(_ cell: ComplexSettingCell, at indexPath: IndexPath) {
-    indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: darkerGray) : cell.changeBackgroundColor(to: lighterGray)
+    indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: AppColors.darkerGray) : cell.changeBackgroundColor(to: AppColors.lighterGray)
   }
   
   func shadeSettingCells(in section: Int) {

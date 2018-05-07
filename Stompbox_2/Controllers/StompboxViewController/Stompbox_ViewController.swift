@@ -66,7 +66,7 @@ class StompboxViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    tableView.backgroundColor = black
+    tableView.backgroundColor = AppColors.black
     do {
       try fetchedResultsController.performFetch()
     } catch let error as NSError {

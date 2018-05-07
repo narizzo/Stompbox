@@ -60,9 +60,9 @@ extension StompboxDetailViewController {
     stompboxCell.manufacturerTextField.delegate = self
     
     // set placeholders
-    stompboxCell.nameTextField.attributedPlaceholder = NSAttributedString(string: "name", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
-    stompboxCell.typeTextField.attributedPlaceholder = NSAttributedString(string: "type", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
-    stompboxCell.manufacturerTextField.attributedPlaceholder = NSAttributedString(string: "manufacturer", attributes: [NSAttributedStringKey.foregroundColor: lightestGray])
+    stompboxCell.nameTextField.attributedPlaceholder = NSAttributedString(string: "name", attributes: [NSAttributedStringKey.foregroundColor: AppColors.lightestGray])
+    stompboxCell.typeTextField.attributedPlaceholder = NSAttributedString(string: "type", attributes: [NSAttributedStringKey.foregroundColor: AppColors.lightestGray])
+    stompboxCell.manufacturerTextField.attributedPlaceholder = NSAttributedString(string: "manufacturer", attributes: [NSAttributedStringKey.foregroundColor: AppColors.lightestGray])
     
     // configure textFields
     stompboxCell.nameTextField.adjustsFontSizeToFitWidth = true
@@ -95,7 +95,7 @@ extension StompboxDetailViewController {
   }
   
   private func configure(simpleSettingCell: SimpleSettingCell) {
-    simpleSettingCell.backgroundColor = lighterGray
+    simpleSettingCell.backgroundColor = AppColors.lighterGray
     if let stompboxToEdit = stompboxToEdit {
       simpleSettingCell.knobLayoutStyle = Int(stompboxToEdit.knobLayoutStyle)
       

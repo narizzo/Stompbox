@@ -36,7 +36,7 @@ class StompboxDetailViewController: UITableViewController {
     tableView.isScrollEnabled = false
     tableView.delegate = self
     tableView.dataSource = self
-    tableView.backgroundColor = black
+    tableView.backgroundColor = AppColors.black
   }
   
   private func registerNibs() {

@@ -64,10 +64,10 @@ class SimpleKnobView: TemplateKnobView, Gestureable {
   
   // MARK: - SimpleKnobView Methods
   private func configureNameTextField() {
-    nameTextField.attributedPlaceholder = NSAttributedString(string:"knob", attributes: [NSAttributedStringKey.foregroundColor: darkerGray])
+    nameTextField.attributedPlaceholder = NSAttributedString(string:"knob", attributes: [NSAttributedStringKey.foregroundColor: AppColors.darkerGray])
     nameTextField.textAlignment = .center
     nameTextField.returnKeyType = .done
-    nameTextField.textColor = systemLightGray
+    nameTextField.textColor = AppColors.systemLightGray
     nameTextField.delegate = self
   }
   
