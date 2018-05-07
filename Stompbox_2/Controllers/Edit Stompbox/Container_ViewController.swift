@@ -35,7 +35,6 @@ class ContainerViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    print("view did load")
     
     view.frame.size = UIScreen.main.bounds.size
     view.layoutIfNeeded()
