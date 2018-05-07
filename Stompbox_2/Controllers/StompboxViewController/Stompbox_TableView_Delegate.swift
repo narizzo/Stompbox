@@ -85,7 +85,6 @@ extension StompboxViewController: UITableViewDelegate {
   // MARK: - Setting
   /* add */
   func addSetting(at indexPath: IndexPath) {
-    print("add Setting")
     let stompbox = fetchedResultsController.object(at: indexPath)
     let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
     stompbox.addToSettings(setting)
@@ -94,11 +93,12 @@ extension StompboxViewController: UITableViewDelegate {
     } else {
       if let count = stompbox.settings?.count {
         controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-        let indexPath = IndexPath(row: count, section: indexPath.section)
+        let indexPath = IndexPath(row: 1, section: indexPath.section)
         tableView.insertRows(at: [indexPath], with: .automatic)
-        //tableView.reloadRows(at: [indexPath], with: .automatic)
         controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
         coreDataStack.saveContext()
+        
+        shadeSettingCellsIn(section: indexPath.section)
       }
     }
   }
@@ -143,7 +143,7 @@ extension StompboxViewController: UITableViewDelegate {
     self.coreDataStack.saveContext()
     
     self.controllerDidChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    self.shadeSettingCells(in: indexPath.section)
+    self.shadeSettingCellsIn(section: indexPath.section)
   }
   
   // MARK: - Collapse/Expand Section

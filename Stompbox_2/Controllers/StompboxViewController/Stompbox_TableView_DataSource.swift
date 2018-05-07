@@ -105,7 +105,6 @@ extension StompboxViewController: UITableViewDataSource {
     // Configure Setting Cell
     loadDependencies(for: cell, at: indexPath, with: stompbox)
     loadKnobNames(for: cell, from: stompbox)
-    //loadKnobValues(for: cell, at: indexPath, from: stompbox)
     shade(cell, at: indexPath) // Color the Setting background
   }
   
@@ -155,7 +154,7 @@ extension StompboxViewController: UITableViewDataSource {
     indexPath.row % 2 == 0 ? cell.changeBackgroundColor(to: AppColors.darkerGray) : cell.changeBackgroundColor(to: AppColors.lighterGray)
   }
   
-  func shadeSettingCells(in section: Int) {
+  func shadeSettingCellsIn(section: Int) {
     let rows = tableView.numberOfRows(inSection: section)
     for row in 0..<rows {
       let indexPath = IndexPath(row: row, section: section)

@@ -16,7 +16,8 @@
 		018463452083BF0400AFA7E7 /* SettingCell_Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018463442083BF0400AFA7E7 /* SettingCell_Delegate.swift */; };
 		01869C5F207FE2070013648F /* KnobViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01869C5E207FE2070013648F /* KnobViewProtocol.swift */; };
 		01869C62207FEF900013648F /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01869C61207FEF900013648F /* SettingCell.swift */; };
-		01885371209905310024418F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01885370209905310024418F /* Colors.swift */; };
+		01885371209905310024418F /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01885370209905310024418F /* AppColors.swift */; };
+		019179D920A08DE300176511 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019179D820A08DE300176511 /* AppUtility.swift */; };
 		01A58F3B200FF4DD00DD5BF3 /* EditStompbox_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A58F3A200FF4DD00DD5BF3 /* EditStompbox_ViewController.swift */; };
 		01A92BDA2088CB66003AD225 /* Container_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A92BD92088CB66003AD225 /* Container_ViewController.swift */; };
 		01A92BDF2088CC83003AD225 /* SettingCollection_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A92BDE2088CC83003AD225 /* SettingCollection_ViewController.swift */; };
@@ -71,7 +72,8 @@
 		018463442083BF0400AFA7E7 /* SettingCell_Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell_Delegate.swift; sourceTree = "<group>"; };
 		01869C5E207FE2070013648F /* KnobViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnobViewProtocol.swift; sourceTree = "<group>"; };
 		01869C61207FEF900013648F /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
-		01885370209905310024418F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		01885370209905310024418F /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		019179D820A08DE300176511 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
 		01A58F3A200FF4DD00DD5BF3 /* EditStompbox_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStompbox_ViewController.swift; sourceTree = "<group>"; };
 		01A92BD92088CB66003AD225 /* Container_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container_ViewController.swift; sourceTree = "<group>"; };
 		01A92BDE2088CC83003AD225 /* SettingCollection_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCollection_ViewController.swift; sourceTree = "<group>"; };
@@ -327,7 +329,8 @@
 			children = (
 				01EB57632000130C00686767 /* Functions.swift */,
 				0115BB892087E2790080CF37 /* Constants.swift */,
-				01885370209905310024418F /* Colors.swift */,
+				01885370209905310024418F /* AppColors.swift */,
+				019179D820A08DE300176511 /* AppUtility.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 			files = (
 				018463452083BF0400AFA7E7 /* SettingCell_Delegate.swift in Sources */,
 				01EB576E200058D700686767 /* CoreDataStack.swift in Sources */,
+				019179D920A08DE300176511 /* AppUtility.swift in Sources */,
 				014E9847209E597400F0E9FE /* EditStompbox_KeyboardWillShow.swift in Sources */,
 				01CAEB91202A42FE00AC556B /* ComplexKnobView.swift in Sources */,
 				01FB51902059C29600DB25E9 /* Stompbox_TableView_DataSource.swift in Sources */,
@@ -514,7 +518,7 @@
 				01A92BDA2088CB66003AD225 /* Container_ViewController.swift in Sources */,
 				01D997CE208F860500B2297E /* TemplateKnobRenderer.swift in Sources */,
 				01EB576A2000562800686767 /* Stompbox_ViewController.swift in Sources */,
-				01885371209905310024418F /* Colors.swift in Sources */,
+				01885371209905310024418F /* AppColors.swift in Sources */,
 				01D997C9208F851700B2297E /* TemplateKnobView.swift in Sources */,
 				01651D5220506553009F2292 /* Stompbox.swift in Sources */,
 				01A92BF4208A8269003AD225 /* EditStompbox_TableView_DataSource.swift in Sources */,
