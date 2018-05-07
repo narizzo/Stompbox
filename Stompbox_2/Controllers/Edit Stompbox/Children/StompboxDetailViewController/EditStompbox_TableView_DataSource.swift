@@ -47,6 +47,7 @@ extension StompboxDetailViewController {
   }
   
   private func configure(stompboxCell: StompboxCell) {
+    print("configure Stompbox Cell")
     // configure cell
     stompboxCell.isEditable = true
     stompboxCell.deltaButton.hide()
@@ -96,31 +97,49 @@ extension StompboxDetailViewController {
   
   private func configure(simpleSettingCell: SimpleSettingCell) {
     simpleSettingCell.backgroundColor = AppColors.lighterGray
-    if let stompboxToEdit = stompboxToEdit {
-      simpleSettingCell.knobLayoutStyle = Int(stompboxToEdit.knobLayoutStyle)
-      
-      // set textField delegates
-      for knobView in simpleSettingCell.knobViews {
-        knobView.nameTextField.delegate = self
-        knobView.nameTextField.keyboardAppearance = .dark
-      }
-      
-      // Load knobNameLabels into the SimpleSettingView
-      var names = [String]()
-      if let controlNames = stompboxToEdit.controlNames {
-        for controlName in controlNames {
-          if let aControlName = controlName as? ControlName {
-            names.append(aControlName.name!) // name is non-optional but xcode thinks it's optional and requires unwrapping
-          }
+    
+//    /* This fires when adding a new stombpox. */
+//    if stompboxToEdit == nil {
+//      stompboxToEdit = Stompbox(entity: Stompbox.entity(), insertInto: coreDataStack.moc)
+//    }
+    
+    if let _ = stompboxToEdit {
+      // editing an existing stompbox
+      loadStompboxDataInto(simpleSettingCell)
+    } else {
+      /* adding a new stompox, manually configure the Simple Setting Cell */
+      simpleSettingCell.configureKnobViewRects()
+    }
+    
+    configureSettingTextFields(for: simpleSettingCell)
+  }
+  
+  private func loadStompboxDataInto(_ simpleSettingCell: SimpleSettingCell) {
+    simpleSettingCell.knobLayoutStyle = Int(stompboxToEdit!.knobLayoutStyle)
+    
+    // Load knobNameLabels into the SimpleSettingView
+    var names = [String]()
+    if let controlNames = stompboxToEdit!.controlNames {
+      for controlName in controlNames {
+        if let aControlName = controlName as? ControlNames {
+          names.append(aControlName.name!) // name is non-optional but xcode thinks it's optional and requires unwrapping
         }
       }
-      
-      // load names into knobViews
-      var i = 0
-      while i < names.count && i < simpleSettingCell.knobViews.count { // while i < the number of knob data model objects and UI knobViews
-        simpleSettingCell.knobViews[i].nameTextField.text = names[i]
-         i += 1
-      }
+    }
+    
+    // load names into knobViews
+    var i = 0
+    while i < names.count && i < simpleSettingCell.knobViews.count { // while i < the number of knob data model objects and UI knobViews
+      simpleSettingCell.knobViews[i].nameTextField.text = names[i]
+      i += 1
+    }
+  }
+  
+  private func configureSettingTextFields(for simpleSettingCell: SimpleSettingCell) {
+    // set textField delegates
+    for knobView in simpleSettingCell.knobViews {
+      knobView.nameTextField.delegate = self
+      knobView.nameTextField.keyboardAppearance = .dark
     }
   }
   

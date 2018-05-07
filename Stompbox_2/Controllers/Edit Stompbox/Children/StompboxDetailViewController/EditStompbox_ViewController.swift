@@ -50,11 +50,11 @@ class StompboxDetailViewController: UITableViewController {
   // MARK: - Internal Methods
   func isStompboxInfoIncomplete() -> Bool {
     if let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell {
-       return (stompboxCell.nameTextField.text == "")
-          || (stompboxCell.typeTextField.text == "")
-          || (stompboxCell.manufacturerTextField.text == "")
+      return (stompboxCell.nameTextField.text == "")
+        || (stompboxCell.typeTextField.text == "")
+        || (stompboxCell.manufacturerTextField.text == "")
     }
-   return false
+    return false
   }
   
   func isSettingInfoIncomplete() -> Bool {
@@ -74,48 +74,50 @@ class StompboxDetailViewController: UITableViewController {
   }
   
   func saveChanges() {
-    if let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell {
-      if stompboxToEdit == nil {
-        stompboxToEdit = Stompbox.init(entity: NSEntityDescription.entity(forEntityName: "Stompbox", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
+    guard let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell else {
+      return
+    }
+    
+    if stompboxToEdit == nil {
+      stompboxToEdit = Stompbox(entity: Stompbox.entity(), insertInto: coreDataStack.moc)
+    }
+    
+    stompboxToEdit!.setTextPropertiesTo(name: (stompboxCell.nameTextField.text)!,
+                                        type: (stompboxCell.typeTextField.text)!,
+                                        manufacturer: (stompboxCell.manufacturerTextField.text)!)
+    
+    // save new thumbnail
+    if stompboxCell.stompboxButton.didPickNewThumbnail {
+      let filePath = createUniqueJPGFilePath()
+      stompboxToEdit!.imageFilePath = filePath.absoluteURL
+      do {
+        try? stompboxCell.stompboxButton.imageData.write(to: filePath, options: .atomic)
+      }
+    }
+    
+    // save knob names
+    if let simpleSettingCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? SimpleSettingCell {
+      // compile list of control names
+      var knobNames = [String]()
+      for knobView in simpleSettingCell.knobViews {
+        knobNames.append(knobView.nameTextField.text!)
       }
       
-      stompboxToEdit!.setTextPropertiesTo(name: (stompboxCell.nameTextField.text)!,
-                                      type: (stompboxCell.typeTextField.text)!,
-                                      manufacturer: (stompboxCell.manufacturerTextField.text)!)
-      
-      // save new thumbnail
-      if stompboxCell.stompboxButton.didPickNewThumbnail {
-        let filePath = createUniqueJPGFilePath()
-        stompboxToEdit!.imageFilePath = filePath.absoluteURL
-        do {
-          try? stompboxCell.stompboxButton.imageData.write(to: filePath, options: .atomic)
-        }
+      // make ControlName entities for each knob name
+      while stompboxToEdit!.controlNames!.count < knobNames.count {
+        let newControlName = ControlNames(entity: ControlNames.entity(), insertInto: coreDataStack.moc)
+        stompboxToEdit!.addToControlNames(newControlName)
       }
       
-      // save knob names
-      if let simpleSettingCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? SimpleSettingCell {
-        // compile list of control names
-        var knobNames = [String]()
-        for knobView in simpleSettingCell.knobViews {
-          knobNames.append(knobView.nameTextField.text!)
-        }
-        
-        // make ControlName entities for each knob name
-        while stompboxToEdit!.controlNames!.count < knobNames.count {
-          let newControlName = ControlName.init(entity: NSEntityDescription.entity(forEntityName: "ControlName", in: coreDataStack.moc)!, insertInto: coreDataStack.moc)
-          stompboxToEdit!.addToControlNames(newControlName)
-        }
-        
-        // store knob names in control names
-        var j = 0
-        for controlName in stompboxToEdit!.controlNames! {
-          if j < knobNames.count {
-            if let controlName = controlName as? ControlName {
-              controlName.name = knobNames[j]
-            }
+      // store knob names in control names
+      var j = 0
+      for controlName in stompboxToEdit!.controlNames! {
+        if j < knobNames.count {
+          if let controlName = controlName as? ControlNames {
+            controlName.name = knobNames[j]
           }
-          j += 1
         }
+        j += 1
       }
     }
   }

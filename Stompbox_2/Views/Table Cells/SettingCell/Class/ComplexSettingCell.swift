@@ -97,13 +97,14 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   private func loadKnobValues() {
+    print("Load knob values")
     var index = 0
     for knobView in knobViews {
       guard index < setting.knobs!.count else {
         return
       }
       if let knob = setting.knobs![index] as? Knob {
-        knobView.setValue(Float(knob.value) / 100, animated: false)
+        knobView.setValue(knob.value, animated: false)
       }
       index += 1
     }
@@ -160,7 +161,7 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   
   private func addToolBarButtons() {
     let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelChanges))
-    let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(acceptChanges))
+    let doneButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(acceptChanges))
     
     saveCurrentBarButtons()
     
@@ -174,20 +175,24 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   @objc func cancelChanges() {
+    print("cancel changes")
     loadKnobValues()
     restoreBarButtonsToDefault()
   }
   
   @objc func acceptChanges() {
+    print("accept changes")
     saveKnobPositions()
     restoreBarButtonsToDefault()
   }
   
   private func saveKnobPositions() {
+    print("saveKnobPositions")
     var index = 0
     for knobView in knobViews {
       if let knob = setting.knobs?[index] as? Knob {
         knob.value = knobView.getValue()
+        print("knob.value: \(knob.value)")
       }
       index += 1
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="ControlName" representedClassName="ControlName" syncable="YES" codeGenerationType="class">
+    <entity name="ControlNames" representedClassName="ControlNames" syncable="YES" codeGenerationType="class">
         <attribute name="name" attributeType="String" minValueString="1" defaultValueString="name" syncable="YES"/>
         <relationship name="stompbox" maxCount="1" deletionRule="Nullify" destinationEntity="Stompbox" inverseName="controlNames" inverseEntity="Stompbox" syncable="YES"/>
     </entity>
@@ -32,17 +32,17 @@
         <attribute name="manufacturer" attributeType="String" minValueString="0" syncable="YES"/>
         <attribute name="name" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="type" attributeType="String" minValueString="0" syncable="YES"/>
-        <relationship name="controlNames" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ControlName" inverseName="stompbox" inverseEntity="ControlName" syncable="YES"/>
+        <relationship name="controlNames" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ControlNames" inverseName="stompbox" inverseEntity="ControlNames" syncable="YES"/>
         <relationship name="settings" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Setting" inverseName="stompbox" inverseEntity="Setting" syncable="YES"/>
     </entity>
     <entity name="Switch" representedClassName="Switch" syncable="YES" codeGenerationType="class"/>
     <elements>
-        <element name="ControlName" positionX="-180" positionY="36" width="128" height="75"/>
+        <element name="ControlNames" positionX="-180" positionY="36" width="128" height="75"/>
         <element name="Knob" positionX="7" positionY="198" width="128" height="90"/>
         <element name="KnobSub" positionX="-270" positionY="162" width="128" height="90"/>
         <element name="Setting" positionX="54" positionY="-18" width="144" height="90"/>
+        <element name="SizePosition" positionX="-153" positionY="63" width="128" height="105"/>
         <element name="Stompbox" positionX="-371" positionY="-48" width="128" height="165"/>
         <element name="Switch" positionX="9" positionY="-117" width="128" height="45"/>
-        <element name="SizePosition" positionX="-153" positionY="63" width="128" height="105"/>
     </elements>
 </model>
