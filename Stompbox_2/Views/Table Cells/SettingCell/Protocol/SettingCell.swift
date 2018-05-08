@@ -33,13 +33,23 @@ extension SettingCell where Self: UITableViewCell {
   func calculateNumberOfKnobViews() -> Int {
     switch knobLayoutStyle {
     case 0:
-      return 3
+      return 1
     case 1:
-      return 3
+      return 2
     case 2:
       return 3
     case 3:
+      return 3
+    case 4:
+      return 3
+    case 5:
       return 4
+    case 6:
+      return 4
+    case 7:
+      return 4
+//    case 6:
+//      return 4
     default:
       return 1
     }
@@ -48,44 +58,73 @@ extension SettingCell where Self: UITableViewCell {
   func calculateKnobViewRects(with bounds: CGRect) -> [CGRect] {
     let centerY = bounds.midY
     let centerX = bounds.midX
-    let knobSide = centerY
-    let halfKnobSide = knobSide / 2.0
+    let quarter = bounds.width / 4.0
+    let halfCellHeight = centerY
+    let quarterCellHeight = halfCellHeight / 2.0
     
     let verticalBuffer = bounds.height * 0.05
-    
-    let knobBuffer = bounds.width * 0.05
+    let smallBuffer = bounds.width * 0.05
     
     var knobViewPositions = [CGPoint]()
     var knobViewRects = [CGRect]()
     
     switch knobLayoutStyle {
     case 0:
-      // Upside-down Triangle
-      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0, y: verticalBuffer),
-                           CGPoint(x: centerX - halfKnobSide,       y: knobSide - verticalBuffer),
-                           CGPoint(x: centerX + halfKnobSide,       y: verticalBuffer),]
+      // One Centered
+      knobViewPositions = [CGPoint(x: centerX - quarterCellHeight,       y: centerY - quarterCellHeight),]
     case 1:
-      // Triangle
-      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0, y: knobSide - verticalBuffer),
-                           CGPoint(x: centerX - halfKnobSide,       y: verticalBuffer),
-                           CGPoint(x: centerX + halfKnobSide,       y: knobSide - verticalBuffer),]
+      knobViewPositions = [CGPoint(x: centerX - halfCellHeight - smallBuffer, y: centerY - quarterCellHeight),
+                           CGPoint(x: centerX + smallBuffer,                      y: centerY - quarterCellHeight),]
     case 2:
-      // Three Horizontal
-      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0 - knobBuffer, y: centerY - halfKnobSide),
-                           CGPoint(x: centerX - halfKnobSide,                         y: centerY - halfKnobSide),
-                           CGPoint(x: centerX + halfKnobSide + knobBuffer,       y: centerY - halfKnobSide),]
+      // Upside-down Triangle
+      knobViewPositions = [CGPoint(x: centerX - quarterCellHeight * 3.0, y: verticalBuffer),
+                           CGPoint(x: centerX - quarterCellHeight,       y: halfCellHeight - verticalBuffer),
+                           CGPoint(x: centerX + quarterCellHeight,       y: verticalBuffer),]
     case 3:
-      // Four
-      knobViewPositions = [CGPoint(x: centerX - halfKnobSide * 3.0 - knobBuffer, y: centerY - halfKnobSide),
-                           CGPoint(x: centerX - halfKnobSide,                         y: centerY - halfKnobSide),
-                           CGPoint(x: centerX + halfKnobSide + knobBuffer,       y: centerY - halfKnobSide),
-                           CGPoint(x: centerX + knobSide + knobBuffer,       y: centerY - halfKnobSide),]
+      // Triangle
+      knobViewPositions = [CGPoint(x: centerX - quarterCellHeight * 3.0, y: halfCellHeight - verticalBuffer),
+                           CGPoint(x: centerX - quarterCellHeight,       y: verticalBuffer),
+                           CGPoint(x: centerX + quarterCellHeight,       y: halfCellHeight - verticalBuffer),]
+    case 4:
+      // Three: Horizontal
+      knobViewPositions = [CGPoint(x: centerX - quarterCellHeight * 3.0 - smallBuffer, y: centerY - quarterCellHeight),
+                           CGPoint(x: centerX - quarterCellHeight,                         y: centerY - quarterCellHeight),
+                           CGPoint(x: centerX + quarterCellHeight + smallBuffer,       y: centerY - quarterCellHeight),]
+    case 5:
+      // Four: Across
+      knobViewPositions = [CGPoint(x: 0, y: centerY - quarterCellHeight),
+                           CGPoint(x: quarter,                         y: centerY - quarterCellHeight),
+                           CGPoint(x: quarter * 2.0,       y: centerY - quarterCellHeight),
+                           CGPoint(x: quarter * 3.0,       y: centerY - quarterCellHeight),]
+    case 6:
+      // Four: UpDownUpDown
+      knobViewPositions = [CGPoint(x: 0,                    y: centerY - quarterCellHeight - (quarterCellHeight / 2.0)),
+                           CGPoint(x: quarter,              y: centerY - quarterCellHeight + (quarterCellHeight / 2.0)),
+                           CGPoint(x: quarter * 2.0,        y: centerY - quarterCellHeight - (quarterCellHeight / 2.0)),
+                           CGPoint(x: quarter * 3.0,        y: centerY - quarterCellHeight + (quarterCellHeight / 2.0)),]
+    case 7:
+      // Four: DownUpDownUp
+      knobViewPositions = [CGPoint(x: 0,                    y: centerY - quarterCellHeight + (quarterCellHeight / 2.0)),
+                           CGPoint(x: quarter,              y: centerY - quarterCellHeight - (quarterCellHeight / 2.0)),
+                           CGPoint(x: quarter * 2.0,        y: centerY - quarterCellHeight + (quarterCellHeight / 2.0)),
+                           CGPoint(x: quarter * 3.0,        y: centerY - quarterCellHeight - (quarterCellHeight / 2.0)),]
+//  case 8:
+//      // Four: 2x2
+//      knobViewPositions = [CGPoint(x: quarter,              y: centerY - halfKnobSide + (halfKnobSide / 2.0)),
+//                           CGPoint(x: quarter,              y: centerY - halfKnobSide - (halfKnobSide / 2.0)),
+//                           CGPoint(x: quarter * 2.0,        y: centerY - halfKnobSide + (halfKnobSide / 2.0)),
+//                           CGPoint(x: quarter * 2.0,        y: centerY - halfKnobSide - (halfKnobSide / 2.0)),]
     default:
       // One Centered
-      knobViewPositions = [CGPoint(x: centerX - halfKnobSide,       y: centerY - halfKnobSide),]
+      knobViewPositions = [CGPoint(x: centerX - quarterCellHeight,       y: centerY - quarterCellHeight),]
     }
-    
-    let size = CGSize(width: knobSide, height: knobSide)
+    let size: CGSize
+    if knobViewPositions.count == 4 {
+      let side = bounds.width / 4.0
+      size = CGSize(width: side, height: side)
+    } else {
+      size = CGSize(width: halfCellHeight, height: halfCellHeight)
+    }
     for point in knobViewPositions {
       knobViewRects.append(CGRect(origin: point, size: size))
     }

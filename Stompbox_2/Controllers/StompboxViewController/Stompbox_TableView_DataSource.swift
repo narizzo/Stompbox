@@ -52,6 +52,7 @@ extension StompboxViewController: UITableViewDataSource {
     }
   }
   
+  
   // MARK: - Configure Cells
   func configure(_ cell: UITableViewCell, for indexPath: IndexPath) {
     if let cell = cell as? StompboxCell {
@@ -92,7 +93,7 @@ extension StompboxViewController: UITableViewDataSource {
     if let image = image {
       cell.stompboxButton.setImage(image, for: .normal)
     } else {
-      cell.stompboxButton.setImage(#imageLiteral(resourceName: "BD2-large"), for: .normal)
+      cell.stompboxButton.setImage(#imageLiteral(resourceName: "Default Stompbox"), for: .normal)
     }
   }
   

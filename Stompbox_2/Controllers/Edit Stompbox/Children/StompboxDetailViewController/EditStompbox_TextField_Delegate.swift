@@ -22,17 +22,4 @@ extension StompboxDetailViewController: UITextFieldDelegate {
     textField.resignFirstResponder()
     return true
   }
-  
-//  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//    let oldText = textField.text!
-//    let stringRange = Range(range, in: oldText)!
-//    let newText = oldText.replacingCharacters(in: stringRange, with: string)
-//
-//    if newText.isEmpty {
-//      doneBarButtonDelegate.disableDoneBarButton(self)
-//    } else {
-//      doneBarButtonDelegate.enableDoneBarButton(self)
-//    }
-//    return true
-//  }
 }

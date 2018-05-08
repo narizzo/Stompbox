@@ -90,7 +90,7 @@ extension StompboxDetailViewController {
       if let image = image {
         stompboxCell.stompboxButton.setImage(image, for: .normal)
       } else {
-        stompboxCell.stompboxButton.setImage(#imageLiteral(resourceName: "BD2-large"), for: .normal)
+        //stompboxCell.stompboxButton.setImage(#imageLiteral(resourceName: "Default Stompbox"), for: .normal)
       }
     }
   }
@@ -98,16 +98,11 @@ extension StompboxDetailViewController {
   private func configure(simpleSettingCell: SimpleSettingCell) {
     simpleSettingCell.backgroundColor = AppColors.lighterGray
     
-//    /* This fires when adding a new stombpox. */
-//    if stompboxToEdit == nil {
-//      stompboxToEdit = Stompbox(entity: Stompbox.entity(), insertInto: coreDataStack.moc)
-//    }
-    
     if let _ = stompboxToEdit {
       // editing an existing stompbox
       loadStompboxDataInto(simpleSettingCell)
     } else {
-      /* adding a new stompox, manually configure the Simple Setting Cell */
+      // adding a new stompox, manually configure the Simple Setting Cell
       simpleSettingCell.configureKnobViewRects()
     }
     
@@ -122,14 +117,14 @@ extension StompboxDetailViewController {
     if let controlNames = stompboxToEdit!.controlNames {
       for controlName in controlNames {
         if let aControlName = controlName as? ControlNames {
-          names.append(aControlName.name!) // name is non-optional but xcode thinks it's optional and requires unwrapping
+          names.append(aControlName.name!)
         }
       }
     }
     
     // load names into knobViews
     var i = 0
-    while i < names.count && i < simpleSettingCell.knobViews.count { // while i < the number of knob data model objects and UI knobViews
+    while i < names.count && i < simpleSettingCell.knobViews.count {
       simpleSettingCell.knobViews[i].nameTextField.text = names[i]
       i += 1
     }

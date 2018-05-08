@@ -68,28 +68,27 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   
   private func updateClockLayers() {
     return
-    
-    removeClockLayers()
-
-    let hourIncrement = CGFloat.pi / 6.0
-    var clockPosition: CGFloat = 0.0
-    while clockPosition < (2.0 * CGFloat.pi) {
-      if clockPosition <= endAngle || clockPosition >= startAngle {
-        let layer = CAShapeLayer()
-        
-        clockLayers.append(layer)
-        insertSublayer(layer, below: pointerLayer)
-  
-        layer.bounds.size = self.bounds.size
-        layer.position = CGPoint(x: bounds.midX, y: bounds.midY)
-        layer.strokeColor = AppColors.foregroundColor.cgColor
-        layer.lineWidth = 2.0
-        layer.path = generateClockLayerPath()
-        
-        setClockAngle(for: layer, to: clockPosition)
-      }
-      clockPosition += hourIncrement
-    }
+//    removeClockLayers()
+//
+//    let hourIncrement = CGFloat.pi / 6.0
+//    var clockPosition: CGFloat = 0.0
+//    while clockPosition < (2.0 * CGFloat.pi) {
+//      if clockPosition <= endAngle || clockPosition >= startAngle {
+//        let layer = CAShapeLayer()
+//
+//        clockLayers.append(layer)
+//        insertSublayer(layer, below: pointerLayer)
+//
+//        layer.bounds.size = self.bounds.size
+//        layer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+//        layer.strokeColor = AppColors.foregroundColor.cgColor
+//        layer.lineWidth = 2.0
+//        layer.path = generateClockLayerPath()
+//
+//        setClockAngle(for: layer, to: clockPosition)
+//      }
+//      clockPosition += hourIncrement
+//    }
   }
   
   private func removeClockLayers() {

@@ -19,17 +19,15 @@ extension StompboxDetailViewController {
   }
   
   @objc func keyboardWillShow(_ notification:Notification) {
-    if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+    if let _ = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
       tableView.isScrollEnabled = true
-      
-      let stackViewHeight = self.view.superview!.bounds.height
-      let offset = self.tableView.bounds.height + keyboardSize.height - stackViewHeight
       tableView.contentInset = UIEdgeInsetsMake(0, 0, 116, 0)
     }
   }
   @objc func keyboardWillHide(_ notification:Notification) {
-    if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+    if let _ = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
       tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+      tableView.isScrollEnabled = false
     }
   }
 }
