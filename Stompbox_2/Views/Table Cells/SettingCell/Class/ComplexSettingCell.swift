@@ -97,7 +97,6 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   private func loadKnobValues() {
-    print("Load knob values")
     var index = 0
     for knobView in knobViews {
       guard index < setting.knobs!.count else {

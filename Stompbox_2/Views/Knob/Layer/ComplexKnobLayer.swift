@@ -17,9 +17,12 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
  
   var valueDelegate: ComplexKnobLayerValueDelegate!
   
+  var areClockLayersEnabled = false
   var clockLayers = [CAShapeLayer]()
   var clockTickLength: CGFloat = 1.0
+  
   var trackLayer = CAShapeLayer()
+  
   var pointerLayer = CAShapeLayer()
   var pointerLength: CGFloat = 2.0
   var pointerAngle: CGFloat = CGFloat(Double.pi * 4.0 / 6.0) {
@@ -67,28 +70,29 @@ class ComplexKnobLayer: CAShapeLayer, ComplexKnobRenderer {
   }
   
   private func updateClockLayers() {
-    return
-//    removeClockLayers()
-//
-//    let hourIncrement = CGFloat.pi / 6.0
-//    var clockPosition: CGFloat = 0.0
-//    while clockPosition < (2.0 * CGFloat.pi) {
-//      if clockPosition <= endAngle || clockPosition >= startAngle {
-//        let layer = CAShapeLayer()
-//
-//        clockLayers.append(layer)
-//        insertSublayer(layer, below: pointerLayer)
-//
-//        layer.bounds.size = self.bounds.size
-//        layer.position = CGPoint(x: bounds.midX, y: bounds.midY)
-//        layer.strokeColor = AppColors.foregroundColor.cgColor
-//        layer.lineWidth = 2.0
-//        layer.path = generateClockLayerPath()
-//
-//        setClockAngle(for: layer, to: clockPosition)
-//      }
-//      clockPosition += hourIncrement
-//    }
+    if areClockLayersEnabled {
+      removeClockLayers()
+      
+      let hourIncrement = CGFloat.pi / 6.0
+      var clockPosition: CGFloat = 0.0
+      while clockPosition < (2.0 * CGFloat.pi) {
+        if clockPosition <= endAngle || clockPosition >= startAngle {
+          let layer = CAShapeLayer()
+          
+          clockLayers.append(layer)
+          insertSublayer(layer, below: pointerLayer)
+          
+          layer.bounds.size = self.bounds.size
+          layer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+          layer.strokeColor = AppColors.foregroundColor.cgColor
+          layer.lineWidth = 2.0
+          layer.path = generateClockLayerPath()
+          
+          setClockAngle(for: layer, to: clockPosition)
+        }
+        clockPosition += hourIncrement
+      }
+    }
   }
   
   private func removeClockLayers() {

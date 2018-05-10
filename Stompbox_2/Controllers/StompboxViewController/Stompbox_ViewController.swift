@@ -47,9 +47,8 @@ class StompboxViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     UIApplication.shared.statusBarStyle = .lightContent
-    // stop unnecessary reload of table elements
-    // make method that takes the stompbox that was modified and only reload that section?
     if tableNeedsReload {
+      // reload table data to update changes to knob layout
       tableView.reloadData()
       tableNeedsReload = false
     }
