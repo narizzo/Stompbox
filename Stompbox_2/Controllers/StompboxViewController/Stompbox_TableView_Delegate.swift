@@ -140,9 +140,11 @@ extension StompboxViewController: UITableViewDelegate {
   /* delete */
   func deleteSetting(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
+    // reverse settings because setting cells are displayed from new->old whereas stompbox.settings are old->new
     let settings = stompbox.settings!.reversed()
     let setting = settings[indexPath.row - 1] as! Setting
     
+    // remove setting from table and from memory
     self.controllerWillChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
     
     self.tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -151,6 +153,8 @@ extension StompboxViewController: UITableViewDelegate {
     self.coreDataStack.saveContext()
     
     self.controllerDidChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    
+    // update setting cell coloring
     self.shadeSettingCellsIn(section: indexPath.section)
   }
   
@@ -196,7 +200,8 @@ extension StompboxViewController: UITableViewDelegate {
     coreDataStack.saveContext()
   }
   
-  /* expand-collapse helper method */
+  /* Expand-collapse helper method for inserting and deleting a section of settings.
+     This is called whenever a section is expanded or collapsed via the 'delta' button on the stompbox cell */
   private func buildIndexPathsArray(at indexPath: IndexPath, ofSize count: Int) -> [IndexPath]? {
     if count > 0 {
       var indexPaths = [IndexPath]()
