@@ -25,7 +25,7 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="150" id="wkp-XW-F2e"/>
                         </constraints>
-                        <state key="normal" image="Default Stompbox"/>
+                        <state key="normal" image="Navigation_Add"/>
                     </button>
                     <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="top" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LVk-XE-2lc">
                         <rect key="frame" x="158" y="11" width="201" height="89"/>
@@ -77,6 +77,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="Default Stompbox" width="629" height="1032"/>
+        <image name="Navigation_Add" width="18" height="18"/>
     </resources>
 </document>

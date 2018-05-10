@@ -73,6 +73,14 @@ class StompboxDetailViewController: UITableViewController {
     return false
   }
   
+  func isThumbnailMissing() -> Bool {
+    guard let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell else {
+      return true
+    }
+    return stompboxCell.stompboxButton.currentImage == #imageLiteral(resourceName: "Navigation_Add")
+    
+  }
+  
   func saveChanges() {
     guard let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell else {
       return

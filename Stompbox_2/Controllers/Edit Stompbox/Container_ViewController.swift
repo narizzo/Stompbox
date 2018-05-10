@@ -105,6 +105,11 @@ class ContainerViewController: UIViewController {
       return
     }
     
+    guard stompboxDetailViewController.isThumbnailMissing() == false else {
+      alertUserMissingThumbnail()
+      return
+    }
+    
     stompboxDetailViewController.saveChanges()
     containerViewControllerDelegate.didAcceptChanges(self) 
   }
@@ -132,6 +137,15 @@ class ContainerViewController: UIViewController {
   
   private func alertUserIncompleteSettingInformation() {
     let alert = UIAlertController(title: "Please enter a name for each knob.",
+                                  message: nil,
+                                  preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "OK", style: .default)
+    alert.addAction(okAction)
+    present(alert, animated: true, completion: nil)
+  }
+  
+  private func alertUserMissingThumbnail() {
+    let alert = UIAlertController(title: "Please choose a thumbnail for the Stompbox.",
                                   message: nil,
                                   preferredStyle: .alert)
     let okAction = UIAlertAction(title: "OK", style: .default)

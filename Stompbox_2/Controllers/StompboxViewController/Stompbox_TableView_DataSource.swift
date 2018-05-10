@@ -93,7 +93,7 @@ extension StompboxViewController: UITableViewDataSource {
     if let image = image {
       cell.stompboxButton.setImage(image, for: .normal)
     } else {
-      cell.stompboxButton.setImage(#imageLiteral(resourceName: "Default Stompbox"), for: .normal)
+      cell.stompboxButton.setImage(image, for: .normal)
     }
   }
   
@@ -114,7 +114,6 @@ extension StompboxViewController: UITableViewDataSource {
       }
     }
   }
-  
   
   // MARK: - Configure Setting Cell
   private func configureSettingCell(_ cell: ComplexSettingCell, at indexPath: IndexPath) {

@@ -89,9 +89,10 @@ extension StompboxDetailViewController {
       }
       if let image = image {
         stompboxCell.stompboxButton.setImage(image, for: .normal)
-      } else {
-        //stompboxCell.stompboxButton.setImage(#imageLiteral(resourceName: "Default Stompbox"), for: .normal)
       }
+//      else {
+//        stompboxCell.stompboxButton.setImage(#imageLiteral(resourceName: "Navigation_Add"), for: .normal)
+//      }
     }
   }
   
