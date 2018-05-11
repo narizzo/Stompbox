@@ -5,7 +5,6 @@
 //  Created by Nicholas Rizzo on 3/14/18.
 //  Copyright © 2018 Nicholas Rizzo. All rights reserved.
 //
-
 import UIKit
 import CoreData
 
@@ -63,12 +62,11 @@ extension StompboxViewController: UITableViewDelegate {
     tableView.setEditing(false, animated: true)
     showStompboxDetailView()
   }
-
+  
   /* delete */
   func deleteStompbox(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
     
-    // delete thumbnail from memory
     if let imageFilePath = stompbox.imageFilePath?.path, FileManager.default.fileExists(atPath: imageFilePath) {
       do {
         try FileManager.default.removeItem(atPath: imageFilePath)
@@ -76,7 +74,6 @@ extension StompboxViewController: UITableViewDelegate {
         print("Error removing file: \(error)")
       }
     }
-    // delete stompbox from core data
     coreDataStack.moc.perform {
       self.coreDataStack.moc.delete(stompbox)
       self.coreDataStack.saveContext()
@@ -87,17 +84,16 @@ extension StompboxViewController: UITableViewDelegate {
   // MARK: - Setting
   /* add */
   func addSetting(at indexPath: IndexPath) {
-    // expand stompbox section
     let stompbox = fetchedResultsController.object(at: indexPath)
-    if !stompbox.isExpanded {
-      expandSection(for: stompbox, at: indexPath)
-    }
     
-    // create setting and add to the stompbox's settings
+    // instantiate setting data object and add to stompbox
     let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
     stompbox.addToSettings(setting)
     
-    // add the setting at the top below the stompbox cell
+    if stompbox.isExpanded == false {
+      expandSection(for: stompbox, at: indexPath)
+    }
+    
     if let _ = stompbox.settings?.count {
       controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
       let indexPath = IndexPath(row: 1, section: indexPath.section)
@@ -105,14 +101,12 @@ extension StompboxViewController: UITableViewDelegate {
       controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
       coreDataStack.saveContext()
       
-      // update the colors for the setting cells
       shadeSettingCellsIn(section: indexPath.section)
     }
   }
   
   /* edit */
   func editSetting(at indexPath: IndexPath) {
-    // returns cell back to normal position after 'edit' is tapped
     tableView.setEditing(false, animated: true)
     
     // this method is a mess...
@@ -140,11 +134,9 @@ extension StompboxViewController: UITableViewDelegate {
   /* delete */
   func deleteSetting(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
-    // reverse settings because setting cells are displayed from new->old whereas stompbox.settings are old->new
     let settings = stompbox.settings!.reversed()
     let setting = settings[indexPath.row - 1] as! Setting
     
-    // remove setting from table and from memory
     self.controllerWillChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
     
     self.tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -153,8 +145,6 @@ extension StompboxViewController: UITableViewDelegate {
     self.coreDataStack.saveContext()
     
     self.controllerDidChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    
-    // update setting cell coloring
     self.shadeSettingCellsIn(section: indexPath.section)
   }
   
@@ -167,7 +157,7 @@ extension StompboxViewController: UITableViewDelegate {
     }
   }
   
-  /* Collapse */
+  /* Stompbox Data Object */
   private func collapseSection(for stompbox: Stompbox, at indexPath: IndexPath) {
     guard let count = stompbox.settings?.count else {
       return
@@ -184,7 +174,6 @@ extension StompboxViewController: UITableViewDelegate {
     coreDataStack.saveContext()
   }
   
-  /* Expand */
   private func expandSection(for stompbox: Stompbox, at indexPath: IndexPath) {
     guard let count = stompbox.settings?.count else {
       return
@@ -200,8 +189,7 @@ extension StompboxViewController: UITableViewDelegate {
     coreDataStack.saveContext()
   }
   
-  /* Expand-collapse helper method for inserting and deleting a section of settings.
-     This is called whenever a section is expanded or collapsed via the 'delta' button on the stompbox cell */
+  /* expand-collapse helper method */
   private func buildIndexPathsArray(at indexPath: IndexPath, ofSize count: Int) -> [IndexPath]? {
     if count > 0 {
       var indexPaths = [IndexPath]()

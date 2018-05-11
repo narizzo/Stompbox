@@ -140,11 +140,8 @@ extension StompboxViewController: UITableViewDataSource {
     // needs to be set every time a cell is configured or else unique settings are randomly assigned to cells
     if let settings = stompbox.settings {
       let reversedSettings = settings.reversed
-      print("getting setting at \(indexPath.row - 1)")
+      print("setting the setting at: \(indexPath.row - 1)")
       cell.setting = reversedSettings[(indexPath.row - 1)] as? Setting
-      // settings are indexed old->new while settingCells are index new->old
-      // indexPath.row - 1 because stompboxCell is row 0.  SettingCells start at 1
-      //cell.setting = settings[(settings.count - 1) - (indexPath.row - 1)] as? Setting
     }
     
     // StompboxViewController is the delegate for ComplexSettingCell because StompboxCell is not guaranteed to exist when editing occurs
@@ -161,7 +158,7 @@ extension StompboxViewController: UITableViewDataSource {
     if let controlNames = stompbox.controlNames {
       for controlName in controlNames {
         if let aControlName = controlName as? ControlNames {
-          names.append(aControlName.name!) // name is non-optional but xcode thinks it's optional and requires unwrapping
+          names.append(aControlName.name!)
         }
       }
     }
