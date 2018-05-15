@@ -27,9 +27,16 @@ class StompboxDetailViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    configureStompboxToEdit()
     configureTableView()
     registerNibs()
     initializeKeyboardNotifications()
+  }
+  
+  private func configureStompboxToEdit() {
+    if stompboxToEdit == nil {
+      stompboxToEdit = Stompbox(entity: Stompbox.entity(), insertInto: coreDataStack.moc)
+    }
   }
   
   private func configureTableView() {
@@ -85,16 +92,18 @@ class StompboxDetailViewController: UITableViewController {
     guard let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell else {
       return
     }
-    
-    if stompboxToEdit == nil {
-      stompboxToEdit = Stompbox(entity: Stompbox.entity(), insertInto: coreDataStack.moc)
-    }
-    
+    setStompboxProperties(with: stompboxCell)
+    saveThumbnail(for: stompboxCell)
+    saveKnobNames(for: stompboxCell)
+  }
+  
+  private func setStompboxProperties(with stompboxCell: StompboxCell) {
     stompboxToEdit!.setTextPropertiesTo(name: (stompboxCell.nameTextField.text)!,
                                         type: (stompboxCell.typeTextField.text)!,
                                         manufacturer: (stompboxCell.manufacturerTextField.text)!)
-    
-    // save new thumbnail
+  }
+  
+  private func saveThumbnail(for stompboxCell: StompboxCell) {
     if stompboxCell.stompboxButton.didPickNewThumbnail {
       let filePath = createUniqueJPGFilePath()
       stompboxToEdit!.imageFilePath = filePath.absoluteURL
@@ -102,8 +111,9 @@ class StompboxDetailViewController: UITableViewController {
         try? stompboxCell.stompboxButton.imageData.write(to: filePath, options: .atomic)
       }
     }
-    
-    // save knob names
+  }
+  
+  private func saveKnobNames(for stompboxCell: StompboxCell) {
     if let simpleSettingCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? SimpleSettingCell {
       // compile list of control names
       var knobNames = [String]()
@@ -129,4 +139,14 @@ class StompboxDetailViewController: UITableViewController {
       }
     }
   }
+  
+  func saveKnobNames() {
+    guard let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell else {
+      return
+    }
+    
+    saveKnobNames(for: stompboxCell)
+  }
+  
+  
 }

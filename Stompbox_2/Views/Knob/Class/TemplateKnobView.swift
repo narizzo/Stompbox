@@ -10,7 +10,9 @@ import UIKit
 
 class TemplateKnobView: UIControl, KnobViewProtocol {
   
-  var simpleKnobLayer = SimpleKnobLayer() // typealias TemplateKnobLayer = SimpleKnobLayer?
+  var simpleKnobLayer = SimpleKnobLayer()
+  // Template and Simple are the same thing - this is just for simplicity
+  // Might remove TemplateKnobView/Layer altogether
   
   // MARK: - Init & Setup
   public override init(frame: CGRect) {

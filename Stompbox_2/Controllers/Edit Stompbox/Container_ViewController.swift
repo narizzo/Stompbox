@@ -157,6 +157,11 @@ class ContainerViewController: UIViewController {
 extension ContainerViewController: CollectionCellDelegate {
   func didSelectCollectionCell(_ settingCollectionViewCell: SettingCollectionViewCell) {
     stompboxDetailViewController.stompboxToEdit?.knobLayoutStyle = Int64(settingCollectionViewCell.templateSettingCell.knobLayoutStyle)
+    
+//    if let simpleSettingCell = stompboxDetailViewController.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? SimpleSettingCell {
+//      print("assigning settingcell setting cell its layout")
+//      simpleSettingCell.knobLayoutStyle = settingCollectionViewCell.templateSettingCell.knobLayoutStyle
+//    }
     stompboxDetailViewController.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
   }
 }

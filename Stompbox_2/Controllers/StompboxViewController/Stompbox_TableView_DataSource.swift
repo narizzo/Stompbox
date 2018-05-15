@@ -140,7 +140,6 @@ extension StompboxViewController: UITableViewDataSource {
     // needs to be set every time a cell is configured or else unique settings are randomly assigned to cells
     if let settings = stompbox.settings {
       let reversedSettings = settings.reversed
-      print("setting the setting at: \(indexPath.row - 1)")
       cell.setting = reversedSettings[(indexPath.row - 1)] as? Setting
     }
     

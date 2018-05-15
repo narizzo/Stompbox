@@ -16,7 +16,7 @@ class SettingCollectionViewCell: UICollectionViewCell {
   
   // MARK: - Properties
   var templateSettingCell = TemplateSettingCell()
-  var delegate: CollectionCellDelegate!
+  var delegate: CollectionCellDelegate! // ContainerViewController is the delegate
   
   // MARK: - Init
   override init(frame: CGRect) {
@@ -36,6 +36,7 @@ class SettingCollectionViewCell: UICollectionViewCell {
   }
   
   @objc private func handleTap() {
+    print("Collection view cell was tappeed")
     delegate.didSelectCollectionCell(self)
   }
   
