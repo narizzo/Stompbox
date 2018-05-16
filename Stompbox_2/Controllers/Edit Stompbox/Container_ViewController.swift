@@ -32,6 +32,8 @@ class ContainerViewController: UIViewController {
   weak var stompboxButtonDelegate: StompboxButtonImageDelegate! {
     didSet { stompboxDetailViewController.stompboxButtonDelegate = stompboxButtonDelegate }
   }
+  // Vars
+  var knobNames = [String?]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -147,15 +149,41 @@ class ContainerViewController: UIViewController {
     alert.addAction(okAction)
     present(alert, animated: true, completion: nil)
   }
+  
+  // MARK: - Knob Name Storage
+  func temporarilyStoreKnobViewNames(in simpleSettingCell: SimpleSettingCell) {
+    // store names
+    var i = 0
+    while i < simpleSettingCell.knobViews.count {
+      if i >= knobNames.count {
+        knobNames.append("")
+      }
+      knobNames[i] = simpleSettingCell.knobViews[i].nameTextField.text
+      i += 1
+    }
+  }
+  
+  func loadTemporaryKnobViewNames(into simpleSettingCell: SimpleSettingCell) {
+    // load names
+    var i = 0
+    while i < simpleSettingCell.knobViews.count && i < knobNames.count {
+      simpleSettingCell.knobViews[i].nameTextField.text = knobNames[i]
+      i += 1
+    }
+  }
 }
 
 extension ContainerViewController: CollectionCellDelegate {
   func didSelectCollectionCell(_ settingCollectionViewCell: SettingCollectionViewCell) {
-    stompboxDetailViewController.stompboxToEdit?.knobLayoutStyle = Int64(settingCollectionViewCell.templateSettingCell.knobLayoutStyle)
-    stompboxDetailViewController.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
-//    if let simpleSettingCell = stompboxDetailViewController.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? SimpleSettingCell {
-//      print("assigning settingcell setting cell its layout")
-//      simpleSettingCell.knobLayoutStyle = settingCollectionViewCell.templateSettingCell.knobLayoutStyle
-//    }
+    if let simpleSettingCell = stompboxDetailViewController.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? SimpleSettingCell {
+     
+      temporarilyStoreKnobViewNames(in: simpleSettingCell)
+      
+      // load new knob configuration
+      simpleSettingCell.knobLayoutStyle = settingCollectionViewCell.templateSettingCell.knobLayoutStyle
+      simpleSettingCell.configureKnobViewRects()
+      
+      loadTemporaryKnobViewNames(into: simpleSettingCell)
+    }
   }
 }

@@ -112,16 +112,14 @@ extension StompboxViewController: UITableViewDelegate {
     let settings = stompbox.settings
     let setting = settings![indexPath.row - 1] as! Setting
     
-    self.controllerWillChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    
-    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+    controllerWillChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    tableView.deleteRows(at: [indexPath], with: .automatic)
     stompbox.removeFromSettings(setting)
-    self.coreDataStack.moc.delete(setting)
-    self.coreDataStack.saveContext()
+    coreDataStack.moc.delete(setting)
+    coreDataStack.saveContext()
+    controllerDidChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
     
-    self.controllerDidChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    
-    self.shadeSettingCellsIn(section: indexPath.section)
+    shadeSettingCellsIn(section: indexPath.section)
   }
   
   /* add */
@@ -136,10 +134,12 @@ extension StompboxViewController: UITableViewDelegate {
     
     // update NSFRC
     controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    let indexPath = IndexPath(row: stompbox.settings!.count, section: indexPath.section)
-    tableView.insertRows(at: [indexPath], with: .automatic)
+    let row = stompbox.settings!.count
+    
+    //print("calling insertRows)")
+    //tableView.insertRows(at: [IndexPath(row: row, section: indexPath.section)], with: .automatic)
     controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-
+    
     // shade the setting cells
     shadeSettingCellsIn(section: indexPath.section)
     
@@ -171,24 +171,26 @@ extension StompboxViewController: UITableViewDelegate {
   }
   
   private func expandSection(for stompbox: Stompbox, at indexPath: IndexPath) {
+    print("1: expandSection")
     guard stompbox.isExpanded == false else {
       return
     }
-    
+    print("2: expandSection")
     guard let count = stompbox.settings?.count else {
       return
     }
-    
+    print("3: expandSection")
     guard let indexPaths = buildIndexPathsArray(at: indexPath, ofSize: count) else {
       return
     }
-    
+    print("4: expandSection")
     controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    print("inserting rows for expansion - \(indexPaths)")
+    print("5: expandSection")
     tableView.insertRows(at: indexPaths, with: .automatic)
+    print("6: expandSection")
     stompbox.isExpanded = true
     controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    
+    print("7: expandSection")
     coreDataStack.saveContext()
   }
   

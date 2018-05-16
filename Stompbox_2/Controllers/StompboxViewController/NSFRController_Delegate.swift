@@ -13,14 +13,19 @@ import CoreData
 extension StompboxViewController: NSFetchedResultsControllerDelegate {
   
   func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    print("willChange")
     tableView.beginUpdates()
     // stops the tableView from jumping to the bottom row then back up.  This is set to true again in controllerDidChangeContent()
     tableView.isScrollEnabled = false
   }
   
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    print("changing content")
+    print("NSFRC: indexPath \(indexPath)")
+    print("NSFRC: newIndexPath \(newIndexPath)")
     switch type {
     case .insert:
+      print("inserting")
       tableView.insertRows(at: [newIndexPath!], with: .automatic)
     case .delete:
       tableView.deleteRows(at: [indexPath!], with: .automatic)
@@ -37,11 +42,13 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
   }
   
   func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    print("didChange")
     tableView.endUpdates()
     tableView.isScrollEnabled = true
   }
   
   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+    print("changing section info")
     let indexSet = IndexSet(integer: sectionIndex)
     switch type {
     case .insert:
