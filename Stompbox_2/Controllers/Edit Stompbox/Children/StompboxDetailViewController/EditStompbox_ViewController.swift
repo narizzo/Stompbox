@@ -144,7 +144,6 @@ class StompboxDetailViewController: UITableViewController {
     guard let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell else {
       return
     }
-    
     saveKnobNames(for: stompboxCell)
   }
   

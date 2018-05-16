@@ -82,34 +82,10 @@ extension StompboxViewController: UITableViewDelegate {
   
   
   // MARK: - Setting
-  /* add */
-  func addSetting(at indexPath: IndexPath) {
-    let stompbox = fetchedResultsController.object(at: indexPath)
-    
-    // instantiate setting data object and add to stompbox
-    let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
-    stompbox.addToSettings(setting)
-    
-    if stompbox.isExpanded == false {
-      expandSection(for: stompbox, at: indexPath)
-    }
-    
-    if let _ = stompbox.settings?.count {
-      controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-      let indexPath = IndexPath(row: 1, section: indexPath.section)
-      tableView.insertRows(at: [indexPath], with: .automatic)
-      controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-      coreDataStack.saveContext()
-      
-      shadeSettingCellsIn(section: indexPath.section)
-    }
-  }
-  
   /* edit */
   func editSetting(at indexPath: IndexPath) {
     tableView.setEditing(false, animated: true)
     
-    // this method is a mess...
     if let settingCell = tableView.cellForRow(at: indexPath) as? ComplexSettingCell {
       for tableCell in tableView.visibleCells {
         guard tableCell != settingCell else {
@@ -118,7 +94,6 @@ extension StompboxViewController: UITableViewDelegate {
         
         if let cell = tableCell as? ComplexSettingCell {
           if cell.isBeingEdited {
-            // should be refactored -- public vars for settingCell?  Not good.
             navigationItem.setLeftBarButton(cell.leftButton, animated: true)
             navigationItem.setRightBarButton(cell.rightButton, animated: true)
             self.view.snapshotView(afterScreenUpdates: true) // prevents snapshotting error message.  I don't know what it means.  Nothing visually has changed from this.
@@ -134,8 +109,8 @@ extension StompboxViewController: UITableViewDelegate {
   /* delete */
   func deleteSetting(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: IndexPath(row: 0, section: indexPath.section))
-    let settings = stompbox.settings!.reversed()
-    let setting = settings[indexPath.row - 1] as! Setting
+    let settings = stompbox.settings
+    let setting = settings![indexPath.row - 1] as! Setting
     
     self.controllerWillChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
     
@@ -145,11 +120,33 @@ extension StompboxViewController: UITableViewDelegate {
     self.coreDataStack.saveContext()
     
     self.controllerDidChangeContent(self.fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    
     self.shadeSettingCellsIn(section: indexPath.section)
   }
   
+  /* add */
+  func addSetting(at indexPath: IndexPath) {
+    let stompbox = fetchedResultsController.object(at: indexPath)
+    // add existing settings to the section if need be
+    expandSection(for: stompbox, at: indexPath)
+    
+    // instantiate setting data object and add to stompbox
+    let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
+    stompbox.addToSettings(setting)
+    
+    // update NSFRC
+    controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    let indexPath = IndexPath(row: stompbox.settings!.count, section: indexPath.section)
+    tableView.insertRows(at: [indexPath], with: .automatic)
+    controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+
+    // shade the setting cells
+    shadeSettingCellsIn(section: indexPath.section)
+    
+    coreDataStack.saveContext()
+  }
+  
   // MARK: - Collapse/Expand Section
-  /* StompboxCell */
   func collapseExpandSection(for stompboxCell: StompboxCell) {
     if let indexPath = tableView.indexPath(for: stompboxCell) {
       let stompbox = fetchedResultsController.object(at: indexPath)
@@ -157,7 +154,6 @@ extension StompboxViewController: UITableViewDelegate {
     }
   }
   
-  /* Stompbox Data Object */
   private func collapseSection(for stompbox: Stompbox, at indexPath: IndexPath) {
     guard let count = stompbox.settings?.count else {
       return
@@ -175,13 +171,20 @@ extension StompboxViewController: UITableViewDelegate {
   }
   
   private func expandSection(for stompbox: Stompbox, at indexPath: IndexPath) {
+    guard stompbox.isExpanded == false else {
+      return
+    }
+    
     guard let count = stompbox.settings?.count else {
       return
     }
+    
     guard let indexPaths = buildIndexPathsArray(at: indexPath, ofSize: count) else {
       return
     }
+    
     controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+    print("inserting rows for expansion - \(indexPaths)")
     tableView.insertRows(at: indexPaths, with: .automatic)
     stompbox.isExpanded = true
     controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)

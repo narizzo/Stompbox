@@ -36,7 +36,6 @@ class SettingCollectionViewCell: UICollectionViewCell {
   }
   
   @objc private func handleTap() {
-    print("Collection view cell was tappeed")
     delegate.didSelectCollectionCell(self)
   }
   

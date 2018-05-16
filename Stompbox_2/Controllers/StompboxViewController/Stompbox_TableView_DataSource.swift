@@ -139,8 +139,7 @@ extension StompboxViewController: UITableViewDataSource {
     
     // needs to be set every time a cell is configured or else unique settings are randomly assigned to cells
     if let settings = stompbox.settings {
-      let reversedSettings = settings.reversed
-      cell.setting = reversedSettings[(indexPath.row - 1)] as? Setting
+      cell.setting = settings[indexPath.row - 1] as? Setting
     }
     
     // StompboxViewController is the delegate for ComplexSettingCell because StompboxCell is not guaranteed to exist when editing occurs
