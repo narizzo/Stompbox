@@ -32,6 +32,9 @@ class ContainerViewController: UIViewController {
   weak var stompboxButtonDelegate: StompboxButtonImageDelegate! {
     didSet { stompboxDetailViewController.stompboxButtonDelegate = stompboxButtonDelegate }
   }
+  weak var knobLayoutDelegate: KnobLayoutDelegate! {
+    didSet { stompboxDetailViewController.knobLayoutDelegate = knobLayoutDelegate }
+  }
   // Vars
   var knobNames = [String?]()
   

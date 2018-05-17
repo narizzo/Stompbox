@@ -89,6 +89,7 @@ class StompboxViewController: UIViewController {
         // set delegates
         destination.containerViewControllerDelegate = self
         destination.stompboxButtonDelegate = self
+        destination.knobLayoutDelegate = self
       }
     }
   }

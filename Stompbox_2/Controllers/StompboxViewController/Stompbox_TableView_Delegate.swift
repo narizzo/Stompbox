@@ -187,7 +187,6 @@ extension StompboxViewController: UITableViewDelegate {
       for i in 0..<count {
         indexPaths.append(IndexPath(row: i + 1, section: indexPath.section))
       }
-      print("indexPaths being build: \(indexPaths)")
       return indexPaths
     } else {
       return nil

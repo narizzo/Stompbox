@@ -16,6 +16,10 @@ protocol DoneBarButtonDelegate: class {
   func disableDoneBarButton(_ controller: StompboxDetailViewController)
 }
 
+protocol KnobLayoutDelegate: class {
+  func reloadCells(for stompbox: Stompbox)
+}
+
 class StompboxDetailViewController: UITableViewController {
   
   // Dependencies
@@ -24,6 +28,7 @@ class StompboxDetailViewController: UITableViewController {
   // Delegates
   weak var stompboxButtonDelegate: StompboxButtonImageDelegate!
   weak var doneBarButtonDelegate: DoneBarButtonDelegate!
+  weak var knobLayoutDelegate: KnobLayoutDelegate!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -85,7 +90,7 @@ class StompboxDetailViewController: UITableViewController {
     guard let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell else {
       return
     }
-
+    
     if stompboxToEdit == nil {
       stompboxToEdit = Stompbox(entity: Stompbox.entity(), insertInto: coreDataStack.moc)
     }
@@ -94,6 +99,7 @@ class StompboxDetailViewController: UITableViewController {
     setStompboxProperties(with: stompboxCell)
     saveThumbnail(for: stompboxCell)
     saveKnobNames(for: stompboxCell)
+    saveKnobLayoutStyle(for: stompboxCell)
   }
   
   private func setStompboxProperties(with stompboxCell: StompboxCell) {
@@ -135,6 +141,16 @@ class StompboxDetailViewController: UITableViewController {
           }
         }
         j += 1
+      }
+    }
+  }
+  
+  private func saveKnobLayoutStyle(for stompboxCell: StompboxCell) {
+    if let simpleSettingCell = tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? SimpleSettingCell {
+      let layout = Int64(simpleSettingCell.knobLayoutStyle)
+      if stompboxToEdit?.knobLayoutStyle != layout {
+        stompboxToEdit?.knobLayoutStyle = layout
+        knobLayoutDelegate.reloadCells(for: stompboxToEdit!)
       }
     }
   }
