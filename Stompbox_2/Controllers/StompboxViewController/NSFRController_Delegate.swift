@@ -13,19 +13,31 @@ import CoreData
 extension StompboxViewController: NSFetchedResultsControllerDelegate {
   
   func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    print("willChange")
     tableView.beginUpdates()
-    // stops the tableView from jumping to the bottom row then back up.  This is set to true again in controllerDidChangeContent()
     tableView.isScrollEnabled = false
   }
   
-  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-    print("changing content")
-    print("NSFRC: indexPath \(indexPath)")
-    print("NSFRC: newIndexPath \(newIndexPath)")
+  func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    tableView.endUpdates()
+    tableView.isScrollEnabled = true
+  }
+  
+  
+  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+    let indexSet = IndexSet(integer: sectionIndex)
     switch type {
     case .insert:
-      print("inserting")
+      tableView.insertSections(indexSet, with: .automatic)
+    case .delete:
+      tableView.deleteSections(indexSet, with: .automatic)
+    default: break
+    }
+  }
+  
+  
+  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    switch type {
+    case .insert:
       tableView.insertRows(at: [newIndexPath!], with: .automatic)
     case .delete:
       tableView.deleteRows(at: [indexPath!], with: .automatic)
@@ -38,24 +50,6 @@ extension StompboxViewController: NSFetchedResultsControllerDelegate {
     case .move:
       tableView.deleteRows(at: [indexPath!], with: .automatic)
       tableView.insertRows(at: [newIndexPath!], with: .automatic)
-    }
-  }
-  
-  func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    print("didChange")
-    tableView.endUpdates()
-    tableView.isScrollEnabled = true
-  }
-  
-  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-    print("changing section info")
-    let indexSet = IndexSet(integer: sectionIndex)
-    switch type {
-    case .insert:
-      tableView.insertSections(indexSet, with: .automatic)
-    case .delete:
-      tableView.deleteSections(indexSet, with: .automatic)
-    default: break
     }
   }
 }

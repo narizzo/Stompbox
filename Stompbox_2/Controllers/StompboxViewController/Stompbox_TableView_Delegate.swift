@@ -65,7 +65,7 @@ extension StompboxViewController: UITableViewDelegate {
   
   /* delete */
   func deleteStompbox(at indexPath: IndexPath) {
-    let stompbox = fetchedResultsController.object(at: indexPath)
+    let stompbox = self.fetchedResultsController.object(at: indexPath)
     
     if let imageFilePath = stompbox.imageFilePath?.path, FileManager.default.fileExists(atPath: imageFilePath) {
       do {
@@ -125,25 +125,19 @@ extension StompboxViewController: UITableViewDelegate {
   /* add */
   func addSetting(at indexPath: IndexPath) {
     let stompbox = fetchedResultsController.object(at: indexPath)
-    // add existing settings to the section if need be
-    expandSection(for: stompbox, at: indexPath)
-    
-    // instantiate setting data object and add to stompbox
     let setting = Setting(entity: Setting.entity(), insertInto: coreDataStack.moc)
     stompbox.addToSettings(setting)
-    
-    // update NSFRC
-    controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    let row = stompbox.settings!.count
-    
-    //print("calling insertRows)")
-    //tableView.insertRows(at: [IndexPath(row: row, section: indexPath.section)], with: .automatic)
-    controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    
-    // shade the setting cells
+    if stompbox.isExpanded == false {
+      expandSection(for: stompbox, at: indexPath)
+    } else {
+      if let count = stompbox.settings?.count {
+        controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+        tableView.insertRows(at: [IndexPath(row: count, section: indexPath.section)], with: .automatic)
+        controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
+        coreDataStack.saveContext()
+      }
+    }
     shadeSettingCellsIn(section: indexPath.section)
-    
-    coreDataStack.saveContext()
   }
   
   // MARK: - Collapse/Expand Section
@@ -171,26 +165,18 @@ extension StompboxViewController: UITableViewDelegate {
   }
   
   private func expandSection(for stompbox: Stompbox, at indexPath: IndexPath) {
-    print("1: expandSection")
-    guard stompbox.isExpanded == false else {
-      return
-    }
-    print("2: expandSection")
     guard let count = stompbox.settings?.count else {
       return
     }
-    print("3: expandSection")
+  
     guard let indexPaths = buildIndexPathsArray(at: indexPath, ofSize: count) else {
       return
     }
-    print("4: expandSection")
+    
     controllerWillChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    print("5: expandSection")
     tableView.insertRows(at: indexPaths, with: .automatic)
-    print("6: expandSection")
     stompbox.isExpanded = true
     controllerDidChangeContent(fetchedResultsController as! NSFetchedResultsController<NSFetchRequestResult>)
-    print("7: expandSection")
     coreDataStack.saveContext()
   }
   
@@ -201,6 +187,7 @@ extension StompboxViewController: UITableViewDelegate {
       for i in 0..<count {
         indexPaths.append(IndexPath(row: i + 1, section: indexPath.section))
       }
+      print("indexPaths being build: \(indexPaths)")
       return indexPaths
     } else {
       return nil

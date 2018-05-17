@@ -20,7 +20,6 @@ class StompboxViewController: UIViewController {
   var imageData = Data()
   var selectedStompboxButton: StompboxButton?
   
-  var tableNeedsReload = false
 
   lazy var fetchedResultsController: NSFetchedResultsController<Stompbox> = {
     let fetchRequest: NSFetchRequest<Stompbox> = Stompbox.fetchRequest()
@@ -47,16 +46,6 @@ class StompboxViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     UIApplication.shared.statusBarStyle = .lightContent
-    if tableNeedsReload {
-      // reload table data to update changes to knob layout
-      tableView.reloadData()
-      tableNeedsReload = false
-    }
-  }
-  
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-    tableNeedsReload = true
   }
   
   override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -68,22 +57,25 @@ class StompboxViewController: UIViewController {
     super.viewDidLoad()
 
     tableView.backgroundColor = AppColors.black
+    
+    fetchData()
+    registerNibs()
+  }
+  
+  private func fetchData() {
     do {
       try fetchedResultsController.performFetch()
     } catch let error as NSError {
       print("Fetching error: \(error), \(error.userInfo)")
     }
-    
+  }
+  
+  private func registerNibs() {
     let stompboxNib = UINib(nibName: Constants.stompboxNib, bundle: nil)
     tableView.register(stompboxNib, forCellReuseIdentifier: Constants.stompboxCellReuseID)
     
     let settingNib = UINib(nibName: Constants.settingCellComplexNib, bundle: nil)
     tableView.register(settingNib, forCellReuseIdentifier: Constants.complexSettingReuseID)
-  }
-  
-  @IBAction func addStompbox(_ sender: AnyObject) {
-    selectedStompbox = nil
-    performSegue(withIdentifier: Constants.stompboxDetailSegue, sender: nil)
   }
   
   
@@ -102,6 +94,11 @@ class StompboxViewController: UIViewController {
   }
   
   public func showStompboxDetailView() {
+    performSegue(withIdentifier: Constants.stompboxDetailSegue, sender: nil)
+  }
+  
+  @IBAction func addStompbox(_ sender: AnyObject) {
+    selectedStompbox = nil
     performSegue(withIdentifier: Constants.stompboxDetailSegue, sender: nil)
   }
 }

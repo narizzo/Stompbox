@@ -85,10 +85,11 @@ class StompboxDetailViewController: UITableViewController {
     guard let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell else {
       return
     }
-    
+
     if stompboxToEdit == nil {
       stompboxToEdit = Stompbox(entity: Stompbox.entity(), insertInto: coreDataStack.moc)
     }
+    
     
     setStompboxProperties(with: stompboxCell)
     saveThumbnail(for: stompboxCell)
@@ -137,13 +138,5 @@ class StompboxDetailViewController: UITableViewController {
       }
     }
   }
-  
-//  func saveKnobNames() {
-//    guard let stompboxCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? StompboxCell else {
-//      return
-//    }
-//    saveKnobNames(for: stompboxCell)
-//  }
-  
   
 }

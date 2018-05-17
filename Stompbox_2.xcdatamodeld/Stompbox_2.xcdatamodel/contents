@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ControlNames" representedClassName="ControlNames" syncable="YES" codeGenerationType="class">
         <attribute name="name" attributeType="String" minValueString="1" defaultValueString="name" syncable="YES"/>
         <relationship name="stompbox" maxCount="1" deletionRule="Nullify" destinationEntity="Stompbox" inverseName="controlNames" inverseEntity="Stompbox" syncable="YES"/>
@@ -33,7 +33,7 @@
         <attribute name="name" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="type" attributeType="String" minValueString="0" syncable="YES"/>
         <relationship name="controlNames" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ControlNames" inverseName="stompbox" inverseEntity="ControlNames" syncable="YES"/>
-        <relationship name="settings" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Setting" inverseName="stompbox" inverseEntity="Setting" syncable="YES"/>
+        <relationship name="settings" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Setting" inverseName="stompbox" inverseEntity="Setting" syncable="YES"/>
     </entity>
     <entity name="Switch" representedClassName="Switch" syncable="YES" codeGenerationType="class"/>
     <elements>
