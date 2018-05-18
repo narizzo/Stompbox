@@ -174,24 +174,20 @@ class ComplexSettingCell: UITableViewCell, SettingCell {
   }
   
   @objc func cancelChanges() {
-    print("cancel changes")
     loadKnobValues()
     restoreBarButtonsToDefault()
   }
   
   @objc func acceptChanges() {
-    print("accept changes")
     saveKnobPositions()
     restoreBarButtonsToDefault()
   }
   
   private func saveKnobPositions() {
-    print("saveKnobPositions")
     var index = 0
     for knobView in knobViews {
       if let knob = setting.knobs?[index] as? Knob {
         knob.value = knobView.getValue()
-        print("knob.value: \(knob.value)")
       }
       index += 1
     }
