@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,51 +19,33 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RO2-Gt-CZn" customClass="StompboxButton" customModule="Stompbox_2" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="150" id="wkp-XW-F2e"/>
-                        </constraints>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RO2-Gt-CZn" customClass="StompboxButton" customModule="Stompbox_2" customModuleProvider="target">
+                        <rect key="frame" x="3" y="3" width="147" height="193"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <state key="normal" image="Navigation_Add"/>
                     </button>
-                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="top" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LVk-XE-2lc">
-                        <rect key="frame" x="158" y="11" width="201" height="89"/>
+                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LVk-XE-2lc">
+                        <rect key="frame" x="170" y="11" width="190" height="50"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="next"/>
                     </textField>
-                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="247" contentHorizontalAlignment="left" contentVerticalAlignment="top" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mym-Px-Sda">
-                        <rect key="frame" x="158" y="88" width="202" height="44"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="44" id="dsP-xf-rsa"/>
-                        </constraints>
+                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="247" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mym-Px-Sda">
+                        <rect key="frame" x="170" y="69" width="190" height="50"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="next"/>
                     </textField>
-                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="top" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="j0L-NH-DcC">
-                        <rect key="frame" x="158" y="140" width="202" height="44"/>
+                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="j0L-NH-DcC">
+                        <rect key="frame" x="170" y="127" width="190" height="50"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="next"/>
                     </textField>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="LVk-XE-2lc" firstAttribute="trailing" secondItem="Bt3-Ig-Qg1" secondAttribute="trailingMargin" id="7K5-5G-E8f"/>
-                    <constraint firstItem="RO2-Gt-CZn" firstAttribute="centerY" secondItem="Bt3-Ig-Qg1" secondAttribute="centerY" id="8Ye-3b-xFc"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="j0L-NH-DcC" secondAttribute="bottom" constant="5" id="BlB-3m-sxO"/>
-                    <constraint firstItem="LVk-XE-2lc" firstAttribute="leading" secondItem="RO2-Gt-CZn" secondAttribute="trailing" constant="8" symbolic="YES" id="BzA-Rs-koP"/>
-                    <constraint firstItem="j0L-NH-DcC" firstAttribute="top" secondItem="LVk-XE-2lc" secondAttribute="bottom" constant="40" id="LRc-Cj-xrz"/>
-                    <constraint firstItem="mym-Px-Sda" firstAttribute="leading" secondItem="j0L-NH-DcC" secondAttribute="leading" id="VEY-NA-Ofz"/>
-                    <constraint firstItem="RO2-Gt-CZn" firstAttribute="leading" secondItem="Bt3-Ig-Qg1" secondAttribute="leading" id="dAn-af-tmz"/>
-                    <constraint firstItem="RO2-Gt-CZn" firstAttribute="top" secondItem="Bt3-Ig-Qg1" secondAttribute="top" id="fKg-nr-Umx"/>
-                    <constraint firstItem="LVk-XE-2lc" firstAttribute="leading" secondItem="mym-Px-Sda" secondAttribute="leading" id="hdU-RB-26s"/>
-                    <constraint firstItem="mym-Px-Sda" firstAttribute="trailing" secondItem="j0L-NH-DcC" secondAttribute="trailing" id="jEc-Fc-leQ"/>
-                    <constraint firstItem="j0L-NH-DcC" firstAttribute="top" secondItem="mym-Px-Sda" secondAttribute="bottom" constant="8" symbolic="YES" id="o1I-e6-0CW"/>
-                    <constraint firstItem="LVk-XE-2lc" firstAttribute="top" secondItem="Bt3-Ig-Qg1" secondAttribute="topMargin" id="rfo-82-M71"/>
-                    <constraint firstItem="LVk-XE-2lc" firstAttribute="centerX" secondItem="mym-Px-Sda" secondAttribute="centerX" id="wOi-0K-5dV"/>
-                    <constraint firstItem="mym-Px-Sda" firstAttribute="top" secondItem="Bt3-Ig-Qg1" secondAttribute="topMargin" constant="77" id="zu9-gF-HVN"/>
-                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="mNq-Xi-bxA"/>
             <connections>
